@@ -36,13 +36,13 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
     public abstract String getDeleteQuery();
 
     @Override
-    public Optional<T> getByPK(PK key) throws DaoException {
+    public T getByPK(PK key) throws DaoException {
 
         try (PreparedStatement statement = this.connection.prepareStatement(getSelectQueryForPK())) {
             statement.setInt(1, (Integer) key);
             ResultSet resultSet = statement.executeQuery();
             List<T> list = parseResultSet(resultSet);
-            return !list.isEmpty() ? Optional.of(list.get(0)) : Optional.empty();
+            return !list.isEmpty() ? list.get(0) : null;
 
         } catch (SQLException e) {
             throw new DaoException("Problem with select", e);
@@ -93,6 +93,7 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
     public void delete(T object) throws DaoException {
         try (PreparedStatement statement = this.connection.prepareStatement(getDeleteQuery())) {
             statement.setInt(1, (Integer) object.getId());
+            statement.execute();
         } catch (SQLException e) {
             throw new DaoException("Problem with delete entity", e);
         }

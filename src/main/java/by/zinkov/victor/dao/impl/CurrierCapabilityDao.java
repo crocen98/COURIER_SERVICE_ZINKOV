@@ -3,13 +3,8 @@ package by.zinkov.victor.dao.impl;
 
 import by.zinkov.victor.dao.AbstractJdbcDao;
 import by.zinkov.victor.dao.GenericDao;
-import by.zinkov.victor.dao.exception.PersistException;
 import by.zinkov.victor.domain.CurrierCapability;
-import by.zinkov.victor.domain.User;
-import by.zinkov.victor.domain.UserRole;
-import by.zinkov.victor.domain.UserStatus;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +14,7 @@ import java.util.List;
 public class CurrierCapabilityDao extends AbstractJdbcDao<CurrierCapability, Integer> implements GenericDao<CurrierCapability, Integer> {
     private static final String SELECT_ALL_CAPABILITIES_QUERY = "SELECT * FROM currier_capability";
     private static final String SELECT__CAPABILITY_BY_PK_QUERY = "SELECT * FROM currier_capability WHERE id = ?";
-    private static final String INSERT_NEW_CAPABILITY_QUERY = "INSERT INTO currier_capability ( currier_id , transport_id , is_work) VALUES ( ? , ? , ? )";
+    private static final String INSERT_NEW_CAPABILITY_QUERY = "INSERT INTO currier_capability ( currier_id , transport_id , is_work ) VALUES ( ? , ? , ? )";
     private static final String UPDATE__CAPABILITY_QUERY = "UPDATE currier_capability SET currier_id = ? , transport_id = ? , is_work = ? WHERE id = ?";
     private static final String DELETE_CAPABILITY_QUERY = "DELETE FROM currier_capability WHERE id = ?";
 

@@ -4,11 +4,11 @@ import by.zinkov.victor.dao.Identified;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 public class Order implements Identified<Integer>, Serializable {
-    private int id;
+    private Integer id;
     private int idCourier;
     private int idCustomer;
     private BigDecimal price;

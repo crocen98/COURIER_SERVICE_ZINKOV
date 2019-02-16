@@ -1,19 +1,11 @@
 package by.zinkov.victor.dao.impl;
 
 import by.zinkov.victor.dao.ConnectionPool;
-import by.zinkov.victor.dao.GenericDao;
 import by.zinkov.victor.dao.exception.ConnectionPoolException;
-import by.zinkov.victor.dao.exception.DaoException;
-import by.zinkov.victor.dao.exception.PersistException;
-import by.zinkov.victor.dao.impl.factory.JdbcDaoFactory;
 import by.zinkov.victor.dao.impl.pool.ConnectionPoolImpl;
-import by.zinkov.victor.domain.User;
-import by.zinkov.victor.domain.UserRole;
-import by.zinkov.victor.domain.UserStatus;
 import org.junit.*;
 import org.mockito.Mockito;
 
-import java.io.IOException;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -24,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 public class ConnectionPoolImplTest {
-    private static final ConnectionPool POOL = ConnectionPoolImpl.getInstance();
+
     private int N_THREADS = 40;
     private Integer POOL_CAPACITY = 20;
 

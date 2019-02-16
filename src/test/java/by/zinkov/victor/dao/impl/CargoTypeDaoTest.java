@@ -3,7 +3,6 @@ package by.zinkov.victor.dao.impl;
 import by.zinkov.victor.dao.AbstractDaoTest;
 
 import by.zinkov.victor.dao.GenericDao;
-import by.zinkov.victor.dao.exception.ConnectionPoolException;
 
 import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.dao.impl.factory.JdbcDaoFactory;
@@ -12,17 +11,10 @@ import org.junit.Assert;
 import org.junit.Test;
 
 
-import java.sql.SQLException;
 import java.util.List;
 
 
 public class CargoTypeDaoTest extends AbstractDaoTest {
-
-
-public CargoTypeDaoTest() throws ConnectionPoolException, SQLException {
-    super();
-}
-
 
     @Test
     public void insertNewCargoType() throws DaoException {
@@ -67,6 +59,43 @@ public CargoTypeDaoTest() throws ConnectionPoolException, SQLException {
         Assert.assertEquals(2,cargoTypes.size());
         Assert.assertEquals(cargoTypeOne , cargoTypes.get(0));
         Assert.assertEquals(cargoTypeTwo , cargoTypes.get(1));
-
     }
+
+    @Test
+    public void insertTwoObjectAndDeleteOneTest() throws DaoException {
+        GenericDao<CargoType,Integer>  cargoTypeDao = JdbcDaoFactory.getInstance().getDao(CargoType.class);
+        CargoType cargoTypeOne = new CargoType();
+        cargoTypeOne.setCargoType("trash");
+
+        CargoType cargoTypeTwo = new CargoType();
+        cargoTypeTwo.setCargoType("trash two");
+
+        cargoTypeDao.persist(cargoTypeOne);
+        cargoTypeDao.persist(cargoTypeTwo);
+
+
+        List<CargoType> cargoTypes = cargoTypeDao.getAll();
+        Assert.assertEquals(2,cargoTypes.size());
+        cargoTypeDao.delete(cargoTypeOne);
+        cargoTypes = cargoTypeDao.getAll();
+        Assert.assertEquals(1,cargoTypes.size());
+    }
+
+    @Test
+    public void insertTwoObjectAndFindByPKOne() throws DaoException {
+        GenericDao<CargoType,Integer>  cargoTypeDao = JdbcDaoFactory.getInstance().getDao(CargoType.class);
+        CargoType cargoTypeOne = new CargoType();
+        cargoTypeOne.setCargoType("trash");
+
+        CargoType cargoTypeTwo = new CargoType();
+        cargoTypeTwo.setCargoType("trash two");
+
+        cargoTypeDao.persist(cargoTypeOne);
+        cargoTypeDao.persist(cargoTypeTwo);
+
+        CargoType cargoTypeTest = cargoTypeDao.getByPK(0);
+        Assert.assertEquals(cargoTypeOne.getId(),cargoTypeTest.getId());
+        Assert.assertEquals(cargoTypeOne,cargoTypeTest);
+    }
+
 }

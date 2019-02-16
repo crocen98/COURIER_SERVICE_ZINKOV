@@ -86,16 +86,16 @@ CREATE TABLE  couriers.delivery_order (
 
 CREATE TABLE  couriers.customer_reviews (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  cutomer_id INT NOT NULL,
+  customer_id INT NOT NULL,
   courier_id INT NOT NULL,
   mark TINYINT,
   CONSTRAINT fk_customer_reviews_user1
-    FOREIGN KEY (cutomer_id)
+    FOREIGN KEY (customer_id)
     REFERENCES couriers.user(id),
   CONSTRAINT fk_customer_reviews_user2
     FOREIGN KEY (courier_id)
     REFERENCES couriers.user (id),
-  UNIQUE(cutomer_id,courier_id)
+  UNIQUE(customer_id,courier_id)
  );
 
 

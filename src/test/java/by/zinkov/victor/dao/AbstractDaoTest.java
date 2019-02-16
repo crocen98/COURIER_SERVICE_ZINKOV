@@ -20,7 +20,6 @@ public abstract class AbstractDaoTest {
 
 
             statement = connection.createStatement();
-            // создаем таблицу со столбцами id и value.
             statement.execute("CREATE TABLE   user_role (\n" +
                     "  id INT NOT NULL PRIMARY KEY IDENTITY,\n" +
                     "  role varchar(100) NOT NULL,\n" +
@@ -92,16 +91,16 @@ public abstract class AbstractDaoTest {
                     "  );\n");
             statement.execute("CREATE TABLE   customer_reviews (\n" +
                     "  id INT NOT NULL PRIMARY KEY IDENTITY,\n" +
-                    "  cutomer_id INT NOT NULL,\n" +
+                    "  customer_id INT NOT NULL,\n" +
                     "  courier_id INT NOT NULL,\n" +
                     "  mark TINYINT,\n" +
                     "  CONSTRAINT fk_customer_reviews_user1\n" +
-                    "    FOREIGN KEY (cutomer_id)\n" +
+                    "    FOREIGN KEY (customer_id)\n" +
                     "    REFERENCES  user(id),\n" +
                     "  CONSTRAINT fk_customer_reviews_user2\n" +
                     "    FOREIGN KEY (courier_id)\n" +
                     "    REFERENCES  user (id),\n" +
-                    "  UNIQUE(cutomer_id,courier_id)\n" +
+                    "  UNIQUE(customer_id,courier_id)\n" +
                     " );\n");
             statement.execute(
                     "CREATE TABLE   transport_type (\n" +
@@ -135,7 +134,6 @@ public abstract class AbstractDaoTest {
                     "    FOREIGN KEY (currier_capability_id)\n" +
                     "    REFERENCES  currier_capability (id)\n" +
                     "  );\n");
-
     }
 
     @After

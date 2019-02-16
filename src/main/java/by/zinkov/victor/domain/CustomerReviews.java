@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class CustomerReviews implements Identified<Integer>, Serializable {
-        private int id;
+        private Integer id;
         private int customerId;
         private int courierId;
         private byte mark;

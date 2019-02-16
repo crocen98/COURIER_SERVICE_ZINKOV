@@ -31,7 +31,7 @@ public interface GenericDao<T extends Identified<PK>, PK extends Serializable> {
      * @throws DaoException should be clarify
      */
     @AutoConnection
-    Optional<T> getByPK(PK id) throws DaoException;
+    T getByPK(PK id) throws DaoException;
 
     /**
      * Update identified entity

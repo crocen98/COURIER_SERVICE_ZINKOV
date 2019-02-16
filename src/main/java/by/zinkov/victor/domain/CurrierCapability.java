@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class CurrierCapability  implements Identified<Integer>, Serializable {
-    private int id;
+    private Integer id;
     private int currierId;
     private int transportId;
     private boolean isWork;
@@ -45,6 +45,17 @@ public class CurrierCapability  implements Identified<Integer>, Serializable {
 
     public void setWork(boolean work) {
         isWork = work;
+    }
+
+
+    @Override
+    public String toString() {
+        return "CurrierCapability{" +
+                "id=" + id +
+                ", currierId=" + currierId +
+                ", transportId=" + transportId +
+                ", isWork=" + isWork +
+                '}';
     }
 
     @Override

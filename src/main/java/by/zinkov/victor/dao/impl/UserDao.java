@@ -107,14 +107,4 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
     public String getDeleteQuery() {
         return DELETE_USER_QUERY;
     }
-
-
-//    @Override
-//    public Optional<User> create() throws PersistException {
-//        //provide your code here
-//
-//        throw new UnsupportedOperationException();
-//    }
-
-
 }

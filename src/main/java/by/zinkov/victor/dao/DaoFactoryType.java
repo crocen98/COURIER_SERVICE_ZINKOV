@@ -7,6 +7,4 @@ package by.zinkov.victor.dao;
 public enum  DaoFactoryType {
     JDBC
 
-    //provide your code here
-
 }

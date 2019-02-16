@@ -35,7 +35,6 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
 
     public abstract String getDeleteQuery();
 
-
     @Override
     public Optional<T> getByPK(PK key) throws DaoException {
 
@@ -49,7 +48,6 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
             throw new DaoException("Problem with select", e);
         }
     }
-
     @Override
     public List<T> getAll() throws DaoException {
 
@@ -62,7 +60,6 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
         }
 
     }
-
     @Override
     public Optional<T> persist(T object) throws DaoException {
         try (PreparedStatement statement = this.connection.prepareStatement(getCreateQuery(), Statement.RETURN_GENERATED_KEYS)) {

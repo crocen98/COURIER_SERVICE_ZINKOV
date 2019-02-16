@@ -1,14 +1,12 @@
 package by.zinkov.victor.dao.impl.factory;
 
 import by.zinkov.victor.dao.*;
+import by.zinkov.victor.dao.exception.ConnectionPoolException;
 import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.dao.impl.*;
 import by.zinkov.victor.domain.*;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
+import java.lang.reflect.*;
 import java.sql.Connection;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -31,7 +29,7 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory<Conne
         }
 
         @Override
-        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        public Object invoke(Object proxy, Method method, Object[] args) throws DaoException, ConnectionPoolException {
             ConnectionPool connectionPool = ConnectionPoolFactory.getInstance().getConnectionPool();
             Connection connection = connectionPool.retrieveConnection();
 
@@ -42,13 +40,19 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory<Conne
                     .anyMatch(s -> method.getName()
                             .contains(s));
             Object result;
-            if (isReturnConnectionMethod) {
-                setConnectionWithReflection(dao, connection);
-                result = method.invoke(dao, args);
-                connectionPool.putBackConnection(connection);
-                setConnectionWithReflection(dao, null);
-            } else {
-                result = method.invoke(dao, args);
+            try {
+
+                if (isReturnConnectionMethod) {
+                    setConnectionWithReflection(dao, connection);
+                    result = method.invoke(dao, args);
+
+                    connectionPool.putBackConnection(connection);
+                    setConnectionWithReflection(dao, null);
+                } else {
+                    result = method.invoke(dao, args);
+                }
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                throw  new DaoException("Problem with method",e);
             }
 
             return result;

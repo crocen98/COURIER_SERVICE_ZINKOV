@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -89,7 +88,6 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory<Conne
             throw new DaoException("Entity Class cannot be find");
         }
         GenericDao dao = daoCreator.get();
-
         return (GenericDao) Proxy.newProxyInstance(dao.getClass().getClassLoader(),
                 dao.getClass().getInterfaces(),
                 new DaoInvocationHandler(dao));

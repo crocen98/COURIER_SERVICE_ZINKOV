@@ -1,7 +1,6 @@
 package by.zinkov.victor.dao.impl;
 
 
-import by.zinkov.victor.dao.exception.PersistException;
 import by.zinkov.victor.dao.AbstractJdbcDao;
 import by.zinkov.victor.dao.GenericDao;
 import by.zinkov.victor.domain.User;
@@ -12,7 +11,6 @@ import by.zinkov.victor.domain.UserStatus;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Example User DAO implementation

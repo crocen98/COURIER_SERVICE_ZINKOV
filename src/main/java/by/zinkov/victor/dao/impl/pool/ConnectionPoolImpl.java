@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayDeque;
 import java.util.Properties;
 import java.util.Queue;
@@ -69,8 +70,8 @@ public class ConnectionPoolImpl implements ConnectionPool {
                 return (Connection) Proxy.newProxyInstance(null, classes, handler);
             }
             return pool.poll();
-        } catch (Exception e) {
-            throw new IllegalStateException();
+        } catch (SQLException | InterruptedException e) {
+            throw new ConnectionPoolException("error with connection",e);
         } finally {
             lock.unlock();
         }

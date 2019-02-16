@@ -1,12 +1,7 @@
 package by.zinkov.victor.dao.impl.factory;
 
+import by.zinkov.victor.dao.*;
 import by.zinkov.victor.dao.exception.DaoException;
-import by.zinkov.victor.dao.DaoFactory;
-import by.zinkov.victor.dao.TransactionalDaoFactory;
-import by.zinkov.victor.dao.GenericDao;
-import by.zinkov.victor.dao.ConnectionPool;
-import by.zinkov.victor.dao.ConnectionPoolFactory;
-import by.zinkov.victor.dao.AbstractJdbcDao;
 import by.zinkov.victor.dao.impl.*;
 import by.zinkov.victor.domain.*;
 
@@ -15,6 +10,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -39,18 +35,15 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory<Conne
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             ConnectionPool connectionPool = ConnectionPoolFactory.getInstance().getConnectionPool();
             Connection connection = connectionPool.retrieveConnection();
-//исключить методы некоторые надо
-// Можно создать анотацию
 
-
-            //
             Method[] methods = GenericDao.class.getMethods();
-            boolean isGenericDaoMethod = Stream.of(methods).
-                    map(Method::getName).
-                    anyMatch(s -> method.getName().
-                            contains(s));
+            boolean isReturnConnectionMethod = Stream.of(methods)
+                    .filter(m -> m.isAnnotationPresent(AutoConnection.class))
+                    .map(Method::getName)
+                    .anyMatch(s -> method.getName()
+                            .contains(s));
             Object result;
-            if(isGenericDaoMethod) {
+            if (isReturnConnectionMethod) {
                 setConnectionWithReflection(dao, connection);
                 result = method.invoke(dao, args);
                 connectionPool.putBackConnection(connection);
@@ -103,15 +96,12 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory<Conne
     }
 
     @Override
-    public GenericDao getTransactionalDao(Class entityClass, Connection connection) throws DaoException {
+    public GenericDao getTransactionalDao(Class entityClass) throws DaoException {
         Supplier<GenericDao> daoCreator = creators.get(entityClass);
         if (daoCreator == null) {
             throw new DaoException("Entity Class cannot be find");
         }
         GenericDao dao = daoCreator.get();
-
-        setConnectionWithReflection(dao, connection);
-
         return dao;
     }
 

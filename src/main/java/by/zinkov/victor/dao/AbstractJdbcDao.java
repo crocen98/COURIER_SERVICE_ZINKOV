@@ -84,6 +84,7 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
     }
 
     @Override
+
     public void update(T object) throws DaoException {
 
         try (PreparedStatement statement = this.connection.prepareStatement(getUpdateQuery())) {

@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class CargoType implements Identified<Integer>, Serializable {
     private Integer id;
-    private String cargoType;
+    private String type;
 
 
 
@@ -20,33 +20,33 @@ public class CargoType implements Identified<Integer>, Serializable {
         return id;
     }
 
-    public String getCargoType() {
-        return cargoType;
+    public String getType() {
+        return type;
     }
 
-    public void setCargoType(String cargoType) {
-        this.cargoType = cargoType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CargoType cargoType1 = (CargoType) o;
-        return Objects.equals(id, cargoType1.id) &&
-                Objects.equals(cargoType, cargoType1.cargoType);
+        CargoType type1 = (CargoType) o;
+        return Objects.equals(id, type1.id) &&
+                Objects.equals(type, type1.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, cargoType);
+        return Objects.hash(id, type);
     }
 
     @Override
     public String toString() {
-        return "CargoType{" +
+        return "Type{" +
                 "id=" + id +
-                ", cargoType='" + cargoType + '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 }

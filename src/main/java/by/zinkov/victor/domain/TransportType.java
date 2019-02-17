@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class TransportType implements Identified<Integer>, Serializable {
-    private int id;
+    private Integer id;
     private String transportType;
 
     @Override
@@ -25,11 +25,19 @@ public class TransportType implements Identified<Integer>, Serializable {
     }
 
     @Override
+    public String toString() {
+        return "TransportType{" +
+                "id=" + id +
+                ", transportType='" + transportType + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TransportType that = (TransportType) o;
-        return id == that.id &&
+        return Objects.equals(id, that.id) &&
                 Objects.equals(transportType, that.transportType);
     }
 

@@ -5,6 +5,8 @@ import by.zinkov.victor.dao.GenericDao;
 import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.dao.impl.factory.JdbcDaoFactory;
 import by.zinkov.victor.domain.CurrierCapability;
+import by.zinkov.victor.domain.TransportType;
+import by.zinkov.victor.domain.User;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,11 +16,32 @@ import java.util.List;
 public class CurrierCapabilityDaoTest extends AbstractDaoTest {
     @Test
     public void insertNewCurrierCapability() throws DaoException {
+        GenericDao<User,Integer> userDao = JdbcDaoFactory.getInstance().getDao(User.class);
+        User user = new User();
+        user.setLocation("trash");
+        user.setLogin("crocen98");
+        user.setLastName("Zinkov");
+        user.setFirstName("Victor");
+        user.setEmail("s@icloud.com");
+        user.setPhone("+35291052630");
+        user.setUserStatus(1);
+        user.setUserRole(2);
+        user.setPassword("122234234512223423451222342345122234234545555");
+        userDao.persist(user);
+
+        GenericDao<TransportType,Integer> transportTypeDao = JdbcDaoFactory.getInstance().getDao(TransportType.class);
+        TransportType transportType = new TransportType();
+        transportType.setTransportType("trash");
+        transportTypeDao.persist(transportType);
+
+
+
+
         GenericDao<CurrierCapability,Integer> CurrierCapabilityDao = JdbcDaoFactory.getInstance().getDao(CurrierCapability.class);
         CurrierCapability currierCapability = new CurrierCapability();
         currierCapability.setWork(true);
-        currierCapability.setTransportId(1);
-        currierCapability.setCurrierId(1);
+        currierCapability.setTransportId(transportType.getId());
+        currierCapability.setCurrierId(user.getId());
         Assert.assertEquals(null,currierCapability.getId());
         CurrierCapabilityDao.persist(currierCapability);
         currierCapability.setId(null);
@@ -42,52 +65,68 @@ public class CurrierCapabilityDaoTest extends AbstractDaoTest {
     }
 
     @Test
-    public void insertTwoCurrierCapabilityAndReadTwoObject() throws DaoException {
+    public void insertOneCurrierCapabilityAndReadOneObject() throws DaoException {
+
+        GenericDao<User,Integer> userDao = JdbcDaoFactory.getInstance().getDao(User.class);
+        User user = new User();
+        user.setLocation("trash");
+        user.setLogin("crocen98");
+        user.setLastName("Zinkov");
+        user.setFirstName("Victor");
+        user.setEmail("s@icloud.com");
+        user.setPhone("+35291052630");
+        user.setUserStatus(1);
+        user.setUserRole(2);
+        user.setPassword("122234234512223423451222342345122234234545555");
+        userDao.persist(user);
+
+        GenericDao<TransportType,Integer> transportTypeDao = JdbcDaoFactory.getInstance().getDao(TransportType.class);
+        TransportType transportType = new TransportType();
+        transportType.setTransportType("trash");
+        transportTypeDao.persist(transportType);
+
         GenericDao<CurrierCapability,Integer>  currierCapabilityDao = JdbcDaoFactory.getInstance().getDao(CurrierCapability.class);
         CurrierCapability currierCapabilityOne = new CurrierCapability();
         currierCapabilityOne.setWork(true);
+        currierCapabilityOne.setTransportId(transportType.getId());
+        currierCapabilityOne.setCurrierId(user.getId());
 
-        CurrierCapability currierCapabilityTwo = new CurrierCapability();
-        currierCapabilityTwo.setWork(false);
 
         currierCapabilityDao.persist(currierCapabilityOne);
-        currierCapabilityDao.persist(currierCapabilityTwo);
 
         List<CurrierCapability> currierCapabilities = currierCapabilityDao.getAll();
-        Assert.assertEquals(2,currierCapabilities.size());
+        Assert.assertEquals(1,currierCapabilities.size());
         Assert.assertEquals(currierCapabilityOne , currierCapabilities.get(0));
-        Assert.assertEquals(currierCapabilityTwo , currierCapabilities.get(1));
+
     }
 
-    @Test
-    public void insertTwoObjectAndDeleteOneTest() throws DaoException {
-        GenericDao<CurrierCapability,Integer>  currierCapabilityDao = JdbcDaoFactory.getInstance().getDao(CurrierCapability.class);
-        CurrierCapability currierCapabilityOne = new CurrierCapability();
-        currierCapabilityOne.setWork(true);
 
-        CurrierCapability currierCapabilityTwo = new CurrierCapability();
-        currierCapabilityTwo.setWork(false);
-
-        currierCapabilityDao.persist(currierCapabilityOne);
-        currierCapabilityDao.persist(currierCapabilityTwo);
-
-
-        List<CurrierCapability> currierCapabilitis = currierCapabilityDao.getAll();
-        Assert.assertEquals(2,currierCapabilitis.size());
-        currierCapabilityDao.delete(currierCapabilityOne);
-        currierCapabilitis = currierCapabilityDao.getAll();
-        Assert.assertEquals(1,currierCapabilitis.size());
-    }
 
     @Test
     public void insertTwoObjectAndFindByPKOne() throws DaoException {
+        GenericDao<User,Integer> userDao = JdbcDaoFactory.getInstance().getDao(User.class);
+        User user = new User();
+        user.setLocation("trash");
+        user.setLogin("crocen98");
+        user.setLastName("Zinkov");
+        user.setFirstName("Victor");
+        user.setEmail("s@icloud.com");
+        user.setPhone("+35291052630");
+        user.setUserStatus(1);
+        user.setUserRole(2);
+        user.setPassword("122234234512223423451222342345122234234545555");
+        userDao.persist(user);
+
+        GenericDao<TransportType,Integer> transportTypeDao = JdbcDaoFactory.getInstance().getDao(TransportType.class);
+        TransportType transportType = new TransportType();
+        transportType.setTransportType("trash");
+        transportTypeDao.persist(transportType);
+
         GenericDao<CurrierCapability,Integer>  currierCapabilityDao = JdbcDaoFactory.getInstance().getDao(CurrierCapability.class);
         CurrierCapability currierCapabilityOne = new CurrierCapability();
         currierCapabilityOne.setWork(true);
-        CurrierCapability currierCapabilityTwo = new CurrierCapability();
-        currierCapabilityTwo.setWork(false);
+        currierCapabilityOne.setTransportId(transportType.getId());
         currierCapabilityDao.persist(currierCapabilityOne);
-        currierCapabilityDao.persist(currierCapabilityTwo);
         CurrierCapability currierCapabilityTest = currierCapabilityDao.getByPK(0);
         Assert.assertEquals(currierCapabilityOne.getId(),currierCapabilityTest.getId());
         Assert.assertEquals(currierCapabilityOne,currierCapabilityTest);

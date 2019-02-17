@@ -35,6 +35,7 @@ public class SupportedCargoTypesDao extends AbstractJdbcDao<SupportedCargoTypes,
                 cargoTypes.setTypeId( rs.getInt(i++));
                 cargoTypes.setCurrierCapabilityId( rs.getInt(i++));
                 supportedCargoTypes.add(cargoTypes);
+                i = 1;
             }
             return supportedCargoTypes;
     }
@@ -44,7 +45,7 @@ public class SupportedCargoTypesDao extends AbstractJdbcDao<SupportedCargoTypes,
             int i = 1;
             statement.setInt(i++,object.getTypeId());
             statement.setInt(i++,object.getCurrierCapabilityId());
-            if(object.getId() != 0){
+            if(object.getId() != null){
                 statement.setInt(i, object.getId());
             }
     }

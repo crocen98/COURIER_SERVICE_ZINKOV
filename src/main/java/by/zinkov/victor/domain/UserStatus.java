@@ -8,7 +8,7 @@ public enum UserStatus implements Identified<Integer> {
     ACTIVE(2),
     WAITING_CONFIRMATION(3);
 
-    private int id;
+    private Integer id;
 
     @Override
     public Integer getId() {

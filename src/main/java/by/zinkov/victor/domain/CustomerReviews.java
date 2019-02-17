@@ -7,8 +7,8 @@ import java.util.Objects;
 
 public class CustomerReviews implements Identified<Integer>, Serializable {
         private Integer id;
-        private int customerId;
-        private int courierId;
+        private Integer customerId;
+        private Integer courierId;
         private byte mark;
 
     @Override
@@ -43,14 +43,24 @@ public class CustomerReviews implements Identified<Integer>, Serializable {
     }
 
     @Override
+    public String toString() {
+        return "CustomerReviews{" +
+                "id=" + id +
+                ", customerId=" + customerId +
+                ", courierId=" + courierId +
+                ", mark=" + mark +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CustomerReviews that = (CustomerReviews) o;
-        return id == that.id &&
-                customerId == that.customerId &&
-                courierId == that.courierId &&
-                mark == that.mark;
+        return mark == that.mark &&
+                Objects.equals(id, that.id) &&
+                Objects.equals(customerId, that.customerId) &&
+                Objects.equals(courierId, that.courierId);
     }
 
     @Override

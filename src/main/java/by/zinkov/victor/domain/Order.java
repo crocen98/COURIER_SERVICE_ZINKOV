@@ -4,7 +4,7 @@ import by.zinkov.victor.dao.Identified;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 
 public class Order implements Identified<Integer>, Serializable {
@@ -110,19 +110,44 @@ public class Order implements Identified<Integer>, Serializable {
         this.expected_time = expected_time;
     }
 
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", idCourier=" + idCourier +
+                ", idCustomer=" + idCustomer +
+                ", price=" + price +
+                ", id_status=" + id_status +
+                ", start_point='" + start_point + '\'' +
+                ", finish_point='" + finish_point + '\'' +
+                ", description='" + description + '\'' +
+                ", start_time=" + start_time +
+                ", finish_time=" + finish_time +
+                ", expected_time=" + expected_time +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return id == order.id &&
-                idCourier == order.idCourier &&
+        return idCourier == order.idCourier &&
                 idCustomer == order.idCustomer &&
-                Objects.equals(price, order.price);
+                id_status == order.id_status &&
+                Objects.equals(id, order.id) &&
+                Objects.equals(price, order.price) &&
+                Objects.equals(start_point, order.start_point) &&
+                Objects.equals(finish_point, order.finish_point) &&
+                Objects.equals(description, order.description) &&
+                Objects.equals(start_time, order.start_time) &&
+                Objects.equals(finish_time, order.finish_time) &&
+                Objects.equals(expected_time, order.expected_time);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idCourier, idCustomer, price);
+        return Objects.hash(id, idCourier, idCustomer, price, id_status, start_point, finish_point, description, start_time, finish_time, expected_time);
     }
 }

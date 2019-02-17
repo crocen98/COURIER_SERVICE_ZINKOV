@@ -8,7 +8,6 @@ import by.zinkov.victor.domain.*;
 
 import java.lang.reflect.*;
 import java.sql.Connection;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -52,7 +51,7 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory<Conne
                     result = method.invoke(dao, args);
                 }
             } catch (IllegalAccessException | InvocationTargetException e) {
-                throw  new DaoException("Problem with method",e);
+                throw  new DaoException("Problem with method " + method.getName(),e);
             }
 
             return result;
@@ -103,8 +102,7 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory<Conne
         if (daoCreator == null) {
             throw new DaoException("Entity Class cannot be find");
         }
-        GenericDao dao = daoCreator.get();
-        return dao;
+        return daoCreator.get();
     }
 
     private void setConnectionWithReflection(Object dao, Connection connection) throws DaoException {

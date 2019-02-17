@@ -4,9 +4,7 @@ import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.dao.exception.PersistException;
 
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Generic DAO
@@ -22,7 +20,7 @@ public interface GenericDao<T extends Identified<PK>, PK extends Serializable> {
      * @throws PersistException should be clarify
      */
     @AutoConnection
-    Optional<T> persist(T object) throws DaoException;
+    T persist(T object) throws DaoException;
 
     /**
      * Get identified entity by PK

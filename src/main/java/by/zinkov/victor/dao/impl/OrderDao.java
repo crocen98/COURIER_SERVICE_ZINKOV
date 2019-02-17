@@ -28,8 +28,6 @@ public class OrderDao extends AbstractJdbcDao<Order, Integer> implements Generic
             while (rs.next()) {
                 Order order = new Order();
                 order.setId(rs.getInt(i++));
-
-
                 order.setIdCustomer(rs.getInt(i++));
                 order.setIdCourier(rs.getInt(i++));
                 order.setPrice(rs.getBigDecimal(i++));
@@ -37,10 +35,11 @@ public class OrderDao extends AbstractJdbcDao<Order, Integer> implements Generic
                 order.setStart_point(rs.getString(i++));
                 order.setFinish_point(rs.getString(i++));
                 order.setDescription(rs.getString(i++));
-                order.setStart_time(rs.getDate(i++));
-                order.setFinish_time(rs.getDate(i++));
-                order.setExpected_time(rs.getDate(i++));
+                order.setStart_time(rs.getTimestamp(i++));
+                order.setFinish_time(rs.getTimestamp(i++));
+                order.setExpected_time(rs.getTimestamp(i++));
                 orders.add(order);
+                i = 1;
             }
             return orders;
     }
@@ -55,10 +54,10 @@ public class OrderDao extends AbstractJdbcDao<Order, Integer> implements Generic
             statement.setString(i++,object.getStart_point());
             statement.setString(i++,object.getFinish_point());
             statement.setString(i++,object.getDescription());
-            statement.setDate(i++,(Date) object.getStart_time());
-            statement.setDate(i++,(Date) object.getFinish_time());
-            statement.setDate(i++,(Date) object.getExpected_time());
-            if(object.getId() != 0){
+            statement.setTimestamp(i++,(Timestamp) object.getStart_time());
+            statement.setTimestamp(i++,(Timestamp) object.getFinish_time());
+            statement.setTimestamp(i++,(Timestamp) object.getExpected_time());
+            if(object.getId() != null){
                 statement.setInt(i++, object.getId());
             }
             System.out.println("WORCK ");

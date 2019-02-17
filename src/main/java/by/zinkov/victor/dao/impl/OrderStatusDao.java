@@ -31,7 +31,7 @@ public class OrderStatusDao extends AbstractJdbcDao< OrderStatus, Integer> imple
     }
 
     @Override
-    protected void prepareStatementForInsert(PreparedStatement statement, OrderStatus object) throws SQLException {
+    protected void prepareStatementForInsert(PreparedStatement statement, OrderStatus object)  {
         throw new UnsupportedOperationException();
     }
 

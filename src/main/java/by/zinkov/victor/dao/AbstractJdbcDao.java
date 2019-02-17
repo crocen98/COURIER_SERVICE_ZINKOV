@@ -4,7 +4,6 @@ import by.zinkov.victor.dao.exception.DaoException;
 
 import java.sql.*;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Abstract JDBC DAO
@@ -34,7 +33,7 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
     public abstract String getUpdateQuery();
 
     public abstract String getDeleteQuery();
-
+    @AutoConnection
     @Override
     public T getByPK(PK key) throws DaoException {
 
@@ -48,6 +47,7 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
             throw new DaoException("Problem with select", e);
         }
     }
+    @AutoConnection
     @Override
     public List<T> getAll() throws DaoException {
 
@@ -60,8 +60,10 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
         }
 
     }
+
+    @AutoConnection
     @Override
-    public Optional<T> persist(T object) throws DaoException {
+    public T persist(T object) throws DaoException {
         try (PreparedStatement statement = this.connection.prepareStatement(getCreateQuery(), Statement.RETURN_GENERATED_KEYS)) {
             prepareStatementForInsert(statement, object);
             statement.execute();
@@ -74,11 +76,11 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
         } catch (SQLException e) {
             throw new DaoException("Problem with add entity", e);
         }
-        return Optional.of(object);
+        return object;
     }
 
     @Override
-
+@AutoConnection
     public void update(T object) throws DaoException {
 
         try (PreparedStatement statement = this.connection.prepareStatement(getUpdateQuery())) {
@@ -88,7 +90,7 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
             throw new DaoException("Problem with update entity", e);
         }
     }
-
+    @AutoConnection
     @Override
     public void delete(T object) throws DaoException {
         try (PreparedStatement statement = this.connection.prepareStatement(getDeleteQuery())) {

@@ -8,7 +8,7 @@ public enum  OrderStatus implements Identified<Integer> {
     READY(3),
     CANCELED(4);
 
-    private int id;
+    private Integer id;
     @Override
     public Integer getId() {
         return id;

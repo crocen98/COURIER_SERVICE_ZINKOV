@@ -4,8 +4,7 @@ package by.zinkov.victor.dao.impl;
 import by.zinkov.victor.dao.AbstractJdbcDao;
 import by.zinkov.victor.dao.GenericDao;
 import by.zinkov.victor.domain.User;
-import by.zinkov.victor.domain.UserRole;
-import by.zinkov.victor.domain.UserStatus;
+
 
 
 import java.sql.*;
@@ -16,8 +15,7 @@ import java.util.List;
  * Example User DAO implementation
  */
 public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDao<User, Integer> {
-    private static final String SELECT_ALL_USERS_QUERY = "SELECT * FROM user " +
-            " INNER JOIN  user_status ON user.status_id = user_status.id  INNER JOIN user_role ON user_role.id = user.role_id";
+    private static final String SELECT_ALL_USERS_QUERY = "SELECT * FROM user " ;
     private static final String SELECT_USER_BY_PK_QUERY = "SELECT * FROM user WHERE id = ?";
     private static final String INSERT_NEW_USER_QUERY =
             "INSERT INTO user ( login , password , first_name,last_name , email ,phone , status_id , role_id , location ) " +
@@ -48,8 +46,8 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
                 user.setEmail(rs.getString(6));
                 user.setPhone(rs.getString(7));
                 user.setLocation(rs.getString(10));
-                user.setUserStatus(UserStatus.valueOf(rs.getString(12)));
-                user.setUserRole(UserRole.valueOf(rs.getString(14)));
+                user.setUserStatus(rs.getInt(8));
+                user.setUserRole(rs.getInt(9));
                 users.add(user);
             }
             return users;
@@ -66,11 +64,10 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
             statement.setString(4,object.getLastName());
             statement.setString(5,object.getEmail());
             statement.setString(6,object.getPhone());
-            statement.setInt(7,object.getUserStatus().getId());
-            statement.setInt(8,object.getUserRole().getId());
-            System.out.println(object.getLocation());
+            statement.setInt(7,object.getUserStatus());
+            statement.setInt(8,object.getUserRole());
             statement.setString(9,object.getLocation());
-            if(object.getId() != 0){
+            if(object.getId() != null){
                 statement.setInt(10, object.getId());
             }
 

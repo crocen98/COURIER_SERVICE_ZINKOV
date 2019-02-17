@@ -8,15 +8,15 @@ import java.util.Objects;
 
 @Data
 public class User implements Identified<Integer>, Serializable {
-    private int id;
+    private Integer id;
     private String password;
     private String login;
     private String firstName;
     private String lastName;
     private String email;
     private String phone;
-    private UserRole userRole;
-    private UserStatus userStatus;
+    private Integer userRoleId;
+    private Integer userStatusId;
     private String location;
 
     @Override
@@ -75,20 +75,20 @@ public class User implements Identified<Integer>, Serializable {
         this.phone = phone;
     }
 
-    public UserRole getUserRole() {
-        return userRole;
+    public Integer getUserRole() {
+        return userRoleId;
     }
 
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
+    public void setUserRole(Integer userRoleId) {
+        this.userRoleId = userRoleId;
     }
 
-    public UserStatus getUserStatus() {
-        return userStatus;
+    public Integer getUserStatus() {
+        return userStatusId;
     }
 
-    public void setUserStatus(UserStatus userStatus) {
-        this.userStatus = userStatus;
+    public void setUserStatus(Integer userStatusId) {
+        this.userStatusId = userStatusId;
     }
 
     public String getLocation() {
@@ -104,19 +104,36 @@ public class User implements Identified<Integer>, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id &&
+        return Objects.equals(id, user.id) &&
+                Objects.equals(password, user.password) &&
                 Objects.equals(login, user.login) &&
                 Objects.equals(firstName, user.firstName) &&
                 Objects.equals(lastName, user.lastName) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(phone, user.phone) &&
-                userRole == user.userRole &&
-                userStatus == user.userStatus &&
+                Objects.equals(userRoleId, user.userRoleId) &&
+                Objects.equals(userStatusId, user.userStatusId) &&
                 Objects.equals(location, user.location);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, firstName, lastName, email, phone, userRole, userStatus, location);
+        return Objects.hash(id, password, login, firstName, lastName, email, phone, userRoleId, userStatusId, location);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", password='" + password + '\'' +
+                ", login='" + login + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", userRoleId=" + userRoleId +
+                ", userStatusId=" + userStatusId +
+                ", location='" + location + '\'' +
+                '}';
     }
 }

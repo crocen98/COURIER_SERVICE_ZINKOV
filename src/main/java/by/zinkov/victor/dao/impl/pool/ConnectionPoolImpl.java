@@ -3,8 +3,7 @@ package by.zinkov.victor.dao.impl.pool;
 import by.zinkov.victor.dao.exception.ConnectionPoolException;
 import by.zinkov.victor.dao.ConnectionPool;
 
-import java.io.IOException;
-import java.io.InputStream;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
@@ -22,7 +21,6 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class ConnectionPoolImpl implements ConnectionPool {
     private static volatile ConnectionPool instance;
-    private static final String DB_TYPE_PROPERTIES_FILE_CONFIG = "config_db_property.properties";
     private  int poolCapacity;
     private  Queue<Connection> pool;
     private  Semaphore semaphore;

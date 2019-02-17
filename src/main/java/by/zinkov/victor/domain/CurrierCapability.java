@@ -63,10 +63,10 @@ public class CurrierCapability  implements Identified<Integer>, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CurrierCapability that = (CurrierCapability) o;
-        return id == that.id &&
-                currierId == that.currierId &&
+        return currierId == that.currierId &&
                 transportId == that.transportId &&
-                isWork == that.isWork;
+                isWork == that.isWork &&
+                Objects.equals(id, that.id);
     }
 
     @Override

@@ -20,7 +20,7 @@ public class CargoTypeDaoTest extends AbstractDaoTest {
     public void insertNewCargoType() throws DaoException {
         GenericDao<CargoType,Integer>  cargoTypeDao = JdbcDaoFactory.getInstance().getDao(CargoType.class);
         CargoType cargoType = new CargoType();
-        cargoType.setCargoType("trash");
+        cargoType.setType("trash");
         Assert.assertEquals(null,cargoType.getId());
         cargoTypeDao.persist(cargoType);
         cargoType.setId(null);
@@ -36,7 +36,7 @@ public class CargoTypeDaoTest extends AbstractDaoTest {
     public void insertExistingCargoTypeAndThrowException() throws DaoException {
         GenericDao<CargoType,Integer>  cargoTypeDao = JdbcDaoFactory.getInstance().getDao(CargoType.class);
         CargoType cargoType = new CargoType();
-        cargoType.setCargoType("trash");
+        cargoType.setType("trash");
         Assert.assertEquals(null,cargoType.getId());
         cargoTypeDao.persist(cargoType);
         Assert.assertEquals((Integer) 0,cargoType.getId());
@@ -47,10 +47,10 @@ public class CargoTypeDaoTest extends AbstractDaoTest {
     public void insertTwoCargoTypeAndReadTwoObject() throws DaoException {
         GenericDao<CargoType,Integer>  cargoTypeDao = JdbcDaoFactory.getInstance().getDao(CargoType.class);
         CargoType cargoTypeOne = new CargoType();
-        cargoTypeOne.setCargoType("trash");
+        cargoTypeOne.setType("trash");
 
         CargoType cargoTypeTwo = new CargoType();
-        cargoTypeTwo.setCargoType("trash two");
+        cargoTypeTwo.setType("trash two");
 
         cargoTypeDao.persist(cargoTypeOne);
         cargoTypeDao.persist(cargoTypeTwo);
@@ -65,10 +65,10 @@ public class CargoTypeDaoTest extends AbstractDaoTest {
     public void insertTwoObjectAndDeleteOneTest() throws DaoException {
         GenericDao<CargoType,Integer>  cargoTypeDao = JdbcDaoFactory.getInstance().getDao(CargoType.class);
         CargoType cargoTypeOne = new CargoType();
-        cargoTypeOne.setCargoType("trash");
+        cargoTypeOne.setType("trash");
 
         CargoType cargoTypeTwo = new CargoType();
-        cargoTypeTwo.setCargoType("trash two");
+        cargoTypeTwo.setType("trash two");
 
         cargoTypeDao.persist(cargoTypeOne);
         cargoTypeDao.persist(cargoTypeTwo);
@@ -85,10 +85,10 @@ public class CargoTypeDaoTest extends AbstractDaoTest {
     public void insertTwoObjectAndFindByPKOne() throws DaoException {
         GenericDao<CargoType,Integer>  cargoTypeDao = JdbcDaoFactory.getInstance().getDao(CargoType.class);
         CargoType cargoTypeOne = new CargoType();
-        cargoTypeOne.setCargoType("trash");
+        cargoTypeOne.setType("trash");
 
         CargoType cargoTypeTwo = new CargoType();
-        cargoTypeTwo.setCargoType("trash two");
+        cargoTypeTwo.setType("trash two");
 
         cargoTypeDao.persist(cargoTypeOne);
         cargoTypeDao.persist(cargoTypeTwo);

@@ -25,7 +25,7 @@ public class CargoTypeDao  extends AbstractJdbcDao<CargoType, Integer> implement
             while (rs.next()) {
                 CargoType type = new CargoType();
                 type.setId(rs.getInt(1));
-                type.setCargoType(rs.getString(2));
+                type.setType(rs.getString(2));
                 types.add(type);
             }
             return types;
@@ -34,7 +34,7 @@ public class CargoTypeDao  extends AbstractJdbcDao<CargoType, Integer> implement
 
     @Override
     protected void prepareStatementForInsert(PreparedStatement statement, CargoType object) throws SQLException {
-            statement.setString(1,object.getCargoType());
+            statement.setString(1,object.getType());
             if(object.getId() != null){
                 statement.setInt(2, object.getId());
             }

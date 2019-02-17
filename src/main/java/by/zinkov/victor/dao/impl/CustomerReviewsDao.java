@@ -14,9 +14,9 @@ public class CustomerReviewsDao extends AbstractJdbcDao<CustomerReviews, Integer
     private static final String SELECT_ALL_CUSTOMER_REVIEWS_QUERY = "SELECT * FROM customer_reviews";
     private static final String SELECT_CUSTOMER_REVIEWS_BY_PK_QUERY = "SELECT * FROM customer_reviews WHERE id = ?";
     private static final String INSERT_NEW_CUSTOMER_REVIEW_QUERY =
-            "INSERT INTO customer_reviews ( cutomer_id , courier_id , mark) " +
+            "INSERT INTO customer_reviews ( customer_id , courier_id , mark) " +
                     "VALUES ( ? , ? , ? )";
-    private static final String UPDATE__CUSTOMER_REVIEW_QUERY = "UPDATE customer_reviews SET " +
+    private static final String UPDATE_CUSTOMER_REVIEW_QUERY = "UPDATE customer_reviews SET " +
             "cutomer_id = ? , courier_id = ? , mark = ? WHERE id = ?";
 
     private static final String DELETE_CUSTOMER_REVIEW_QUERY = "DELETE FROM customer_reviews WHERE id = ?";
@@ -43,10 +43,9 @@ public class CustomerReviewsDao extends AbstractJdbcDao<CustomerReviews, Integer
             statement.setInt(1,object.getCustomerId());
             statement.setInt(2,object.getCourierId());
             statement.setByte(3,object.getMark());
-            if(object.getId() != 0){
+            if(object.getId() != null){
                 statement.setInt(4, object.getId());
             }
-            System.out.println("WORCK ");
 
     }
 
@@ -74,7 +73,7 @@ public class CustomerReviewsDao extends AbstractJdbcDao<CustomerReviews, Integer
 
     @Override
     public String getUpdateQuery() {
-        return UPDATE__CUSTOMER_REVIEW_QUERY;
+        return UPDATE_CUSTOMER_REVIEW_QUERY;
     }
 
     @Override

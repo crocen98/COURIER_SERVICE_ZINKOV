@@ -6,7 +6,7 @@ public enum UserRole implements Identified<Integer> {
     ADMINISTRATOR(1),
     COURIER(2),
     CLIENT(3);
-    private int id;
+    private Integer id;
 
      UserRole(int id){
         this.id = id;

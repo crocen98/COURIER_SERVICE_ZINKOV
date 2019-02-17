@@ -6,9 +6,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class SupportedCargoTypes implements Identified<Integer>, Serializable {
-    private int id;
-    private int currierCapabilityId;
-    private int typeId;
+    private Integer id;
+    private Integer currierCapabilityId;
+    private Integer typeId;
 
     @Override
     public Integer getId() {
@@ -35,13 +35,23 @@ public class SupportedCargoTypes implements Identified<Integer>, Serializable {
     }
 
     @Override
+    public String toString() {
+        return "SupportedCargoTypes{" +
+                "id=" + id +
+                ", currierCapabilityId=" + currierCapabilityId +
+                ", typeId=" + typeId +
+                '}';
+    }
+
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SupportedCargoTypes that = (SupportedCargoTypes) o;
-        return id == that.id &&
-                currierCapabilityId == that.currierCapabilityId &&
-                typeId == that.typeId;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(currierCapabilityId, that.currierCapabilityId) &&
+                Objects.equals(typeId, that.typeId);
     }
 
     @Override

@@ -63,14 +63,14 @@ CREATE TABLE  couriers.delivery_order (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   id_customer INT NOT NULL,
   id_courier INT NOT NULL,
-  price DECIMAL NULL,
+  price DECIMAL(14,2) NULL,
   id_status INT NOT NULL,
   start_point VARCHAR(45) NOT NULL,
   finish_point VARCHAR(45) NOT NULL,
   description VARCHAR(150) NULL,
-  start_time DATETIME NOT NULL,
-  finish_time DATETIME NOT NULL,
-  expected_time DATETIME NULL,
+  start_time  TIMESTAMP NOT NULL,
+  finish_time  TIMESTAMP NOT NULL,
+  expected_time  TIMESTAMP NULL,
   CONSTRAINT fk_order_user2
     FOREIGN KEY (id_customer)
     REFERENCES couriers.user (id),

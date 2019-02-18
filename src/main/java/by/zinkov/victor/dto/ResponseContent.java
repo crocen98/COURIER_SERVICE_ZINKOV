@@ -8,5 +8,9 @@ import by.zinkov.victor.controller.command.Router;
 public class ResponseContent {
     private Router router;
 
+    public ResponseContent(Router router) {
+        this.router = router;
+    }
+
     //Provide your code here
 }

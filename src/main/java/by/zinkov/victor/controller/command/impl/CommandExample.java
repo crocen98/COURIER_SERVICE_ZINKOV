@@ -1,5 +1,8 @@
-package by.zinkov.victor.controller.command;
+package by.zinkov.victor.controller.command.impl;
 
+import by.zinkov.victor.controller.command.Command;
+import by.zinkov.victor.controller.command.Router;
+import by.zinkov.victor.controller.command.exception.CommandException;
 import by.zinkov.victor.dto.ResponseContent;
 import by.zinkov.victor.service.ServiceFactory;
 import by.zinkov.victor.service.UserService;
@@ -11,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class CommandExample implements Command {
     @Override
-    public ResponseContent execute(HttpServletRequest request) {
+    public Router execute(HttpServletRequest request) throws CommandException {
         // Provide your code here
 
         UserService userService = ServiceFactory.getInstance().getUserService();

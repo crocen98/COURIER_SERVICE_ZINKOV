@@ -1,5 +1,6 @@
 package by.zinkov.victor.controller.command;
 
+import by.zinkov.victor.controller.command.exception.CommandException;
 import by.zinkov.victor.dto.ResponseContent;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,5 +15,5 @@ public interface Command {
      * @param request is used for extracting request parameters
      * @return response content
      */
-    ResponseContent execute(HttpServletRequest request);
+    Router execute(HttpServletRequest request) throws CommandException;
 }

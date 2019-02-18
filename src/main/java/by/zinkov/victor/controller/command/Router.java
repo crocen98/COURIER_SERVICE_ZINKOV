@@ -6,10 +6,23 @@ package by.zinkov.victor.controller.command;
 public class Router {
     private String route;
     private Type type = Type.FORWARD;
-
     public enum Type {
         FORWARD, REDIRECT
     }
 
-    //Provide your code here
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public String getRoute() {
+        return route;
+    }
+
+    public void setRoute(String route) {
+        this.route = route;
+    }
 }

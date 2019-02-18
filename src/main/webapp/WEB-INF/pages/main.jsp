@@ -36,13 +36,13 @@
                 <h1 class="mb-5">Build a landing page for your business or project and generate more leads!</h1>
             </div>
             <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-                <form>
-                    <div class="form-row">
+                <%--<form >--%>
+                    <%--<div class="form-row">--%>
                         <div class="col-12 col-md-12">
-                            <button type="submit" class="btn btn-block btn-lg btn-primary">Sign up!</button>
+                            <a class="btn btn-block btn-lg btn-primary" href="${pageContext.servletContext.contextPath}/CourierCompany?command=sign_up">Sign up!</a>
                         </div>
-                    </div>
-                </form>
+                    <%--</div>--%>
+                <%--</form>--%>
             </div>
         </div>
     </div>

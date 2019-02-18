@@ -36,6 +36,9 @@ public class FrontController extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println(request.getParameter(COMMAND_REQUEST_PARAMETER));
+        System.out.println(request.getMethod());
+        System.out.println(request.getQueryString());
         String commandName = request.getParameter(COMMAND_REQUEST_PARAMETER);
         Command command = CommandProvider.getInstance().takeCommand(commandName);
         Router router= null;

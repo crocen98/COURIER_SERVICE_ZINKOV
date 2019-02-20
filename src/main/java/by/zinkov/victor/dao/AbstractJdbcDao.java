@@ -66,7 +66,7 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
     public T persist(T object) throws DaoException {
         try (PreparedStatement statement = this.connection.prepareStatement(getCreateQuery(), Statement.RETURN_GENERATED_KEYS)) {
             prepareStatementForInsert(statement, object);
-            statement.execute();
+            statement.executeUpdate();
 
             ResultSet generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
@@ -85,7 +85,7 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
 
         try (PreparedStatement statement = this.connection.prepareStatement(getUpdateQuery())) {
             prepareStatementForUpdate(statement, object);
-            statement.execute();
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException("Problem with update entity", e);
         }
@@ -95,7 +95,7 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
     public void delete(T object) throws DaoException {
         try (PreparedStatement statement = this.connection.prepareStatement(getDeleteQuery())) {
             statement.setInt(1, (Integer) object.getId());
-            statement.execute();
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException("Problem with delete entity", e);
         }

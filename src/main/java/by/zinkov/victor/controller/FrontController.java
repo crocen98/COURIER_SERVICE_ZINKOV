@@ -5,7 +5,6 @@ import by.zinkov.victor.controller.command.CommandProvider;
 import by.zinkov.victor.controller.command.Page;
 import by.zinkov.victor.controller.command.Router;
 import by.zinkov.victor.controller.command.exception.CommandException;
-import by.zinkov.victor.dto.ResponseContent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,9 +35,6 @@ public class FrontController extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(request.getParameter(COMMAND_REQUEST_PARAMETER));
-        System.out.println(request.getMethod());
-        System.out.println(request.getQueryString());
         String commandName = request.getParameter(COMMAND_REQUEST_PARAMETER);
         Command command = CommandProvider.getInstance().takeCommand(commandName);
         Router router= null;
@@ -49,6 +45,7 @@ public class FrontController extends HttpServlet {
             request.setAttribute(ERROR,e.getMessage());
             router.setType(Router.Type.FORWARD);
             router.setRoute(Page.ERROR.getRout());
+
         }
 
         String page = router.getRoute();

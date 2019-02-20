@@ -1,5 +1,6 @@
 package by.zinkov.victor.service;
 
+import by.zinkov.victor.service.impl.TransportTypeServiceImpl;
 import by.zinkov.victor.service.impl.UserServiceImpl;
 
 /**
@@ -14,5 +15,9 @@ public class ServiceFactory {
 
     public UserService getUserService() {
         return new UserServiceImpl();
+    }
+
+    public TransportTypeService getTransportTypeServiceImpl() {
+        return new TransportTypeServiceImpl();
     }
 }

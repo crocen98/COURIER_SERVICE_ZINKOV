@@ -12,8 +12,10 @@ public final class DBConfigurator {
         try (InputStream inputStream = classLoader.getResourceAsStream(fileName)) {
             Properties properties = new Properties();
             properties.load(inputStream);
+            Class.forName(properties.getProperty("driver"));
+
             return properties;
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new ConnectionException("cannot find property file!", e);
         }
     }

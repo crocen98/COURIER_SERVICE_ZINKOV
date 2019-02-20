@@ -101,13 +101,15 @@ CREATE TABLE  couriers.customer_reviews (
 
 CREATE TABLE  couriers.transport_type (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  type VARCHAR(45) NOT NULL
+  type VARCHAR(45) NOT NULL,
+  UNIQUE(type)
 );
 
 
 CREATE TABLE  couriers.cargo_types (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  type VARCHAR(45) NOT NULL
+  type VARCHAR(45) NOT NULL,
+   UNIQUE(type)
  );
 
 

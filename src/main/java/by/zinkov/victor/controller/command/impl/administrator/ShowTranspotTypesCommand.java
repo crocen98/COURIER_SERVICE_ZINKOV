@@ -19,11 +19,10 @@ public class ShowTranspotTypesCommand implements Command {
         ServiceFactory factory = new ServiceFactory();
         TransportTypeService service = factory.getTransportTypeServiceImpl();
         try {
-            List<TransportType> transportTypes = service.getAllTransportTypes();
-            request.setAttribute(LIST_TRANSPORT_TYPES_PARAMETER , transportTypes);
-
             Router router = new Router();
             router.setType(Router.Type.FORWARD);
+            List<TransportType> transportTypes = service.getAllTransportTypes();
+            request.setAttribute(LIST_TRANSPORT_TYPES_PARAMETER , transportTypes);
             router.setRoute(Page.ALL_TRANSPORT_TYPES.getRout());
             return router;
         } catch (ServiceException e) {

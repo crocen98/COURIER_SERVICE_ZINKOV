@@ -20,10 +20,10 @@ public class AddTransportTypeCommand implements Command {
         TransportTypeService service = factory.getTransportTypeServiceImpl();
         Router router = new Router();
         try {
-            String transportName = request.getParameter(TRANSPORT_NAME_PARAMETER);
-            service.add(transportName);
             router.setRoute(ROUT_TO_DISPLAY_ALL_TRANSPORT_TYPES_PAGE);
             router.setType(Router.Type.REDIRECT);
+            String transportName = request.getParameter(TRANSPORT_NAME_PARAMETER);
+            service.add(transportName);
         } catch (ServiceException e) {
             router.setRoute(ROUT_TO_DISPLAY_ALL_TRANSPORT_TYPES_PAGE + "&error=" + e.getMessage());
         }

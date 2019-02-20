@@ -18,11 +18,12 @@ public class DeleteTransportTypeCommand implements Command {
         TransportTypeService service = factory.getTransportTypeServiceImpl();
         Router router = new Router();
         try {
-            String transportType =  request.getParameter(TRANSPORT_TYPE_ID_PARAMETER);
-            service.delete(Integer.valueOf(transportType));
             router.setRoute(ROUT_TO_DISPLAY_ALL_TRANSPORT_TYPES_PAGE);
             router.setType(Router.Type.REDIRECT);
+            String transportType =  request.getParameter(TRANSPORT_TYPE_ID_PARAMETER);
+            service.delete(Integer.valueOf(transportType));
         } catch (ServiceException e) {
+            System.out.println(ROUT_TO_DISPLAY_ALL_TRANSPORT_TYPES_PAGE + "&error=" + e.getMessage());
             router.setRoute(ROUT_TO_DISPLAY_ALL_TRANSPORT_TYPES_PAGE + "&error=" + e.getMessage());
         }
         return router;

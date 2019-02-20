@@ -20,11 +20,11 @@ public class EditTransportType implements Command {
         TransportTypeService service = factory.getTransportTypeServiceImpl();
         Router router = new Router();
         try {
+            router.setRoute(ROUT_TO_DISPLAY_ALL_TRANSPORT_TYPES_PAGE);
+            router.setType(Router.Type.REDIRECT);
             String transportName = request.getParameter(TRANSPORT_NAME_PARAMETER);
             String transportId = request.getParameter(TRANSPORT_ID_PARAMETER);
             service.edit(transportId,transportName);
-            router.setRoute(ROUT_TO_DISPLAY_ALL_TRANSPORT_TYPES_PAGE);
-            router.setType(Router.Type.REDIRECT);
 
         } catch (ServiceException e) {
             router.setRoute(ROUT_TO_DISPLAY_ALL_TRANSPORT_TYPES_PAGE + "&error=" + e.getMessage());

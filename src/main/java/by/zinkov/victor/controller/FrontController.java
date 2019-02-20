@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/couriers")
+@WebServlet(urlPatterns ="/couriers")
 public class FrontController extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger(FrontController.class);

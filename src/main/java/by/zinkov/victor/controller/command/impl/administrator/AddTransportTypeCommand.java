@@ -9,7 +9,7 @@ import by.zinkov.victor.service.exception.ServiceException;
 import javax.servlet.http.HttpServletRequest;
 
 public class AddTransportTypeCommand implements Command {
-    private static final String ROUT_TO_DISPLAY_ALL_TRANSPORT_TYPES_PAGE = "/CourierCompany?command=all_cargo_types";
+    private static final String ROUT_TO_DISPLAY_ALL_TRANSPORT_TYPES_PAGE = "/couriers/CourierCompany?command=all_cargo_types";
     private static final String TRANSPORT_NAME_PARAMETER = "transport_name";
 
     @Override

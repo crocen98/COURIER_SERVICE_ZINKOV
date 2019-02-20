@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class DeleteTransportTypeCommand implements Command {
     private static final String TRANSPORT_TYPE_ID_PARAMETER = "transport_type_id";
-    private static final String ROUT_TO_DISPLAY_ALL_TRANSPORT_TYPES_PAGE = "/CourierCompany?command=all_cargo_types";
+    private static final String ROUT_TO_DISPLAY_ALL_TRANSPORT_TYPES_PAGE = "/couriers/CourierCompany?command=all_cargo_types";
     @Override
     public Router execute(HttpServletRequest request) {
         ServiceFactory factory = new ServiceFactory();

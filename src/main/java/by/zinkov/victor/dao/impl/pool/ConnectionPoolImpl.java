@@ -65,7 +65,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
                 Connection connection = DriverManager.getConnection(url,properties);
                 InvocationHandler handler = new HandlerForConnectionProxy(this, connection);
                 Class[] classes = {Connection.class};
-                return (Connection) Proxy.newProxyInstance(null, classes, handler);
+                return (Connection) Proxy.newProxyInstance(Connection.class.getClassLoader(), classes, handler);
             }
             return pool.poll();
         } catch (SQLException | InterruptedException e) {

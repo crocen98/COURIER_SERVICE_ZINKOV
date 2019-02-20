@@ -22,7 +22,7 @@
                 </div>
                 <div class="modal-body mx-3">
                     <form class="md-form mb-5" method="POST"
-                          action="${pageContext.servletContext.contextPath}/CourierCompany?command=add_transport_type">
+                          action="${pageContext.servletContext.contextPath}/couriers?command=add_transport_type">
                         <input type="text" id="defaultForm-email" pattern="(\d|\w|-){1,35}"
                                class="form-control validate" name="transport_name">
                         <label data-error="wrong" data-success="right" for="defaultForm-email">Transport
@@ -49,7 +49,7 @@
                 </div>
                 <div class="modal-body mx-3">
                     <form class="md-form mb-5" method="POST"
-                          action="${pageContext.servletContext.contextPath}/CourierCompany?command=change_transport_type">
+                          action="${pageContext.servletContext.contextPath}/couriers?command=change_transport_type">
                         <i class="fas fa fa-pencil fa-2x prefix grey-text" aria-hidden="true"></i>
                         <input type="text" id="newName" pattern="(\w|\d|-){1,35}" name="transport_name"
                                class="form-control validate">
@@ -99,7 +99,7 @@
                 <div class="card border-left-primary shadow h-100 py-2">
 
                     <form name="transport_form_${elem.id}"
-                          action="${pageContext.servletContext.contextPath}/CourierCompany?command=delete_transport_type"
+                          action="${pageContext.servletContext.contextPath}/couriers?command=delete_transport_type"
                           method="POST">
                         <input name="transport_type_id" type="hidden" value="${elem.id}">
                         <button class="btn" style="color:red;text-align: right; margin-right: -10px">

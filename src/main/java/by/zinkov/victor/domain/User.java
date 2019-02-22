@@ -79,7 +79,7 @@ public class User implements Identified<Integer>, Serializable {
         return userRoleId;
     }
 
-    public void setUserRole(Integer userRoleId) {
+    public void setUserRoleId(Integer userRoleId) {
         this.userRoleId = userRoleId;
     }
 

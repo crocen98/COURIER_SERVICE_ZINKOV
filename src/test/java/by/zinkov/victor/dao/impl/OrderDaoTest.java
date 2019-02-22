@@ -29,7 +29,7 @@ public class OrderDaoTest extends AbstractDaoTest {
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
         user.setUserStatus(1);
-        user.setUserRole(2);
+        user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
         userDao.persist(user);
 
@@ -69,7 +69,7 @@ public class OrderDaoTest extends AbstractDaoTest {
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
         user.setUserStatus(1);
-        user.setUserRole(2);
+        user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
         userDao.persist(user);
 
@@ -103,7 +103,7 @@ public class OrderDaoTest extends AbstractDaoTest {
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
         user.setUserStatus(1);
-        user.setUserRole(2);
+        user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
         userDao.persist(user);
 
@@ -115,7 +115,7 @@ public class OrderDaoTest extends AbstractDaoTest {
         user2.setEmail("s@icloudf.com");
         user2.setPhone("+35291052630");
         user2.setUserStatus(1);
-        user2.setUserRole(2);
+        user2.setUserRoleId(2);
         user2.setPassword("122234234512223423451222342345122234234545555");
         userDao.persist(user2);
 

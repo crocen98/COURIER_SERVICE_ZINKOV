@@ -8,6 +8,6 @@
 <html>
 <title>Main page</title>
 <body>
-<jsp:forward page="WEB-INF/pages/main.jsp"></jsp:forward>
+<jsp:forward page="${pageContext.servletContext.contextPath}?command=all_cargo_types"></jsp:forward>
 </body>
 </html>

@@ -47,7 +47,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
                 user.setPhone(rs.getString(7));
                 user.setLocation(rs.getString(10));
                 user.setUserStatus(rs.getInt(8));
-                user.setUserRole(rs.getInt(9));
+                user.setUserRoleId(rs.getInt(9));
                 users.add(user);
             }
             return users;

@@ -14,7 +14,7 @@ public interface UserService {
      * @return - saved user
      * @throws ServiceException should be clarify
      */
-    User signUp(User user) throws ServiceException;
+    User signUp(User user , String role) throws ServiceException;
 
     // Provide your code here
 

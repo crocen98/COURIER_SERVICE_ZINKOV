@@ -2,6 +2,9 @@ package by.zinkov.victor.dao.impl;
 
 import by.zinkov.victor.dao.AbstractJdbcDao;
 import by.zinkov.victor.dao.GenericDao;
+import by.zinkov.victor.dao.UserRoleExpanded;
+import by.zinkov.victor.dao.exception.DaoException;
+import by.zinkov.victor.dao.factory.JdbcDaoFactory;
 import by.zinkov.victor.domain.UserRole;
 
 import java.sql.PreparedStatement;
@@ -10,25 +13,42 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRoleDao  extends AbstractJdbcDao<UserRole, Integer> implements GenericDao<UserRole, Integer> {
+public class UserRoleDao extends AbstractJdbcDao<UserRole, Integer> implements GenericDao<UserRole, Integer>, UserRoleExpanded {
     private static final String SELECT_ALL_USER_ROLES_QUERY = "SELECT * FROM user_role ";
-    private static final String SELECT__USER_ROLE_BY_PK_QUERY = "SELECT * FROM user_role WHERE id = ?";
+    private static final String SELECT_USER_ROLE_BY_PK_QUERY = "SELECT * FROM user_role WHERE id = ?";
+    private static final String SELECT_USER_ROLE_BY_NAME = "SELECT * FROM user_role WHERE role = ?";
+
+
+    @Override
+    public UserRole getByName(String name) throws DaoException{
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_USER_ROLE_BY_NAME)) {
+            ResultSet set = statement.executeQuery();
+
+                UserRole role = UserRole.valueOf(set.getString(2));
+                role.setId(set.getInt(1));
+
+                return role;
+
+        } catch (SQLException e) {
+            throw new DaoException("Cannot find by nme user role",e);
+        }
+    }
 
     @Override
     protected List<UserRole> parseResultSet(ResultSet rs) throws SQLException {
         List<UserRole> userRoles = new ArrayList<>();
 
-            while (rs.next()) {
-                String stringStatus = rs.getString(2);
-                UserRole orderStatus = UserRole.valueOf(stringStatus);
-                userRoles.add(orderStatus);
-            }
-            return userRoles;
+        while (rs.next()) {
+            String stringStatus = rs.getString(2);
+            UserRole orderStatus = UserRole.valueOf(stringStatus);
+            userRoles.add(orderStatus);
+        }
+        return userRoles;
 
     }
 
     @Override
-    protected void prepareStatementForInsert(PreparedStatement statement, UserRole object)  {
+    protected void prepareStatementForInsert(PreparedStatement statement, UserRole object) {
         throw new UnsupportedOperationException();
     }
 
@@ -39,7 +59,7 @@ public class UserRoleDao  extends AbstractJdbcDao<UserRole, Integer> implements 
 
     @Override
     public String getSelectQueryForPK() {
-        return SELECT__USER_ROLE_BY_PK_QUERY;
+        return SELECT_USER_ROLE_BY_PK_QUERY;
     }
 
     @Override

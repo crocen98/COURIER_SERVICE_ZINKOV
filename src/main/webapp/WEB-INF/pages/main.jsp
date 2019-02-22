@@ -39,7 +39,7 @@
                 <%--<form >--%>
                     <%--<div class="form-row">--%>
                         <div class="col-12 col-md-12">
-                            <a class="btn btn-block btn-lg btn-primary" href="${pageContext.servletContext.contextPath}/couriers?command=sign_up">Sign up!</a>
+                            <a class="btn btn-block btn-lg btn-primary" href="${pageContext.servletContext.contextPath}?command=sign_up">Sign up!</a>
                         </div>
                     <%--</div>--%>
                 <%--</form>--%>

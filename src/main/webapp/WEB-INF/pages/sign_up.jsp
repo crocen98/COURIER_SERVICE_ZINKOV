@@ -50,10 +50,10 @@
                         <%--${elem} 1000--%>
                         <%--</c:forEach>--%>
                         <form class="user" method="POST"
-                              action="${pageContext.servletContext.contextPath}/couriers?command=register_command">
+                              action="${pageContext.servletContext.contextPath}?command=register_command">
                             <div class="form-group row">
                                 <label for="sel1">Select list:</label>
-                                <select class="form-control " style="border-radius: 15px;" id="sel1" name="role">
+                                <select class="form-control " style="border-radius: 15px;" id="sel1" name="user_role">
                                     <c:forEach var="elem" items="${user_roles}" varStatus="status">
                                         <option>${elem.role}</option>
                                     </c:forEach>
@@ -61,40 +61,45 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input  required type="text" class="form-control form-control-user" pattern="(\w|\d|-){1,35}" id="exampleFirstName"
+                                    <input required type="text" class="form-control form-control-user"
+                                           pattern="(\w|\d|-){1,35}" name="first_name"
                                            placeholder="First Name">
                                 </div>
                                 <div class="col-sm-6">
-                                    <input  required type="text" class="form-control form-control-user" pattern="(\w|\d|-){1,35}" id="exampleLastName"
+                                    <input required type="text" class="form-control form-control-user"
+                                           pattern="(\w|\d|-){1,35}" name="last_name"
                                            placeholder="Last Name">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input required  type="email" class="form-control form-control-user" id="exampleInputEmail"
+                                <input required type="email" class="form-control form-control-user" name="email"
                                        placeholder="Email Address">
                             </div>
 
                             <div class="form-group">
-                                <input  required  type="phone" pattern="^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$"
-                                       class="form-control form-control-user" id="mobilePhone"
+                                <input required type="phone"
+                                       pattern="^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$"
+                                       class="form-control form-control-user" name="phone"
                                        placeholder="Phone">
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input required  type="password"  pattern="(\w|\d|-){1,35}" class="form-control form-control-user"
-                                           id="exampleInputPassword" placeholder="Password">
+                                    <input required type="password" pattern="(\w|\d|-){1,35}"
+                                           class="form-control form-control-user"
+                                           id="exampleInputPassword" placeholder="Password" name="password">
                                 </div>
                                 <div class="col-sm-6">
-                                    <input  required  type="password"  pattern="(\w|\d|-){1,35}" class="form-control form-control-user"
+                                    <input required type="password" pattern="(\w|\d|-){1,35}"
+                                           class="form-control form-control-user"
                                            id="exampleRepeatPassword" placeholder="Repeat Password">
                                 </div>
 
                             </div>
                             <div class="form-group">
                                 <div class="form-group">
-                                    <input required  type="text" class="form-control form-control-user" id="location"
+                                    <input required type="text" class="form-control form-control-user" id="location"
                                            placeholder="Location">
-                                    <input required  id="cordinatesInput" name="cordinates" type="hidden" value="">
+                                    <input required id="сoordinatesInput" name="coordinates" type="hidden" value="">
                                 </div>
 
                             </div>
@@ -147,7 +152,7 @@
 
         function func() {
             console.log(globalCord + "  globalCord");
-            document.getElementById("cordinatesInput").value = globalCord;
+            document.getElementById("сoordinatesInput").value = globalCord;
             isInputAction = false;
         }
     }
@@ -156,12 +161,12 @@
 
     function init() {
 
-            myMap = new ymaps.Map('map', {
-                center: [53.54588147535851, 28.113893988281244],
-                zoom: 10
-            }, {
-                searchControlProvider: 'yandex#search'
-            });
+        myMap = new ymaps.Map('map', {
+            center: [53.54588147535851, 28.113893988281244],
+            zoom: 10
+        }, {
+            searchControlProvider: 'yandex#search'
+        });
 
         var location = ymaps.geolocation;
         location.get({
@@ -187,9 +192,9 @@
                     var coordinates = result.geoObjects.get(0).geometry.getCoordinates();
 
                     globalCord = coordinates;
-                    },
-                    function (err) {
-                        alert('Ошибка');
+                },
+                function (err) {
+                    alert('Ошибка');
                 }
             );
 
@@ -284,7 +289,7 @@
 
                     console.log(myPlacemark.properties._data.balloonContent);
                     document.getElementById("location").value = myPlacemark.properties._data.balloonContent;
-                    document.getElementById("cordinatesInput").value = coords;
+                    document.getElementById("сoordinatesInput").value = coords;
                 });
             }
         }

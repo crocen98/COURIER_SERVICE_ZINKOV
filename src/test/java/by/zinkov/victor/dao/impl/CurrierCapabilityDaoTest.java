@@ -25,7 +25,7 @@ public class CurrierCapabilityDaoTest extends AbstractDaoTest {
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
         user.setUserStatus(1);
-        user.setUserRole(2);
+        user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
         userDao.persist(user);
 
@@ -76,7 +76,7 @@ public class CurrierCapabilityDaoTest extends AbstractDaoTest {
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
         user.setUserStatus(1);
-        user.setUserRole(2);
+        user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
         userDao.persist(user);
 
@@ -113,7 +113,7 @@ public class CurrierCapabilityDaoTest extends AbstractDaoTest {
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
         user.setUserStatus(1);
-        user.setUserRole(2);
+        user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
         userDao.persist(user);
 

@@ -23,7 +23,7 @@ public class UserDaoTest extends AbstractDaoTest {
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
         user.setUserStatus(1);
-        user.setUserRole(2);
+        user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
 
         Assert.assertEquals(null,user.getId());
@@ -38,7 +38,7 @@ public class UserDaoTest extends AbstractDaoTest {
         user2.setEmail("s@icloud.com");
         user2.setPhone("+35291052630");
         user2.setUserStatus(1);
-        user2.setUserRole(2);
+        user2.setUserRoleId(2);
         user2.setPassword("122234234512223423451222342345122234234545555");
 
         userDao.persist(user2);
@@ -56,7 +56,7 @@ public class UserDaoTest extends AbstractDaoTest {
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
         user.setUserStatus(1);
-        user.setUserRole(2);
+        user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
 
         Assert.assertEquals(null,user.getId());
@@ -73,7 +73,7 @@ public class UserDaoTest extends AbstractDaoTest {
         user2.setEmail("s@icloud.com");
         user2.setPhone("+35291052630");
         user2.setUserStatus(1);
-        user2.setUserRole(2);
+        user2.setUserRoleId(2);
         user2.setPassword("122234234512223423451222342345122234234545555");
 
        userDao.persist(user2);
@@ -91,7 +91,7 @@ public class UserDaoTest extends AbstractDaoTest {
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
         user.setUserStatus(1);
-        user.setUserRole(2);
+        user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
         System.out.println("ttttt222222222222222");
         Assert.assertEquals(null,user.getId());
@@ -106,7 +106,7 @@ public class UserDaoTest extends AbstractDaoTest {
         user2.setEmail("s@icloud.com");
         user2.setPhone("+35291052630");
         user2.setUserStatus(1);
-        user2.setUserRole(2);
+        user2.setUserRoleId(2);
         user2.setPassword("122234234512223423451222342345122234234545555");
 
         userDao.persist(user2);
@@ -123,7 +123,7 @@ public class UserDaoTest extends AbstractDaoTest {
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
         user.setUserStatus(1);
-        user.setUserRole(2);
+        user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
 
         Assert.assertEquals(null,user.getId());
@@ -138,7 +138,7 @@ public class UserDaoTest extends AbstractDaoTest {
         user2.setEmail("s@icloud.com");
         user2.setPhone("+35291052630");
         user2.setUserStatus(1);
-        user2.setUserRole(2);
+        user2.setUserRoleId(2);
         user2.setPassword("122234234512223423451222342345122234234545555");
 
         userDao.persist(user2);
@@ -155,7 +155,7 @@ public class UserDaoTest extends AbstractDaoTest {
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
         user.setUserStatus(1);
-        user.setUserRole(2);
+        user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
 
         Assert.assertEquals(null,user.getId());
@@ -170,7 +170,7 @@ public class UserDaoTest extends AbstractDaoTest {
         user2.setEmail("s@icloud.com");
         user2.setPhone("+35291052630");
         user2.setUserStatus(1);
-        user2.setUserRole(2);
+        user2.setUserRoleId(2);
         user2.setPassword("122234234512223423451222342345122234234545555");
 
         userDao.persist(user2);
@@ -187,7 +187,7 @@ public class UserDaoTest extends AbstractDaoTest {
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
         user.setUserStatus(1);
-        user.setUserRole(2);
+        user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
         Assert.assertEquals(null,user.getId());
         userDao.persist(user);
@@ -205,7 +205,7 @@ public class UserDaoTest extends AbstractDaoTest {
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
         user.setUserStatus(1);
-        user.setUserRole(2);
+        user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
 
         Assert.assertEquals(null,user.getId());
@@ -220,7 +220,7 @@ public class UserDaoTest extends AbstractDaoTest {
         user2.setEmail("s@icloud.com");
         user2.setPhone("+35291052630");
         user2.setUserStatus(1);
-        user2.setUserRole(2);
+        user2.setUserRoleId(2);
         user2.setPassword("122234234512223423451222342345122234234545555");
 
         userDao.persist(user2);
@@ -238,7 +238,7 @@ public class UserDaoTest extends AbstractDaoTest {
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
         user.setUserStatus(1);
-        user.setUserRole(2);
+        user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
 
         Assert.assertEquals(null,user.getId());
@@ -253,7 +253,7 @@ public class UserDaoTest extends AbstractDaoTest {
         user2.setEmail("s@icloud.com");
         user2.setPhone("+35291052630");
         user2.setUserStatus(1);
-        user2.setUserRole(2);
+        user2.setUserRoleId(2);
         user2.setPassword("122234234512223423451222342345122234234545555");
 
         userDao.persist(user2);
@@ -270,7 +270,7 @@ public class UserDaoTest extends AbstractDaoTest {
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
         user.setUserStatus(1);
-        user.setUserRole(2);
+        user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
 
         Assert.assertEquals(null,user.getId());
@@ -285,7 +285,7 @@ public class UserDaoTest extends AbstractDaoTest {
         user2.setEmail("s@icloud.com");
         user2.setPhone("+35291052630");
         user2.setUserStatus(1);
-        user2.setUserRole(2);
+        user2.setUserRoleId(2);
         user2.setPassword("122234234512223423451222342345122234234545555");
 
         userDao.persist(user2);
@@ -302,7 +302,7 @@ public class UserDaoTest extends AbstractDaoTest {
         userOne.setEmail("s@icloud.com");
         userOne.setPhone("+35291052630");
         userOne.setUserStatus(1);
-        userOne.setUserRole(2);
+        userOne.setUserRoleId(2);
         userOne.setPassword("122234234512223423451222342345122234234545555");
 
         User userTwo = new User();
@@ -314,7 +314,7 @@ public class UserDaoTest extends AbstractDaoTest {
         userTwo.setEmail("s@icloud.com");
         userTwo.setPhone("+35291052630");
         userTwo.setUserStatus(1);
-        userTwo.setUserRole(2);
+        userTwo.setUserRoleId(2);
         userTwo.setPassword("122234234512223423451222342345122234234545555");
 
         userDao.persist(userOne);
@@ -337,7 +337,7 @@ public class UserDaoTest extends AbstractDaoTest {
         userOne.setEmail("s@icloud.com");
         userOne.setPhone("+35291052630");
         userOne.setUserStatus(1);
-        userOne.setUserRole(2);
+        userOne.setUserRoleId(2);
         userOne.setPassword("122234234512223423451222342345122234234545555");
 
         User userTwo = new User();
@@ -349,7 +349,7 @@ public class UserDaoTest extends AbstractDaoTest {
         userTwo.setEmail("s@icloud.com");
         userTwo.setPhone("+35291052630");
         userTwo.setUserStatus(1);
-        userTwo.setUserRole(2);
+        userTwo.setUserRoleId(2);
         userTwo.setPassword("122234234512223423451222342345122234234545555");
 
         userDao.persist(userOne);
@@ -374,7 +374,7 @@ public class UserDaoTest extends AbstractDaoTest {
         userOne.setEmail("s@icloud.com");
         userOne.setPhone("+35291052630");
         userOne.setUserStatus(1);
-        userOne.setUserRole(2);
+        userOne.setUserRoleId(2);
         userOne.setPassword("122234234512223423451222342345122234234545555");
 
         User userTwo = new User();
@@ -386,7 +386,7 @@ public class UserDaoTest extends AbstractDaoTest {
         userTwo.setEmail("s@icloud.com");
         userTwo.setPhone("+35291052630");
         userTwo.setUserStatus(1);
-        userTwo.setUserRole(2);
+        userTwo.setUserRoleId(2);
         userTwo.setPassword("122234234512223423451222342345122234234545555");
 
         userDao.persist(userOne);

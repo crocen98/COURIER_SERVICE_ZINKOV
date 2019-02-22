@@ -12,5 +12,8 @@ public class UserValidator implements EntityValidator<User> {
         validator.simpleStingMatches(entity.getFirstName(),45,"first name");
         validator.simpleStingMatches(entity.getLastName(),45,"last name");
         validator.simpleStingMatches(entity.getLogin(),45,"last name");
+        validator.simpleStingMatches(entity.getPassword(),45,"password");
+        ////
+        //// else
     }
 }

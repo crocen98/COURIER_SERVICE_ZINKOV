@@ -2,11 +2,10 @@ package by.zinkov.victor.dao.impl;
 
 import by.zinkov.victor.dao.ConnectionPool;
 import by.zinkov.victor.dao.exception.ConnectionPoolException;
-import by.zinkov.victor.dao.impl.pool.ConnectionPoolImpl;
+import by.zinkov.victor.dao.pool.ConnectionPoolImpl;
 import org.junit.*;
 import org.mockito.Mockito;
 
-import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;

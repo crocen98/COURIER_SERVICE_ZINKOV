@@ -3,7 +3,7 @@ package by.zinkov.victor.service.impl;
 import by.zinkov.victor.dao.DaoFactory;
 import by.zinkov.victor.dao.GenericDao;
 import by.zinkov.victor.dao.exception.DaoException;
-import by.zinkov.victor.dao.impl.factory.JdbcDaoFactory;
+import by.zinkov.victor.dao.factory.JdbcDaoFactory;
 import by.zinkov.victor.domain.TransportType;
 import by.zinkov.victor.service.TransportTypeService;
 import by.zinkov.victor.service.exception.ServiceException;
@@ -59,7 +59,7 @@ public class TransportTypeServiceImpl implements TransportTypeService {
     public void edit(String id, String name) throws ServiceException {
         DaoFactory daoFactory = JdbcDaoFactory.getInstance();
         try {
-            StringValidator stringValidator = new StringValidator();
+            StringValidator stringValidator = StringValidator.getInstance();
             System.out.println(id + " id");
             stringValidator.isMatchesInt(id, StringValidator.POSITIVE_RANGE);
             Integer transportId = Integer.valueOf(id);

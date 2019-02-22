@@ -1,4 +1,4 @@
-package by.zinkov.victor.dao.impl.factory;
+package by.zinkov.victor.dao.factory;
 
 import by.zinkov.victor.dao.GenericDao;
 import by.zinkov.victor.dao.exception.DaoException;

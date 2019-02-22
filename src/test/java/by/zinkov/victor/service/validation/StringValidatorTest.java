@@ -5,7 +5,7 @@ import org.junit.Test;
 
 
 public class StringValidatorTest {
-    private static final StringValidator validator = new StringValidator();
+    private static final StringValidator validator = StringValidator.getInstance();
 
     @Test(expected = ValidationException.class)
     public void shouldGetNullAndReturnFalse() throws ValidationException {

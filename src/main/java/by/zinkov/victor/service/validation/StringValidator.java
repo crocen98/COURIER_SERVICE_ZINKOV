@@ -8,11 +8,24 @@ public class StringValidator {
 
     private static final String INTEGER_PATTERN = "[+-]?(\\d){1,9}";
     private final Pattern integerPattern = Pattern.compile(INTEGER_PATTERN);
-    public static final int[] POSITIVE_RANGE = new int[]{0 , Integer.MAX_VALUE};
+    public static final int[] POSITIVE_RANGE = new int[]{0, Integer.MAX_VALUE};
+    private static final StringValidator INSTANCE = new StringValidator();
+
+    public static StringValidator getInstance() {
+        return INSTANCE;
+    }
+
+    private StringValidator() {
+    }
+
+    public void simpleStingMatches(String string, int maxLength, String fieldName) throws ValidationException {
+        if (string == null || string.length() > 45 || string.trim().equals("")) {
+            throw new ValidationException("not valid " + fieldName + " :" + string);
+        }
+    }
 
     public void isMatchesInt(String stringInt, int[] range) throws ValidationException {
-
-        if(stringInt == null){
+        if (stringInt == null) {
             throw new ValidationException("String number is null");
         }
         boolean isMatches;
@@ -26,7 +39,7 @@ public class StringValidator {
                 isMatches = false;
             }
         }
-        if(!isMatches){
+        if (!isMatches) {
             throw new ValidationException("String: " + stringInt + "not valid");
         }
     }

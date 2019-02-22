@@ -45,7 +45,6 @@ public class FrontController extends HttpServlet {
             request.setAttribute(ERROR,e.getMessage());
             router.setType(Router.Type.FORWARD);
             router.setRoute(Page.ERROR.getRout());
-
         }
 
         String page = router.getRoute();

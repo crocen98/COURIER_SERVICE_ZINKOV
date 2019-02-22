@@ -1,4 +1,4 @@
-package by.zinkov.victor.dao.impl.pool;
+package by.zinkov.victor.dao.pool;
 
 import by.zinkov.victor.dao.exception.ConnectionPoolException;
 import by.zinkov.victor.dao.ConnectionPool;
@@ -9,9 +9,7 @@ import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayDeque;
-import java.util.Properties;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -23,6 +21,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
     private static volatile ConnectionPool instance;
     private  int poolCapacity;
     private  Queue<Connection> pool;
+    private List<Connection> nativeConnectionPool = new ArrayList<>();
     private  Semaphore semaphore;
     private String url;
 
@@ -63,6 +62,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
             if (createdConnectionCount < poolCapacity) {
                 createdConnectionCount++;
                 Connection connection = DriverManager.getConnection(url,properties);
+                nativeConnectionPool.add(connection);
                 InvocationHandler handler = new HandlerForConnectionProxy(this, connection);
                 Class[] classes = {Connection.class};
                 return (Connection) Proxy.newProxyInstance(Connection.class.getClassLoader(), classes, handler);
@@ -78,7 +78,6 @@ public class ConnectionPoolImpl implements ConnectionPool {
     @Override
     public void putBackConnection(Connection connection) {
         try {
-           // LOGGER.info("releaseConnection()");
             lock.lock();
             pool.add(connection);
         } finally {
@@ -90,9 +89,12 @@ public class ConnectionPoolImpl implements ConnectionPool {
 
     @Override
     public void destroyPool() throws ConnectionPoolException {
-
-        //provide your code here
-
-        throw new UnsupportedOperationException();
+       for (Connection connection : nativeConnectionPool){
+           try {
+               connection.close();
+           } catch (SQLException e) {
+               throw new ConnectionPoolException("Cannot possible to close " + connection, e);
+           }
+       }
     }
 }

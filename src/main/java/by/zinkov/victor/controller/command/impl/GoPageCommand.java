@@ -17,6 +17,7 @@ public class GoPageCommand implements Command {
         Router router = new Router();
         router.setType(Router.Type.FORWARD);
         router.setRoute(page.getRout());
+
         return router;
     }
 }

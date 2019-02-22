@@ -2,6 +2,8 @@ package by.zinkov.victor.controller.command;
 
 import by.zinkov.victor.controller.command.exception.NoSuchCommandException;
 import by.zinkov.victor.controller.command.impl.GoPageCommand;
+import by.zinkov.victor.controller.command.impl.GoSignUpPageCommand;
+import by.zinkov.victor.controller.command.impl.SignUpCommand;
 import by.zinkov.victor.controller.command.impl.administrator.AddTransportTypeCommand;
 import by.zinkov.victor.controller.command.impl.administrator.DeleteTransportTypeCommand;
 import by.zinkov.victor.controller.command.impl.administrator.EditTransportType;
@@ -23,10 +25,11 @@ public class CommandProvider {
     private CommandProvider() {
         commandMap.put("delete_transport_type", new DeleteTransportTypeCommand());
         commandMap.put("log_in", new GoPageCommand(Page.LOG_IN));
-        commandMap.put("sign_up", new GoPageCommand(Page.SIGN_UP));
+        commandMap.put("sign_up", new GoSignUpPageCommand());
         commandMap.put("all_cargo_types", new ShowTranspotTypesCommand());
         commandMap.put("add_transport_type",new  AddTransportTypeCommand());
         commandMap.put("change_transport_type", new EditTransportType());
+        commandMap.put("register_command",new SignUpCommand());
     }
 
     /**

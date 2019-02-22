@@ -1,12 +1,11 @@
 package by.zinkov.victor.dao;
 
 import by.zinkov.victor.dao.exception.ConnectionPoolException;
-import by.zinkov.victor.dao.impl.pool.ConnectionPoolImpl;
+import by.zinkov.victor.dao.pool.ConnectionPoolImpl;
 import org.junit.After;
 import org.junit.Before;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 

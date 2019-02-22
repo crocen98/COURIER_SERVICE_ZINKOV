@@ -1,4 +1,4 @@
-package by.zinkov.victor.dao.impl.pool;
+package by.zinkov.victor.dao.pool;
 
 import by.zinkov.victor.dao.exception.ConnectionException;
 

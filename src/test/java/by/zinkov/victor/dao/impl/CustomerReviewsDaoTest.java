@@ -3,7 +3,7 @@ package by.zinkov.victor.dao.impl;
 import by.zinkov.victor.dao.AbstractDaoTest;
 import by.zinkov.victor.dao.GenericDao;
 import by.zinkov.victor.dao.exception.DaoException;
-import by.zinkov.victor.dao.impl.factory.JdbcDaoFactory;
+import by.zinkov.victor.dao.factory.JdbcDaoFactory;
 import by.zinkov.victor.domain.CustomerReviews;
 import by.zinkov.victor.domain.User;
 import org.junit.Assert;

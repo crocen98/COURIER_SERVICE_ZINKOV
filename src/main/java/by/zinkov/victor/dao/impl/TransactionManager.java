@@ -4,7 +4,7 @@ import by.zinkov.victor.dao.ConnectionPool;
 import by.zinkov.victor.dao.GenericDao;
 import by.zinkov.victor.dao.exception.ConnectionPoolException;
 import by.zinkov.victor.dao.exception.DaoException;
-import by.zinkov.victor.dao.impl.pool.ConnectionPoolImpl;
+import by.zinkov.victor.dao.pool.ConnectionPoolImpl;
 import by.zinkov.victor.util.SetterObjectField;
 
 import java.sql.Connection;

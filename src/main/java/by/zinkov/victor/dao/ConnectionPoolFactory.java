@@ -1,6 +1,6 @@
 package by.zinkov.victor.dao;
 
-import by.zinkov.victor.dao.impl.pool.ConnectionPoolImpl;
+import by.zinkov.victor.dao.pool.ConnectionPoolImpl;
 
 /**
  * Connection Pool Factory

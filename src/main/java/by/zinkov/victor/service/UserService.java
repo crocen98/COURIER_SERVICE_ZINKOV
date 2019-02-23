@@ -1,6 +1,7 @@
 package by.zinkov.victor.service;
 
 import by.zinkov.victor.domain.User;
+import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.exception.ServiceException;
 
 /**
@@ -16,6 +17,6 @@ public interface UserService {
      */
     User signUp(User user , String role) throws ServiceException;
 
-    // Provide your code here
+    UserDto LogIn(String login , String password) throws ServiceException ;
 
 }

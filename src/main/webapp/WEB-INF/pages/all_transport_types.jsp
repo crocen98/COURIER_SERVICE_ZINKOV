@@ -22,8 +22,8 @@
                 </div>
                 <div class="modal-body mx-3">
                     <form class="md-form mb-5" method="POST"
-                          action="${pageContext.servletContext.contextPath}?command=add_transport_type">
-                        <input type="text" required id="defaultForm-email" pattern="(\d|\w|-){1,35}"
+                          action="${pageContext.servletContext.contextPath}/couriers?command=add_transport_type">
+                        <input  required type="text" id="defaultForm-email" pattern="(\d|\w|-){1,35}"
                                class="form-control validate" name="transport_name">
                         <label data-error="wrong" data-success="right" for="defaultForm-email">Transport
                             name</label>
@@ -51,10 +51,10 @@
                     <form class="md-form mb-5" method="POST"
                           action="${pageContext.servletContext.contextPath}/couriers?command=change_transport_type">
                         <i class="fas fa fa-pencil fa-2x prefix grey-text" aria-hidden="true"></i>
-                        <input type="text" required  required id="newName" pattern="(\w|\d|-){1,35}" name="transport_name"
+                        <input type="text" required id="newName" pattern="(\w|\d|-){1,35}" name="transport_name"
                                class="form-control validate">
                         <label data-error="wrong" data-success="right" for="newName">New name</label>
-                        <input id="changingTransportTypeId" required  name="transport_type_id" type="hidden" value="">
+                        <input  required id="changingTransportTypeId" name="transport_type_id" type="hidden" value="">
                         <div class=" d-flex justify-content-center">
                             <button class="btn btn-primary">CHANGE TRANSPORT</button>
                         </div>

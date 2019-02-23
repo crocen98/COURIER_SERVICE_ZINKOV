@@ -2,9 +2,14 @@ package by.zinkov.victor.dao.impl;
 
 
 import by.zinkov.victor.dao.AbstractJdbcDao;
+import by.zinkov.victor.dao.AutoConnection;
 import by.zinkov.victor.dao.GenericDao;
+import by.zinkov.victor.dao.UserExpandedDao;
+import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.domain.User;
-
+import by.zinkov.victor.domain.UserRole;
+import by.zinkov.victor.domain.UserStatus;
+import by.zinkov.victor.dto.UserDto;
 
 
 import java.sql.*;
@@ -14,7 +19,7 @@ import java.util.List;
 /**
  * Example User DAO implementation
  */
-public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDao<User, Integer> {
+public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDao<User, Integer> , UserExpandedDao {
     private static final String SELECT_ALL_USERS_QUERY = "SELECT * FROM user " ;
     private static final String SELECT_USER_BY_PK_QUERY = "SELECT * FROM user WHERE id = ?";
     private static final String INSERT_NEW_USER_QUERY =
@@ -25,11 +30,32 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
             "WHERE id = ?";
 
     private static final String DELETE_USER_QUERY = "DELETE FROM user WHERE id = ?";
+    private static final String SELECT_USER_DTO_BY_LOGIN_AND_PASSWORD = "SELECT * FROM user JOIN user_role ON user.role_id = user_role.id JOIN user_status ON user.status_id = user_status.id WHERE user.login = ? AND user.password = ?";
 
 
+    @Override
+    @AutoConnection
+    public UserDto logIn(String login, String password) throws DaoException{
+        try (PreparedStatement statement =connection.prepareStatement(SELECT_USER_DTO_BY_LOGIN_AND_PASSWORD)){
+            statement.setString(1,login);
+            statement.setString(2,password);
+            ResultSet set = statement.executeQuery();
+            List<User>  user = parseResultSet(set);
+            if(user.isEmpty()){
+                throw new DaoException("Incorrect password or login!");
+            }
 
-
-
+            UserDto userDto = new UserDto(user.get(0));
+            set.previous();
+            String userRole = set.getString(12);
+            userDto.setUserRole(UserRole.valueOf(userRole));
+            String userStatus = set.getString(14);
+            userDto.setUserStatus(UserStatus.valueOf(userStatus));
+            return userDto;
+        } catch (SQLException e) {
+            throw new DaoException("problem with logIn in dao" , e);
+        }
+    }
 
     @Override
     protected List<User> parseResultSet(ResultSet rs) throws SQLException {

@@ -25,7 +25,6 @@ public class GoSignUpPageCommand implements Command {
             List<UserRole> userRoles = userRoleService.getAll();
             userRoles.remove(UserRole.ADMINISTRATOR);
             request.setAttribute("user_roles" , userRoles);
-            System.out.println(userRoles);
         } catch (ServiceException e) {
             throw new CommandException("Problem get all users roles",e);
         }

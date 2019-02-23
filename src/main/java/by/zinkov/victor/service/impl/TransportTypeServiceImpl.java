@@ -9,7 +9,7 @@ import by.zinkov.victor.service.TransportTypeService;
 import by.zinkov.victor.service.exception.ServiceException;
 import by.zinkov.victor.service.exception.ValidationException;
 import by.zinkov.victor.service.validation.StringValidator;
-import by.zinkov.victor.service.validation.impl.TransportTypeValidator;
+import by.zinkov.victor.service.validation.TransportTypeValidator;
 
 import java.util.List;
 

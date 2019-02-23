@@ -1,9 +1,6 @@
 package by.zinkov.victor.controller;
 
-import by.zinkov.victor.controller.command.Command;
-import by.zinkov.victor.controller.command.CommandProvider;
-import by.zinkov.victor.controller.command.Page;
-import by.zinkov.victor.controller.command.Router;
+import by.zinkov.victor.controller.command.*;
 import by.zinkov.victor.controller.command.exception.CommandException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,8 +32,11 @@ public class FrontController extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        LOGGER.info(request.getRequestURI());
         String commandName = request.getParameter(COMMAND_REQUEST_PARAMETER);
-        Command command = CommandProvider.getInstance().takeCommand(commandName);
+        CommandEnum commandEnum = CommandEnum.getByName(commandName);
+        Command command = CommandProvider.getInstance().takeCommand(commandEnum);
+        System.out.println("WORK   " + commandName);
         Router router= null;
         try {
              router = command.execute(request);

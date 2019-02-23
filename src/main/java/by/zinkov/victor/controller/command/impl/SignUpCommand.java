@@ -9,6 +9,8 @@ import by.zinkov.victor.domain.UserStatus;
 import by.zinkov.victor.service.ServiceFactory;
 import by.zinkov.victor.service.UserService;
 import by.zinkov.victor.service.exception.ServiceException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,6 +23,8 @@ public class SignUpCommand implements Command {
     private static final String PHONE_PARAMETER = "phone";
     private static final String USER_ROLE_PARAMETER = "user_role";
     private static final String COORDINATES_COMMAND = "coordinates";
+
+    private static final Logger LOGGER = LogManager.getLogger(SignUpCommand.class);
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
@@ -44,8 +48,11 @@ public class SignUpCommand implements Command {
         ServiceFactory factory = new ServiceFactory();
         UserService service = factory.getUserService();
         try {
+            LOGGER.info(user + " with setted parametrs before go to service.signUp(user, role)");
             service.signUp(user, role);
+
         } catch (ServiceException e) {
+            LOGGER.info(e + "Error");
             throw new CommandException("msg", e);
         }
         return router;

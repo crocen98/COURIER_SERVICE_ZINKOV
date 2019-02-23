@@ -50,7 +50,7 @@
                         <%--${elem} 1000--%>
                         <%--</c:forEach>--%>
                         <form class="user" method="POST"
-                              action="${pageContext.servletContext.contextPath}?command=register_command">
+                              action="${pageContext.servletContext.contextPath}/couriers?command=register_command">
                             <div class="form-group row">
                                 <label for="sel1">Select list:</label>
                                 <select class="form-control " style="border-radius: 15px;" id="sel1" name="user_role">
@@ -58,6 +58,11 @@
                                         <option>${elem.role}</option>
                                     </c:forEach>
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                    <input required type="text" class="form-control form-control-user"
+                                           pattern="(\w|\d|-){1,35}" name="login"
+                                           placeholder="Login">
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
@@ -123,14 +128,11 @@
 
 </div>
 
-<!-- Bootstrap core JavaScript-->
 <script src="${pageContext.request.contextPath}/js/jquery/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.bundle.min.js"></script>
 
-<!-- Core plugin JavaScript-->
 <script src="${pageContext.request.contextPath}/js/jquery/jquery.easing.min.js"></script>
 
-<!-- Custom scripts for all pages-->
 <script src="${pageContext.request.contextPath}/js/sb-admin-2.min.js"></script>
 
 

@@ -23,7 +23,7 @@
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
         <a class="navbar-brand" href="#">Language</a>
-        <a class="btn btn-primary" href="#">Sign In</a>
+        <a class="btn btn-primary" href="${pageContext.servletContext.contextPath}/couriers?command=to_log_in_page">Log In</a>
     </div>
 </nav>
 
@@ -39,7 +39,7 @@
                 <%--<form >--%>
                     <%--<div class="form-row">--%>
                         <div class="col-12 col-md-12">
-                            <a class="btn btn-block btn-lg btn-primary" href="${pageContext.servletContext.contextPath}?command=sign_up">Sign up!</a>
+                            <a class="btn btn-block btn-lg btn-primary" href="${pageContext.servletContext.contextPath}/couriers?command=sign_up">Sign up!</a>
                         </div>
                     <%--</div>--%>
                 <%--</form>--%>

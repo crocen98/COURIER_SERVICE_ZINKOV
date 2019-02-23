@@ -14,6 +14,7 @@ import java.util.List;
 
 public class ShowTranspotTypesCommand implements Command {
     private static final String LIST_TRANSPORT_TYPES_PARAMETER = "transport_types";
+
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         ServiceFactory factory = new ServiceFactory();

@@ -1,4 +1,4 @@
-package by.zinkov.victor.service.validation.impl;
+package by.zinkov.victor.service.validation;
 
 import by.zinkov.victor.domain.User;
 import by.zinkov.victor.service.exception.ValidationException;

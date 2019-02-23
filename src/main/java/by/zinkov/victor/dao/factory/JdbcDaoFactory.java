@@ -8,9 +8,12 @@ import by.zinkov.victor.domain.*;
 
 import java.lang.reflect.*;
 import java.sql.Connection;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -32,9 +35,15 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory<Conne
             ConnectionPool connectionPool = ConnectionPoolFactory.getInstance().getConnectionPool();
             Connection connection = connectionPool.retrieveConnection();
 
-            Method[] methods = GenericDao.class.getMethods();
-            boolean isReturnConnectionMethod = Stream.of(methods)
-                    .filter(m -> m.isAnnotationPresent(AutoConnection.class))
+            //RequestMethod[] methods =
+            List<Method> methods = Arrays.stream(proxy.getClass().getInterfaces()).
+                    flatMap((inter)->Arrays.
+                            stream(inter.getMethods())).
+                    collect(Collectors.toList());
+
+            boolean isReturnConnectionMethod = methods.
+                    stream().
+                    filter(m -> m.isAnnotationPresent(AutoConnection.class))
                     .map(Method::getName)
                     .anyMatch(s -> method.getName()
                             .contains(s));

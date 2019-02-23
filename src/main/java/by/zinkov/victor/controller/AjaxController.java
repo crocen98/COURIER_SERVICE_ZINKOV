@@ -1,6 +1,7 @@
 package by.zinkov.victor.controller;
 
 import by.zinkov.victor.controller.command.Command;
+import by.zinkov.victor.controller.command.CommandEnum;
 import by.zinkov.victor.controller.command.CommandProvider;
 import by.zinkov.victor.controller.command.Router;
 import by.zinkov.victor.controller.command.exception.CommandException;
@@ -34,7 +35,7 @@ public class AjaxController extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, CommandException {
-        Command command = CommandProvider.getInstance().takeCommand("CommandExample");
+        Command command = CommandProvider.getInstance().takeCommand(CommandEnum.REGEISTER_COMMAND);
         Router responseContent = command.execute(request);
 
         // Provide your code here

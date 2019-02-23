@@ -8,6 +8,7 @@ public enum Page {
     START_PAGE("/WEB-INF/pages/main.jsp");
 
 
+
     private final String rout;
 
     Page(String rout) {

@@ -34,6 +34,12 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
 
 
     @Override
+    public UserDto getDtoByBK(Integer id) throws DaoException {
+        User user = getByPK(id);
+        return logIn(user.getLogin(),user.getPassword());
+    }
+
+    @Override
     @AutoConnection
     public UserDto logIn(String login, String password) throws DaoException{
         try (PreparedStatement statement =connection.prepareStatement(SELECT_USER_DTO_BY_LOGIN_AND_PASSWORD)){

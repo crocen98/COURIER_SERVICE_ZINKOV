@@ -36,7 +36,7 @@ public class FrontController extends HttpServlet {
         String commandName = request.getParameter(COMMAND_REQUEST_PARAMETER);
         CommandEnum commandEnum = CommandEnum.getByName(commandName);
         Command command = CommandProvider.getInstance().takeCommand(commandEnum);
-        System.out.println("WORK   " + commandName);
+       LOGGER.info("Command :" + commandName + " work in controller");
         Router router= null;
         try {
              router = command.execute(request);

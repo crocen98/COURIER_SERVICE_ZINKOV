@@ -19,9 +19,7 @@ public abstract class AbstractDaoTest {
     @Before
     public void initDB() throws ConnectionPoolException, SQLException {
         connection = ConnectionPoolImpl.getInstance().retrieveConnection();
-        System.out.println(connection.isClosed());
             statement = connection.createStatement();
-        System.out.println("Start");
             statement.execute("CREATE TABLE   user_role ( " +
                     "  id INT NOT NULL PRIMARY KEY IDENTITY, " +
                     "  role varchar(100) NOT NULL, " +
@@ -137,6 +135,13 @@ public abstract class AbstractDaoTest {
                     "    REFERENCES  currier_capability (id) " +
                     "  ); ");
 
+            statement.execute(" CREATE TABLE  registration_keys(\n" +
+                    "    user_id INT PRIMARY KEY,\n" +
+                    "    registration_key CHAR(32) NOT NULL\n" +
+                    "  );\n");
+
+
+
     }
 
     @After
@@ -155,6 +160,7 @@ public abstract class AbstractDaoTest {
             statement.execute("DROP TABLE user;");
             statement.execute("DROP TABLE user_role;");
             statement.execute("DROP TABLE user_status;");
+            statement.execute("DROP TABLE registration_keys;");
         } finally {
             statement.close();
             connection.close();

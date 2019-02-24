@@ -6,4 +6,6 @@ import by.zinkov.victor.domain.UserRole;
 public interface UserRoleExpandedDao {
     @AutoConnection
     UserRole getByName(String name) throws DaoException;
+
+
 }

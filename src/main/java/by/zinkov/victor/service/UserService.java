@@ -19,4 +19,7 @@ public interface UserService {
 
     UserDto LogIn(String login , String password) throws ServiceException ;
 
+    UserDto getByPK(Integer id) throws ServiceException;
+
+
 }

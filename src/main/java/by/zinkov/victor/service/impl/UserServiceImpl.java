@@ -19,6 +19,7 @@ import org.apache.logging.log4j.Logger;
 public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
 
+
     @Override
     public User signUp(User user, String userRoleString) throws ServiceException {
         DaoFactory daoFactory = FactoryProducer.getDaoFactory(DaoFactoryType.JDBC);
@@ -64,6 +65,18 @@ public class UserServiceImpl implements UserService {
             return userDao.logIn(login,password);
         } catch (DaoException e) {
             throw new ServiceException("Incorrect login or password",e);
+        }
+    }
+
+
+    @Override
+    public UserDto getByPK(Integer id) throws ServiceException {
+        DaoFactory daoFactory = FactoryProducer.getDaoFactory(DaoFactoryType.JDBC);
+        try {
+            UserExpandedDao userDao = (UserExpandedDao) daoFactory.getDao(User.class);
+            return userDao.getDtoByBK(id);
+        } catch (DaoException e) {
+            throw new ServiceException("Cannot find user by id",e);
         }
     }
 }

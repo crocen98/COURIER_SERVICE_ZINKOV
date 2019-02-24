@@ -35,7 +35,7 @@ public class AjaxController extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, CommandException {
-        Command command = CommandProvider.getInstance().takeCommand(CommandEnum.REGEISTER_COMMAND);
+        Command command = CommandProvider.getInstance().takeCommand(CommandEnum.REGISTER_COMMAND);
         Router responseContent = command.execute(request);
 
         // Provide your code here

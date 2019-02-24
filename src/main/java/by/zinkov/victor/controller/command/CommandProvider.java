@@ -1,10 +1,7 @@
 package by.zinkov.victor.controller.command;
 
 import by.zinkov.victor.controller.command.exception.NoSuchCommandException;
-import by.zinkov.victor.controller.command.impl.GoPageCommand;
-import by.zinkov.victor.controller.command.impl.GoSignUpPageCommand;
-import by.zinkov.victor.controller.command.impl.LoginCommand;
-import by.zinkov.victor.controller.command.impl.SignUpCommand;
+import by.zinkov.victor.controller.command.impl.*;
 import by.zinkov.victor.controller.command.impl.administrator.AddTransportTypeCommand;
 import by.zinkov.victor.controller.command.impl.administrator.DeleteTransportTypeCommand;
 import by.zinkov.victor.controller.command.impl.administrator.EditTransportType;
@@ -31,10 +28,9 @@ public class CommandProvider {
         commandMap.put(CommandEnum.ALL_TRANSPORT_TYPES, new ShowTranspotTypesCommand());
         commandMap.put(CommandEnum.ADD_TRANSPORT_TYPE,new  AddTransportTypeCommand());
         commandMap.put(CommandEnum.CHANGE_TRANSPORT_TYPE, new EditTransportType());
-        commandMap.put(CommandEnum.REGEISTER_COMMAND,new SignUpCommand());
+        commandMap.put(CommandEnum.REGISTER_COMMAND,new SignUpCommand());
         commandMap.put(CommandEnum.LOG_IN,new LoginCommand());
-
-
+        commandMap.put(CommandEnum.ACTIVATE, new ActivateCommand());
     }
 
     /**

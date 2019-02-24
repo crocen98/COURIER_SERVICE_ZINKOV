@@ -79,6 +79,7 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory<Conne
         creators.put(CustomerReviews.class, CustomerReviewsDao::new);
         creators.put(CurrierCapability.class, CurrierCapabilityDao::new);
         creators.put(CargoType.class, CargoTypeDao::new);
+        creators.put(RegistrationKey.class, RegistrationKeyDao::new);
     }
 
     public static JdbcDaoFactory getInstance() {

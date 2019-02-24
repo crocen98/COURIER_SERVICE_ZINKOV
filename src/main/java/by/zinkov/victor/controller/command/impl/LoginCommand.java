@@ -1,6 +1,7 @@
 package by.zinkov.victor.controller.command.impl;
 
 import by.zinkov.victor.controller.command.Command;
+import by.zinkov.victor.controller.command.CommandEnum;
 import by.zinkov.victor.controller.command.Page;
 import by.zinkov.victor.controller.command.Router;
 import by.zinkov.victor.domain.UserRole;
@@ -27,24 +28,10 @@ public class LoginCommand implements Command {
             UserDto userDto = service.LogIn(login,password);
             HttpSession session = request.getSession();
             session.setAttribute("user" , userDto);
-          switch (userDto.getUserRole()){
-              case ADMINISTRATOR:
-                  router.setRoute(Page.ALL_TRANSPORT_TYPES.getRout());
-                  router.setType(Router.Type.REDIRECT);
-                  break;
-              case CLIENT:
-                  router.setRoute(Page.START_PAGE.getRout());
-              break;
-              case COURIER:
-                  router.setRoute(Page.START_PAGE.getRout());
-                  break;
-                  default:
-                      throw new UnsupportedOperationException("Congratulations!!! Your find bag");
-
-          }
+            router.setRoute(Page.START_AUTHORIZED_PAGE.getRout());
         } catch (ServiceException e) {
-            router.setRoute(Page.LOG_IN.getRout());
-            request.setAttribute("error", e.getMessage());
+            router.setRoute(CommandEnum.TO_LOG_IN_PAGE.getUrlWithError(e.getMessage()));
+            router.setType(Router.Type.REDIRECT);
         }
         return router;
     }

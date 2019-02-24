@@ -6,4 +6,7 @@ import by.zinkov.victor.dto.UserDto;
 public interface UserExpandedDao {
     @AutoConnection
     UserDto logIn(String login , String password) throws DaoException;
+
+    @AutoConnection
+    UserDto getDtoByBK(Integer id) throws DaoException;
 }

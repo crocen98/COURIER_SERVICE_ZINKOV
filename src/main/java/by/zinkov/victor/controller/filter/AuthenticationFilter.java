@@ -1,5 +1,11 @@
 package by.zinkov.victor.controller.filter;
 
+import by.zinkov.victor.controller.command.AccessLevel;
+import by.zinkov.victor.controller.command.CommandEnum;
+import by.zinkov.victor.controller.command.Page;
+import by.zinkov.victor.domain.UserRole;
+import by.zinkov.victor.dto.UserDto;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletResponse;
@@ -10,8 +16,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 
-//@WebFilter(/* Provide your code here **/)
+@WebFilter(urlPatterns = "/couriers")
 public class AuthenticationFilter implements Filter {
 
     @Override
@@ -21,11 +28,25 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest httpServletRequest = (HttpServletRequest)request;
-        HttpServletResponse httpServletResponse = (HttpServletResponse)response;
-        //Provide your code here
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+        UserDto userDto = (UserDto) httpServletRequest.getSession().getAttribute("user");
+        String command = request.getParameter("command");
+        if (command == null && userDto != null) {
+            request.getRequestDispatcher(Page.START_AUTHORIZED_PAGE.getRout()).forward(request, response);
 
-        //Don't forget to invoke this method
+        } else if (command == null) {
+            request.getRequestDispatcher(Page.START_PAGE.getRout()).forward(request, response);
+
+        } else if (userDto == null && !Arrays.stream(CommandEnum.getByName(command).
+                getLevels()).
+                anyMatch((ob) -> ob == AccessLevel.VISITOR || ob == AccessLevel.ALL)) {
+            request.getRequestDispatcher(Page.START_PAGE.getRout()).forward(request, response);
+        } else if (userDto != null && !Arrays.stream
+                (CommandEnum.getByName(command).getLevels()).
+                anyMatch((ob) -> userDto.getUserRole().toString().equals(ob.toString()) || ob == AccessLevel.ALL)) {
+            request.getRequestDispatcher(Page.START_AUTHORIZED_PAGE.getRout()).forward(request, response);
+        }
         chain.doFilter(request, response);
     }
 

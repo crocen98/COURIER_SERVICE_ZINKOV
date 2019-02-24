@@ -6,9 +6,13 @@ import by.zinkov.victor.controller.command.Router;
 import by.zinkov.victor.controller.command.exception.CommandException;
 import by.zinkov.victor.domain.User;
 import by.zinkov.victor.domain.UserStatus;
+import by.zinkov.victor.service.RegistrationKeyService;
 import by.zinkov.victor.service.ServiceFactory;
 import by.zinkov.victor.service.UserService;
 import by.zinkov.victor.service.exception.ServiceException;
+import by.zinkov.victor.service.impl.RegistrationKeyServiceImpl;
+import by.zinkov.victor.util.MailSender;
+import by.zinkov.victor.util.StringGenerator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,7 +34,7 @@ public class SignUpCommand implements Command {
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         router.setType(Router.Type.FORWARD);
-        router.setRoute(Page.START_PAGE.getRout());
+        router.setRoute(Page.ACTIVATE_PAGE.getRout());
         User user = new User();
 
         user.setUserStatus(UserStatus.WAITING_CONFIRMATION.getId());
@@ -43,19 +47,29 @@ public class SignUpCommand implements Command {
         user.setPhone(request.getParameter(PHONE_PARAMETER));
         user.setLocation(request.getParameter(COORDINATES_COMMAND));
         String role = request.getParameter(USER_ROLE_PARAMETER);
-
-
         ServiceFactory factory = new ServiceFactory();
         UserService service = factory.getUserService();
         try {
-            LOGGER.info(user + " with setted parametrs before go to service.signUp(user, role)");
-            service.signUp(user, role);
+            LOGGER.info(user + " with setted parameters before go to service.signUp(user, role)");
+            user = service.signUp(user, role);
+            StringGenerator generator = new StringGenerator();
+            String randomString = generator.generate();
+            MailSender sender = MailSender.getInstance();
+            Integer port = request.getLocalPort();
+            String url = request.getRemoteAddr() + ":" + port + request.getContextPath();
+            String activateLink = registrationLinkBuild(randomString,user.getId(),url);
+            LOGGER.info(activateLink);
+            sender.sendEmail(activateLink,user.getEmail());
+            RegistrationKeyService registrationKeyService = new RegistrationKeyServiceImpl();
+            registrationKeyService.add(user.getId() ,randomString );
 
         } catch (ServiceException e) {
-            LOGGER.info(e + "Error");
             throw new CommandException("msg", e);
         }
         return router;
+    }
 
+    private String registrationLinkBuild(String randomString ,Integer userId, String url){
+        return String.format("Hi!  your link: %s/couriers?command=activate&user_id=%d&value=%s", url,userId,randomString);
     }
 }

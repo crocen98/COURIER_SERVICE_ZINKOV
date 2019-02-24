@@ -143,4 +143,10 @@ CREATE TABLE  couriers.supported_cargo_types (
   );
 
 
+  CREATE TABLE  couriers.registration_keys(
+    user_id INT PRIMARY KEY ,
+    registration_key CHAR(32) NOT NULL
+  );
+
+
 

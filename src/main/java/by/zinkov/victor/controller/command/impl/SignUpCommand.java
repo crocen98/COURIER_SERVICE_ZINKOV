@@ -35,23 +35,24 @@ public class SignUpCommand implements Command {
         Router router = new Router();
         router.setType(Router.Type.FORWARD);
         router.setRoute(Page.ACTIVATE_PAGE.getRout());
-        User user = new User();
 
-        user.setUserStatus(UserStatus.WAITING_CONFIRMATION.getId());
 
-        user.setFirstName(request.getParameter(FIRST_NAME_PARAMETER));
-        user.setLastName(request.getParameter(LAST_NAME_PARAMETER));
-        user.setPassword(request.getParameter(PASSWORD_PARAMETER));
-        user.setLogin(request.getParameter(LOGIN_PARAMETER));
-        user.setEmail(request.getParameter(EMAIL_PARAMETER));
-        user.setPhone(request.getParameter(PHONE_PARAMETER));
-        user.setLocation(request.getParameter(COORDINATES_COMMAND));
+
+
+        String firstName = request.getParameter(FIRST_NAME_PARAMETER);
+        String lastName = request.getParameter(LAST_NAME_PARAMETER);
+        String password = request.getParameter(PASSWORD_PARAMETER);
+        String login = request.getParameter(LOGIN_PARAMETER);
+        String email = request.getParameter(EMAIL_PARAMETER);
+        String phone = request.getParameter(PHONE_PARAMETER);
+        String location = request.getParameter(COORDINATES_COMMAND);
         String role = request.getParameter(USER_ROLE_PARAMETER);
+
         ServiceFactory factory = new ServiceFactory();
         UserService service = factory.getUserService();
         try {
-            LOGGER.info(user + " with setted parameters before go to service.signUp(user, role)");
-            user = service.signUp(user, role);
+
+            User user = service.signUp(firstName,lastName,password,login,email,phone,location, role);
             StringGenerator generator = new StringGenerator();
             String randomString = generator.generate();
             MailSender sender = MailSender.getInstance();

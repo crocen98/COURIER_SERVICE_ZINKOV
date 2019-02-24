@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="UTF-8" isELIgnored="false" %>
 
 <html>
@@ -28,6 +29,11 @@
 </nav>
 
 <!-- Masthead -->
+<c:if test="${param.error != null}">
+    <div class="alert alert-danger" role="alert">
+        <strong>Oh snap!</strong> ${param.error}
+    </div>
+</c:if>
 <header class="masthead text-white text-center">
     <div class="overlay"></div>
     <div class="container">

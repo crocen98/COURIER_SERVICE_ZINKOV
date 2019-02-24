@@ -12,7 +12,8 @@ public enum CommandEnum {
     REGISTER_COMMAND("register_command", RequestMethod.POST, new AccessLevel[] { AccessLevel.VISITOR}),
     LOG_IN("log_in", RequestMethod.POST,new AccessLevel[] {AccessLevel.VISITOR} ),
     ACTIVATE("activate", RequestMethod.GET, new AccessLevel[] { AccessLevel.VISITOR}),
-    START_PAGE("start_page",RequestMethod.GET,new AccessLevel[] {AccessLevel.ALL});
+    START_PAGE("start_page",RequestMethod.GET,new AccessLevel[] {AccessLevel.ALL}),
+    LOG_OUT("log_out" , RequestMethod.GET,new AccessLevel[]{AccessLevel.ADMINISTRATOR,AccessLevel.CLIENT,AccessLevel.COURIER});
 
 
 

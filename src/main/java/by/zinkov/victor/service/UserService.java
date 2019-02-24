@@ -11,15 +11,17 @@ public interface UserService {
 
     /**
      * Sign up user
-     * @param user - User
      * @return - saved user
      * @throws ServiceException should be clarify
      */
-    User signUp(User user , String role) throws ServiceException;
+    User signUp(String firstName, String LastName, String password , String loggin, String email , String phone , String location, String userRole) throws ServiceException;
 
     UserDto LogIn(String login , String password) throws ServiceException ;
 
     UserDto getByPK(Integer id) throws ServiceException;
+    void setNewStatus(Integer id , String status) throws ServiceException;
+
+
 
 
 }

@@ -104,7 +104,7 @@
                                 <div class="form-group">
                                     <input required type="text" class="form-control form-control-user" id="location"
                                            placeholder="Location">
-                                    <input required id="сoordinatesInput" name="coordinates" type="hidden" value="">
+                                    <input required id="сoordinatesInput" name="coordinates" type="hidden" value="53.8620412579027,27.66345453515624">
                                 </div>
 
                             </div>

@@ -1,6 +1,7 @@
 package by.zinkov.victor.dao.impl;
 
 import by.zinkov.victor.dao.AbstractJdbcDao;
+import by.zinkov.victor.dao.AutoConnection;
 import by.zinkov.victor.dao.GenericDao;
 import by.zinkov.victor.dao.UserRoleExpandedDao;
 import by.zinkov.victor.dao.exception.DaoException;
@@ -17,12 +18,13 @@ public class UserRoleDao extends AbstractJdbcDao<UserRole, Integer> implements G
     private static final String SELECT_USER_ROLE_BY_PK_QUERY = "SELECT * FROM user_role WHERE id = ?";
     private static final String SELECT_USER_ROLE_BY_NAME = "SELECT * FROM user_role WHERE role = ?";
 
-
+@AutoConnection
     @Override
     public UserRole getByName(String name) throws DaoException{
         try (PreparedStatement statement = connection.prepareStatement(SELECT_USER_ROLE_BY_NAME)) {
+            statement.setString(1,name.toUpperCase());
             ResultSet set = statement.executeQuery();
-
+                set.next();
                 UserRole role = UserRole.valueOf(set.getString(2));
                 role.setId(set.getInt(1));
 

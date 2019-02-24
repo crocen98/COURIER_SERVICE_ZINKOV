@@ -29,8 +29,9 @@ public class CommandProvider {
         commandMap.put(CommandEnum.ADD_TRANSPORT_TYPE,new  AddTransportTypeCommand());
         commandMap.put(CommandEnum.CHANGE_TRANSPORT_TYPE, new EditTransportType());
         commandMap.put(CommandEnum.REGISTER_COMMAND,new SignUpCommand());
-        commandMap.put(CommandEnum.LOG_IN,new LoginCommand());
+        commandMap.put(CommandEnum.LOG_IN,new LogInCommand());
         commandMap.put(CommandEnum.ACTIVATE, new ActivateCommand());
+        commandMap.put(CommandEnum.LOG_OUT, new LogOutCommand());
     }
 
     /**

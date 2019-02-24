@@ -4,6 +4,15 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
   <display-name>сouriers_service</display-name>
+
+  <filter-mapping>
+    <filter-name>UserStatusFilter</filter-name>
+    <url-pattern>/couriers</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>AuthenticationFilter</filter-name>
+    <url-pattern>/couriers</url-pattern>
+  </filter-mapping>
   <!--<servlet>-->
     <!--<servlet-name>FrontController</servlet-name>-->
     <!--<servlet-class>by.zinkov.victor.controller.FrontController</servlet-class>-->

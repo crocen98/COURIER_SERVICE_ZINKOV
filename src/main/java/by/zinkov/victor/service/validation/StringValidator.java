@@ -8,6 +8,15 @@ public class StringValidator {
 
     private static final String INTEGER_PATTERN = "[+-]?(\\d){1,9}";
     private final Pattern integerPattern = Pattern.compile(INTEGER_PATTERN);
+    private static final String EMAIL_PATTERN = "^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$";
+    private final Pattern emailPattern = Pattern.compile(EMAIL_PATTERN);
+
+    private static final String PHONE_PATTERN = "^(\\s*)?(\\+)?([- _():=+]?\\d[- _():=+]?){10,14}(\\s*)?$";
+    private final Pattern phonePattern = Pattern.compile(PHONE_PATTERN);
+
+    private static final String COORDINATES_PATTERN = "^(-?\\d+\\.\\d+),(-?\\d+\\.\\d+)$";
+    private final Pattern coordinatesPattern = Pattern.compile(COORDINATES_PATTERN);
+
     public static final int[] POSITIVE_RANGE = new int[]{0, Integer.MAX_VALUE};
     private static final StringValidator INSTANCE = new StringValidator();
 
@@ -16,6 +25,24 @@ public class StringValidator {
     }
 
     private StringValidator() {
+    }
+
+    public void coordinatesMatches(String coordinates) throws ValidationException {
+        if (coordinates == null || !coordinatesPattern.matcher(coordinates).matches()) {
+            throw new ValidationException("Not valid coordinates!");
+        }
+    }
+
+    public void phoneMatches(String phone) throws ValidationException {
+        if (phone == null || !phonePattern.matcher(phone).matches()) {
+            throw new ValidationException("Not valid phone!");
+        }
+    }
+
+    public void emailMatches(String email) throws ValidationException {
+        if (email == null || !emailPattern.matcher(email).matches()) {
+            throw new ValidationException("Not valid email!");
+        }
     }
 
     public void simpleStingMatches(String string, int maxLength, String fieldName) throws ValidationException {

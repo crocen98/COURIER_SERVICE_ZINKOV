@@ -5,6 +5,8 @@ package by.zinkov.victor.controller.command;
  */
 public class Router {
     private String route;
+    public static final String INDEX_ROUT = "/couriers";
+    public static final String INDEX_ERROR_ROUT = "/couriers?error=";
     private Type type = Type.FORWARD;
     public enum Type {
         FORWARD, REDIRECT

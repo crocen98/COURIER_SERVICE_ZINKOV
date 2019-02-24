@@ -7,7 +7,7 @@ import by.zinkov.victor.service.validation.StringValidator;
 
 public class TransportTypeValidator implements EntityValidator<TransportType> {
     @Override
-    public void validate(TransportType entity)throws ValidationException {
+    public void validate(TransportType entity , String ... params)throws ValidationException {
 //        String type = entity.getTransportType();
 //        if(type == null || type.length() > 45 || type.trim().equals("")){
 //          throw new ValidationException("not valid type :"  + type);

@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
             user.setPassword(password);
             userDao.update(user);
             service.remove(key);
-            if(Objects.equals(key.getKey() , activateString)){
+            if(!Objects.equals(key.getKey() , activateString)){
                 throw new ServiceException("Secure problems! Key does not belong your!");
             }
         } catch (ValidationException | DaoException e) {

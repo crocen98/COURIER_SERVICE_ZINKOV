@@ -29,14 +29,31 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
             "login = ? , password = ? , first_name = ? , last_name = ? , email = ? , phone = ? , status_id = ? , role_id = ? , location = ?" +
             "WHERE id = ?";
 
+    private static final String SELECT_USER_BY_LOGIN = "SELECT * FROM user WHERE user.login = ?";
+
+
     private static final String DELETE_USER_QUERY = "DELETE FROM user WHERE id = ?";
     private static final String SELECT_USER_DTO_BY_LOGIN_AND_PASSWORD = "SELECT * FROM user JOIN user_role ON user.role_id = user_role.id JOIN user_status ON user.status_id = user_status.id WHERE user.login = ? AND user.password = ?";
 
 
     @Override
-    public UserDto getDtoByBK(Integer id) throws DaoException {
+    public UserDto getDtoByPK(Integer id) throws DaoException {
         User user = getByPK(id);
         return logIn(user.getLogin(),user.getPassword());
+    }
+
+
+    @Override
+    public User getByLogin(String login) throws DaoException {
+        try (PreparedStatement statement = this.connection.prepareStatement(SELECT_USER_BY_LOGIN)) {
+            statement.setString(1, login);
+            ResultSet resultSet = statement.executeQuery();
+            List<User> list = parseResultSet(resultSet);
+            return !list.isEmpty() ? list.get(0) : null;
+
+        } catch (SQLException e) {
+            throw new DaoException("Problem with select", e);
+        }
     }
 
     @Override

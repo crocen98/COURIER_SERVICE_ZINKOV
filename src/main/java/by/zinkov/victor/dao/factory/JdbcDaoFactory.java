@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Jdbc DAO Factory
@@ -35,7 +34,6 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory<Conne
             ConnectionPool connectionPool = ConnectionPoolFactory.getInstance().getConnectionPool();
             Connection connection = connectionPool.retrieveConnection();
 
-            //RequestMethod[] methods =
             List<Method> methods = Arrays.stream(proxy.getClass().getInterfaces()).
                     flatMap((inter)->Arrays.
                             stream(inter.getMethods())).

@@ -4,13 +4,11 @@ import by.zinkov.victor.dao.AbstractJdbcDao;
 import by.zinkov.victor.dao.AutoConnection;
 import by.zinkov.victor.dao.GenericDao;
 import by.zinkov.victor.dao.exception.DaoException;
-import by.zinkov.victor.dao.factory.JdbcDaoFactory;
 import by.zinkov.victor.domain.RegistrationKey;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +37,7 @@ public class RegistrationKeyDao extends AbstractJdbcDao<RegistrationKey, Integer
         while (rs.next()) {
             RegistrationKey registrationKey = new RegistrationKey();
             registrationKey.setId(rs.getInt(i++));
-            registrationKey.setKey(rs.getString(i++));
+            registrationKey.setKey(rs.getString(i));
             registrationKeys.add(registrationKey);
             i = 1;
         }
@@ -50,7 +48,7 @@ public class RegistrationKeyDao extends AbstractJdbcDao<RegistrationKey, Integer
     protected void prepareStatementForInsert(PreparedStatement statement, RegistrationKey object) throws SQLException {
         int i = 1;
         statement.setInt(i++,object.getId());
-        statement.setString(i++,object.getKey());
+        statement.setString(i,object.getKey());
     }
 
     @Override

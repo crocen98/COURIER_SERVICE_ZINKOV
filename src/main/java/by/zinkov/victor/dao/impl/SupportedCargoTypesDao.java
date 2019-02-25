@@ -2,11 +2,8 @@ package by.zinkov.victor.dao.impl;
 
 import by.zinkov.victor.dao.AbstractJdbcDao;
 import by.zinkov.victor.dao.GenericDao;
-import by.zinkov.victor.dao.exception.PersistException;
-import by.zinkov.victor.domain.OrderStatus;
 import by.zinkov.victor.domain.SupportedCargoTypes;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +17,7 @@ public class SupportedCargoTypesDao extends AbstractJdbcDao<SupportedCargoTypes,
     private static final String INSERT_NEW_SUPPORTED_CARO_TYPE_QUERY =
             "INSERT INTO supported_cargo_types ( type_id , currier_capability_id) " +
                     "VALUES ( ? , ?  )";
-    private static final String UPDATE__SUPPORTED_CARO_TYPES_QUERY = "UPDATE supported_cargo_types SET " +
+    private static final String UPDATE_SUPPORTED_CARO_TYPES_QUERY = "UPDATE supported_cargo_types SET " +
             "type_id = ? , currier_capability_id = ?";
 
     private static final String DELETE_SUPPORTED_CARO_TYPES_QUERY = "DELETE FROM supported_cargo_types WHERE id = ?";
@@ -33,7 +30,7 @@ public class SupportedCargoTypesDao extends AbstractJdbcDao<SupportedCargoTypes,
                 SupportedCargoTypes cargoTypes = new SupportedCargoTypes();
                 cargoTypes.setId(rs.getInt(i++));
                 cargoTypes.setTypeId( rs.getInt(i++));
-                cargoTypes.setCurrierCapabilityId( rs.getInt(i++));
+                cargoTypes.setCurrierCapabilityId( rs.getInt(i));
                 supportedCargoTypes.add(cargoTypes);
                 i = 1;
             }
@@ -67,7 +64,7 @@ public class SupportedCargoTypesDao extends AbstractJdbcDao<SupportedCargoTypes,
 
     @Override
     public String getUpdateQuery() {
-        return UPDATE__SUPPORTED_CARO_TYPES_QUERY;
+        return UPDATE_SUPPORTED_CARO_TYPES_QUERY;
     }
 
     @Override

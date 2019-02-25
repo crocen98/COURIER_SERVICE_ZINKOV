@@ -35,13 +35,13 @@ public class OrderDaoTest extends AbstractDaoTest {
 
         GenericDao<Order,Integer> orderDao = JdbcDaoFactory.getInstance().getDao(Order.class);
         Order order = new Order();
-        order.setFinish_time(new Timestamp(66666653255555L));
-        order.setExpected_time(new Timestamp(66666653259999L));
-        order.setStart_time(new Timestamp(6666665323000L));
+        order.setFinishTime(new Timestamp(66666653255555L));
+        order.setExpectedTime(new Timestamp(66666653259999L));
+        order.setStartTime(new Timestamp(6666665323000L));
         order.setDescription(" aaa bbb ccc");
-        order.setFinish_point("point B");
-        order.setStart_point("Point A");
-        order.setId_status(1);
+        order.setFinishPoint("point B");
+        order.setStartPoint("Point A");
+        order.setIdStatus(1);
         order.setPrice(new BigDecimal(12.4));
         order.setIdCourier(0);
         order.setIdCustomer(0);
@@ -76,13 +76,13 @@ public class OrderDaoTest extends AbstractDaoTest {
 
         GenericDao<Order,Integer>  orderDao = JdbcDaoFactory.getInstance().getDao(Order.class);
         Order order = new Order();
-        order.setFinish_time(new Timestamp(66666653255555L));
-        order.setExpected_time(new Timestamp(66666653259999L));
-        order.setStart_time(new Timestamp(6666665323000L));
+        order.setFinishTime(new Timestamp(66666653255555L));
+        order.setExpectedTime(new Timestamp(66666653259999L));
+        order.setStartTime(new Timestamp(6666665323000L));
         order.setDescription(" aaa bbb ccc");
-        order.setFinish_point("point B");
-        order.setStart_point("Point A");
-        order.setId_status(1);
+        order.setFinishPoint("point B");
+        order.setStartPoint("Point A");
+        order.setIdStatus(1);
         order.setPrice(new BigDecimal(12.40).round(new MathContext(2)));
         order.setIdCourier(0);
         order.setIdCustomer(0);
@@ -122,25 +122,25 @@ public class OrderDaoTest extends AbstractDaoTest {
 
         GenericDao<Order,Integer>  orderDao = JdbcDaoFactory.getInstance().getDao(Order.class);
         Order orderOne = new Order();
-        orderOne.setFinish_time(new Timestamp(66666653255555L));
-        orderOne.setExpected_time(new Timestamp(66666653259999L));
-        orderOne.setStart_time(new Timestamp(6666665323000L));
+        orderOne.setFinishTime(new Timestamp(66666653255555L));
+        orderOne.setExpectedTime(new Timestamp(66666653259999L));
+        orderOne.setStartTime(new Timestamp(6666665323000L));
         orderOne.setDescription(" aaa bbb ccc");
-        orderOne.setFinish_point("point B");
-        orderOne.setStart_point("Point A");
-        orderOne.setId_status(1);
+        orderOne.setFinishPoint("point B");
+        orderOne.setStartPoint("Point A");
+        orderOne.setIdStatus(1);
         orderOne.setPrice(new BigDecimal(12.4000).round(new MathContext(4)));
         orderOne.setIdCourier(0);
         orderOne.setIdCustomer(0);
 
         Order orderTwo = new Order();
-        orderTwo.setFinish_time(new Timestamp(66666653255555L));
-        orderTwo.setExpected_time(new Timestamp(66666653259999L));
-        orderTwo.setStart_time(new Timestamp(6666665323000L));
+        orderTwo.setFinishTime(new Timestamp(66666653255555L));
+        orderTwo.setExpectedTime(new Timestamp(66666653259999L));
+        orderTwo.setStartTime(new Timestamp(6666665323000L));
         orderTwo.setDescription(" aaa bbb ccc");
-        orderTwo.setFinish_point("point B");
-        orderTwo.setStart_point("Point A");
-        orderTwo.setId_status(1);
+        orderTwo.setFinishPoint("point B");
+        orderTwo.setStartPoint("Point A");
+        orderTwo.setIdStatus(1);
         orderTwo.setPrice(new BigDecimal(12.4000).round(new MathContext(4)));
         orderTwo.setIdCourier(1);
         orderTwo.setIdCustomer(1);

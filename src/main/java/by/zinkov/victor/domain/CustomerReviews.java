@@ -9,7 +9,7 @@ public class CustomerReviews implements Identified<Integer>, Serializable {
         private Integer id;
         private Integer customerId;
         private Integer courierId;
-        private byte mark;
+        private Byte mark;
 
     @Override
     public Integer getId() {
@@ -57,10 +57,10 @@ public class CustomerReviews implements Identified<Integer>, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CustomerReviews that = (CustomerReviews) o;
-        return mark == that.mark &&
-                Objects.equals(id, that.id) &&
+        return Objects.equals(id, that.id) &&
                 Objects.equals(customerId, that.customerId) &&
-                Objects.equals(courierId, that.courierId);
+                Objects.equals(courierId, that.courierId) &&
+                Objects.equals(mark, that.mark);
     }
 
     @Override

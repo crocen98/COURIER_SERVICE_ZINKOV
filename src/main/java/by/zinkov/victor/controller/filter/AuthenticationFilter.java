@@ -4,7 +4,6 @@ import by.zinkov.victor.controller.command.AccessLevel;
 import by.zinkov.victor.controller.command.CommandEnum;
 import by.zinkov.victor.controller.command.Page;
 import by.zinkov.victor.controller.command.Router;
-import by.zinkov.victor.domain.UserRole;
 import by.zinkov.victor.domain.UserStatus;
 import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.UserService;
@@ -27,7 +26,7 @@ import java.util.Arrays;
 public class AuthenticationFilter implements Filter {
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig)   {
 
     }
 
@@ -42,12 +41,12 @@ public class AuthenticationFilter implements Filter {
                 UserDto userFromDb = service.getByPK(userDto.getId());
                 if(userFromDb.getUserStatus() == UserStatus.WAITING_CONFIRMATION){
                     httpServletResponse.sendRedirect(Router.INDEX_ERROR_ROUT + "WAITING_CONFIRMATION");
+                    httpServletRequest.getSession().setAttribute("user", null);
                 } else if(userFromDb.getUserStatus() == UserStatus.BLOCKED){
                     httpServletResponse.sendRedirect(Router.INDEX_ERROR_ROUT + "BLOCKED");
+                    httpServletRequest.getSession().setAttribute("user", null);
                 }
 
-                httpServletRequest.getSession().setAttribute("user", null);
-                return;
             } catch (ServiceException e) {
                 throw new IllegalStateException("Illegal state of program! Problem in UserService",e);
             }
@@ -58,13 +57,13 @@ public class AuthenticationFilter implements Filter {
         } else if (command == null) {
             request.getRequestDispatcher(Page.START_PAGE.getRout()).forward(request, response);
 
-        } else if (userDto == null && !Arrays.stream(CommandEnum.getByName(command).
+        } else if (userDto == null && Arrays.stream(CommandEnum.getByName(command).
                 getLevels()).
-                anyMatch((ob) -> ob == AccessLevel.VISITOR || ob == AccessLevel.ALL)) {
+                noneMatch((ob) -> ob == AccessLevel.VISITOR || ob == AccessLevel.ALL)) {
             request.getRequestDispatcher(Page.START_PAGE.getRout()).forward(request, response);
-        } else if (userDto != null && !Arrays.stream
+        } else if (userDto != null && Arrays.stream
                 (CommandEnum.getByName(command).getLevels()).
-                anyMatch((ob) -> userDto.getUserRole().toString().equals(ob.toString()) || ob == AccessLevel.ALL)) {
+                noneMatch((ob) -> userDto.getUserRole().toString().equals(ob.toString()) || ob == AccessLevel.ALL)) {
             request.getRequestDispatcher(Page.START_AUTHORIZED_PAGE.getRout()).forward(request, response);
         }
         chain.doFilter(request, response);

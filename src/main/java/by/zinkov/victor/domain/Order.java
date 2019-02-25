@@ -9,16 +9,16 @@ import java.util.Objects;
 
 public class Order implements Identified<Integer>, Serializable {
     private Integer id;
-    private int idCourier;
-    private int idCustomer;
+    private Integer idCourier;
+    private Integer idCustomer;
     private BigDecimal price;
-    private int id_status;
-    private String start_point;
-    private String finish_point;
+    private Integer idStatus;
+    private String startPoint;
+    private String finishPoint;
     private String description;
-    private Date start_time;
-    private Date finish_time;
-    private Date expected_time;
+    private Date startTime;
+    private Date finishTime;
+    private Date expectedTime;
     @Override
     public Integer getId() {
         return id;
@@ -54,28 +54,28 @@ public class Order implements Identified<Integer>, Serializable {
 
 
 
-    public int getId_status() {
-        return id_status;
+    public int getIdStatus() {
+        return idStatus;
     }
 
-    public void setId_status(int id_status) {
-        this.id_status = id_status;
+    public void setIdStatus(int idStatus) {
+        this.idStatus = idStatus;
     }
 
-    public String getStart_point() {
-        return start_point;
+    public String getStartPoint() {
+        return startPoint;
     }
 
-    public void setStart_point(String start_point) {
-        this.start_point = start_point;
+    public void setStartPoint(String startPoint) {
+        this.startPoint = startPoint;
     }
 
-    public String getFinish_point() {
-        return finish_point;
+    public String getFinishPoint() {
+        return finishPoint;
     }
 
-    public void setFinish_point(String finish_point) {
-        this.finish_point = finish_point;
+    public void setFinishPoint(String finishPoint) {
+        this.finishPoint = finishPoint;
     }
 
     public String getDescription() {
@@ -86,28 +86,28 @@ public class Order implements Identified<Integer>, Serializable {
         this.description = description;
     }
 
-    public Date getStart_time() {
-        return start_time;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setStart_time(Date start_time) {
-        this.start_time = start_time;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
-    public Date getFinish_time() {
-        return finish_time;
+    public Date getFinishTime() {
+        return finishTime;
     }
 
-    public void setFinish_time(Date finish_time) {
-        this.finish_time = finish_time;
+    public void setFinishTime(Date finishTime) {
+        this.finishTime = finishTime;
     }
 
-    public Date getExpected_time() {
-        return expected_time;
+    public Date getExpectedTime() {
+        return expectedTime;
     }
 
-    public void setExpected_time(Date expected_time) {
-        this.expected_time = expected_time;
+    public void setExpectedTime(Date expectedTime) {
+        this.expectedTime = expectedTime;
     }
 
 
@@ -118,13 +118,13 @@ public class Order implements Identified<Integer>, Serializable {
                 ", idCourier=" + idCourier +
                 ", idCustomer=" + idCustomer +
                 ", price=" + price +
-                ", id_status=" + id_status +
-                ", start_point='" + start_point + '\'' +
-                ", finish_point='" + finish_point + '\'' +
+                ", idStatus=" + idStatus +
+                ", startPoint='" + startPoint + '\'' +
+                ", finishPoint='" + finishPoint + '\'' +
                 ", description='" + description + '\'' +
-                ", start_time=" + start_time +
-                ", finish_time=" + finish_time +
-                ", expected_time=" + expected_time +
+                ", startTime=" + startTime +
+                ", finishTime=" + finishTime +
+                ", expectedTime=" + expectedTime +
                 '}';
     }
 
@@ -135,19 +135,19 @@ public class Order implements Identified<Integer>, Serializable {
         Order order = (Order) o;
         return idCourier == order.idCourier &&
                 idCustomer == order.idCustomer &&
-                id_status == order.id_status &&
+                idStatus == order.idStatus &&
                 Objects.equals(id, order.id) &&
                 Objects.equals(price, order.price) &&
-                Objects.equals(start_point, order.start_point) &&
-                Objects.equals(finish_point, order.finish_point) &&
+                Objects.equals(startPoint, order.startPoint) &&
+                Objects.equals(finishPoint, order.finishPoint) &&
                 Objects.equals(description, order.description) &&
-                Objects.equals(start_time, order.start_time) &&
-                Objects.equals(finish_time, order.finish_time) &&
-                Objects.equals(expected_time, order.expected_time);
+                Objects.equals(startTime, order.startTime) &&
+                Objects.equals(finishTime, order.finishTime) &&
+                Objects.equals(expectedTime, order.expectedTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idCourier, idCustomer, price, id_status, start_point, finish_point, description, start_time, finish_time, expected_time);
+        return Objects.hash(id, idCourier, idCustomer, price, idStatus, startPoint, finishPoint, description, startTime, finishTime, expectedTime);
     }
 }

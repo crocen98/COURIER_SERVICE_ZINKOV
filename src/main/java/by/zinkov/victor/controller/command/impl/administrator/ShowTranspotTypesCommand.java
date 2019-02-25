@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class ShowTranspotTypesCommand implements Command {
-    private static final String LIST_TRANSPORT_TYPES_PARAMETER = "transport_types";
+    private static final String LIST_TRANSPORT_TYPES_ATTRIBUTE = "transport_types";
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
@@ -23,7 +23,7 @@ public class ShowTranspotTypesCommand implements Command {
             Router router = new Router();
             router.setType(Router.Type.FORWARD);
             List<TransportType> transportTypes = service.getAllTransportTypes();
-            request.setAttribute(LIST_TRANSPORT_TYPES_PARAMETER , transportTypes);
+            request.setAttribute(LIST_TRANSPORT_TYPES_ATTRIBUTE, transportTypes);
             router.setRoute(Page.ALL_TRANSPORT_TYPES.getRout());
             return router;
         } catch (ServiceException e) {

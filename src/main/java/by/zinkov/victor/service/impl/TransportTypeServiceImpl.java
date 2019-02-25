@@ -60,7 +60,6 @@ public class TransportTypeServiceImpl implements TransportTypeService {
         DaoFactory daoFactory = JdbcDaoFactory.getInstance();
         try {
             StringValidator stringValidator = StringValidator.getInstance();
-            System.out.println(id + " id");
             stringValidator.isMatchesInt(id, StringValidator.POSITIVE_RANGE);
             Integer transportId = Integer.valueOf(id);
 
@@ -76,8 +75,6 @@ public class TransportTypeServiceImpl implements TransportTypeService {
         } catch (DaoException e) {
             throw new ServiceException("Problem with edit transport with bane: " + name, e);
         } catch (ValidationException e) {
-            System.out.println(id + " validation ex id");
-
             throw new ServiceException("problem with validation", e);
         }
     }

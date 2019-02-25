@@ -1,10 +1,9 @@
 package by.zinkov.victor.controller.command.impl;
 
 import by.zinkov.victor.controller.command.Command;
-import by.zinkov.victor.controller.command.CommandEnum;
-import by.zinkov.victor.controller.command.Page;
+
 import by.zinkov.victor.controller.command.Router;
-import by.zinkov.victor.domain.UserRole;
+import by.zinkov.victor.controller.command.exception.CommandException;
 import by.zinkov.victor.domain.UserStatus;
 import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.UserService;
@@ -16,15 +15,15 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class LogInCommand implements Command {
-    private static final Logger LOGGER = LogManager.getLogger(LogInCommand.class);
+public class LogInUserCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(LogInUserCommand.class);
 
     private static final String LOGIN_PARAMETER = "login";
     private static final String PASSWORD_PARAMETER = "password";
     private static final String USER_ATTRIBUTE = "user";
 
     @Override
-    public Router execute(HttpServletRequest request) {
+    public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         router.setType(Router.Type.REDIRECT);
 
@@ -33,6 +32,7 @@ public class LogInCommand implements Command {
 
         UserService service = new UserServiceImpl();
         try {
+            Thread.sleep(400);
             UserDto userDto = service.LogIn(login,password);
             HttpSession session = request.getSession();
             session.setAttribute(USER_ATTRIBUTE , userDto);
@@ -46,7 +46,10 @@ public class LogInCommand implements Command {
            }
         } catch (ServiceException e) {
             LOGGER.error(e);
-            router.setRoute(Router.INDEX_ERROR_ROUT + " Service error");
+            router.setRoute(Router.INDEX_ERROR_ROUT + "Authorization problem");
+        } catch (InterruptedException e) {
+            LOGGER.error(e);
+            throw new CommandException("Problem with pause!",e);
         }
         return router;
     }

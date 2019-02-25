@@ -1,6 +1,5 @@
 package by.zinkov.victor.controller.command.impl.administrator;
 
-import by.zinkov.victor.controller.FrontController;
 import by.zinkov.victor.controller.command.Command;
 import by.zinkov.victor.controller.command.CommandEnum;
 import by.zinkov.victor.controller.command.Router;

@@ -1,7 +1,6 @@
 package by.zinkov.victor.controller.command;
 
 import by.zinkov.victor.controller.command.exception.CommandException;
-import by.zinkov.victor.dto.ResponseContent;
 
 import javax.servlet.http.HttpServletRequest;
 

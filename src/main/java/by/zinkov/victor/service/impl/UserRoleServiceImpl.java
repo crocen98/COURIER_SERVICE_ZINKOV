@@ -2,7 +2,6 @@ package by.zinkov.victor.service.impl;
 
 import by.zinkov.victor.dao.DaoFactory;
 import by.zinkov.victor.dao.GenericDao;
-import by.zinkov.victor.dao.UserRoleDaoExpanded;
 import by.zinkov.victor.dao.UserRoleExpandedDao;
 import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.dao.factory.JdbcDaoFactory;

@@ -35,7 +35,11 @@
     }
 </style>
 <div class="container">
-
+    <c:if test="${param.error != null}">
+        <div class="alert alert-danger" role="alert">
+            <strong>Oh snap!</strong> ${param.error}
+        </div>
+    </c:if>
     <div class="card o-hidden border-0 shadow-lg my-5">
         <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
@@ -102,9 +106,9 @@
                             </div>
                             <div class="form-group">
                                 <div class="form-group">
-                                    <input required type="text" class="form-control form-control-user" id="location"
+                                    <input required type="text" class="form-control form-control-user" disabled id="coordinates"
                                            placeholder="Location">
-                                    <input required id="сoordinatesInput" name="coordinates" type="hidden" value="53.8620412579027,27.66345453515624">
+                                    <input required id="сoordinatesInput" name="location" type="hidden" value="53.8620412579027,27.66345453515624">
                                 </div>
 
                             </div>
@@ -114,10 +118,10 @@
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="forgot-password.html">Forgot Password?</a>
+                            <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=to_password_recovery_page">Forgot Password?</a>
                         </div>
                         <div class="text-center">
-                            <a class="small" href="login.html">Already have an account? Login!</a>
+                            <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=to_log_in_page">Already have an account? Login!</a>
                         </div>
                     </div>
                 </div>
@@ -143,7 +147,7 @@
     var globalCord;
     var cordName;
     var isInputAction = false;
-    document.getElementById("location").addEventListener("input", inputCordForm);
+    document.getElementById("coordinates").addEventListener("input", inputCordForm);
 
     function inputCordForm(event) {
         isInputAction = true;
@@ -290,7 +294,7 @@
                         });
 
                     console.log(myPlacemark.properties._data.balloonContent);
-                    document.getElementById("location").value = myPlacemark.properties._data.balloonContent;
+                    document.getElementById("coordinates").value = myPlacemark.properties._data.balloonContent;
                     document.getElementById("сoordinatesInput").value = coords;
                 });
             }

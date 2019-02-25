@@ -7,8 +7,4 @@ public final class StringGenerator {
         String randomString = UUID.randomUUID().toString();
         return randomString.replace("-","");
     }
-
-    public static void main(String[] args) {
-        StringGenerator generator = new StringGenerator();
-    }
 }

@@ -7,8 +7,8 @@ import java.util.Objects;
 
 public class CurrierCapability  implements Identified<Integer>, Serializable {
     private Integer id;
-    private int currierId;
-    private int transportId;
+    private Integer currierId;
+    private Integer transportId;
     private boolean isWork;
 
 
@@ -63,10 +63,10 @@ public class CurrierCapability  implements Identified<Integer>, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CurrierCapability that = (CurrierCapability) o;
-        return currierId == that.currierId &&
-                transportId == that.transportId &&
-                isWork == that.isWork &&
-                Objects.equals(id, that.id);
+        return isWork == that.isWork &&
+                Objects.equals(id, that.id) &&
+                Objects.equals(currierId, that.currierId) &&
+                Objects.equals(transportId, that.transportId);
     }
 
     @Override

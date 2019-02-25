@@ -1,9 +1,6 @@
 package by.zinkov.victor.controller.command.impl;
 
-import by.zinkov.victor.controller.FrontController;
 import by.zinkov.victor.controller.command.Command;
-import by.zinkov.victor.controller.command.CommandEnum;
-import by.zinkov.victor.controller.command.Page;
 import by.zinkov.victor.controller.command.Router;
 import by.zinkov.victor.controller.command.exception.CommandException;
 import by.zinkov.victor.domain.RegistrationKey;

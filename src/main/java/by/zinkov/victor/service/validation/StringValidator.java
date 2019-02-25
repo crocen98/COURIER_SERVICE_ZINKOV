@@ -46,7 +46,7 @@ public class StringValidator {
     }
 
     public void simpleStingMatches(String string, int maxLength, String fieldName) throws ValidationException {
-        if (string == null || string.length() > 45 || string.trim().equals("")) {
+        if (string == null || string.length() > maxLength || string.trim().equals("")) {
             throw new ValidationException("not valid " + fieldName + " :" + string);
         }
     }
@@ -58,7 +58,7 @@ public class StringValidator {
         boolean isMatches;
         isMatches = integerPattern.matcher(stringInt).matches();
         if (isMatches) {
-            int number = Integer.valueOf(stringInt);
+            int number = Integer.parseInt(stringInt);
             if (range == null || range.length != 2) {
                 throw new IllegalArgumentException("Array length should be equals 2, but it equals");
             }

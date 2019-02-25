@@ -1,6 +1,7 @@
 package by.zinkov.victor.dao;
 
 import by.zinkov.victor.dao.exception.DaoException;
+import by.zinkov.victor.domain.User;
 import by.zinkov.victor.dto.UserDto;
 
 public interface UserExpandedDao {
@@ -8,5 +9,9 @@ public interface UserExpandedDao {
     UserDto logIn(String login , String password) throws DaoException;
 
     @AutoConnection
-    UserDto getDtoByBK(Integer id) throws DaoException;
+    UserDto getDtoByPK(Integer id) throws DaoException;
+
+
+    @AutoConnection
+    User getByLogin(String login) throws  DaoException;
 }

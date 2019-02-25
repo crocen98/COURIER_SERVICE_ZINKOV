@@ -24,7 +24,7 @@ public class TransportTypeDao extends AbstractJdbcDao<TransportType, Integer> im
             while (rs.next()) {
                 TransportType transportType = new TransportType();
                 transportType.setId(rs.getInt(i++));
-                transportType.setTransportType(rs.getString(i++));
+                transportType.setTransportType(rs.getString(i));
                 transportTypes.add(transportType);
                 i=1;
             }
@@ -35,7 +35,7 @@ public class TransportTypeDao extends AbstractJdbcDao<TransportType, Integer> im
             int i = 1;
             statement.setString(i++,object.getTransportType());
             if(object.getId() != null){
-                statement.setInt(i++, object.getId());
+                statement.setInt(i, object.getId());
             }
     }
 

@@ -12,8 +12,9 @@ public class LogOutCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-        router.setType(Router.Type.REDIRECT);
-        router.setRoute(Router.INDEX_ROUT);
+
+        router.setType(Router.Type.FORWARD);
+        router.setRoute("index.jsp");
         HttpSession session = request.getSession();
         session.setAttribute(SESSION_ATTRIBUTE, null);
         return router;

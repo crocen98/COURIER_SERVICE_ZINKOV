@@ -52,15 +52,23 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Restore password!</h1>
                                 </div>
-                                <form class="user" action="${pageContext.request.contextPath}/couriers?command=log_in" method="POST">
+                                <form class="user" action="${pageContext.request.contextPath}/couriers?command=send_restore_token" method="POST">
                                     <div class="form-group">
-                                        <input required type="text" pattern="(\w|\d|-){1,35}" class="form-control form-control-user" name="login" value="testUser"  placeholder="Enter login ...">
+                                        <input required type="text" pattern="(\w|\d|-){1,35}" class="form-control form-control-user" name="login"   placeholder="Enter login ...">
                                     </div>
 
                                     <div class="form-group">
-                                        <input  required type="password" pattern="(\w|\d|-){1,35}" class="form-control form-control-user"  value="111" name="password" placeholder="Password">
+                                        <input required type="email" class="form-control form-control-user" name="email"
+                                               placeholder="Email Address">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input required type="phone"
+                                               pattern="^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$"
+                                               class="form-control form-control-user" name="phone"
+                                               placeholder="Phone">
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
@@ -69,18 +77,12 @@
                                         </div>
                                     </div>
                                     <button  class="btn btn-primary btn-user btn-block">
-                                        Login
+                                        Restore
                                     </button>
-                                    <%--<a href="index.html" class="btn btn-google btn-user btn-block">--%>
-                                    <%--<i class="fab fa-google fa-fw"></i> Login with Google--%>
-                                    <%--</a>--%>
-                                    <%--<a href="index.html" class="btn btn-facebook btn-user btn-block">--%>
-                                    <%--<i class="fab fa-facebook-f fa-fw"></i> Login with Facebook--%>
-                                    <%--</a>--%>
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=to_password_recovery_page">Forgot Password?</a>
+                                    <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=to_log_in_page">Already have an account? Login!</a>
                                 </div>
                                 <div class="text-center">
                                     <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=sign_up">Create an Account!</a>

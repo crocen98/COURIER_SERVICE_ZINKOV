@@ -7,7 +7,9 @@ public enum Page {
     ALL_TRANSPORT_TYPES("/WEB-INF/pages/all_transport_types.jsp"),
     START_PAGE("/WEB-INF/pages/main.jsp"),
     ACTIVATE_PAGE("/WEB-INF/pages/activate.jsp"),
-    START_AUTHORIZED_PAGE("/WEB-INF/pages/client_main.jsp");;
+    FORGOT_PASSWORD("/WEB-INF/pages/forgot_password.jsp"),
+    START_AUTHORIZED_PAGE("/WEB-INF/pages/client_main.jsp"),
+    CHANGE_PASSWORD("/WEB-INF/pages/change_password.jsp");
 
 
 

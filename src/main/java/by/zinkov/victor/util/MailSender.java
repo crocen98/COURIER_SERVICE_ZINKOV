@@ -1,6 +1,7 @@
 package by.zinkov.victor.util;
 
 import by.zinkov.victor.dao.exception.ConnectionException;
+import by.zinkov.victor.service.exception.ServiceException;
 
 
 import javax.mail.Message;
@@ -9,7 +10,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -31,7 +31,7 @@ public class MailSender {
         }
     }
 
-    public void sendEmail(String text , String email){
+    public void sendEmail(String text , String email) throws ServiceException {
         MimeMessage message = new MimeMessage(session);
         try {
             message.setFrom(new InternetAddress("courier.ervice@gmail.com"));
@@ -44,13 +44,8 @@ public class MailSender {
             transport.sendMessage(message,message.getAllRecipients());
             transport.close();
         } catch (MessagingException e) {
-            e.printStackTrace();
+            throw new ServiceException("Cannot send email");
         }
     }
 
-    public static void main(String[] args) {
-        MailSender sender = MailSender.getInstance();
-
-        sender.sendEmail("HI ITS ME!", "szzz2008@icloud.com");
-    }
 }

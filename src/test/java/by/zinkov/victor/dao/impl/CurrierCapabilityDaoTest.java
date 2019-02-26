@@ -114,7 +114,7 @@ public class CurrierCapabilityDaoTest extends AbstractDaoTest {
         user.setPhone("+35291052630");
         user.setUserStatus(1);
         user.setUserRoleId(2);
-        user.setPassword("122234234512223423451222342345122234234545555");
+        user.setPassword("122234234512223423451222342122234234545555");
         userDao.persist(user);
 
         GenericDao<TransportType,Integer> transportTypeDao = JdbcDaoFactory.getInstance().getDao(TransportType.class);

@@ -19,6 +19,8 @@ import by.zinkov.victor.util.MailSender;
 import by.zinkov.victor.util.StringGenerator;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Objects;
 
 /**
@@ -67,7 +69,12 @@ public class UserServiceImpl implements UserService {
         String randomString = generator.generate();
         MailSender sender = MailSender.getInstance();
         Integer port = request.getLocalPort();
-        String url = request.getRemoteAddr() + ":" + port + request.getContextPath();
+        String url;
+        try {
+            url = InetAddress.getLocalHost() + ":" + port + request.getContextPath();
+        } catch (UnknownHostException e) {
+            throw new ServiceException(e);
+        }
         String activateLink = restoreLinkBuild(randomString, user.getId(), url);
         sender.sendEmail(activateLink, user.getEmail());
         RegistrationKeyService registrationKeyService = new RegistrationKeyServiceImpl();

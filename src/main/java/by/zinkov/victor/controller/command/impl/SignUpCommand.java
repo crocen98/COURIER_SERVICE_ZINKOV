@@ -19,6 +19,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class SignUpCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(SignUpCommand.class);
@@ -55,7 +57,12 @@ public class SignUpCommand implements Command {
         String randomString = generator.generate();
         MailSender sender = MailSender.getInstance();
         Integer port = request.getLocalPort();
-        String url = request.getRemoteAddr() + ":" + port + request.getContextPath();
+        String url = null;
+        try {
+            url = InetAddress.getLocalHost() + ":" + port + request.getContextPath();
+        } catch (UnknownHostException e) {
+            throw new ServiceException(e);
+        }
         String activateLink = registrationLinkBuild(randomString, user.getId(), url);
         LOGGER.info(activateLink);
         sender.sendEmail(activateLink, user.getEmail());

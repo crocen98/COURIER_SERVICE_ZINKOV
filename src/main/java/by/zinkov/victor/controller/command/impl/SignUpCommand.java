@@ -57,12 +57,8 @@ public class SignUpCommand implements Command {
         String randomString = generator.generate();
         MailSender sender = MailSender.getInstance();
         Integer port = request.getLocalPort();
-        String url = null;
-        try {
-            url = InetAddress.getLocalHost() + ":" + port + request.getContextPath();
-        } catch (UnknownHostException e) {
-            throw new ServiceException(e);
-        }
+        String url;
+        url = "http://207.154.220.222" + ":" + port + request.getContextPath();
         String activateLink = registrationLinkBuild(randomString, user.getId(), url);
         LOGGER.info(activateLink);
         sender.sendEmail(activateLink, user.getEmail());

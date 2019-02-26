@@ -70,11 +70,7 @@ public class UserServiceImpl implements UserService {
         MailSender sender = MailSender.getInstance();
         Integer port = request.getLocalPort();
         String url;
-        try {
-            url = InetAddress.getLocalHost() + ":" + port + request.getContextPath();
-        } catch (UnknownHostException e) {
-            throw new ServiceException(e);
-        }
+        url = "http://207.154.220.222" + ":" + port + request.getContextPath();
         String activateLink = restoreLinkBuild(randomString, user.getId(), url);
         sender.sendEmail(activateLink, user.getEmail());
         RegistrationKeyService registrationKeyService = new RegistrationKeyServiceImpl();

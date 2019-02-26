@@ -7,8 +7,8 @@ import java.util.Objects;
 
 public class CurrierCapability  implements Identified<Integer>, Serializable {
     private Integer id;
-    private Integer currierId;
-    private Integer transportId;
+    private Integer currierId = 0;
+    private Integer transportId = 0;
     private boolean isWork;
 
 

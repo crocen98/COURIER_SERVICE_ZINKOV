@@ -17,6 +17,7 @@ public class CurrierCapabilityDaoTest extends AbstractDaoTest {
     @Test
     public void insertNewCurrierCapability() throws DaoException {
         GenericDao<User,Integer> userDao = JdbcDaoFactory.getInstance().getDao(User.class);
+//        User user =  User.builder().build();
         User user = new User();
         user.setLocation("trash");
         user.setLogin("crocen98");
@@ -24,7 +25,7 @@ public class CurrierCapabilityDaoTest extends AbstractDaoTest {
         user.setFirstName("Victor");
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
-        user.setUserStatus(1);
+        user.setUserStatusId(1);
         user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
         userDao.persist(user);
@@ -68,14 +69,16 @@ public class CurrierCapabilityDaoTest extends AbstractDaoTest {
     public void insertOneCurrierCapabilityAndReadOneObject() throws DaoException {
 
         GenericDao<User,Integer> userDao = JdbcDaoFactory.getInstance().getDao(User.class);
+       // User user =  User.builder().build();
         User user = new User();
+
         user.setLocation("trash");
         user.setLogin("crocen98");
         user.setLastName("Zinkov");
         user.setFirstName("Victor");
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
-        user.setUserStatus(1);
+        user.setUserStatusId(1);
         user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
         userDao.persist(user);
@@ -105,14 +108,16 @@ public class CurrierCapabilityDaoTest extends AbstractDaoTest {
     @Test
     public void insertTwoObjectAndFindByPKOne() throws DaoException {
         GenericDao<User,Integer> userDao = JdbcDaoFactory.getInstance().getDao(User.class);
+//        User user =  User.builder().build();
         User user = new User();
+
         user.setLocation("trash");
         user.setLogin("crocen98");
         user.setLastName("Zinkov");
         user.setFirstName("Victor");
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
-        user.setUserStatus(1);
+        user.setUserStatusId(1);
         user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342122234234545555");
         userDao.persist(user);

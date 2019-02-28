@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="UTF-8" isELIgnored="false" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -18,6 +18,7 @@
 
     <!-- Custom styles for this template-->
     <link href="${pageContext.request.contextPath}/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/bootstrap/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
 </head>
 
@@ -34,7 +35,7 @@
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+            <div class="sidebar-brand-text mx-3">${sessionScope.user.firstName} ${sessionScope.user.lastName}</div>
         </a>
 
         <!-- Divider -->
@@ -116,11 +117,14 @@
         </li>
 
         <!-- Nav Item - Charts -->
-        <li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span></a>
-        </li>
+        <c:if test="${sessionScope.user.userRole eq 'CLIENT'}">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.servletContext.contextPath}/couriers?command=to_create_order_page">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>My order</span></a>
+
+            </li>
+        </c:if>
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">

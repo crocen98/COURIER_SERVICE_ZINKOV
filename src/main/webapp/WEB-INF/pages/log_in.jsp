@@ -56,11 +56,11 @@
                                 </div>
                                 <form class="user" action="${pageContext.request.contextPath}/couriers?command=log_in" method="POST">
                                     <div class="form-group">
-                                        <input required type="text" pattern="(\w|\d|-){1,35}" class="form-control form-control-user" name="login" value="testUser"  placeholder="Enter login ...">
+                                        <input required type="text" pattern="(\w|\d|-){1,35}" class="form-control form-control-user" name="login" value="client"  placeholder="Enter login ...">
                                     </div>
 
                                     <div class="form-group">
-                                        <input  required type="password" pattern="(\w|\d|-){1,35}" class="form-control form-control-user"  value="111" name="password" placeholder="Password">
+                                        <input  required type="password" pattern="(\w|\d|-){1,35}" class="form-control form-control-user"  value="12345" name="password" placeholder="Password">
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
@@ -71,12 +71,7 @@
                                     <button  class="btn btn-primary btn-user btn-block">
                                         Login
                                     </button>
-                                    <%--<a href="index.html" class="btn btn-google btn-user btn-block">--%>
-                                    <%--<i class="fab fa-google fa-fw"></i> Login with Google--%>
-                                    <%--</a>--%>
-                                    <%--<a href="index.html" class="btn btn-facebook btn-user btn-block">--%>
-                                    <%--<i class="fab fa-facebook-f fa-fw"></i> Login with Facebook--%>
-                                    <%--</a>--%>
+
                                 </form>
                                 <hr>
                                 <div class="text-center">

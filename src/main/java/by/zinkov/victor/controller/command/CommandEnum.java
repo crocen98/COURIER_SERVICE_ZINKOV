@@ -17,7 +17,10 @@ public enum CommandEnum {
     SEND_RESTORE_TOKEN("send_restore_token", RequestMethod.POST,new AccessLevel[]{AccessLevel.VISITOR}),
     LOG_OUT("log_out", RequestMethod.GET, new AccessLevel[]{AccessLevel.ADMINISTRATOR, AccessLevel.CLIENT, AccessLevel.COURIER}),
     RESTORE_PASSWORD("restore_password" , RequestMethod.POST, new AccessLevel[] {AccessLevel.VISITOR}),
-    TO_CHANGE_PASSWORD_PAGE("to_change_password_page",RequestMethod.GET,new AccessLevel[]{AccessLevel.VISITOR});
+    TO_CHANGE_PASSWORD_PAGE("to_change_password_page",RequestMethod.GET,new AccessLevel[]{AccessLevel.VISITOR}),
+    TO_CREATE_ORDER_PAGE("to_create_order_page" , RequestMethod.GET , new AccessLevel[] {AccessLevel.CLIENT}),
+    CREATE_ORDER_PAGE_SECOND_STAGE("create_order_page_second_stage" , RequestMethod.POST , new AccessLevel[]{AccessLevel.CLIENT}),
+    FINISH_CREATING_ORDER("finish_creating_order" , RequestMethod.POST , new AccessLevel[]{AccessLevel.CLIENT});
 
     private final String name;
     private final RequestMethod method;

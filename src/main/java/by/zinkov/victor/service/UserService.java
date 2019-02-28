@@ -3,8 +3,9 @@ package by.zinkov.victor.service;
 import by.zinkov.victor.domain.User;
 import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.exception.ServiceException;
-
+import by.zinkov.victor.domain.Order;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Example of user service
@@ -26,6 +27,7 @@ public interface UserService {
 
     void changePassword(String id , String password , String activateString) throws ServiceException;
 
+    List<User> getCouriersByParams(String transportType, String cargoType) throws ServiceException;
 
 
 

@@ -69,8 +69,9 @@ CREATE TABLE  couriers.delivery_order (
   finishPoint VARCHAR(45) NOT NULL,
   description VARCHAR(150) NULL,
   startTime  TIMESTAMP NOT NULL,
-  finishTime  TIMESTAMP NOT NULL,
+  finishTime  TIMESTAMP  NULL,
   expectedTime  TIMESTAMP NULL,
+--   id_cargo_type INT NOT NULL,
   CONSTRAINT fk_order_user2
     FOREIGN KEY (id_customer)
     REFERENCES couriers.user (id),
@@ -79,7 +80,10 @@ CREATE TABLE  couriers.delivery_order (
     REFERENCES couriers.order_status (id),
   CONSTRAINT fk_delivery_order_user1
     FOREIGN KEY (id_courier)
-    REFERENCES couriers.user (id)
+    REFERENCES couriers.user (id),
+--       CONSTRAINT fk_order_cargo_type
+--     FOREIGN KEY (id_cargo_type)
+--     REFERENCES couriers.cargo_types (id),
   );
   
   

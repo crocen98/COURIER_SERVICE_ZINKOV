@@ -21,14 +21,16 @@ public class OrderDaoTest extends AbstractDaoTest {
     public void insertNewOrder() throws DaoException {
 
         GenericDao<User,Integer> userDao = JdbcDaoFactory.getInstance().getDao(User.class);
+        //User user =  User.builder().build();
         User user = new User();
+
         user.setLocation("trash");
         user.setLogin("crocen98");
         user.setLastName("Zinkov");
         user.setFirstName("Victor");
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
-        user.setUserStatus(1);
+        user.setUserStatusId(1);
         user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
         userDao.persist(user);
@@ -61,14 +63,16 @@ public class OrderDaoTest extends AbstractDaoTest {
     public void insertExistingOrderAndThrowException() throws DaoException {
 
         GenericDao<User,Integer> userDao = JdbcDaoFactory.getInstance().getDao(User.class);
+//        User user =  User.builder().build();
         User user = new User();
+
         user.setLocation("trash");
         user.setLogin("crocen98");
         user.setLastName("Zinkov");
         user.setFirstName("Victor");
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
-        user.setUserStatus(1);
+        user.setUserStatusId(1);
         user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
         userDao.persist(user);
@@ -95,6 +99,8 @@ public class OrderDaoTest extends AbstractDaoTest {
     @Test
     public void insertTwoOrderAndReadTwoObject() throws DaoException {
         GenericDao<User,Integer> userDao = JdbcDaoFactory.getInstance().getDao(User.class);
+//        User user =  User.builder().build();
+
         User user = new User();
         user.setLocation("trash");
         user.setLogin("crocen98");
@@ -102,19 +108,21 @@ public class OrderDaoTest extends AbstractDaoTest {
         user.setFirstName("Victor");
         user.setEmail("s@icloud.com");
         user.setPhone("+35291052630");
-        user.setUserStatus(1);
+        user.setUserStatusId(1);
         user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
         userDao.persist(user);
 
+//        User user2 =  User.builder().build();
         User user2 = new User();
+
         user2.setLocation("trash");
         user2.setLogin("crocen978");
         user2.setLastName("Zinkov");
         user2.setFirstName("Victor");
         user2.setEmail("s@icloudf.com");
         user2.setPhone("+35291052630");
-        user2.setUserStatus(1);
+        user2.setUserStatusId(1);
         user2.setUserRoleId(2);
         user2.setPassword("122234234512223423451222342345122234234545555");
         userDao.persist(user2);

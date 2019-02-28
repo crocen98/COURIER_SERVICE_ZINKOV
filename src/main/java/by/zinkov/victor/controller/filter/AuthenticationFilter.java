@@ -24,7 +24,8 @@ import java.util.Arrays;
 
 @WebFilter(filterName="AuthenticationFilter")
 public class AuthenticationFilter implements Filter {
-
+    private static final String USER_SESSION_ATTRIBUTE  = "user";
+    private static final String COMMAND_PARAMETER = "command";
     @Override
     public void init(FilterConfig filterConfig)   {
 
@@ -34,24 +35,26 @@ public class AuthenticationFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse)response;
-        UserDto userDto = (UserDto) httpServletRequest.getSession().getAttribute("user");
-        if (userDto != null) {
-            UserService service = new UserServiceImpl();
-            try {
-                UserDto userFromDb = service.getByPK(userDto.getId());
-                if(userFromDb.getUserStatus() == UserStatus.WAITING_CONFIRMATION){
-                    httpServletResponse.sendRedirect(Router.INDEX_ERROR_ROUT + "WAITING_CONFIRMATION");
-                    httpServletRequest.getSession().setAttribute("user", null);
-                } else if(userFromDb.getUserStatus() == UserStatus.BLOCKED){
-                    httpServletResponse.sendRedirect(Router.INDEX_ERROR_ROUT + "BLOCKED");
-                    httpServletRequest.getSession().setAttribute("user", null);
-                }
+        UserDto userDto = (UserDto) httpServletRequest.getSession().getAttribute(USER_SESSION_ATTRIBUTE);
 
-            } catch (ServiceException e) {
-                throw new IllegalStateException("Illegal state of program! Problem in UserService",e);
-            }
-        }
-        String command = request.getParameter("command");
+//        if (userDto != null) {
+//            UserService service = new UserServiceImpl();
+//            try {
+//                UserDto userFromDb = service.getByPK(userDto.getId());
+//                if(userFromDb.getUserStatus() == UserStatus.WAITING_CONFIRMATION){
+//                    httpServletResponse.sendRedirect(Router.INDEX_ERROR_ROUT + UserStatus.WAITING_CONFIRMATION);
+//                    httpServletRequest.getSession().setAttribute(USER_SESSION_ATTRIBUTE, null);
+//                } else if(userFromDb.getUserStatus() == UserStatus.BLOCKED){
+//                    httpServletResponse.sendRedirect(Router.INDEX_ERROR_ROUT + UserStatus.BLOCKED);
+//                    httpServletRequest.getSession().setAttribute(USER_SESSION_ATTRIBUTE, null);
+//                }
+//            } catch (ServiceException e) {
+//                throw new IllegalStateException("Illegal state of program! Problem in UserService",e);
+//            }
+//        }
+
+
+        String command = request.getParameter(COMMAND_PARAMETER);
         if (command == null && userDto != null) {
             request.getRequestDispatcher(Page.START_AUTHORIZED_PAGE.getRout()).forward(request, response);
         } else if (command == null) {

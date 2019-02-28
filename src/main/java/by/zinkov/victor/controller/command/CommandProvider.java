@@ -6,6 +6,9 @@ import by.zinkov.victor.controller.command.impl.administrator.AddTransportTypeCo
 import by.zinkov.victor.controller.command.impl.administrator.DeleteTransportTypeCommand;
 import by.zinkov.victor.controller.command.impl.administrator.EditTransportType;
 import by.zinkov.victor.controller.command.impl.administrator.ShowTranspotTypesCommand;
+import by.zinkov.victor.controller.command.impl.user.CreateOrderSecondStage;
+import by.zinkov.victor.controller.command.impl.user.FinishCreatingOrder;
+import by.zinkov.victor.controller.command.impl.user.ToCreateOrderPage;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -36,6 +39,9 @@ public class CommandProvider {
         commandMap.put(CommandEnum.SEND_RESTORE_TOKEN,new SendRestorePasswordTokenCommand());
         commandMap.put(CommandEnum.RESTORE_PASSWORD, new RestorePasswordCommand());
         commandMap.put(CommandEnum.TO_CHANGE_PASSWORD_PAGE, new GoPageCommand(Page.CHANGE_PASSWORD));
+        commandMap.put(CommandEnum.TO_CREATE_ORDER_PAGE, new ToCreateOrderPage());
+        commandMap.put(CommandEnum.CREATE_ORDER_PAGE_SECOND_STAGE, new CreateOrderSecondStage());
+        commandMap.put(CommandEnum.FINISH_CREATING_ORDER, new FinishCreatingOrder());
     }
 
     /**

@@ -28,13 +28,37 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
     private static final String UPDATE_USER_QUERY = "UPDATE user SET " +
             "login = ? , password = ? , first_name = ? , last_name = ? , email = ? , phone = ? , status_id = ? , role_id = ? , location = ?" +
             "WHERE id = ?";
-
     private static final String SELECT_USER_BY_LOGIN = "SELECT * FROM user WHERE user.login = ?";
-
-
     private static final String DELETE_USER_QUERY = "DELETE FROM user WHERE id = ?";
     private static final String SELECT_USER_DTO_BY_LOGIN_AND_PASSWORD = "SELECT * FROM user JOIN user_role ON user.role_id = user_role.id JOIN user_status ON user.status_id = user_status.id WHERE user.login = ? AND user.password = ?";
 
+    private static final String SELECT_COURIERS_WITH_APPROPRIATE_TRANSPORT_AND_CARGO_TYPE =
+            "SELECT * from user WHERE user.id IN \n" +
+            "(SELECT currier_id FROM currier_capability \n" +
+            "JOIN transport_type\n" +
+            "ON currier_capability.transport_id = transport_type.id \n" +
+            "WHERE transport_type.type = ? \n" +
+            "AND \n" +
+            "currier_capability.id IN \n" +
+            "(SELECT currier_capability_id FROM supported_cargo_types\n" +
+            "JOIN cargo_types ON supported_cargo_types.type_id = cargo_types.id\n" +
+            "WHERE cargo_types.type = ?))";
+
+
+
+    @Override
+    public List<User> getCouriersWithAppropriateCargoAndTransportType(String transportType, String cargoType) throws DaoException{
+        try (PreparedStatement statement = this.connection.prepareStatement(SELECT_COURIERS_WITH_APPROPRIATE_TRANSPORT_AND_CARGO_TYPE)) {
+            statement.setString(1,transportType);
+            statement.setString(2,cargoType);
+
+            ResultSet resultSet = statement.executeQuery();
+            return parseResultSet(resultSet);
+
+        } catch (SQLException e) {
+            throw new DaoException("Problem with select appropriate couriers", e);
+        }
+    }
 
     @Override
     public UserDto getDtoByPK(Integer id) throws DaoException {
@@ -86,6 +110,18 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
         List<User> users = new ArrayList<>();
 
             while (rs.next()) {
+//                User user =  User.builder()
+//////                        .id(rs.getInt(1))
+//////                        .login(rs.getString(2))
+//////                        .password(rs.getString(3))
+//////                        .firstName(rs.getString(4))
+//////                        .lastName(rs.getString(5))
+//////                        .email(rs.getString(6))
+//////                        .phone(rs.getString(7))
+//////                        .location(rs.getString(10))
+//////                        .userStatusId(rs.getInt(8))
+//////                        .userRoleId(rs.getInt(9))
+////                        .build();
                 User user = new User();
                 user.setId(rs.getInt(1));
                 user.setLogin(rs.getString(2));
@@ -95,7 +131,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
                 user.setEmail(rs.getString(6));
                 user.setPhone(rs.getString(7));
                 user.setLocation(rs.getString(10));
-                user.setUserStatus(rs.getInt(8));
+                user.setUserStatusId(rs.getInt(8));
                 user.setUserRoleId(rs.getInt(9));
                 users.add(user);
             }
@@ -106,20 +142,18 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
 
     @Override
     protected void prepareStatementForInsert(PreparedStatement statement, User object) throws SQLException {
-
             statement.setString(1,object.getLogin());
             statement.setString(2,object.getPassword());
             statement.setString(3,object.getFirstName());
             statement.setString(4,object.getLastName());
             statement.setString(5,object.getEmail());
             statement.setString(6,object.getPhone());
-            statement.setInt(7,object.getUserStatus());
-            statement.setInt(8,object.getUserRole());
+            statement.setInt(7,object.getUserStatusId());
+            statement.setInt(8,object.getUserRoleId());
             statement.setString(9,object.getLocation());
             if(object.getId() != null){
                 statement.setInt(10, object.getId());
             }
-
     }
 
     @Override

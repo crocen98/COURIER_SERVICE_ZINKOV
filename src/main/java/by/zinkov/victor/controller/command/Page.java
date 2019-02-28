@@ -9,7 +9,9 @@ public enum Page {
     ACTIVATE_PAGE("/WEB-INF/pages/activate.jsp"),
     FORGOT_PASSWORD("/WEB-INF/pages/forgot_password.jsp"),
     START_AUTHORIZED_PAGE("/WEB-INF/pages/client_main.jsp"),
-    CHANGE_PASSWORD("/WEB-INF/pages/change_password.jsp");
+    CHANGE_PASSWORD("/WEB-INF/pages/change_password.jsp"),
+    CREATE_ORDER("/WEB-INF/pages/create_order.jsp"),
+    CREATE_ORDER_SECOND_STAGE("/WEB-INF/pages/create_order_second_stage.jsp");;
 
 
 

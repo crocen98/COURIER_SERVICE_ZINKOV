@@ -3,10 +3,7 @@ package by.zinkov.victor.service.impl;
 import by.zinkov.victor.dao.*;
 import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.dao.factory.JdbcDaoFactory;
-import by.zinkov.victor.domain.RegistrationKey;
-import by.zinkov.victor.domain.User;
-import by.zinkov.victor.domain.UserRole;
-import by.zinkov.victor.domain.UserStatus;
+import by.zinkov.victor.domain.*;
 import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.RegistrationKeyService;
 import by.zinkov.victor.service.UserRoleService;
@@ -21,6 +18,7 @@ import by.zinkov.victor.util.StringGenerator;
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -30,24 +28,39 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    public List<User> getCouriersByParams(String  transportTypeString, String cargoTypeString ) throws ServiceException {
+        DaoFactory daoFactory = JdbcDaoFactory.getInstance();
+        try {
+            CargoTypeExpandedDao cargoTypeExpandedDao = (CargoTypeExpandedDao) daoFactory.getDao(CargoType.class);
+            TransportTypeExpandedDao transportTypeExpandedDao = (TransportTypeExpandedDao) daoFactory.getDao(TransportType.class);
+            CargoType cargoType = cargoTypeExpandedDao.getByName(cargoTypeString);
+            TransportType transportType = transportTypeExpandedDao.getByName(transportTypeString);
+            UserExpandedDao userExpandedDao = (UserExpandedDao) daoFactory.getDao(User.class);
+            return userExpandedDao.getCouriersWithAppropriateCargoAndTransportType(transportType.getTransportType(), cargoType.getType());
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public void changePassword(String id, String password, String activateString) throws ServiceException {
         StringValidator validator = StringValidator.getInstance();
 
         try {
-            validator.isMatchesInt(id , StringValidator.POSITIVE_RANGE);
-            validator.simpleStingMatches(password , 45 , "password");
-            validator.simpleStingMatches(activateString,32 ,activateString );
+            validator.isMatchesInt(id, StringValidator.POSITIVE_RANGE);
+            validator.simpleStingMatches(password, 45, "password");
+            validator.simpleStingMatches(activateString, 32, activateString);
 
             RegistrationKeyService service = new RegistrationKeyServiceImpl();
             RegistrationKey key = service.getById(Integer.valueOf(id));
 
             DaoFactory daoFactory = FactoryProducer.getDaoFactory(DaoFactoryType.JDBC);
-            GenericDao<User,Integer> userDao = daoFactory.getDao(User.class);
+            GenericDao<User, Integer> userDao = daoFactory.getDao(User.class);
             User user = userDao.getByPK(Integer.valueOf(id));
             user.setPassword(password);
             userDao.update(user);
             service.remove(key);
-            if(!Objects.equals(key.getKey() , activateString)){
+            if (!Objects.equals(key.getKey(), activateString)) {
                 throw new ServiceException("Secure problems! Key does not belong your!");
             }
         } catch (ValidationException | DaoException e) {
@@ -79,22 +92,22 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-   public void restoreUserByEmail(User user , HttpServletRequest request) throws ServiceException {
+    public void restoreUserByEmail(User user, HttpServletRequest request) throws ServiceException {
         JdbcDaoFactory daoFactory = (JdbcDaoFactory) FactoryProducer.getDaoFactory(DaoFactoryType.JDBC);
         try {
-            UserExpandedDao  userDao = (UserExpandedDao)daoFactory.getDao(User.class);
+            UserExpandedDao userDao = (UserExpandedDao) daoFactory.getDao(User.class);
             StringValidator validator = StringValidator.getInstance();
             validator.emailMatches(user.getEmail());
-            validator.simpleStingMatches(user.getLogin(),45 , "login");
+            validator.simpleStingMatches(user.getLogin(), 45, "login");
             validator.phoneMatches(user.getPhone());
 
             User userFromDb = userDao.getByLogin(user.getLogin());
-            if(userFromDb == null
+            if (userFromDb == null
                     || !Objects.equals(userFromDb.getEmail(), user.getEmail())
-                    || !Objects.equals(userFromDb.getPhone(), user.getPhone())){
+                    || !Objects.equals(userFromDb.getPhone(), user.getPhone())) {
                 throw new ServiceException("Cannot find user by email.");
             }
-            sendActivateEmail(userFromDb ,request);
+            sendActivateEmail(userFromDb, request);
         } catch (DaoException e) {
             throw new ServiceException("Failed  with DAO. ", e);
         } catch (ValidationException e) {
@@ -113,11 +126,11 @@ public class UserServiceImpl implements UserService {
             UserRoleService userRoleService = new UserRoleServiceImpl();
             UserRole role = userRoleService.getByName(userRole);
             user.setUserRoleId(role.getId());
-            if(role == UserRole.ADMINISTRATOR ){
-                throw  new ServiceException("Attempt to get unsupported rights");
+            if (role == UserRole.ADMINISTRATOR) {
+                throw new ServiceException("Attempt to get unsupported rights");
             }
 
-            user.setUserStatus(UserStatus.WAITING_CONFIRMATION.getId());
+            user.setUserStatusId(UserStatus.WAITING_CONFIRMATION.getId());
             GenericDao<User, Integer> userDao = daoFactory.getDao(User.class);
             return userDao.persist(user);
         } catch (DaoException e) {
@@ -152,9 +165,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
-
-
     @Override
     public void setNewStatus(Integer id, String status) throws ServiceException {
         DaoFactory daoFactory = FactoryProducer.getDaoFactory(DaoFactoryType.JDBC);
@@ -162,7 +172,7 @@ public class UserServiceImpl implements UserService {
             UserExpandedDao userDao = (UserExpandedDao) daoFactory.getDao(User.class);
             GenericDao<User, Integer> genericUserDao = (GenericDao<User, Integer>) userDao;
             User user = genericUserDao.getByPK(id);
-            user.setUserStatus(UserStatus.ACTIVE.getId());
+            user.setUserStatusId(UserStatus.ACTIVE.getId());
             genericUserDao.update(user);
         } catch (DaoException e) {
             throw new ServiceException("Cannot find user by id", e);

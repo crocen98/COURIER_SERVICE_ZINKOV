@@ -1,12 +1,14 @@
 package by.zinkov.victor.domain;
 
 import by.zinkov.victor.dao.Identified;
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-@Data
+//@Data
+//@Builder
 public class User implements Identified<Integer>, Serializable {
     private Integer id;
     private String password;
@@ -19,12 +21,43 @@ public class User implements Identified<Integer>, Serializable {
     private Integer userStatusId;
     private String location;
 
+
     @Override
-    public Integer getId() {
-        return id;
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", password='" + password + '\'' +
+                ", login='" + login + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", userRoleId=" + userRoleId +
+                ", userStatusId=" + userStatusId +
+                ", location='" + location + '\'' +
+                '}';
     }
-    public void setId(Integer id) {
-        this.id = id;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(login, user.login) &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(phone, user.phone) &&
+                Objects.equals(userRoleId, user.userRoleId) &&
+                Objects.equals(userStatusId, user.userStatusId) &&
+                Objects.equals(location, user.location);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, password, login, firstName, lastName, email, phone, userRoleId, userStatusId, location);
     }
 
     public String getPassword() {
@@ -75,7 +108,7 @@ public class User implements Identified<Integer>, Serializable {
         this.phone = phone;
     }
 
-    public Integer getUserRole() {
+    public Integer getUserRoleId() {
         return userRoleId;
     }
 
@@ -83,11 +116,11 @@ public class User implements Identified<Integer>, Serializable {
         this.userRoleId = userRoleId;
     }
 
-    public Integer getUserStatus() {
+    public Integer getUserStatusId() {
         return userStatusId;
     }
 
-    public void setUserStatus(Integer userStatusId) {
+    public void setUserStatusId(Integer userStatusId) {
         this.userStatusId = userStatusId;
     }
 
@@ -100,40 +133,12 @@ public class User implements Identified<Integer>, Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(login, user.login) &&
-                Objects.equals(firstName, user.firstName) &&
-                Objects.equals(lastName, user.lastName) &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(phone, user.phone) &&
-                Objects.equals(userRoleId, user.userRoleId) &&
-                Objects.equals(userStatusId, user.userStatusId) &&
-                Objects.equals(location, user.location);
+    public Integer getId() {
+        return id;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id, password, login, firstName, lastName, email, phone, userRoleId, userStatusId, location);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", password='" + password + '\'' +
-                ", login='" + login + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", userRoleId=" + userRoleId +
-                ", userStatusId=" + userStatusId +
-                ", location='" + location + '\'' +
-                '}';
+    public void setId(Integer object) {
+        id = object;
     }
 }

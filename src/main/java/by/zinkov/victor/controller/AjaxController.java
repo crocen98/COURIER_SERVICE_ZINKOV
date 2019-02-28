@@ -5,7 +5,6 @@ import by.zinkov.victor.controller.command.CommandEnum;
 import by.zinkov.victor.controller.command.CommandProvider;
 import by.zinkov.victor.controller.command.Router;
 import by.zinkov.victor.controller.command.exception.CommandException;
-import by.zinkov.victor.dto.ResponseContent;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

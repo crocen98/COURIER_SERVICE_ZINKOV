@@ -49,7 +49,6 @@ public class ActivateCommand implements Command {
                 throw new CommandException("Attempt to gain unauthorized access!");
             }
         } catch (ServiceException e) {
-            //
             LOGGER.error(e);
             router.setRoute(Router.INDEX_ROUT);
 

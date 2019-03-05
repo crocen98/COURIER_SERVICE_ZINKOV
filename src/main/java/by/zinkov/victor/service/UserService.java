@@ -2,8 +2,6 @@ package by.zinkov.victor.service;
 
 import by.zinkov.victor.domain.User;
 import by.zinkov.victor.dto.UserDto;
-import by.zinkov.victor.service.exception.ServiceException;
-import by.zinkov.victor.domain.Order;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

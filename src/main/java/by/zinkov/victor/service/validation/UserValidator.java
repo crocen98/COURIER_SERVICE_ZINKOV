@@ -2,7 +2,6 @@ package by.zinkov.victor.service.validation;
 
 import by.zinkov.victor.domain.User;
 import by.zinkov.victor.domain.UserRole;
-import by.zinkov.victor.service.exception.ValidationException;
 
 
 import java.util.Arrays;

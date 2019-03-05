@@ -1,7 +1,5 @@
 package by.zinkov.victor.service.validation;
 
-import by.zinkov.victor.service.exception.ValidationException;
-
 import java.util.regex.Pattern;
 
 public class StringValidator {

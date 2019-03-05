@@ -16,6 +16,7 @@ public class RequestEntityBuilder {
 
     public <T extends Identified<Integer>> T build(HttpServletRequest request, Class<T> entityClass, String... expectedFields) throws EntityFromRequestBuilderException {
         try {
+
             T instance = entityClass.newInstance();
             for (String fieldName : expectedFields) {
                 Field field = entityClass.getDeclaredField(fieldName);

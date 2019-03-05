@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${not empty sessionScope.locale ? sessionScope.locale : 'en'}"/>
+
+<fmt:setLocale value="${not empty sessionScope.locale ? sessionScope.locale : 'en_EN'}"/>
+<fmt:requestEncoding value="utf-8"/>
 <fmt:setBundle basename="language"  var="bundle" scope="application"/>
 
-<html>
+<html langu="ru">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -247,11 +249,11 @@
                         <%--</div>--%>
 
 
-                        <c:if test="${sessionScope.locale eq 'en'}">
+                        <c:if test="${sessionScope.locale eq 'en_EN'}">
                             <a class="navbar-brand" href="${pageContext.servletContext.contextPath}/couriers?command=change_language"><span class="flag-icon flag-icon-ru"> </span>
                                 Русский</a>
                         </c:if>
-                        <c:if test="${sessionScope.locale eq'ru'}">
+                        <c:if test="${sessionScope.locale eq'ru_RU'}">
                             <a class="navbar-brand" href="${pageContext.servletContext.contextPath}/couriers?command=change_language"><span class="flag-icon flag-icon-ru"> </span>
                                 English</a>
                         </c:if>

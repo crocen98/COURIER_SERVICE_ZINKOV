@@ -1,7 +1,7 @@
 package by.zinkov.victor.controller;
 
-import by.zinkov.victor.controller.command.*;
-import by.zinkov.victor.controller.command.exception.CommandException;
+import by.zinkov.victor.command.*;
+import by.zinkov.victor.command.exception.CommandException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns ="/couriers",name = "simpleServlet")
+@WebServlet(urlPatterns ="/couriers")
 public class FrontController extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger(FrontController.class);
@@ -36,7 +36,7 @@ public class FrontController extends HttpServlet {
         CommandEnum commandEnum = CommandEnum.getByName(commandName);
         Command command = CommandProvider.getInstance().takeCommand(commandEnum);
         LOGGER.info("Command :" + commandName + " work in controller");
-        Router router= new Router();
+        Router router = new Router();
         try {
             router = command.execute(request);
         } catch (CommandException e) {

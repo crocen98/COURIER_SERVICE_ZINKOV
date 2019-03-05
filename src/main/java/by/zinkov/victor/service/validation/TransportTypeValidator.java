@@ -1,7 +1,6 @@
 package by.zinkov.victor.service.validation;
 
 import by.zinkov.victor.domain.TransportType;
-import by.zinkov.victor.service.exception.ValidationException;
 
 
 public class TransportTypeValidator implements EntityValidator<TransportType> {

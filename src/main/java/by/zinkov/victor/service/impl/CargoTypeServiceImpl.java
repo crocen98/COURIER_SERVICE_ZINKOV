@@ -3,13 +3,11 @@ package by.zinkov.victor.service.impl;
 import by.zinkov.victor.dao.CargoTypeExpandedDao;
 import by.zinkov.victor.dao.DaoFactory;
 import by.zinkov.victor.dao.GenericDao;
-import by.zinkov.victor.dao.TransportTypeExpandedDao;
 import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.dao.factory.JdbcDaoFactory;
 import by.zinkov.victor.domain.CargoType;
-import by.zinkov.victor.domain.TransportType;
 import by.zinkov.victor.service.CargoTypeService;
-import by.zinkov.victor.service.exception.ServiceException;
+import by.zinkov.victor.service.ServiceException;
 
 import java.util.List;
 

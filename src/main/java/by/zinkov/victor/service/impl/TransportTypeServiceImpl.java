@@ -7,8 +7,8 @@ import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.dao.factory.JdbcDaoFactory;
 import by.zinkov.victor.domain.TransportType;
 import by.zinkov.victor.service.TransportTypeService;
-import by.zinkov.victor.service.exception.ServiceException;
-import by.zinkov.victor.service.exception.ValidationException;
+import by.zinkov.victor.service.ServiceException;
+import by.zinkov.victor.service.validation.ValidationException;
 import by.zinkov.victor.service.validation.StringValidator;
 import by.zinkov.victor.service.validation.TransportTypeValidator;
 

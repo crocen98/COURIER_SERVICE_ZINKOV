@@ -8,16 +8,14 @@ import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.RegistrationKeyService;
 import by.zinkov.victor.service.UserRoleService;
 import by.zinkov.victor.service.UserService;
-import by.zinkov.victor.service.exception.ServiceException;
-import by.zinkov.victor.service.exception.ValidationException;
+import by.zinkov.victor.service.ServiceException;
+import by.zinkov.victor.service.validation.ValidationException;
 import by.zinkov.victor.service.validation.StringValidator;
 import by.zinkov.victor.service.validation.UserValidator;
 import by.zinkov.victor.util.MailSender;
 import by.zinkov.victor.util.StringGenerator;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Objects;
 

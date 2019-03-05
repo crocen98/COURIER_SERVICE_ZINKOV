@@ -1,12 +1,16 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${not empty sessionScope.locale ? sessionScope.locale : 'en'}"/>
+<fmt:requestEncoding value="utf-8"/>
+
+<fmt:setLocale value="${not empty sessionScope.locale ? sessionScope.locale : 'en_EN'}"/>
+
 <fmt:setBundle basename="language"  var="bundle" scope="application"/>
 <!DOCTYPE html>
 <html>
 
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script src="https://api-maps.yandex.ru/2.1/?apikey=b9f00779-39b3-4da0-b8c3-becb9d63520e&lang=ru_RU"
             type="text/javascript">
     </script>
@@ -139,6 +143,7 @@
                 </div>
             </div>
         </div>
+        ${not empty sessionScope.locale ? sessionScope.locale : 'en_EN'}
         <div id="map" style="width: 100%; height: 400px"></div>
     </div>
 

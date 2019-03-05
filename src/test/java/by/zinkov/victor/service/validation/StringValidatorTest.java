@@ -1,6 +1,5 @@
 package by.zinkov.victor.service.validation;
 
-import by.zinkov.victor.service.exception.ValidationException;
 import org.junit.Test;
 
 

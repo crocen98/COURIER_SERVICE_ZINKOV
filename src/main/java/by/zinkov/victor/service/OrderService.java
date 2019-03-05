@@ -1,6 +1,5 @@
 package by.zinkov.victor.service;
 import by.zinkov.victor.domain.Order;
-import by.zinkov.victor.service.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 

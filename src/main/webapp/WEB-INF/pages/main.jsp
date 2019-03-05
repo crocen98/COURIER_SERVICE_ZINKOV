@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setLocale value="${sessionScope.locale == null ? sessionScope.locale : 'en'}"/>
+<fmt:setLocale value="${sessionScope.locale == null ? sessionScope.locale : 'en_EN'}"/>
 <fmt:setBundle basename="language" scope="session"/>
 <html>
 <head>
@@ -26,11 +26,11 @@
 <!-- Navigation -->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-        <c:if test="${sessionScope.locale eq 'en' or sessionScope.locale == null}">
+        <c:if test="${sessionScope.locale eq 'en_EN' or sessionScope.locale == null}">
             <a class="navbar-brand" href="${pageContext.servletContext.contextPath}/couriers?command=change_language"><span class="flag-icon flag-icon-ru"> </span>
                 Русский</a>
         </c:if>
-        <c:if test="${sessionScope.locale eq'ru'}">
+        <c:if test="${sessionScope.locale eq'ru_RU'}">
             <a class="navbar-brand" href="${pageContext.servletContext.contextPath}/couriers?command=change_language"><span class="flag-icon flag-icon-ru"> </span>
                 English</a>
         </c:if>

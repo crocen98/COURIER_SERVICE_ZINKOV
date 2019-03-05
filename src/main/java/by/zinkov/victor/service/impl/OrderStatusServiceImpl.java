@@ -6,7 +6,7 @@ import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.dao.factory.JdbcDaoFactory;
 import by.zinkov.victor.domain.OrderStatus;
 import by.zinkov.victor.service.OrderStatusService;
-import by.zinkov.victor.service.exception.ServiceException;
+import by.zinkov.victor.service.ServiceException;
 
 public class OrderStatusServiceImpl implements OrderStatusService {
 

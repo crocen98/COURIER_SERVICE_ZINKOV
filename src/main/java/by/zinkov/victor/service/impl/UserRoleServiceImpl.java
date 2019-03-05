@@ -7,7 +7,7 @@ import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.dao.factory.JdbcDaoFactory;
 import by.zinkov.victor.domain.UserRole;
 import by.zinkov.victor.service.UserRoleService;
-import by.zinkov.victor.service.exception.ServiceException;
+import by.zinkov.victor.service.ServiceException;
 
 import java.util.List;
 

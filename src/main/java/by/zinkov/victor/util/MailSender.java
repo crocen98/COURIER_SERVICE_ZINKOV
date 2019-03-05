@@ -1,7 +1,7 @@
 package by.zinkov.victor.util;
 
 import by.zinkov.victor.dao.exception.ConnectionException;
-import by.zinkov.victor.service.exception.ServiceException;
+import by.zinkov.victor.service.ServiceException;
 
 
 import javax.mail.Message;

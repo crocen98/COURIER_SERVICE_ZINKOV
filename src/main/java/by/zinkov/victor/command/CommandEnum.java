@@ -1,0 +1,61 @@
+package by.zinkov.victor.command;
+
+import by.zinkov.victor.controller.RequestMethod;
+
+public enum CommandEnum {
+    ADD_TRANSPORT_TYPE("add_transport_type", RequestMethod.POST, AccessLevel.ADMINISTRATOR),
+    TO_LOG_IN_PAGE("to_log_in_page", RequestMethod.GET, AccessLevel.VISITOR),
+    TO_PASSWORD_RECOVERY_PAGE("to_password_recovery_page", RequestMethod.GET, new AccessLevel[]{AccessLevel.VISITOR}),
+    DELETE_TRANSPORT_TYPE("delete_transport_type", RequestMethod.POST, new AccessLevel[]{AccessLevel.ADMINISTRATOR}),
+    SIGN_UP("sign_up", RequestMethod.POST, new AccessLevel[]{AccessLevel.VISITOR}),
+    ALL_TRANSPORT_TYPES("all_transport_types", RequestMethod.GET, new AccessLevel[]{AccessLevel.ADMINISTRATOR}),
+    CHANGE_TRANSPORT_TYPE("change_transport_type", RequestMethod.GET, new AccessLevel[]{AccessLevel.ADMINISTRATOR}),
+    REGISTER_COMMAND("register_command", RequestMethod.POST, new AccessLevel[]{AccessLevel.VISITOR}),
+    LOG_IN("log_in", RequestMethod.POST, new AccessLevel[]{AccessLevel.VISITOR}),
+    ACTIVATE("activate", RequestMethod.GET, new AccessLevel[]{AccessLevel.VISITOR}),
+    START_PAGE("start_page", RequestMethod.GET, new AccessLevel[]{AccessLevel.ALL}),
+    SEND_RESTORE_TOKEN("send_restore_token", RequestMethod.POST,new AccessLevel[]{AccessLevel.VISITOR}),
+    LOG_OUT("log_out", RequestMethod.GET, AccessLevel.ADMINISTRATOR, AccessLevel.CLIENT, AccessLevel.COURIER),
+    RESTORE_PASSWORD("restore_password" , RequestMethod.POST, new AccessLevel[] {AccessLevel.VISITOR}),
+    TO_CHANGE_PASSWORD_PAGE("to_change_password_page",RequestMethod.GET,new AccessLevel[]{AccessLevel.VISITOR}),
+    TO_CREATE_ORDER_PAGE("to_create_order_page" , RequestMethod.GET , new AccessLevel[] {AccessLevel.CLIENT}),
+    CREATE_ORDER_PAGE_SECOND_STAGE("create_order_page_second_stage" , RequestMethod.POST , new AccessLevel[]{AccessLevel.CLIENT}),
+    FINISH_CREATING_ORDER("finish_creating_order" , RequestMethod.POST , new AccessLevel[]{AccessLevel.CLIENT}),
+    CHECK_LOGIN("check_login" , RequestMethod.POST , new AccessLevel[]{AccessLevel.VISITOR}),
+    CHANGE_LANGUAGE("change_language" , RequestMethod.GET,new AccessLevel[]{AccessLevel.ALL}),
+    TO_USER_ORDER_PAGE("to_user_order_page" , RequestMethod.GET , new AccessLevel[]{AccessLevel.CLIENT});
+
+    private final String name;
+    private final RequestMethod method;
+    private final AccessLevel[] levels;
+
+    CommandEnum(String name, RequestMethod expectedMethod, AccessLevel... levels) {
+        this.name = name;
+        this.method = expectedMethod;
+        this.levels = levels;
+    }
+
+    public static CommandEnum getByName(String name) {
+        return CommandEnum.valueOf(name.toUpperCase());
+    }
+
+    public AccessLevel[] getLevels() {
+        return levels;
+    }
+
+    public String getUrl() {
+        return "/couriers/couriers?command=" + name;
+    }
+
+    public String getUrlWithError(String error) {
+        return getUrl() + "&error=" + error;
+    }
+
+    @Override
+    public String toString() {
+        return "CommandEnum{" +
+                "name='" + name + '\'' +
+                ", method=" + method +
+                '}';
+    }
+}

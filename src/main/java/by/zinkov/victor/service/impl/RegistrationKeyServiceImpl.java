@@ -6,7 +6,7 @@ import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.dao.factory.JdbcDaoFactory;
 import by.zinkov.victor.domain.RegistrationKey;
 import by.zinkov.victor.service.RegistrationKeyService;
-import by.zinkov.victor.service.exception.ServiceException;
+import by.zinkov.victor.service.ServiceException;
 
 public class RegistrationKeyServiceImpl implements RegistrationKeyService {
     @Override

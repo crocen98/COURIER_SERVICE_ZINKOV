@@ -1,6 +1,6 @@
 package by.zinkov.victor.dto;
 
-import by.zinkov.victor.controller.command.Router;
+import by.zinkov.victor.command.Router;
 
 /**
  * Provide response content to View layer

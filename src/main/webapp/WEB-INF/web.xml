@@ -17,12 +17,21 @@
     <filter-name>AuthenticationFilter</filter-name>
     <url-pattern>/couriers</url-pattern>
   </filter-mapping>
-  <!--<servlet>-->
-    <!--<servlet-name>FrontController</servlet-name>-->
-    <!--<servlet-class>by.zinkov.victor.controller.FrontController</servlet-class>-->
-  <!--</servlet>-->
-  <!--<servlet-mapping>-->
-    <!--<servlet-name>FrontController</servlet-name>-->
-    <!--<url-pattern>/CourierCompany</url-pattern>-->
-  <!--</servlet-mapping>-->
+<locale-encoding-mapping-list>
+  <locale-encoding-mapping>
+    <locale>ru_RU</locale>
+    <encoding>utf-8</encoding>
+  </locale-encoding-mapping>
+
+</locale-encoding-mapping-list>
+  <locale-encoding-mapping-list>
+    <locale-encoding-mapping>
+      <locale>en_EN</locale>
+      <encoding>utf-8</encoding>
+    </locale-encoding-mapping>
+  </locale-encoding-mapping-list>
+
+
+
 </web-app>
+

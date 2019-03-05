@@ -4,6 +4,7 @@ import by.zinkov.victor.dao.Identified;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Objects;
 
@@ -16,9 +17,41 @@ public class Order implements Identified<Integer>, Serializable {
     private String startPoint;
     private String finishPoint;
     private String description;
-    private Date startTime;
-    private Date finishTime;
-    private Date expectedTime;
+    private Timestamp startTime;
+    private Timestamp finishTime;
+    private Timestamp expectedTime;
+    private Integer idTransportType;
+    private Integer idCargoType;
+
+
+    public Integer getIdTransportType() {
+        return idTransportType;
+    }
+
+    public void setIdTransportType(Integer idTransportType) {
+        this.idTransportType = idTransportType;
+    }
+
+    public Integer getIdCargoType() {
+        return idCargoType;
+    }
+
+    public void setIdCargoType(Integer idCargoType) {
+        this.idCargoType = idCargoType;
+    }
+
+    public void setIdCourier(Integer idCourier) {
+        this.idCourier = idCourier;
+    }
+
+    public void setIdCustomer(Integer idCustomer) {
+        this.idCustomer = idCustomer;
+    }
+
+    public void setIdStatus(Integer idStatus) {
+        this.idStatus = idStatus;
+    }
+
     @Override
     public Integer getId() {
         return id;
@@ -53,7 +86,6 @@ public class Order implements Identified<Integer>, Serializable {
     }
 
 
-
     public int getIdStatus() {
         return idStatus;
     }
@@ -86,30 +118,30 @@ public class Order implements Identified<Integer>, Serializable {
         this.description = description;
     }
 
-    public Date getStartTime() {
+
+    public Timestamp getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(Timestamp startTime) {
         this.startTime = startTime;
     }
 
-    public Date getFinishTime() {
+    public Timestamp getFinishTime() {
         return finishTime;
     }
 
-    public void setFinishTime(Date finishTime) {
+    public void setFinishTime(Timestamp finishTime) {
         this.finishTime = finishTime;
     }
 
-    public Date getExpectedTime() {
+    public Timestamp getExpectedTime() {
         return expectedTime;
     }
 
-    public void setExpectedTime(Date expectedTime) {
+    public void setExpectedTime(Timestamp expectedTime) {
         this.expectedTime = expectedTime;
     }
-
 
     @Override
     public String toString() {
@@ -125,6 +157,8 @@ public class Order implements Identified<Integer>, Serializable {
                 ", startTime=" + startTime +
                 ", finishTime=" + finishTime +
                 ", expectedTime=" + expectedTime +
+                ", idTransportType=" + idTransportType +
+                ", idCargoType=" + idCargoType +
                 '}';
     }
 
@@ -133,21 +167,23 @@ public class Order implements Identified<Integer>, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return idCourier == order.idCourier &&
-                idCustomer == order.idCustomer &&
-                idStatus == order.idStatus &&
-                Objects.equals(id, order.id) &&
+        return Objects.equals(id, order.id) &&
+                Objects.equals(idCourier, order.idCourier) &&
+                Objects.equals(idCustomer, order.idCustomer) &&
                 Objects.equals(price, order.price) &&
+                Objects.equals(idStatus, order.idStatus) &&
                 Objects.equals(startPoint, order.startPoint) &&
                 Objects.equals(finishPoint, order.finishPoint) &&
                 Objects.equals(description, order.description) &&
                 Objects.equals(startTime, order.startTime) &&
                 Objects.equals(finishTime, order.finishTime) &&
-                Objects.equals(expectedTime, order.expectedTime);
+                Objects.equals(expectedTime, order.expectedTime) &&
+                Objects.equals(idTransportType, order.idTransportType) &&
+                Objects.equals(idCargoType, order.idCargoType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idCourier, idCustomer, price, idStatus, startPoint, finishPoint, description, startTime, finishTime, expectedTime);
+        return Objects.hash(id, idCourier, idCustomer, price, idStatus, startPoint, finishPoint, description, startTime, finishTime, expectedTime, idTransportType, idCargoType);
     }
 }

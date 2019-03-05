@@ -4,6 +4,7 @@ import by.zinkov.victor.domain.User;
 import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.exception.ServiceException;
 import by.zinkov.victor.domain.Order;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -14,21 +15,25 @@ public interface UserService {
 
     /**
      * Sign up user
+     *
      * @return - saved user
      * @throws ServiceException should be clarify
      */
     User signUp(User user, String userRole) throws ServiceException;
 
-    UserDto LogIn(String login , String password) throws ServiceException ;
+    UserDto LogIn(String login, String password) throws ServiceException;
 
     UserDto getByPK(Integer id) throws ServiceException;
-    void setNewStatus(Integer id , String status) throws ServiceException;
-    void restoreUserByEmail(User user , HttpServletRequest request) throws ServiceException;
 
-    void changePassword(String id , String password , String activateString) throws ServiceException;
+    User getByLogin(String login) throws ServiceException;
+
+    void setNewStatus(Integer id, String status) throws ServiceException;
+
+    void restoreUserByEmail(User user, HttpServletRequest request) throws ServiceException;
+
+    void changePassword(String id, String password, String activateString) throws ServiceException;
 
     List<User> getCouriersByParams(String transportType, String cargoType) throws ServiceException;
-
 
 
 }

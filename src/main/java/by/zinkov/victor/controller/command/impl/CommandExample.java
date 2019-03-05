@@ -3,7 +3,7 @@ package by.zinkov.victor.controller.command.impl;
 import by.zinkov.victor.controller.command.Command;
 import by.zinkov.victor.controller.command.Router;
 import by.zinkov.victor.controller.command.exception.CommandException;
-import by.zinkov.victor.service.ServiceFactory;
+import by.zinkov.victor.service.factory.ServiceFactory;
 import by.zinkov.victor.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;

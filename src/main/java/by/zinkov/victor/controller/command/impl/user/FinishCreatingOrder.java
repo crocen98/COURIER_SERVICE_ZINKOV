@@ -3,6 +3,8 @@ package by.zinkov.victor.controller.command.impl.user;
 import by.zinkov.victor.domain.Order;
 import by.zinkov.victor.controller.command.Command;
 import by.zinkov.victor.controller.command.Router;
+import by.zinkov.victor.domain.OrderStatus;
+import by.zinkov.victor.service.DistanceService;
 import by.zinkov.victor.service.OrderService;
 import by.zinkov.victor.service.exception.ServiceException;
 import by.zinkov.victor.service.exception.ValidationException;
@@ -21,17 +23,16 @@ public class FinishCreatingOrder implements Command {
         Router router = new Router();
         router.setType(Router.Type.REDIRECT);
         router.setRoute(Router.INDEX_ROUT);
-
         String courierId = request.getParameter(COURIER_ID_PARAMETER);
         StringValidator validator = StringValidator.getInstance();
         HttpSession session = request.getSession();
 
         Order order = (Order)session.getAttribute(ORDER_ATTRIBUTE);
-
         try {
             validator.isMatchesInt(courierId , StringValidator.POSITIVE_RANGE);
             order.setIdCourier(Integer.valueOf(courierId));
-            order.setIdStatus(1);
+            order.setIdStatus(OrderStatus.ORDERED.getId());
+            System.out.println(order);
 
             OrderService orderService = new OrderServiceImpl();
             orderService.save(order);
@@ -46,7 +47,6 @@ public class FinishCreatingOrder implements Command {
         } finally {
             session.setAttribute(ORDER_ATTRIBUTE,null);
         }
-        System.out.println(order);
         return router;
     }
 }

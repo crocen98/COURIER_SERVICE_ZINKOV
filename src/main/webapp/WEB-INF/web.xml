@@ -6,6 +6,10 @@
   <display-name>сouriers_service</display-name>
 
   <filter-mapping>
+    <filter-name>LocaleFilter</filter-name>
+    <url-pattern>/couriers</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
     <filter-name>UserStatusFilter</filter-name>
     <url-pattern>/couriers</url-pattern>
   </filter-mapping>

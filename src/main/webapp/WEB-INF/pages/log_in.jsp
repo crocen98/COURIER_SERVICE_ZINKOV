@@ -1,5 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${not empty sessionScope.locale ? sessionScope.locale : 'en'}"/>
+<fmt:setBundle basename="language"  var="bundle" scope="application"/>
 
 <html>
 
@@ -22,7 +25,15 @@
 </head>
 
 <body class="bg-gradient-primary">
+<style>
+    input:invalid {
+        border-color: red;
+    }
 
+    input:valid {
+        border-color: green;
+    }
+</style>
 <script src="${pageContext.request.contextPath}/js/jquery/jquery.min.js"></script>
 
 <!-- Bootstrap core JavaScript-->
@@ -37,7 +48,7 @@
     <!-- Outer Row -->
     <c:if test="${param.error != null}">
         <div class="alert alert-danger" role="alert">
-            <strong>Oh snap!</strong> ${param.error}
+            <strong>Oh snap!</strong><fmt:message key="${param.error}" bundle="${bundle}"/>
         </div>
     </c:if>
     <div class="row justify-content-center">
@@ -62,12 +73,7 @@
                                     <div class="form-group">
                                         <input  required type="password" pattern="(\w|\d|-){1,35}" class="form-control form-control-user"  value="12345" name="password" placeholder="Password">
                                     </div>
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox small">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck">
-                                            <label class="custom-control-label" for="customCheck">Remember Me</label>
-                                        </div>
-                                    </div>
+
                                     <button  class="btn btn-primary btn-user btn-block">
                                         Login
                                     </button>

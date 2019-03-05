@@ -3,6 +3,7 @@ package by.zinkov.victor.controller.command;
 import by.zinkov.victor.controller.command.exception.CommandException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Command
@@ -15,4 +16,5 @@ public interface Command {
      * @return response content
      */
     Router execute(HttpServletRequest request) throws CommandException;
+
 }

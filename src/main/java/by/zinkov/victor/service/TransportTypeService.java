@@ -13,4 +13,6 @@ public interface TransportTypeService {
     void add(String name) throws ServiceException;
 
     void edit(String id, String name)throws ServiceException;
+
+    TransportType getByName(String name) throws ServiceException;
 }

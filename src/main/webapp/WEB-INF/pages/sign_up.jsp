@@ -1,5 +1,8 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${not empty sessionScope.locale ? sessionScope.locale : 'en'}"/>
+<fmt:setBundle basename="language"  var="bundle" scope="application"/>
 <!DOCTYPE html>
 <html>
 
@@ -42,17 +45,13 @@
     </c:if>
     <div class="card o-hidden border-0 shadow-lg my-5">
         <div class="card-body p-0">
-            <!-- Nested Row within Card Body -->
             <div class="row">
                 <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
                 <div class="col-lg-7">
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                            <h1 class="h4 text-gray-900 mb-4"> <fmt:message key="signup.formname" bundle="${bundle}"/></h1>
                         </div>
-                        <%--<c:forEach var="elem" items="${requestScope.roles}" varStatus="status">--%>
-                        <%--${elem} 1000--%>
-                        <%--</c:forEach>--%>
                         <form class="user" method="POST"
                               action="${pageContext.servletContext.contextPath}/couriers?command=register_command">
                             <div class="form-group row">
@@ -64,9 +63,15 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                    <input required type="text" class="form-control form-control-user"
-                                           pattern="(\w|\d|-){1,35}" name="login"
-                                           placeholder="Login">
+                                <div id="label_login">
+                                    <label for="logininput" id="logininputlabel">
+                                        <fmt:message key="signup.logincheck" bundle="${bundle}"/>
+                                    </label>
+                                </div>
+                                <input id="logininput" oninput="loadXMLDoc(this)" required type="text"
+                                       class="form-control form-control-user"
+                                       pattern="(\w|\d|-){1,35}" name="login"
+                                       placeholder="Login">
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
@@ -106,22 +111,29 @@
                             </div>
                             <div class="form-group">
                                 <div class="form-group">
-                                    <input required type="text" class="form-control form-control-user" disabled id="coordinates"
+                                    <input required type="text" class="form-control form-control-user" disabled
+                                           id="coordinates"
                                            placeholder="Location">
-                                    <input required id="сoordinatesInput" name="location" type="hidden" value="53.8620412579027,27.66345453515624">
+                                    <input required id="сoordinatesInput" name="location" type="hidden"
+                                           value="53.8620412579027,27.66345453515624">
                                 </div>
 
                             </div>
                             <div class=" d-flex justify-content-center">
-                                <button class="btn btn-primary btn-user btn-block">Register Account</button>
+                                <button id="but_sign_up" class="btn btn-primary btn-user btn-block">Register Account
+                                </button>
                             </div>
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=to_password_recovery_page">Forgot Password?</a>
+                            <a class="small"
+                               href="${pageContext.servletContext.contextPath}/couriers?command=to_password_recovery_page">Forgot
+                                Password?</a>
                         </div>
                         <div class="text-center">
-                            <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=to_log_in_page">Already have an account? Login!</a>
+                            <a class="small"
+                               href="${pageContext.servletContext.contextPath}/couriers?command=to_log_in_page">Already
+                                have an account? Login!</a>
                         </div>
                     </div>
                 </div>
@@ -141,9 +153,6 @@
 
 
 <script type="text/javascript">
-
-    // Функция ymaps.ready() будет вызвана, когда
-    // загрузятся все компоненты API, а также когда будет готово DOM-дерево.
     var globalCord;
     var cordName;
     var isInputAction = false;
@@ -151,7 +160,6 @@
 
     function inputCordForm(event) {
         isInputAction = true;
-        console.log("INPUT");
         cordName = event.target.value;
         ymaps.ready(init);
         setTimeout(func, 1000);
@@ -300,6 +308,38 @@
             }
         }
     }
+
+
+    function loadXMLDoc(userLogin) {
+        console.log("ACTIONNNNNNNNNNN");
+        var xmlhttp;
+
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.status == 200) {
+                var isValidLogin = xmlhttp.responseText;
+                var labelItem = document.getElementById("label_login");
+                console.log(isValidLogin);
+                labelItem.innerHTML = xmlhttp.responseText;
+                if (document.getElementById("logininputlabel").getAttribute("class") == "disabled") {
+                    document.getElementById("but_sign_up").disabled = true;
+                } else {
+                    document.getElementById("but_sign_up").disabled = false;
+                }
+            } else {
+
+            }
+        };
+
+        xmlhttp.open("POST", "AjaxServlet", true);
+        xmlhttp.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send("command=check_login&login=" + userLogin.value);
+    }
+
 </script>
 
 </body>

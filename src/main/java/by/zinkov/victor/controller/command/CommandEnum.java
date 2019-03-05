@@ -20,7 +20,10 @@ public enum CommandEnum {
     TO_CHANGE_PASSWORD_PAGE("to_change_password_page",RequestMethod.GET,new AccessLevel[]{AccessLevel.VISITOR}),
     TO_CREATE_ORDER_PAGE("to_create_order_page" , RequestMethod.GET , new AccessLevel[] {AccessLevel.CLIENT}),
     CREATE_ORDER_PAGE_SECOND_STAGE("create_order_page_second_stage" , RequestMethod.POST , new AccessLevel[]{AccessLevel.CLIENT}),
-    FINISH_CREATING_ORDER("finish_creating_order" , RequestMethod.POST , new AccessLevel[]{AccessLevel.CLIENT});
+    FINISH_CREATING_ORDER("finish_creating_order" , RequestMethod.POST , new AccessLevel[]{AccessLevel.CLIENT}),
+    CHECK_LOGIN("check_login" , RequestMethod.POST , new AccessLevel[]{AccessLevel.VISITOR}),
+    CHANGE_LANGUAGE("change_language" , RequestMethod.GET,new AccessLevel[]{AccessLevel.ALL}),
+    TO_USER_ORDER_PAGE("to_user_order_page" , RequestMethod.GET , new AccessLevel[]{AccessLevel.CLIENT});
 
     private final String name;
     private final RequestMethod method;

@@ -19,4 +19,5 @@ public interface UserExpandedDao {
 
     @AutoConnection
     List<User> getCouriersWithAppropriateCargoAndTransportType(String transportType, String cargoType) throws DaoException;
+
 }

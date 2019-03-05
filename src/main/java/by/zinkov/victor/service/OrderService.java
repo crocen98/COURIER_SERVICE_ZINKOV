@@ -7,4 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 public interface OrderService  {
      Order createOrderFirstStage(HttpServletRequest request , String transportTypeString, String cargoTypeString) throws ServiceException;
      void save(Order order) throws ServiceException;
+     Order getActiveOrderByClientId(Integer id) throws ServiceException;
+
 }

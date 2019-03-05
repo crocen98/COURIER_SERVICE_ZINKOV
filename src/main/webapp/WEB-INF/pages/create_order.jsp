@@ -20,9 +20,9 @@
 </style>
 <div class="container">
     <c:if test="${param.error != null}">
-        <div class="alert alert-danger" role="alert">
-            <strong>Oh snap!</strong> ${param.error}
-        </div>
+    <div class="alert alert-danger" role="alert">
+        <strong>Oh snap!</strong> ${param.error}
+    </div>
     </c:if>
     <div class="card o-hidden border-0 shadow-lg my-5">
         <div class="card-body p-0">
@@ -37,15 +37,17 @@
                         <%--<c:forEach var="elem" items="${requestScope.roles}" varStatus="status">--%>
                         <%--${elem} 1000--%>
                         <%--</c:forEach>--%>
-                        <form class="user"  method="POST"
+                        <form class="user" method="POST"
                               action="${pageContext.servletContext.contextPath}/couriers?command=create_order_page_second_stage">
                             <div class="form-group">
-                                <textarea required type="text" class="form-control " name="description" placeholder="description"></textarea>
+                                <textarea required type="text" class="form-control " name="description"
+                                          placeholder="description"></textarea>
                             </div>
 
                             <div class="form-group row">
                                 <label for="sel1">Transport type</label>
-                                <select class="form-control " style="border-radius: 15px;" id="sel1" name="transport_type">
+                                <select class="form-control " style="border-radius: 15px;" id="sel1"
+                                        name="transport_type">
                                     <c:forEach var="transport" items="${transport_types}" varStatus="status">
                                         <option>${transport.transportType}</option>
                                     </c:forEach>
@@ -62,43 +64,40 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input id="date" required type="date" class="form-control"
-
-                                           placeholder="First Name">
+                                    <input id="date" required type="date" class="form-control" placeholder="First Name">
                                 </div>
                                 <div class="col-sm-6 input-group date">
-                                    <input id="time" required type="time" class="form-control"
-
-                                           placeholder="Last Name">
+                                    <input id="time" required type="time" class="form-control" placeholder="Last Name">
                                 </div>
-
                                 <input required id="date_time" name="start_time" type="hidden" value="">
-
                             </div>
 
 
-                            <div  id="radio_cord" class="form-group" style="text-align: left">
-                                    <div class="radio" >
-                                        <label><input id="radio_1" type="radio" name="point_type"  checked>Point A</label>
-                                    </div>
-                                    <div class="radio">
-                                        <label><input type="radio" id="radio_2" name="point_type" >Point B</label>
-                                    </div>
+                            <div id="radio_cord" class="form-group" style="text-align: left">
+                                <div class="radio">
+                                    <label><input id="radio_1" type="radio" name="point_type" checked>Point A</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" id="radio_2" name="point_type">Point B</label>
+                                </div>
                             </div>
-
 
 
                             <div class="form-group">
                                 <div class="form-group">
-                                    <input required type="text" class="form-control form-control-user"  disabled id="coordinates"
+                                    <input required type="text" class="form-control form-control-user" disabled
+                                           id="coordinates"
                                            placeholder="Point A">
-                                    <input required id="сoordinatesInput" name="start_point" type="hidden" value="53.8620412579027,27.66345453515624">
+                                    <input required id="сoordinatesInput" name="start_point" type="hidden"
+                                           value="53.8620412579027,27.66345453515624">
                                 </div>
 
                                 <div class="form-group">
-                                    <input required type="text" class="form-control form-control-user" disabled id="coordinatesone"
+                                    <input required type="text" class="form-control form-control-user" disabled
+                                           id="coordinatesone"
                                            placeholder="Point B">
-                                    <input required id="сoordinatesInputone" name="finish_point" type="hidden" value="53.8620412579027,27.66345453515624">
+                                    <input required id="сoordinatesInputone" name="finish_point" type="hidden"
+                                           value="53.8620412579027,27.66345453515624">
                                 </div>
                             </div>
 
@@ -110,238 +109,213 @@
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=to_password_recovery_page">Forgot Password?</a>
+                            <a class="small"
+                               href="${pageContext.servletContext.contextPath}/couriers?command=to_password_recovery_page">Forgot
+                                Password?</a>
                         </div>
                         <div class="text-center">
-                            <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=to_log_in_page">Already have an account? Login!</a>
+                            <a class="small"
+                               href="${pageContext.servletContext.contextPath}/couriers?command=to_log_in_page">Already
+                                have an account? Login!</a>
                         </div>
                     </div>
-                <%--</div>--%>
+                    <%--</div>--%>
                 </div>
                 <%--</div>--%>
-    </div>
-</div>
+            </div>
+        </div>
 
 
-<jsp:include page="../frames/footer.jsp"/>
+        <jsp:include page="../frames/footer.jsp"/>
 
-<script type="text/javascript">
+        <script type="text/javascript">
 
-    // Функция ymaps.ready() будет вызвана, когда
-    // загрузятся все компоненты API, а также когда будет готово DOM-дерево.
-    var globalCord;
-    var cordName;
-    var isInputAction = false;
+            // Функция ymaps.ready() будет вызвана, когда
+            // загрузятся все компоненты API, а также когда будет готово DOM-дерево.
+            var globalCord;
+            var cordName;
+            var isInputAction = false;
 
-    var checked_rad_but_id;
+            var checked_rad_but_id;
 
-    var date;
-    var time;
+            var date;
+            var time;
 
-    document.getElementById("date").addEventListener("input", function (ev) {
-        date = ev.target.value;
+            document.getElementById("date").addEventListener("input", function (ev) {
+                date = ev.target.value;
 
-        document.getElementById("date_time").setAttribute("value", date + ', ' + time);
-    });
+                document.getElementById("date_time").setAttribute("value", date + ', ' + time);
+            });
 
-    document.getElementById("time").addEventListener("input", function (ev) {
-        time = ev.target.value;
-        document.getElementById("date_time").setAttribute("value", date + ', ' + time);
-    });
+            document.getElementById("time").addEventListener("input", function (ev) {
+                time = ev.target.value;
+                document.getElementById("date_time").setAttribute("value", date + ', ' + time);
+            });
 
-    document.getElementById("radio_cord").addEventListener("click", function (ev) {
-        if(ev.target.getAttribute("id") == 'radio_1' ){
-            checked_rad_but_id = 'radio_1';
-        } else if(ev.target.getAttribute("id") == 'radio_2' ) {
-            checked_rad_but_id = 'radio_2';
-        }
-    });
+            document.getElementById("radio_cord").addEventListener("click", function (ev) {
+                if (ev.target.getAttribute("id") == 'radio_1') {
+                    checked_rad_but_id = 'radio_1';
+                } else if (ev.target.getAttribute("id") == 'radio_2') {
+                    checked_rad_but_id = 'radio_2';
+                }
+            });
 
-    var rad2=document.getElementsByName('point_type');
-    for (var i=0;i<rad2.length; i++) {
-        if (rad2[i].checked) {
-            checked_rad_but_id = rad2[i].getAttribute("id");
-            break;
-        }
-    }
-
-    console.log(checked_rad_but_id);
-    console.log("checked_rad_but_id");
-    if(checked_rad_but_id == "radio_1") {
-        document.getElementById("coordinates").addEventListener("input", inputCordForm);
-    }{
-        document.getElementById("coordinatesone").addEventListener("input", inputCordForm);
-
-    }
-    function inputCordForm(event) {
-        isInputAction = true;
-        console.log("INPUT");
-        cordName = event.target.value;
-        ymaps.ready(init);
-        setTimeout(func, 1000);
-
-        function func() {
-            console.log(globalCord + "  globalCord");
-            var rad=document.getElementsByName('point_type');
-            for (var i=0;i<rad.length; i++) {
-                if (rad[i].checked) {
-                    checked_rad_but_id = rad[i].getAttribute("id");
+            var rad2 = document.getElementsByName('point_type');
+            for (var i = 0; i < rad2.length; i++) {
+                if (rad2[i].checked) {
+                    checked_rad_but_id = rad2[i].getAttribute("id");
                     break;
                 }
             }
+
             console.log(checked_rad_but_id);
             console.log("checked_rad_but_id");
-            if(checked_rad_but_id == "radio_1") {
-                document.getElementById("сoordinatesInput").value = globalCord;
-            } else {
-                document.getElementById("сoordinatesInputone").value = globalCord;
+            if (checked_rad_but_id == "radio_1") {
+                document.getElementById("coordinates").addEventListener("input", inputCordForm);
+            }
+            {
+                document.getElementById("coordinatesone").addEventListener("input", inputCordForm);
 
             }
-            isInputAction = false;
-        }
-    }
 
-    ymaps.ready(init);
+            function inputCordForm(event) {
+                isInputAction = true;
+                console.log("INPUT");
+                cordName = event.target.value;
+                ymaps.ready(init);
+                setTimeout(func, 1000);
 
-    function init() {
-
-        myMap = new ymaps.Map('map', {
-            center: [53.54588147535851, 28.113893988281244],
-            zoom: 10
-        }, {
-            searchControlProvider: 'yandex#search'
-        });
-
-        var location = ymaps.geolocation;
-        location.get({
-            provider: 'yandex',
-            mapStateAutoApply: true
-        }).then(function (result) {
-            // Красным цветом пометим положение, вычисленное через ip.
-            result.geoObjects.options.set('preset', 'islands#redCircleIcon');
-            result.geoObjects.get(0).properties.set({
-                balloonContentBody: 'Мое местоположение'
-            });
-            myMap.geoObjects.add(result.geoObjects);
-        });
-
-        var myPlacemark;
-        if (isInputAction) {
-            console.log(isInputAction);
-            console.log(cordName);
-            console.log("ISINPUTACTION");
-            var myGeocoder = ymaps.geocode(cordName);
-            var res = myGeocoder.then(
-                function (result) {
-                    var coordinates = result.geoObjects.get(0).geometry.getCoordinates();
-
-                    globalCord = coordinates;
-                },
-                function (err) {
-                    alert('Ошибка');
-                }
-            );
-
-            var myCircle = ymaps.Circle([
-                // Координаты центра круга.
-                [53.91071905554657, 27.861208441406248],
-                // Радиус круга в метрах.
-                10000
-            ], {
-                // Описываем свойства круга.
-                // Содержимое балуна.
-                balloonContent: "Радиус круга - 10 км",
-                // Содержимое хинта.
-                hintContent: "Подвинь меня"
-            }, {
-                // Задаем опции круга.
-                // Включаем возможность перетаскивания круга.
-                draggable: true,
-                // Цвет заливки.
-                // Последний байт (77) определяет прозрачность.
-                // Прозрачность заливки также можно задать используя опцию "fillOpacity".
-                fillColor: "#DB709377",
-                // Цвет обводки.
-                strokeColor: "#990066",
-                // Прозрачность обводки.
-                strokeOpacity: 0.8,
-                // Ширина обводки в пикселях.
-                strokeWidth: 5
-            });
-            myMap.geoObjects.add(myCircle);
-
-        } else {
-
-
-            myMap.events.add('click', function (e) {
-                var coords = e.get('coords');
-                console.log("coords");
-                console.log(coords);
-
-
-                // Если метка уже создана – просто передвигаем ее.
-                if (myPlacemark) {
-                    myPlacemark.geometry.setCoordinates(coords);
-                }
-                // Если нет – создаем.
-                else {
-                    myPlacemark = createPlacemark(coords);
-                    myMap.geoObjects.add(myPlacemark);
-                    // Слушаем событие окончания перетаскивания на метке.
-                    myPlacemark.events.add('dragend', function () {
-                        getAddress(myPlacemark.geometry.getCoordinates());
-                    });
-                }
-                getAddress(coords);
-            });
-
-
-            ///////////////////////
-
-
-            ///////////////////////////////
-
-
-            // Создание метки.
-            function createPlacemark(coords) {
-                return new ymaps.Placemark(coords, {
-                    iconCaption: 'поиск...'
-                }, {
-                    preset: 'islands#violetDotIconWithCaption',
-                    draggable: true
-                });
-            }
-
-            // Определяем адрес по координатам (обратное геокодирование).
-            function getAddress(coords) {
-                myPlacemark.properties.set('iconCaption', 'поиск...');
-                ymaps.geocode(coords).then(function (res) {
-                    var firstGeoObject = res.geoObjects.get(0);
-
-                    myPlacemark.properties
-                        .set({
-                            // Формируем строку с данными об объекте.
-                            iconCaption: [
-                                // Название населенного пункта или вышестоящее административно-территориальное образование.
-                                firstGeoObject.getLocalities().length ? firstGeoObject.getLocalities() : firstGeoObject.getAdministrativeAreas(),
-                                // Получаем путь до топонима, если метод вернул null, запрашиваем наименование здания.
-                                firstGeoObject.getThoroughfare() || firstGeoObject.getPremise()
-                            ].filter(Boolean).join(', '),
-                            // В качестве контента балуна задаем строку с адресом объекта.
-                            balloonContent: firstGeoObject.getAddressLine()
-                        });
-
-                    console.log(myPlacemark.properties._data.balloonContent);
-
-                    if(checked_rad_but_id == "radio_1") {
-                        document.getElementById("coordinates").value = myPlacemark.properties._data.balloonContent;
-                        document.getElementById("сoordinatesInput").value = coords;
-                    } else {
-                        document.getElementById("coordinatesone").value = myPlacemark.properties._data.balloonContent;
-                        document.getElementById("сoordinatesInputone").value = coords;
+                function func() {
+                    console.log(globalCord + "  globalCord");
+                    var rad = document.getElementsByName('point_type');
+                    for (var i = 0; i < rad.length; i++) {
+                        if (rad[i].checked) {
+                            checked_rad_but_id = rad[i].getAttribute("id");
+                            break;
+                        }
                     }
-                });
+                    console.log(checked_rad_but_id);
+                    console.log("checked_rad_but_id");
+                    if (checked_rad_but_id == "radio_1") {
+                        document.getElementById("сoordinatesInput").value = globalCord;
+                    } else {
+                        document.getElementById("сoordinatesInputone").value = globalCord;
+
+                    }
+                    isInputAction = false;
+                }
             }
-        }
-    }
-</script>
+
+            ymaps.ready(init);
+
+            function init() {
+
+                myMap = new ymaps.Map('map', {
+                    center: [53.54588147535851, 28.113893988281244],
+                    zoom: 10
+                }, {
+                    searchControlProvider: 'yandex#search'
+                });
+
+                var location = ymaps.geolocation;
+                location.get({
+                    provider: 'yandex',
+                    mapStateAutoApply: true
+                }).then(function (result) {
+                    // Красным цветом пометим положение, вычисленное через ip.
+                    result.geoObjects.options.set('preset', 'islands#redCircleIcon');
+                    result.geoObjects.get(0).properties.set({
+                        balloonContentBody: 'Мое местоположение'
+                    });
+                    myMap.geoObjects.add(result.geoObjects);
+                });
+
+                var myPlacemark;
+                if (isInputAction) {
+                    console.log(isInputAction);
+                    console.log(cordName);
+                    console.log("ISINPUTACTION");
+                    var myGeocoder = ymaps.geocode(cordName);
+                    var res = myGeocoder.then(
+                        function (result) {
+                            var coordinates = result.geoObjects.get(0).geometry.getCoordinates();
+
+                            globalCord = coordinates;
+                        },
+                        function (err) {
+                            alert('Ошибка');
+                        }
+                    );
+                } else {
+
+
+                    myMap.events.add('click', function (e) {
+                        var coords = e.get('coords');
+                        console.log("coords");
+                        console.log(coords);
+
+
+                        // Если метка уже создана – просто передвигаем ее.
+                        if (myPlacemark) {
+                            myPlacemark.geometry.setCoordinates(coords);
+                        }
+                        // Если нет – создаем.
+                        else {
+                            myPlacemark = createPlacemark(coords);
+                            myMap.geoObjects.add(myPlacemark);
+                            // Слушаем событие окончания перетаскивания на метке.
+                            myPlacemark.events.add('dragend', function () {
+                                getAddress(myPlacemark.geometry.getCoordinates());
+                            });
+                        }
+                        getAddress(coords);
+                    });
+
+
+                    ///////////////////////
+
+
+                    ///////////////////////////////
+
+
+                    // Создание метки.
+                    function createPlacemark(coords) {
+                        return new ymaps.Placemark(coords, {
+                            iconCaption: 'поиск...'
+                        }, {
+                            preset: 'islands#violetDotIconWithCaption',
+                            draggable: true
+                        });
+                    }
+
+                    // Определяем адрес по координатам (обратное геокодирование).
+                    function getAddress(coords) {
+                        myPlacemark.properties.set('iconCaption', 'поиск...');
+                        ymaps.geocode(coords).then(function (res) {
+                            var firstGeoObject = res.geoObjects.get(0);
+
+                            myPlacemark.properties
+                                .set({
+                                    // Формируем строку с данными об объекте.
+                                    iconCaption: [
+                                        // Название населенного пункта или вышестоящее административно-территориальное образование.
+                                        firstGeoObject.getLocalities().length ? firstGeoObject.getLocalities() : firstGeoObject.getAdministrativeAreas(),
+                                        // Получаем путь до топонима, если метод вернул null, запрашиваем наименование здания.
+                                        firstGeoObject.getThoroughfare() || firstGeoObject.getPremise()
+                                    ].filter(Boolean).join(', '),
+                                    // В качестве контента балуна задаем строку с адресом объекта.
+                                    balloonContent: firstGeoObject.getAddressLine()
+                                });
+
+                            if (checked_rad_but_id == "radio_1") {
+                                document.getElementById("coordinates").value = myPlacemark.properties._data.balloonContent;
+                                document.getElementById("сoordinatesInput").value = coords;
+                            } else {
+                                document.getElementById("coordinatesone").value = myPlacemark.properties._data.balloonContent;
+                                document.getElementById("сoordinatesInputone").value = coords;
+                            }
+                        });
+                    }
+                }
+            }
+        </script>

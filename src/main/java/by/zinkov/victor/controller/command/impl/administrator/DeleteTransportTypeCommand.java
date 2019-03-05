@@ -3,7 +3,7 @@ package by.zinkov.victor.controller.command.impl.administrator;
 import by.zinkov.victor.controller.command.Command;
 import by.zinkov.victor.controller.command.CommandEnum;
 import by.zinkov.victor.controller.command.Router;
-import by.zinkov.victor.service.ServiceFactory;
+import by.zinkov.victor.service.factory.ServiceFactory;
 import by.zinkov.victor.service.TransportTypeService;
 import by.zinkov.victor.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
@@ -17,7 +17,7 @@ public class DeleteTransportTypeCommand implements Command {
     private static final String TRANSPORT_TYPE_ID_PARAMETER = "transport_type_id";
     @Override
     public Router execute(HttpServletRequest request) {
-        ServiceFactory factory = new ServiceFactory();
+        ServiceFactory factory =  ServiceFactory.getInstance();
         TransportTypeService service = factory.getTransportTypeServiceImpl();
         Router router = new Router();
         try {

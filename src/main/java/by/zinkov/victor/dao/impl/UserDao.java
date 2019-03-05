@@ -19,8 +19,8 @@ import java.util.List;
 /**
  * Example User DAO implementation
  */
-public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDao<User, Integer> , UserExpandedDao {
-    private static final String SELECT_ALL_USERS_QUERY = "SELECT * FROM user " ;
+public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDao<User, Integer>, UserExpandedDao {
+    private static final String SELECT_ALL_USERS_QUERY = "SELECT * FROM user ";
     private static final String SELECT_USER_BY_PK_QUERY = "SELECT * FROM user WHERE id = ?";
     private static final String INSERT_NEW_USER_QUERY =
             "INSERT INTO user ( login , password , first_name,last_name , email ,phone , status_id , role_id , location ) " +
@@ -34,23 +34,25 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
 
     private static final String SELECT_COURIERS_WITH_APPROPRIATE_TRANSPORT_AND_CARGO_TYPE =
             "SELECT * from user WHERE user.id IN \n" +
-            "(SELECT currier_id FROM currier_capability \n" +
-            "JOIN transport_type\n" +
-            "ON currier_capability.transport_id = transport_type.id \n" +
-            "WHERE transport_type.type = ? \n" +
-            "AND \n" +
-            "currier_capability.id IN \n" +
-            "(SELECT currier_capability_id FROM supported_cargo_types\n" +
-            "JOIN cargo_types ON supported_cargo_types.type_id = cargo_types.id\n" +
-            "WHERE cargo_types.type = ?))";
+                    "(SELECT currier_id FROM currier_capability \n" +
+                    "JOIN transport_type\n" +
+                    "ON currier_capability.transport_id = transport_type.id \n" +
+                    "WHERE transport_type.type = ? \n" +
+                    "AND \n" +
+                    "currier_capability.id IN \n" +
+                    "(SELECT currier_capability_id FROM supported_cargo_types\n" +
+                    "JOIN cargo_types ON supported_cargo_types.type_id = cargo_types.id\n" +
+                    "WHERE cargo_types.type = ?))";
+
+
 
 
 
     @Override
-    public List<User> getCouriersWithAppropriateCargoAndTransportType(String transportType, String cargoType) throws DaoException{
+    public List<User> getCouriersWithAppropriateCargoAndTransportType(String transportType, String cargoType) throws DaoException {
         try (PreparedStatement statement = this.connection.prepareStatement(SELECT_COURIERS_WITH_APPROPRIATE_TRANSPORT_AND_CARGO_TYPE)) {
-            statement.setString(1,transportType);
-            statement.setString(2,cargoType);
+            statement.setString(1, transportType);
+            statement.setString(2, cargoType);
 
             ResultSet resultSet = statement.executeQuery();
             return parseResultSet(resultSet);
@@ -63,7 +65,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
     @Override
     public UserDto getDtoByPK(Integer id) throws DaoException {
         User user = getByPK(id);
-        return logIn(user.getLogin(),user.getPassword());
+        return logIn(user.getLogin(), user.getPassword());
     }
 
 
@@ -82,13 +84,13 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
 
     @Override
     @AutoConnection
-    public UserDto logIn(String login, String password) throws DaoException{
-        try (PreparedStatement statement =connection.prepareStatement(SELECT_USER_DTO_BY_LOGIN_AND_PASSWORD)){
-            statement.setString(1,login);
-            statement.setString(2,password);
+    public UserDto logIn(String login, String password) throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_USER_DTO_BY_LOGIN_AND_PASSWORD)) {
+            statement.setString(1, login);
+            statement.setString(2, password);
             ResultSet set = statement.executeQuery();
-            List<User>  user = parseResultSet(set);
-            if(user.isEmpty()){
+            List<User> user = parseResultSet(set);
+            if (user.isEmpty()) {
                 throw new DaoException("Incorrect password or login!");
             }
 
@@ -100,7 +102,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
             userDto.setUserStatus(UserStatus.valueOf(userStatus));
             return userDto;
         } catch (SQLException e) {
-            throw new DaoException("problem with logIn in dao" , e);
+            throw new DaoException("problem with logIn in dao", e);
         }
     }
 
@@ -109,56 +111,43 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
 
         List<User> users = new ArrayList<>();
 
-            while (rs.next()) {
-//                User user =  User.builder()
-//////                        .id(rs.getInt(1))
-//////                        .login(rs.getString(2))
-//////                        .password(rs.getString(3))
-//////                        .firstName(rs.getString(4))
-//////                        .lastName(rs.getString(5))
-//////                        .email(rs.getString(6))
-//////                        .phone(rs.getString(7))
-//////                        .location(rs.getString(10))
-//////                        .userStatusId(rs.getInt(8))
-//////                        .userRoleId(rs.getInt(9))
-////                        .build();
-                User user = new User();
-                user.setId(rs.getInt(1));
-                user.setLogin(rs.getString(2));
-                user.setPassword(rs.getString(3));
-                user.setFirstName(rs.getString(4));
-                user.setLastName(rs.getString(5));
-                user.setEmail(rs.getString(6));
-                user.setPhone(rs.getString(7));
-                user.setLocation(rs.getString(10));
-                user.setUserStatusId(rs.getInt(8));
-                user.setUserRoleId(rs.getInt(9));
-                users.add(user);
-            }
-            return users;
+        while (rs.next()) {
+            User user = new User();
+            user.setId(rs.getInt(1));
+            user.setLogin(rs.getString(2));
+            user.setPassword(rs.getString(3));
+            user.setFirstName(rs.getString(4));
+            user.setLastName(rs.getString(5));
+            user.setEmail(rs.getString(6));
+            user.setPhone(rs.getString(7));
+            user.setLocation(rs.getString(10));
+            user.setUserStatusId(rs.getInt(8));
+            user.setUserRoleId(rs.getInt(9));
+            users.add(user);
+        }
+        return users;
     }
-
 
 
     @Override
     protected void prepareStatementForInsert(PreparedStatement statement, User object) throws SQLException {
-            statement.setString(1,object.getLogin());
-            statement.setString(2,object.getPassword());
-            statement.setString(3,object.getFirstName());
-            statement.setString(4,object.getLastName());
-            statement.setString(5,object.getEmail());
-            statement.setString(6,object.getPhone());
-            statement.setInt(7,object.getUserStatusId());
-            statement.setInt(8,object.getUserRoleId());
-            statement.setString(9,object.getLocation());
-            if(object.getId() != null){
-                statement.setInt(10, object.getId());
-            }
+        statement.setString(1, object.getLogin());
+        statement.setString(2, object.getPassword());
+        statement.setString(3, object.getFirstName());
+        statement.setString(4, object.getLastName());
+        statement.setString(5, object.getEmail());
+        statement.setString(6, object.getPhone());
+        statement.setInt(7, object.getUserStatusId());
+        statement.setInt(8, object.getUserRoleId());
+        statement.setString(9, object.getLocation());
+        if (object.getId() != null) {
+            statement.setInt(10, object.getId());
+        }
     }
 
     @Override
     protected void prepareStatementForUpdate(PreparedStatement statement, User object) throws SQLException {
-        prepareStatementForInsert(statement,object);
+        prepareStatementForInsert(statement, object);
     }
 
     @Override

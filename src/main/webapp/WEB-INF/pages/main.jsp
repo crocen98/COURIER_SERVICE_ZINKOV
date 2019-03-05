@@ -1,6 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<fmt:setLocale value="${sessionScope.locale == null ? sessionScope.locale : 'en'}"/>
+<fmt:setBundle basename="language" scope="session"/>
 <html>
 <head>
     <title>Landing Page - Start Bootstrap Theme</title>
@@ -23,7 +26,15 @@
 <!-- Navigation -->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-        <a class="navbar-brand" href="#">Language</a>
+        <c:if test="${sessionScope.locale eq 'en' or sessionScope.locale == null}">
+            <a class="navbar-brand" href="${pageContext.servletContext.contextPath}/couriers?command=change_language"><span class="flag-icon flag-icon-ru"> </span>
+                Русский</a>
+        </c:if>
+        <c:if test="${sessionScope.locale eq'ru'}">
+            <a class="navbar-brand" href="${pageContext.servletContext.contextPath}/couriers?command=change_language"><span class="flag-icon flag-icon-ru"> </span>
+                English</a>
+        </c:if>
+        <%--<a class="navbar-brand" href="#">Language</a>--%>
         <a class="btn btn-primary" href="${pageContext.servletContext.contextPath}/couriers?command=to_log_in_page">Log In</a>
     </div>
 </nav>

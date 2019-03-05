@@ -11,7 +11,9 @@ public enum Page {
     START_AUTHORIZED_PAGE("/WEB-INF/pages/client_main.jsp"),
     CHANGE_PASSWORD("/WEB-INF/pages/change_password.jsp"),
     CREATE_ORDER("/WEB-INF/pages/create_order.jsp"),
-    CREATE_ORDER_SECOND_STAGE("/WEB-INF/pages/create_order_second_stage.jsp");;
+    CREATE_ORDER_SECOND_STAGE("/WEB-INF/pages/create_order_second_stage.jsp"),
+    LABEL_FOR_ERROR_INPUT("/WEB-INF/frames/user_order.jsp"),
+    ORDER_PAGE("/WEB-INF/pages/user_order.jsp");
 
 
 

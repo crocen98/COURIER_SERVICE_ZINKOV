@@ -2,6 +2,7 @@ package by.zinkov.victor.service.impl;
 
 import by.zinkov.victor.dao.DaoFactory;
 import by.zinkov.victor.dao.GenericDao;
+import by.zinkov.victor.dao.TransportTypeExpandedDao;
 import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.dao.factory.JdbcDaoFactory;
 import by.zinkov.victor.domain.TransportType;
@@ -76,6 +77,17 @@ public class TransportTypeServiceImpl implements TransportTypeService {
             throw new ServiceException("Problem with edit transport with bane: " + name, e);
         } catch (ValidationException e) {
             throw new ServiceException("problem with validation", e);
+        }
+    }
+
+    @Override
+    public TransportType getByName(String name) throws ServiceException {
+        DaoFactory daoFactory = JdbcDaoFactory.getInstance();
+        try {
+            TransportTypeExpandedDao dao = (TransportTypeExpandedDao) daoFactory.getDao(TransportType.class);
+            return dao.getByName(name);
+        } catch (DaoException e) {
+            throw new ServiceException("Cannot find by name!", e);
         }
     }
 }

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns ="/couriers")
+@WebServlet(urlPatterns ="/couriers",name = "simpleServlet")
 public class FrontController extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger(FrontController.class);
@@ -23,7 +23,6 @@ public class FrontController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
-        request.getSession();
     }
 
     @Override
@@ -36,10 +35,10 @@ public class FrontController extends HttpServlet {
         String commandName = request.getParameter(COMMAND_REQUEST_PARAMETER);
         CommandEnum commandEnum = CommandEnum.getByName(commandName);
         Command command = CommandProvider.getInstance().takeCommand(commandEnum);
-       LOGGER.info("Command :" + commandName + " work in controller");
+        LOGGER.info("Command :" + commandName + " work in controller");
         Router router= new Router();
         try {
-             router = command.execute(request);
+            router = command.execute(request);
         } catch (CommandException e) {
             LOGGER.error(e);
             request.setAttribute(ERROR,e.getMessage());

@@ -9,6 +9,7 @@ import by.zinkov.victor.controller.command.impl.administrator.ShowTranspotTypesC
 import by.zinkov.victor.controller.command.impl.user.CreateOrderSecondStage;
 import by.zinkov.victor.controller.command.impl.user.FinishCreatingOrder;
 import by.zinkov.victor.controller.command.impl.user.ToCreateOrderPage;
+import by.zinkov.victor.controller.command.impl.user.UserOrderCommand;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -42,6 +43,9 @@ public class CommandProvider {
         commandMap.put(CommandEnum.TO_CREATE_ORDER_PAGE, new ToCreateOrderPage());
         commandMap.put(CommandEnum.CREATE_ORDER_PAGE_SECOND_STAGE, new CreateOrderSecondStage());
         commandMap.put(CommandEnum.FINISH_CREATING_ORDER, new FinishCreatingOrder());
+        commandMap.put(CommandEnum.CHECK_LOGIN, new CheckLoginCommand());
+        commandMap.put(CommandEnum.CHANGE_LANGUAGE, new ChangeLanguageCommand());
+        commandMap.put(CommandEnum.TO_USER_ORDER_PAGE, new UserOrderCommand());
     }
 
     /**

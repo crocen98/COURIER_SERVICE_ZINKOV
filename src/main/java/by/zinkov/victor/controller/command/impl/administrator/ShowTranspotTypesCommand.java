@@ -5,7 +5,7 @@ import by.zinkov.victor.controller.command.Page;
 import by.zinkov.victor.controller.command.Router;
 import by.zinkov.victor.controller.command.exception.CommandException;
 import by.zinkov.victor.domain.TransportType;
-import by.zinkov.victor.service.ServiceFactory;
+import by.zinkov.victor.service.factory.ServiceFactory;
 import by.zinkov.victor.service.TransportTypeService;
 import by.zinkov.victor.service.exception.ServiceException;
 
@@ -17,7 +17,7 @@ public class ShowTranspotTypesCommand implements Command {
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
-        ServiceFactory factory = new ServiceFactory();
+        ServiceFactory factory =  ServiceFactory.getInstance();
         TransportTypeService service = factory.getTransportTypeServiceImpl();
         try {
             Router router = new Router();

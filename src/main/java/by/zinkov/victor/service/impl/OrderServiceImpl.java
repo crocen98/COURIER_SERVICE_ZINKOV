@@ -1,9 +1,6 @@
 package by.zinkov.victor.service.impl;
 
-import by.zinkov.victor.dao.CargoTypeExpandedDao;
-import by.zinkov.victor.dao.DaoFactory;
-import by.zinkov.victor.dao.GenericDao;
-import by.zinkov.victor.dao.TransportTypeExpandedDao;
+import by.zinkov.victor.dao.*;
 import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.dao.factory.JdbcDaoFactory;
 import by.zinkov.victor.domain.CargoType;
@@ -34,18 +31,6 @@ public class OrderServiceImpl implements OrderService {
             validator.simpleStingMatches(order.getDescription(), 150, "description");
             validator.simpleStingMatches(transportTypeString, 45, "transportType");
             validator.simpleStingMatches(cargoTypeString, 45, "cargoType");
-            // time validator
-
-
-//            DaoFactory daoFactory = JdbcDaoFactory.getInstance();
-//            CargoTypeExpandedDao cargoTypeExpandedDao = (CargoTypeExpandedDao) daoFactory.getDao(CargoType.class);
-//            TransportTypeExpandedDao transportTypeExpandedDao = (TransportTypeExpandedDao) daoFactory.getDao(TransportType.class);
-//
-//            CargoType cargoType = cargoTypeExpandedDao.getByName(cargoTypeString);
-//            TransportType transportType = transportTypeExpandedDao.getByName(transportTypeString);
-
-
-            // order.setIdStatus();
 
             UserDto user = (UserDto) request.getSession().getAttribute(USER_ATTRIBUTE);
             order.setIdCustomer(user.getId());
@@ -54,6 +39,18 @@ public class OrderServiceImpl implements OrderService {
             throw new ServiceException("Problem with creating entity from request");
         } catch (ValidationException e) {
             throw new ServiceException("Problem with validation entity from request");
+        }
+    }
+
+
+    @Override
+    public Order getActiveOrderByClientId(Integer id) throws ServiceException {
+        DaoFactory daoFactory = JdbcDaoFactory.getInstance();
+        try {
+            OrderExpandedDao dao = (OrderExpandedDao)daoFactory.getDao(Order.class);
+            return dao.getActiveOrder(id);
+        } catch (DaoException e) {
+            throw new ServiceException("Cannot save order!", e);
         }
     }
 

@@ -2,6 +2,8 @@ package by.zinkov.victor.controller.command.impl;
 
 import by.zinkov.victor.controller.command.Command;
 
+import by.zinkov.victor.controller.command.CommandEnum;
+import by.zinkov.victor.controller.command.Page;
 import by.zinkov.victor.controller.command.Router;
 import by.zinkov.victor.controller.command.exception.CommandException;
 import by.zinkov.victor.domain.UserStatus;
@@ -33,7 +35,10 @@ public class LogInUserCommand implements Command {
         UserService service = new UserServiceImpl();
         try {
             Thread.sleep(400);
+            System.out.println("LOGIN");
             UserDto userDto = service.LogIn(login,password);
+            System.out.println("LOGIN after");
+
             HttpSession session = request.getSession();
             session.setAttribute(USER_ATTRIBUTE , userDto);
             router.setRoute(Router.INDEX_ROUT);
@@ -46,7 +51,7 @@ public class LogInUserCommand implements Command {
            }
         } catch (ServiceException e) {
             LOGGER.error(e);
-            router.setRoute(Router.INDEX_ERROR_ROUT + "Authorization problem");
+            router.setRoute(CommandEnum.TO_LOG_IN_PAGE.getUrlWithError("login.error"));
         } catch (InterruptedException e) {
             LOGGER.error(e);
             throw new CommandException("Problem with pause!",e);

@@ -64,26 +64,30 @@ CREATE TABLE  couriers.delivery_order (
   id_customer INT NOT NULL,
   id_courier INT NOT NULL,
   price DECIMAL(14,2) NULL,
-  idStatus INT NOT NULL,
-  startPoint VARCHAR(45) NOT NULL,
-  finishPoint VARCHAR(45) NOT NULL,
+  id_status INT NOT NULL,
+  start_point VARCHAR(45) NOT NULL,
+  finish_point VARCHAR(45) NOT NULL,
   description VARCHAR(150) NULL,
-  startTime  TIMESTAMP NOT NULL,
-  finishTime  TIMESTAMP  NULL,
-  expectedTime  TIMESTAMP NULL,
---   id_cargo_type INT NOT NULL,
+  start_time  TIMESTAMP NOT NULL,
+  finish_time  TIMESTAMP  NULL,
+  expected_time  TIMESTAMP NULL,
+  id_cargo_type INT NOT NULL,
+  id_transport_type INT NOT NULL,
   CONSTRAINT fk_order_user2
     FOREIGN KEY (id_customer)
     REFERENCES couriers.user (id),
   CONSTRAINT fk_order_order_status1
-    FOREIGN KEY (idStatus)
+    FOREIGN KEY (id_status)
     REFERENCES couriers.order_status (id),
   CONSTRAINT fk_delivery_order_user1
     FOREIGN KEY (id_courier)
     REFERENCES couriers.user (id),
---       CONSTRAINT fk_order_cargo_type
---     FOREIGN KEY (id_cargo_type)
---     REFERENCES couriers.cargo_types (id),
+       CONSTRAINT fk_order_cargo_type
+     FOREIGN KEY (id_cargo_type)
+     REFERENCES couriers.cargo_types (id),
+       CONSTRAINT fk_order_transport_type
+     FOREIGN KEY (id_transport_type)
+     REFERENCES couriers.transport_type (id)
   );
   
   

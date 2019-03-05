@@ -9,6 +9,9 @@
 <html>
 <title>Main page</title>
 <body>
+
+
+
 <c:if test="${sessionScope.user != null}">
     <jsp:forward page="WEB-INF/pages/client_main.jsp"/>
 

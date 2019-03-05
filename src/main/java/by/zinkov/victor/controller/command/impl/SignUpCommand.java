@@ -7,7 +7,7 @@ import by.zinkov.victor.controller.command.Router;
 import by.zinkov.victor.controller.command.exception.CommandException;
 import by.zinkov.victor.domain.User;
 import by.zinkov.victor.service.RegistrationKeyService;
-import by.zinkov.victor.service.ServiceFactory;
+import by.zinkov.victor.service.factory.ServiceFactory;
 import by.zinkov.victor.service.UserService;
 import by.zinkov.victor.service.exception.ServiceException;
 import by.zinkov.victor.service.impl.RegistrationKeyServiceImpl;
@@ -19,25 +19,33 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 public class SignUpCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(SignUpCommand.class);
+
     private static final String USER_ROLE_PARAMETER = "user_role";
+    private static final String LOGIN_FIELD = "login";
+    private static final String FIRST_NAME_FIELD = "firstName";
+    private static final String LAST_NAME_FIELD = "lastName";
+    private static final String EMAIL_FIELD = "email";
+    private static final String PHONE_FIELD = "phone";
+    private static final String PASSWORD_FIELD = "password";
+    private static final String LOCATION_FIELD = "location";
+
 
     @Override
-    public Router execute(HttpServletRequest request) throws CommandException {
+    public Router execute(HttpServletRequest request) {
         Router router = new Router();
         router.setType(Router.Type.FORWARD);
         router.setRoute(Page.ACTIVATE_PAGE.getRout());
         String role = request.getParameter(USER_ROLE_PARAMETER);
 
-        ServiceFactory factory = new ServiceFactory();
+        ServiceFactory factory = ServiceFactory.getInstance();
         UserService service = factory.getUserService();
         try {
             RequestEntityBuilder builder = new RequestEntityBuilder();
-            User user = builder.build(request, User.class);
+            User user = builder.build(request, User.class, LOGIN_FIELD, FIRST_NAME_FIELD, LAST_NAME_FIELD, EMAIL_FIELD, PHONE_FIELD, PASSWORD_FIELD, LOCATION_FIELD);
+
             user = service.signUp(user, role);
             sendActivateEmail(user, request);
         } catch (ServiceException | EntityFromRequestBuilderException e) {

@@ -1,76 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${not empty sessionScope.locale ? sessionScope.locale : 'en'}"/>
+<fmt:setBundle basename="language"  var="bundle" scope="application"/>
 <jsp:include page="../frames/header.jsp"/>
 <script src="https://api-maps.yandex.ru/2.1/?apikey=b9f00779-39b3-4da0-b8c3-becb9d63520e&lang=ru_RU"
         type="text/javascript"></script>
 
+
+
 <div class="container">
-<div class="row">
-    <div class="col-md-5">
-        <h3>Your order:</h3>
-        <div class="notice notice-info">
-            <strong>Price:</strong> ${sessionScope.order.price}
-        </div>
-        <div class="notice notice-info">
-            <strong>Distance:</strong> ${requestScope.distance}
-        </div>
-        <div class="notice notice-info">
-            <strong>Description:</strong> <c:out value="${sessionScope.order.description}"/>
-        </div>
-        <div class="notice notice-info">
-            <strong>Order time:</strong> ${sessionScope.order.startTime}
-        </div>
-        <div class="notice notice-info">
-            <strong>Cargo type:</strong> ${requestScope.cargo_type}
-        </div>
-        <div class="notice notice-info">
-            <strong>Transport type:</strong> ${requestScope.transport_type}
-        </div>
-        <div class="notice notice-info">
-            <strong>Point A:</strong> <span id=firstPoint>loading...</span>
-        </div>
-        <div class="notice notice-info">
-            <strong>Point B:</strong> <span id=secondPoint>loading...</span>
-        </div>
-    </div>
-    <div  class="col-md-7" id="map" style=" display:inline-block;width:100%;"></div>
-</div>
-    <hr style="margin-top: 50px;">
-
-    <h3>Couriers:</h3>
-    <div class="row" id="courier_cards">
-        <c:forEach var="elem" items="${requestScope.couriers}" varStatus="status">
-            <div class="col-lg-4">
-                <div class="our-team-main">
-
-                    <div class="team-front">
-                        <img src="http://placehold.it/110x110/9c27b0/fff?text=Dilip" class="img-fluid"/>
-                        <h3>${elem.login}</h3>
-                        <p>${elem.firstName} ${elem.lastName}</p>
-                    </div>
-
-                    <div class="team-back">
-                        <div style="display: flex;   align-items: center; justify-content: center;">
-                            <h1 class="mark_on_card" style="height: 100px;"> MARK: 10</h1>
-                        </div>
-
-                        <form name="transport_form_${elem.id}"
-                              action="${pageContext.servletContext.contextPath}/couriers?command=finish_creating_order"
-                              method="POST">
-                            <input name="courier_id" type="hidden" value="${elem.id}">
-                            <button class="btn" style="color:red;text-align: right; margin-right: -10px">
-                                <i class="fa fa-plus fa-2x "></i>
-                                <h2 style="display: inline">Select</h2>
-                            </button>
-                        </form>
-                    </div>
-
-                </div>
+    <div class="row">
+        <div class="col-md-5">
+            <h3>Your order:</h3>
+            <div class="notice notice-info">
+                <strong>Price:</strong> ${requestScope.order.price}
             </div>
-        </c:forEach>
+            <div class="notice notice-info">
+                <strong>Distance:</strong> ${requestScope.distance}
+            </div>
+            <div class="notice notice-info">
+                <strong>Description:</strong> <c:out value="${requestScope.order.description}"/>
+            </div>
+            <div class="notice notice-info">
+                <strong>Order time:</strong> ${requestScope.order.startTime}
+            </div>
+            <div class="notice notice-info">
+                <strong>Cargo type:</strong> ${requestScope.cargo_type}
+            </div>
+            <div class="notice notice-info">
+                <strong>Transport type:</strong> ${requestScope.transport_type}
+            </div>
+
+            <div class="notice notice-info">
+                <strong>Courier:</strong> ${requestScope.courier.login}
+            </div>
+            <%--<div class="notice notice-info">--%>
+                <%--<strong>Status:</strong> ${requestScope.order.orderStatus}--%>
+            <%--</div>--%>
+            <div class="notice notice-info">
+                <strong>Point A:</strong> <span id=firstPoint>loading...</span>
+            </div>
+            <div class="notice notice-info">
+                <strong>Point B:</strong> <span id=secondPoint>loading...</span>
+            </div>
+
+            <a href="${pageContext.servletContext.contextPath}/couriers?command=cancel_order"><button type="button" class="btn btn-danger">Cancel the order</button></a>
+        </div>
+        <div  class="col-md-7" id="map" style=" display:inline-block;width:100%;"></div>
     </div>
-
-
 </div>
 
 <style> .our-team-main {
@@ -204,20 +182,20 @@
     function init() {
 
         myMap = new ymaps.Map('map', {
-            center: "${sessionScope.order.startPoint}".split(","),
+            center: "${requestScope.order.startPoint}".split(","),
             zoom: 6
         }, {
             searchControlProvider: 'yandex#search'
         });
-        getAddress("${sessionScope.order.startPoint}", "firstPoint")
-        getAddress("${sessionScope.order.finishPoint}", "secondPoint")
+        getAddress("${requestScope.order.startPoint}", "firstPoint")
+        getAddress("${requestScope.order.finishPoint}", "secondPoint")
 
 
 
         myGeoObject = new ymaps.GeoObject({
             geometry: {
                 type: "Point",
-                coordinates: "${sessionScope.order.startPoint}".split(",")
+                coordinates: "${requestScope.order.startPoint}".split(",")
             },
             properties: {
                 iconContent: 'Point A',
@@ -230,7 +208,7 @@
         myGeoObject2 = new ymaps.GeoObject({
             geometry: {
                 type: "Point",
-                coordinates:"${sessionScope.order.finishPoint}".split(",")
+                coordinates:"${requestScope.order.finishPoint}".split(",")
             },
             properties: {
                 iconContent: 'Point B',

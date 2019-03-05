@@ -28,7 +28,18 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<User> getCouriersByParams(String  transportTypeString, String cargoTypeString ) throws ServiceException {
+    public User getByLogin(String login) throws ServiceException {
+        DaoFactory daoFactory = JdbcDaoFactory.getInstance();
+        try {
+            UserExpandedDao dao = (UserExpandedDao) daoFactory.getDao(User.class);
+            return dao.getByLogin(login);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<User> getCouriersByParams(String transportTypeString, String cargoTypeString) throws ServiceException {
         DaoFactory daoFactory = JdbcDaoFactory.getInstance();
         try {
             CargoTypeExpandedDao cargoTypeExpandedDao = (CargoTypeExpandedDao) daoFactory.getDao(CargoType.class);

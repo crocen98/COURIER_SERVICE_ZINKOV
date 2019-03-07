@@ -14,10 +14,14 @@ import by.zinkov.victor.util.MailSender;
 import by.zinkov.victor.util.RequestEntityBuilder;
 import by.zinkov.victor.util.StringGenerator;
 import by.zinkov.victor.util.excepton.EntityFromRequestBuilderException;
+import by.zinkov.victor.validation.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUpCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(SignUpCommand.class);
@@ -31,6 +35,9 @@ public class SignUpCommand implements Command {
     private static final String PASSWORD_FIELD = "password";
     private static final String LOCATION_FIELD = "location";
 
+    private static final String ERRORS_ATTRIBUTE = "errors";
+
+
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -38,6 +45,19 @@ public class SignUpCommand implements Command {
         router.setType(Router.Type.FORWARD);
         router.setRoute(Page.ACTIVATE_PAGE.getRout());
         String role = request.getParameter(USER_ROLE_PARAMETER);
+
+        ValidatorFactory validatorFactory = ValidatorFactory.getInstance();
+        SignUpValidator validator = validatorFactory.getSignUpValidator();
+        ParameterBuilder parameterBuilder = ParameterBuilder.getInstance();
+        String[] parameters = parameterBuilder.build(request,USER_ROLE_PARAMETER, LOGIN_FIELD, FIRST_NAME_FIELD, LAST_NAME_FIELD, EMAIL_FIELD, PHONE_FIELD, PASSWORD_FIELD, LOCATION_FIELD);
+        Map<String, String> errors = validator.validate(parameters);
+
+        if (errors.size() != 0){
+            router.setType(Router.Type.FORWARD);
+            router.setRoute(Page.INDEX.getRout());
+            request.setAttribute(ERRORS_ATTRIBUTE,errors);
+            return router;
+        }
 
         ServiceFactory factory = ServiceFactory.getInstance();
         UserService service = factory.getUserService();

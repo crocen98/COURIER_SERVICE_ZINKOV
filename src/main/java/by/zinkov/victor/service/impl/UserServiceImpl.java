@@ -9,9 +9,9 @@ import by.zinkov.victor.service.RegistrationKeyService;
 import by.zinkov.victor.service.UserRoleService;
 import by.zinkov.victor.service.UserService;
 import by.zinkov.victor.service.ServiceException;
-import by.zinkov.victor.service.validation.ValidationException;
-import by.zinkov.victor.service.validation.StringValidator;
-import by.zinkov.victor.service.validation.UserValidator;
+import by.zinkov.victor.validation.ValidationException;
+import by.zinkov.victor.validation.UtilValidator;
+import by.zinkov.victor.validation.UserValidator;
 import by.zinkov.victor.util.MailSender;
 import by.zinkov.victor.util.StringGenerator;
 
@@ -53,12 +53,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void changePassword(String id, String password, String activateString) throws ServiceException {
-        StringValidator validator = StringValidator.getInstance();
+        UtilValidator validator = UtilValidator.getInstance();
 
         try {
-            validator.isMatchesInt(id, StringValidator.POSITIVE_RANGE);
-            validator.simpleStingMatches(password, 45, "password");
-            validator.simpleStingMatches(activateString, 32, activateString);
+            validator.isMatchesInt(id, UtilValidator.POSITIVE_RANGE);
+            validator.simpleStingMatches(password, 45/*, "password"*/);
+            validator.simpleStingMatches(activateString, 32/*, activateString*/);
 
             RegistrationKeyService service = new RegistrationKeyServiceImpl();
             RegistrationKey key = service.getById(Integer.valueOf(id));
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
             if (!Objects.equals(key.getKey(), activateString)) {
                 throw new ServiceException("Secure problems! Key does not belong your!");
             }
-        } catch (ValidationException | DaoException e) {
+        } catch (/*ValidationException |*/ DaoException e) {
             throw new ServiceException("Cannot change password", e);
         }
 
@@ -105,9 +105,9 @@ public class UserServiceImpl implements UserService {
         JdbcDaoFactory daoFactory = (JdbcDaoFactory) FactoryProducer.getDaoFactory(DaoFactoryType.JDBC);
         try {
             UserExpandedDao userDao = (UserExpandedDao) daoFactory.getDao(User.class);
-            StringValidator validator = StringValidator.getInstance();
+            UtilValidator validator = UtilValidator.getInstance();
             validator.emailMatches(user.getEmail());
-            validator.simpleStingMatches(user.getLogin(), 45, "login");
+            validator.simpleStingMatches(user.getLogin(), 45/*, "login"*/);
             validator.phoneMatches(user.getPhone());
 
             User userFromDb = userDao.getByLogin(user.getLogin());
@@ -119,10 +119,10 @@ public class UserServiceImpl implements UserService {
             sendActivateEmail(userFromDb, request);
         } catch (DaoException e) {
             throw new ServiceException("Failed  with DAO. ", e);
-        } catch (ValidationException e) {
+        } /*catch (ValidationException e) {
             throw new ServiceException("Failed  with Validation. ", e);
 
-        }
+        }*/
     }
 
     @Override

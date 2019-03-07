@@ -1,4 +1,4 @@
-package by.zinkov.victor.service.validation;
+package by.zinkov.victor.validation;
 
 import by.zinkov.victor.domain.User;
 import by.zinkov.victor.domain.UserRole;
@@ -12,11 +12,11 @@ public class UserValidator implements EntityValidator<User> {
         if (otherParams == null || otherParams.length != 1) {
             throw new IllegalStateException("Unsupported parameters count!");
         }
-        StringValidator validator = StringValidator.getInstance();
-        validator.simpleStingMatches(entity.getFirstName(), 45, "first name");
-        validator.simpleStingMatches(entity.getLastName(), 45, "last name");
-        validator.simpleStingMatches(entity.getLogin(), 45, "login");
-        validator.simpleStingMatches(entity.getPassword(), 45, "password");
+        UtilValidator validator = UtilValidator.getInstance();
+        validator.simpleStingMatches(entity.getFirstName(), 45/*, "first name"*/);
+        validator.simpleStingMatches(entity.getLastName(), 45/*, "last name"*/);
+        validator.simpleStingMatches(entity.getLogin(), 45/*, "login"*/);
+        validator.simpleStingMatches(entity.getPassword(), 45/*, "password"*/);
         validator.emailMatches(entity.getEmail());
         validator.phoneMatches(entity.getPhone());
         validator.coordinatesMatches(entity.getLocation());

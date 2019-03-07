@@ -1,9 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 
-<fmt:setLocale value="${sessionScope.locale == null ? sessionScope.locale : 'en_EN'}"/>
-<fmt:setBundle basename="language" scope="session"/>
+<fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en_EN'}"/>
+<fmt:setBundle basename="language" var="bundle" scope="application"/>
 <html>
 <head>
     <title>Landing Page - Start Bootstrap Theme</title>
@@ -34,12 +35,18 @@
             <a class="navbar-brand" href="${pageContext.servletContext.contextPath}/couriers?command=change_language"><span class="flag-icon flag-icon-ru"> </span>
                 English</a>
         </c:if>
+
+        <a class="navbar-brand" href="?lang=ru"><span class="flag-icon flag-icon-ru"> </span>
+            English2</a>
         <%--<a class="navbar-brand" href="#">Language</a>--%>
-        <a class="btn btn-primary" href="${pageContext.servletContext.contextPath}/couriers?command=to_log_in_page">Log In</a>
+        <a class="btn btn-primary" href="${pageContext.servletContext.contextPath}/couriers?command=to_log_in_page"> <fmt:message key="main.loginbuttom" bundle="${bundle}"/></a>
     </div>
 </nav>
 
 <!-- Masthead -->
+
+${sessionScope.locale == null}
+<tag:error errorMap="errors"/>
 <c:if test="${param.error != null}">
     <div class="alert alert-danger" role="alert">
         <strong>Oh snap!</strong> ${param.error}
@@ -56,7 +63,9 @@
                 <%--<form >--%>
                     <%--<div class="form-row">--%>
                         <div class="col-12 col-md-12">
-                            <a class="btn btn-block btn-lg btn-primary" href="${pageContext.servletContext.contextPath}/couriers?command=sign_up">Sign up!</a>
+                            <a class="btn btn-block btn-lg btn-primary" href="${pageContext.servletContext.contextPath}/couriers?command=sign_up">
+                                <fmt:message key="main.signpbuttom" bundle="${bundle}"/>
+                            </a>
                         </div>
                     <%--</div>--%>
                 <%--</form>--%>
@@ -74,7 +83,8 @@
                     <div class="features-icons-icon d-flex">
                         <i class="icon-screen-desktop m-auto text-primary"></i>
                     </div>
-                    <h3>Fully Responsive</h3>
+                    <h3>                                        <fmt:message key="signup.logincheck" bundle="${bundle}"/>
+                    </h3>
                     <p class="lead mb-0">This theme will look great on any device, no matter the size!</p>
                 </div>
             </div>
@@ -170,7 +180,9 @@
                 <form>
                     <div class="form-row">
                         <div class="col-12 col-md-12">
-                            <button type="submit" class="btn btn-block btn-lg btn-primary">Sign up!</button>
+                            <a class="btn btn-block btn-lg btn-primary" href="${pageContext.servletContext.contextPath}/couriers?command=sign_up">
+                                <fmt:message key="main.signpbuttom" bundle="${bundle}"/>
+                            </a>
                         </div>
                     </div>
                 </form>

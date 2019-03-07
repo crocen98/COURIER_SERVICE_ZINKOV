@@ -1,4 +1,4 @@
-package by.zinkov.victor.service.validation;
+package by.zinkov.victor.validation;
 
 import by.zinkov.victor.dao.Identified;
 

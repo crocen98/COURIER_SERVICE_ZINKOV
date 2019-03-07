@@ -10,7 +10,9 @@ import by.zinkov.victor.service.ServiceException;
 import by.zinkov.victor.service.impl.UserRoleServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GoSignUpPageCommand implements Command {
 
@@ -19,6 +21,20 @@ public class GoSignUpPageCommand implements Command {
         Router router = new Router();
         router.setType(Router.Type.FORWARD);
         router.setRoute(Page.SIGN_UP.getRout());
+
+
+        /// for test
+//        Map<String,String> errors = new HashMap();
+//        errors.put("err1","login.error");
+//        errors.put("err2","login.error");
+//
+//        request.setAttribute("errors", errors);
+//
+
+
+
+
+        //// end test
 
         UserRoleService userRoleService = new UserRoleServiceImpl();
         try {

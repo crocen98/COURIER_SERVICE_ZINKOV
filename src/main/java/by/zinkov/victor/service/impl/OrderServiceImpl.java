@@ -7,8 +7,8 @@ import by.zinkov.victor.domain.Order;
 import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.OrderService;
 import by.zinkov.victor.service.ServiceException;
-import by.zinkov.victor.service.validation.ValidationException;
-import by.zinkov.victor.service.validation.StringValidator;
+import by.zinkov.victor.validation.ValidationException;
+import by.zinkov.victor.validation.UtilValidator;
 import by.zinkov.victor.util.RequestEntityBuilder;
 import by.zinkov.victor.util.excepton.EntityFromRequestBuilderException;
 
@@ -22,21 +22,21 @@ public class OrderServiceImpl implements OrderService {
         RequestEntityBuilder builder = new RequestEntityBuilder();
         try {
             Order order = builder.build(request, Order.class);
-            StringValidator validator = StringValidator.getInstance();
+            UtilValidator validator = UtilValidator.getInstance();
             validator.coordinatesMatches(order.getStartPoint());
             validator.coordinatesMatches(order.getFinishPoint());
-            validator.simpleStingMatches(order.getDescription(), 150, "description");
-            validator.simpleStingMatches(transportTypeString, 45, "transportType");
-            validator.simpleStingMatches(cargoTypeString, 45, "cargoType");
+            validator.simpleStingMatches(order.getDescription(), 150/*, "description"*/);
+            validator.simpleStingMatches(transportTypeString, 45/*, "transportType"*/);
+            validator.simpleStingMatches(cargoTypeString, 45/*, "cargoType"*/);
 
             UserDto user = (UserDto) request.getSession().getAttribute(USER_ATTRIBUTE);
             order.setIdCustomer(user.getId());
             return order;
         } catch (EntityFromRequestBuilderException e) {
             throw new ServiceException("Problem with creating entity from request");
-        } catch (ValidationException e) {
+        } /*catch (ValidationException e) {
             throw new ServiceException("Problem with validation entity from request");
-        }
+        }*/
     }
 
 

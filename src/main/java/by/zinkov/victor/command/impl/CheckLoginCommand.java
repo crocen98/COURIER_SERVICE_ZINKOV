@@ -7,9 +7,9 @@ import by.zinkov.victor.command.exception.CommandException;
 import by.zinkov.victor.domain.User;
 import by.zinkov.victor.service.UserService;
 import by.zinkov.victor.service.ServiceException;
-import by.zinkov.victor.service.validation.ValidationException;
+import by.zinkov.victor.validation.ValidationException;
 import by.zinkov.victor.service.impl.UserServiceImpl;
-import by.zinkov.victor.service.validation.StringValidator;
+import by.zinkov.victor.validation.UtilValidator;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,9 +25,9 @@ public class CheckLoginCommand implements Command {
         router.setRoute(Page.LABEL_FOR_ERROR_INPUT.getRout());
 
         UserService service = new UserServiceImpl();
-        StringValidator validator = StringValidator.getInstance();
+        UtilValidator validator = UtilValidator.getInstance();
         try {
-            validator.simpleStingMatches(login, 45, "login");
+            validator.simpleStingMatches(login, 45/*, "login"*/);
             User user = service.getByLogin(login);
             if (user == null) {
                 request.setAttribute(LOGIN_STATUS_ATTRIBUTE, true);
@@ -35,9 +35,9 @@ public class CheckLoginCommand implements Command {
                 request.setAttribute(LOGIN_STATUS_ATTRIBUTE, false);
             }
             return router;
-        } catch (ValidationException e) {
+        } /*catch (ValidationException e) {
             throw new CommandException("Not valid data", e);
-        } catch (ServiceException e) {
+        } */catch (ServiceException e) {
             throw new CommandException("Problem with checking user", e);
         }
     }

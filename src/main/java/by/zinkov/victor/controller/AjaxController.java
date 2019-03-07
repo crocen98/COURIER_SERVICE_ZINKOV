@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns ="/AjaxServlet")
+@WebServlet(urlPatterns = "/AjaxServlet")
 public class AjaxController extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(AjaxController.class);
     private static final String COMMAND_REQUEST_PARAMETER = "command";
@@ -45,7 +45,6 @@ public class AjaxController extends HttpServlet {
             router.setType(Router.Type.FORWARD);
             router.setRoute(Page.ERROR.getRout());
         }
-
         String page = router.getRoute();
         if (router.getType() == Router.Type.REDIRECT) {
             response.sendRedirect(page);
@@ -54,7 +53,5 @@ public class AjaxController extends HttpServlet {
             requestDispatcher.forward(request, response);
         }
     }
-
-
 
 }

@@ -8,9 +8,9 @@ import by.zinkov.victor.dao.factory.JdbcDaoFactory;
 import by.zinkov.victor.domain.TransportType;
 import by.zinkov.victor.service.TransportTypeService;
 import by.zinkov.victor.service.ServiceException;
-import by.zinkov.victor.service.validation.ValidationException;
-import by.zinkov.victor.service.validation.StringValidator;
-import by.zinkov.victor.service.validation.TransportTypeValidator;
+import by.zinkov.victor.validation.ValidationException;
+import by.zinkov.victor.validation.UtilValidator;
+import by.zinkov.victor.validation.TransportTypeValidator;
 
 import java.util.List;
 
@@ -60,8 +60,8 @@ public class TransportTypeServiceImpl implements TransportTypeService {
     public void edit(String id, String name) throws ServiceException {
         DaoFactory daoFactory = JdbcDaoFactory.getInstance();
         try {
-            StringValidator stringValidator = StringValidator.getInstance();
-            stringValidator.isMatchesInt(id, StringValidator.POSITIVE_RANGE);
+            UtilValidator stringValidator = UtilValidator.getInstance();
+            stringValidator.isMatchesInt(id, UtilValidator.POSITIVE_RANGE);
             Integer transportId = Integer.valueOf(id);
 
             TransportType transportType = new TransportType();

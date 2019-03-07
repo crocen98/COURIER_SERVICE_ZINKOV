@@ -13,7 +13,8 @@ public enum Page {
     CREATE_ORDER("/WEB-INF/pages/create_order.jsp"),
     CREATE_ORDER_SECOND_STAGE("/WEB-INF/pages/create_order_second_stage.jsp"),
     LABEL_FOR_ERROR_INPUT("/WEB-INF/frames/label_for_error.jsp"),
-    ORDER_PAGE("/WEB-INF/pages/user_order.jsp");
+    ORDER_PAGE("/WEB-INF/pages/user_order.jsp"),
+    INDEX("index.jsp");
 
 
 

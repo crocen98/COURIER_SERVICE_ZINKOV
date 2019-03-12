@@ -32,4 +32,8 @@ public class ValidatorFactory {
         return new AddNewCargoTypeForCourierValidator();
     }
 
+    public SetUserMarkValidator getSetUserMarkValidator(){
+        return new SetUserMarkValidator();
+    }
+
 }

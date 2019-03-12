@@ -53,6 +53,7 @@ public class CommandProvider {
         commandMap.put(CommandEnum.START_PERFOMING_ORDER_COMMAND, new StartPerfomingOrderCommand());
         commandMap.put(CommandEnum.FINISH_PERFOMING_ORDER_COMMAND, new FinishPerfomingOrderCommand());
         commandMap.put(CommandEnum.TO_CLIENT_COURIERS_PAGE, new ToClientCouriersPage());
+        commandMap.put(CommandEnum.SET_USER_MARK, new SetUserMark());
     }
 
     /**

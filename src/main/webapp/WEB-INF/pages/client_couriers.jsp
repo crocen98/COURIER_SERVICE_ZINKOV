@@ -32,13 +32,22 @@
             <td>${item.key.email}</td>
             <td>${item.value}</td>
             <td>
-                <div class="starrating risingstar d-flex justify-content-end flex-row-reverse">
-                    <input type="radio" id="star5" name="rating" value="10"/><label for="star5" title="5 star">10</label>
-                    <input type="radio" id="star4" name="rating" value="8"/><label for="star4" title="4 star">8</label>
-                    <input type="radio" id="star3" name="rating" value="6"/><label for="star3" title="3 star">6</label>
-                    <input type="radio" id="star2" name="rating" value="4"/><label for="star2" title="2 star">4</label>
-                    <input type="radio" id="star1" name="rating" value="2"/><label for="star1" title="1 star">2</label>
-                </div>
+                <form method="POST" action="${pageContext.servletContext.contextPath}/couriers?command=set_user_mark">
+                    <div class="starrating risingstar d-flex justify-content-end flex-row-reverse" id="radioStar">
+                        <button class="btn btn-warning" style="margin-left: 5px;">Send review</button>
+                        <input type="radio" id="star5" name="rating" value="10"/><label for="star5"
+                                                                                        title="5 star">10</label>
+                        <input type="radio" id="star4" name="rating" value="8"/><label for="star4"
+                                                                                       title="4 star">8</label>
+                        <input type="radio" id="star3" name="rating" value="6"/><label for="star3"
+                                                                                       title="3 star">6</label>
+                        <input type="radio" id="star2" name="rating" value="4"/><label for="star2"
+                                                                                       title="2 star">4</label>
+                        <input type="radio" id="star1" name="rating" value="2"/><label for="star1"
+                                                                                       title="1 star">2</label>
+                        <input type="hidden" name="courier_id" value="${item.key.id}">
+                    </div>
+                </form>
             </td>
 
 
@@ -52,16 +61,25 @@
 
     /* Styling h1 and links
     ––––––––––––––––––––––––––––––––– */
-    h1[alt="Simple"] {color: white;}
-    a[href], a[href]:hover {color: grey; font-size: 0.1em; text-decoration: none}
+    #radioStar h1[alt="Simple"] {
+        color: white;
+    }
 
+    #radioStar a[href], a[href]:hover {
+        color: grey;
+        font-size: 0.1em;
+        text-decoration: none
+    }
 
-    body
-    {
+    body {
         background: #4a4a4c !important;
     }
 
-    .starrating > input {display: none;}  /* Remove radio buttons */
+    .starrating > input {
+        display: none;
+    }
+
+    /* Remove radio buttons */
 
     .starrating > label:before {
         content: "\f005"; /* Star */
@@ -70,16 +88,21 @@
         display: inline-block;
     }
 
-    .starrating > label
-    {
+    .starrating > label {
         color: #222222; /* Start color when not clicked */
     }
 
-    .starrating > input:checked ~ label
-    { color: #ffca08 ; } /* Set yellow color when star checked */
+    .starrating > input:checked ~ label {
+        color: #ffca08;
+    }
 
-    .starrating > input:hover ~ label
-    { color: #ffca08 ;  } /* Set yellow color when star hover */
+    /* Set yellow color when star checked */
+
+    .starrating > input:hover ~ label {
+        color: #ffca08;
+    }
+
+    /* Set yellow color when star hover */
 
 
 </style>

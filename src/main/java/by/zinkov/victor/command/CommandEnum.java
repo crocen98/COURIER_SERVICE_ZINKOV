@@ -32,7 +32,8 @@ public enum CommandEnum {
     TO_COURIER_ACTIVE_ORDER_PAGE("to_courier_active_order_page" , RequestMethod.GET, AccessLevel.COURIER),
     START_PERFOMING_ORDER_COMMAND("start_perfoming_order_command" , RequestMethod.GET, AccessLevel.COURIER),
     FINISH_PERFOMING_ORDER_COMMAND("finish_perfoming_order_command", RequestMethod.GET, AccessLevel.COURIER),
-    TO_CLIENT_COURIERS_PAGE("to_client_couriers_page" , RequestMethod.GET, AccessLevel.CLIENT);
+    TO_CLIENT_COURIERS_PAGE("to_client_couriers_page" , RequestMethod.GET, AccessLevel.CLIENT),
+    SET_USER_MARK("set_user_mark" , RequestMethod.POST, AccessLevel.CLIENT);
 
 
 

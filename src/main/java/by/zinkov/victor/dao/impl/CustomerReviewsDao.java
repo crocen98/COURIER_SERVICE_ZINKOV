@@ -21,13 +21,44 @@ public class CustomerReviewsDao extends AbstractJdbcDao<CustomerReviews, Integer
             "INSERT INTO customer_reviews ( customer_id , courier_id , mark) " +
                     "VALUES ( ? , ? , ? )";
     private static final String UPDATE_CUSTOMER_REVIEW_QUERY = "UPDATE customer_reviews SET " +
-            "cutomer_id = ? , courier_id = ? , mark = ? WHERE id = ?";
+            "customer_id = ? , courier_id = ? , mark = ? WHERE id = ?";
 
     private static final String DELETE_CUSTOMER_REVIEW_QUERY = "DELETE FROM customer_reviews WHERE id = ?";
     private static final String SELECT_COURIER_MARK_BY_ID_QUERY =
             "SELECT AVG(mark) FROM customer_reviews " +
-                    "WHERE customer_reviews.customer_id = ?";
+                    "WHERE customer_reviews.courier_id = ?";
 
+    private static final String SELECT_COURIER_MARK_BY_CLIENT_ID_QUERY =
+            "SELECT * FROM customer_reviews " +
+                    "WHERE customer_reviews.courier_id = ? AND customer_reviews.customer_id = ?";
+
+
+    @Override
+    public CustomerReviews getByCourierUserId(Integer courierId, Integer userId) throws DaoException {
+        try (PreparedStatement statement = this.connection.prepareStatement(SELECT_COURIER_MARK_BY_CLIENT_ID_QUERY)) {
+            statement.setInt(1, courierId);
+            statement.setInt(2, userId);
+
+            ResultSet resultSet = statement.executeQuery();
+            List<CustomerReviews> customerReview = parseResultSet(resultSet);
+            return customerReview.isEmpty() ? null : customerReview.get(0);
+        } catch (SQLException e) {
+            throw new DaoException("Problem with get CustomerReview by currierId and userId", e);
+        }    }
+
+    @Override
+    public boolean haveMark(Integer courierId, Integer userId) throws DaoException {
+        try (PreparedStatement statement = this.connection.prepareStatement(SELECT_COURIER_MARK_BY_CLIENT_ID_QUERY)) {
+            statement.setInt(1, courierId);
+            statement.setInt(2, userId);
+
+            ResultSet resultSet = statement.executeQuery();
+            List<CustomerReviews> customerReview = parseResultSet(resultSet);
+            return customerReview.isEmpty() ? false : true;
+        } catch (SQLException e) {
+            throw new DaoException("Problem with get CustomerReview by currierId and userId", e);
+        }
+    }
 
     @Override
     public Double getCourierMark(Integer courierId) throws DaoException {

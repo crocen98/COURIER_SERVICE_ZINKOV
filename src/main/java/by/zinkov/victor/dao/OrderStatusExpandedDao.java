@@ -9,4 +9,5 @@ public interface OrderStatusExpandedDao {
 
     @AutoConnection
     OrderStatus getByName(OrderStatus orderStatus) throws DaoException;
+
 }

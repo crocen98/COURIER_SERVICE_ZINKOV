@@ -37,8 +37,6 @@ public class ToClientCouriersPage implements Command {
         Map<User, Double> map = new HashMap();
         try {
             couriers = userService.getClientCouriers(userDto.getId());
-            request.setAttribute(COURIERS, couriers);
-
             for (User courier : couriers) {
                 map.put(courier, customerReviewsService.getCourierMark(courier.getId()));
             }

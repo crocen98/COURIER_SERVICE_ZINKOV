@@ -3,62 +3,99 @@ package by.zinkov.victor.service.impl;
 import by.zinkov.victor.dao.*;
 import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.dao.factory.JdbcDaoFactory;
+import by.zinkov.victor.dao.impl.TransactionManager;
 import by.zinkov.victor.domain.Order;
-import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.OrderService;
 import by.zinkov.victor.service.ServiceException;
-import by.zinkov.victor.validation.ValidationException;
-import by.zinkov.victor.validation.UtilValidator;
-import by.zinkov.victor.util.RequestEntityBuilder;
-import by.zinkov.victor.util.excepton.EntityFromRequestBuilderException;
-
-import javax.servlet.http.HttpServletRequest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class OrderServiceImpl implements OrderService {
-    private static final String USER_ATTRIBUTE = "user";
+    private static final Logger LOGGER = LogManager.getLogger(OrderServiceImpl.class);
+
 
     @Override
-    public Order createOrderFirstStage(HttpServletRequest request, String transportTypeString, String cargoTypeString) throws ServiceException {
-        RequestEntityBuilder builder = new RequestEntityBuilder();
-        try {
-            Order order = builder.build(request, Order.class);
-            UtilValidator validator = UtilValidator.getInstance();
-            validator.coordinatesMatches(order.getStartPoint());
-            validator.coordinatesMatches(order.getFinishPoint());
-            validator.simpleStingMatches(order.getDescription(), 150/*, "description"*/);
-            validator.simpleStingMatches(transportTypeString, 45/*, "transportType"*/);
-            validator.simpleStingMatches(cargoTypeString, 45/*, "cargoType"*/);
+    public void update(Order order, Integer expectedStatusId) throws ServiceException {
+        LOGGER.info("START TRANSACTION METHOD UPDDATE()");
+        LOGGER.info(order + " " + "expectedStatusId: " + expectedStatusId );
 
-            UserDto user = (UserDto) request.getSession().getAttribute(USER_ATTRIBUTE);
-            order.setIdCustomer(user.getId());
-            return order;
-        } catch (EntityFromRequestBuilderException e) {
-            throw new ServiceException("Problem with creating entity from request");
-        } /*catch (ValidationException e) {
-            throw new ServiceException("Problem with validation entity from request");
-        }*/
+
+        DaoFactory daoFactory = JdbcDaoFactory.getInstance();
+        TransactionManager transactionManager = new TransactionManager();
+        try {
+            OrderExpandedDao orderDao = (OrderExpandedDao) ((JdbcDaoFactory) daoFactory).getTransactionalDao(Order.class);
+            transactionManager.begin((AbstractJdbcDao) orderDao);
+            if (!orderDao.isOrderExpectedStatusMatches(order.getId(), expectedStatusId)) {
+                LOGGER.info("ROLLBACK TRANSACTION");
+                transactionManager.rollback();
+                throw new ServiceException("cannot start perfoming order");
+            }
+            ((GenericDao<Order, Integer>) orderDao).update(order);
+            LOGGER.info("COMMIT TRANSACTION");
+
+            transactionManager.commit();
+        } catch (DaoException e) {
+            e.printStackTrace();
+            throw new ServiceException("Cannot update order!", e);
+        } finally {
+            try {
+                LOGGER.info("END TRANSACTION");
+                transactionManager.end();
+            } catch (DaoException e) {
+                throw new ServiceException("problem with close transaction", e);
+            }
+        }
     }
 
-
     @Override
-    public Order getActiveOrderByClientId(Integer id) throws ServiceException {
+    public Order getActiveOrderByCourierId(Integer id) throws ServiceException {
         DaoFactory daoFactory = JdbcDaoFactory.getInstance();
         try {
-            OrderExpandedDao dao = (OrderExpandedDao)daoFactory.getDao(Order.class);
-            return dao.getActiveOrder(id);
+            OrderExpandedDao dao = (OrderExpandedDao) daoFactory.getDao(Order.class);
+            return dao.getActiveOrderByCourierId(id);
         } catch (DaoException e) {
             throw new ServiceException("Cannot save order!", e);
         }
     }
 
     @Override
-    public void save(Order order) throws ServiceException {
+    public Order getActiveOrderByClientId(Integer id) throws ServiceException {
         DaoFactory daoFactory = JdbcDaoFactory.getInstance();
         try {
-            GenericDao<Order, Integer> dao = daoFactory.getDao(Order.class);
-            dao.persist(order);
+            OrderExpandedDao dao = (OrderExpandedDao) daoFactory.getDao(Order.class);
+            return dao.getActiveOrder(id);
+        } catch (DaoException e) {
+            throw new ServiceException("Cannot get active order!", e);
+        }
+    }
+
+    @Override
+    public void save(Order order) throws ServiceException {
+        JdbcDaoFactory daoFactory = JdbcDaoFactory.getInstance();
+        TransactionManager transactionManager = new TransactionManager();
+        try {
+            GenericDao<Order, Integer> orderDao = daoFactory.getTransactionalDao(Order.class);
+            transactionManager.begin((AbstractJdbcDao) orderDao);
+            orderDao.persist(order);
+            if (((OrderExpandedDao) orderDao).isCourierHaveMoreThanOneActiveOrder(order.getIdCourier())) {
+                LOGGER.info("Start rollback transaction");
+                transactionManager.rollback();
+                LOGGER.info("Finish rollback transaction");
+                throw new ServiceException("Transaction rollback, user have more than one active order!");
+            }
+            transactionManager.commit();
+
         } catch (DaoException e) {
             throw new ServiceException("Cannot save order!", e);
+        } finally {
+            try {
+                LOGGER.info("Start end() transaction");
+                transactionManager.end();
+                LOGGER.info("Finish end() transaction");
+            } catch (DaoException e) {
+                LOGGER.info("Error end() transaction");
+                throw new RuntimeException("Cannot end() transaction", e);
+            }
         }
     }
 }

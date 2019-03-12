@@ -21,12 +21,12 @@ public class LocaleFilter  implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-
-        HttpSession session = httpServletRequest.getSession();
-        String locale = (String) session.getAttribute(LOCALE_SESSION_ATTRIBUTE);
-        if(locale == null){
-            session.setAttribute(LOCALE_SESSION_ATTRIBUTE, ENGLISH_LANGUAGE);
-        }
+//
+//        HttpSession session = httpServletRequest.getSession();
+//        String locale = (String) session.getAttribute(LOCALE_SESSION_ATTRIBUTE);
+//        if(locale == null){
+//            session.setAttribute(LOCALE_SESSION_ATTRIBUTE, ENGLISH_LANGUAGE);
+//        }
         chain.doFilter(request, response);
     }
 

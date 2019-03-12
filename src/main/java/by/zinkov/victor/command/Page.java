@@ -14,7 +14,10 @@ public enum Page {
     CREATE_ORDER_SECOND_STAGE("/WEB-INF/pages/create_order_second_stage.jsp"),
     LABEL_FOR_ERROR_INPUT("/WEB-INF/frames/label_for_error.jsp"),
     ORDER_PAGE("/WEB-INF/pages/user_order.jsp"),
-    INDEX("index.jsp");
+    INDEX("index.jsp"),
+    COURIER_PROFILE("/WEB-INF/pages/courier_profile.jsp"),
+    COURIER_ORDER("/WEB-INF/pages/courier_order.jsp"),
+    CLIENT_COURIERS("/WEB-INF/pages/client_couriers.jsp");
 
 
 

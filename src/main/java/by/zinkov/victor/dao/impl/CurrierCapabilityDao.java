@@ -2,8 +2,11 @@ package by.zinkov.victor.dao.impl;
 
 
 import by.zinkov.victor.dao.AbstractJdbcDao;
+import by.zinkov.victor.dao.CurrierCapabilityExpandedDao;
 import by.zinkov.victor.dao.GenericDao;
+import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.domain.CurrierCapability;
+import by.zinkov.victor.domain.TransportType;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,13 +14,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CurrierCapabilityDao extends AbstractJdbcDao<CurrierCapability, Integer> implements GenericDao<CurrierCapability, Integer> {
+public class CurrierCapabilityDao extends AbstractJdbcDao<CurrierCapability, Integer> implements GenericDao<CurrierCapability, Integer> , CurrierCapabilityExpandedDao {
     private static final String SELECT_ALL_CAPABILITIES_QUERY = "SELECT * FROM currier_capability";
     private static final String SELECT_CAPABILITY_BY_PK_QUERY = "SELECT * FROM currier_capability WHERE id = ?";
     private static final String INSERT_NEW_CAPABILITY_QUERY = "INSERT INTO currier_capability ( currier_id , transport_id , is_work ) VALUES ( ? , ? , ? )";
     private static final String UPDATE_CAPABILITY_QUERY = "UPDATE currier_capability SET currier_id = ? , transport_id = ? , is_work = ? WHERE id = ?";
     private static final String DELETE_CAPABILITY_QUERY = "DELETE FROM currier_capability WHERE id = ?";
+    private static final String SELECT_CAPABILITY_BY_CURRIER_ID_QUERY =
+            " SELECT * FROM currier_capability" +
+            " WHERE currier_capability.currier_id = ?";
 
+    @Override
+    public CurrierCapability getByCourierId(Integer courierId) throws DaoException {
+        try (PreparedStatement statement = this.connection.prepareStatement(SELECT_CAPABILITY_BY_CURRIER_ID_QUERY)) {
+            statement.setInt(1, courierId);
+            ResultSet resultSet = statement.executeQuery();
+            List<CurrierCapability> list = parseResultSet(resultSet);
+            return !list.isEmpty() ? list.get(0) : null;
+        } catch (SQLException e) {
+            throw new DaoException("Problem with select by courierID", e);
+        }
+    }
 
     @Override
     protected List<CurrierCapability> parseResultSet(ResultSet rs) throws SQLException {

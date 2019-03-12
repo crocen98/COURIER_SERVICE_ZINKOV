@@ -1,13 +1,7 @@
 package by.zinkov.victor.service.factory;
 
-import by.zinkov.victor.service.OrderService;
-import by.zinkov.victor.service.OrderStatusService;
-import by.zinkov.victor.service.TransportTypeService;
-import by.zinkov.victor.service.UserService;
-import by.zinkov.victor.service.impl.OrderServiceImpl;
-import by.zinkov.victor.service.impl.OrderStatusServiceImpl;
-import by.zinkov.victor.service.impl.TransportTypeServiceImpl;
-import by.zinkov.victor.service.impl.UserServiceImpl;
+import by.zinkov.victor.service.*;
+import by.zinkov.victor.service.impl.*;
 
 /**
  * Service factory
@@ -15,14 +9,17 @@ import by.zinkov.victor.service.impl.UserServiceImpl;
 public class ServiceFactory {
     private static ServiceFactory instance = new ServiceFactory();
 
-    private ServiceFactory(){}
+    private ServiceFactory() {
+    }
+
     public static ServiceFactory getInstance() {
         return instance;
     }
 
-    public OrderService getOrderService(){
+    public OrderService getOrderService() {
         return new OrderServiceImpl();
     }
+
     public UserService getUserService() {
         return new UserServiceImpl();
     }
@@ -35,5 +32,35 @@ public class ServiceFactory {
         return new OrderStatusServiceImpl();
     }
 
+    public UserRoleService getUserRoleService() {
+        return new UserRoleServiceImpl();
+    }
+
+    public UserStatusService getUserStatusService() {
+        return new UserStatusServiceImpl();
+    }
+
+    public SupportedCargoTypeService getSupportedCargoTypeService(){
+        return new SupportedCargoTypeServiceImpl();
+    }
+
+    public CargoTypeService getCargoTypeService() {
+        return new CargoTypeServiceImpl();
+    }
+
+    public TransportTypeService getTransportTypeService() {
+        return new TransportTypeServiceImpl();
+    }
+
+    public CustomerReviewsService getCustomerReviewsService() {
+        return new CustomerReviewsServiceImpl();
+    }
+
+    public CurrierCapabilityService getCurrierCapabilityService() {
+        return new CurrierCapabilityServiceImpl();
+    }
+    public DistanceService getDistanceService() {
+        return new DistanceService();
+    }
 
 }

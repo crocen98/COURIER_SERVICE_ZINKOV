@@ -5,36 +5,36 @@
         type="text/javascript"></script>
 
 <div class="container">
-<div class="row">
-    <div class="col-md-5">
-        <h3>Your order:</h3>
-        <div class="notice notice-info">
-            <strong>Price:</strong> ${sessionScope.order.price}
+    <div class="row">
+        <div class="col-md-5">
+            <h3>Your order:</h3>
+            <div class="notice notice-info">
+                <strong>Price:</strong> ${sessionScope.order.price}
+            </div>
+            <div class="notice notice-info">
+                <strong>Distance:</strong> ${requestScope.distance}
+            </div>
+            <div class="notice notice-info">
+                <strong>Description:</strong> <c:out value="${sessionScope.order.description}"/>
+            </div>
+            <div class="notice notice-info">
+                <strong>Order time:</strong> ${sessionScope.order.startTime}
+            </div>
+            <div class="notice notice-info">
+                <strong>Cargo type:</strong> ${requestScope.cargo_type}
+            </div>
+            <div class="notice notice-info">
+                <strong>Transport type:</strong> ${requestScope.transport_type}
+            </div>
+            <div class="notice notice-info">
+                <strong>Point A:</strong> <span id=firstPoint>loading...</span>
+            </div>
+            <div class="notice notice-info">
+                <strong>Point B:</strong> <span id=secondPoint>loading...</span>
+            </div>
         </div>
-        <div class="notice notice-info">
-            <strong>Distance:</strong> ${requestScope.distance}
-        </div>
-        <div class="notice notice-info">
-            <strong>Description:</strong> <c:out value="${sessionScope.order.description}"/>
-        </div>
-        <div class="notice notice-info">
-            <strong>Order time:</strong> ${sessionScope.order.startTime}
-        </div>
-        <div class="notice notice-info">
-            <strong>Cargo type:</strong> ${requestScope.cargo_type}
-        </div>
-        <div class="notice notice-info">
-            <strong>Transport type:</strong> ${requestScope.transport_type}
-        </div>
-        <div class="notice notice-info">
-            <strong>Point A:</strong> <span id=firstPoint>loading...</span>
-        </div>
-        <div class="notice notice-info">
-            <strong>Point B:</strong> <span id=secondPoint>loading...</span>
-        </div>
+        <div class="col-md-7" id="map" style="display:inline-block;width:100%;"></div>
     </div>
-    <div  class="col-md-7" id="map" style=" display:inline-block;width:100%;"></div>
-</div>
     <hr style="margin-top: 50px;">
 
     <h3>Couriers:</h3>
@@ -213,7 +213,6 @@
         getAddress("${sessionScope.order.finishPoint}", "secondPoint")
 
 
-
         myGeoObject = new ymaps.GeoObject({
             geometry: {
                 type: "Point",
@@ -230,7 +229,7 @@
         myGeoObject2 = new ymaps.GeoObject({
             geometry: {
                 type: "Point",
-                coordinates:"${sessionScope.order.finishPoint}".split(",")
+                coordinates: "${sessionScope.order.finishPoint}".split(",")
             },
             properties: {
                 iconContent: 'Point B',
@@ -254,7 +253,6 @@
             document.getElementById(idElement).textContent = firstGeoObject.getAddressLine();
         });
     }
-
 
 
 </script>

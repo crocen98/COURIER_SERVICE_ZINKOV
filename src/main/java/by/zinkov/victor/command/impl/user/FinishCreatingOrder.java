@@ -6,7 +6,6 @@ import by.zinkov.victor.command.Router;
 import by.zinkov.victor.domain.OrderStatus;
 import by.zinkov.victor.service.OrderService;
 import by.zinkov.victor.service.ServiceException;
-import by.zinkov.victor.validation.ValidationException;
 import by.zinkov.victor.service.impl.OrderServiceImpl;
 import by.zinkov.victor.validation.UtilValidator;
 
@@ -31,14 +30,10 @@ public class FinishCreatingOrder implements Command {
             validator.isMatchesInt(courierId , UtilValidator.POSITIVE_RANGE);
             order.setIdCourier(Integer.valueOf(courierId));
             order.setIdStatus(OrderStatus.ORDERED.getId());
-
             OrderService orderService = new OrderServiceImpl();
             orderService.save(order);
 
-        /*} catch (ValidationException e) {
-            e.printStackTrace();
-            router.setRoute(Router.INDEX_ERROR_ROUT + "Error with validation");
-       */ } catch (ServiceException e) {
+        } catch (ServiceException e) {
             e.printStackTrace();
             router.setRoute(Router.INDEX_ERROR_ROUT + "Error with dao");
         } finally {

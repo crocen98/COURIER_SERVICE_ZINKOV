@@ -1,5 +1,6 @@
 package by.zinkov.victor.dao.impl;
 
+import by.zinkov.victor.dao.AbstractJdbcDao;
 import by.zinkov.victor.dao.ConnectionPool;
 import by.zinkov.victor.dao.GenericDao;
 import by.zinkov.victor.dao.exception.ConnectionPoolException;
@@ -16,7 +17,7 @@ import java.sql.SQLException;
 public final class TransactionManager {
     private Connection connection;
 
-    public void begin(GenericDao dao, GenericDao ... daos) throws DaoException {
+    public void begin(AbstractJdbcDao dao, AbstractJdbcDao ... daos) throws DaoException {
         try {
             ConnectionPool pool = ConnectionPoolImpl.getInstance();
             this.connection = pool.retrieveConnection();

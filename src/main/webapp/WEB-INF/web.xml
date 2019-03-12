@@ -18,7 +18,7 @@
     <url-pattern>/couriers</url-pattern>
   </filter-mapping>
   <filter-mapping>
-    <filter-name>CookyFilter</filter-name>
+    <filter-name>CookieFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 <!--<locale-encoding-mapping-list>-->

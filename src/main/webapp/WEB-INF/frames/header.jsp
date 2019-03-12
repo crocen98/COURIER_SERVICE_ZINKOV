@@ -2,13 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:requestEncoding value="utf-8" />
-<fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en_EN'}"/>
-<fmt:setBundle basename="language"  var="bundle" scope="application"/>
 
-<html >
+<fmt:requestEncoding value="UTF-8"/>
+<fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en_EN'}"/>
+<fmt:setBundle basename="language" var="bundle" scope="application"/>
+
+<html>
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -38,7 +39,8 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.servletContext.contextPath}/">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center"
+           href="${pageContext.servletContext.contextPath}/">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -60,7 +62,33 @@
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>My order</span></a>
             </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="${pageContext.servletContext.contextPath}/couriers?command=to_client_couriers_page">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>My couriers</span></a>
+            </li>
         </c:if>
+
+        <c:if test="${sessionScope.user.userRole eq 'COURIER'}">
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="${pageContext.servletContext.contextPath}/couriers?command=edit_courier_profile_page">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Profile</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="${pageContext.servletContext.contextPath}/couriers?command=to_courier_active_order_page">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Active order</span></a>
+            </li>
+        </c:if>
+
+
         <hr class="sidebar-divider d-none d-md-block">
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -242,19 +270,23 @@
 
 
                         <%--<a class="nav-link dropdown-toggle" href="" id="dropdown09" data-toggle="dropdown"--%>
-                           <%--aria-haspopup="true" aria-expanded="false"><span> </span> English</a>--%>
+                        <%--aria-haspopup="true" aria-expanded="false"><span> </span> English</a>--%>
                         <%--<div class="dropdown-menu" aria-labelledby="dropdown09">--%>
-                            <%--<a class="dropdown-item" href="#ru"><span class="flag-icon flag-icon-ru"> </span>--%>
-                                <%--Русский</a>--%>
+                        <%--<a class="dropdown-item" href="#ru"><span class="flag-icon flag-icon-ru"> </span>--%>
+                        <%--Русский</a>--%>
                         <%--</div>--%>
 
 
                         <c:if test="${sessionScope.locale eq 'en_EN'}">
-                            <a class="navbar-brand" href="${pageContext.servletContext.contextPath}/couriers?command=change_language"><span class="flag-icon flag-icon-ru"> </span>
+                            <a class="navbar-brand"
+                               href="${pageContext.servletContext.contextPath}/couriers?command=change_language"><span
+                                    class="flag-icon flag-icon-ru"> </span>
                                 Русский</a>
                         </c:if>
                         <c:if test="${sessionScope.locale eq'ru_RU'}">
-                            <a class="navbar-brand" href="${pageContext.servletContext.contextPath}/couriers?command=change_language"><span class="flag-icon flag-icon-ru"> </span>
+                            <a class="navbar-brand"
+                               href="${pageContext.servletContext.contextPath}/couriers?command=change_language"><span
+                                    class="flag-icon flag-icon-ru"> </span>
                                 English</a>
                         </c:if>
 

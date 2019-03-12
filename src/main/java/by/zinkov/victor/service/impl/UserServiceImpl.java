@@ -6,12 +6,9 @@ import by.zinkov.victor.dao.factory.JdbcDaoFactory;
 import by.zinkov.victor.domain.*;
 import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.RegistrationKeyService;
-import by.zinkov.victor.service.UserRoleService;
 import by.zinkov.victor.service.UserService;
 import by.zinkov.victor.service.ServiceException;
-import by.zinkov.victor.validation.ValidationException;
 import by.zinkov.victor.validation.UtilValidator;
-import by.zinkov.victor.validation.UserValidator;
 import by.zinkov.victor.util.MailSender;
 import by.zinkov.victor.util.StringGenerator;
 
@@ -24,6 +21,28 @@ import java.util.Objects;
  */
 public class UserServiceImpl implements UserService {
 
+
+    @Override
+    public List<User> getClientCouriers(Integer clientId) throws ServiceException {
+        DaoFactory daoFactory = JdbcDaoFactory.getInstance();
+        try {
+            UserExpandedDao dao = (UserExpandedDao) daoFactory.getDao(User.class);
+            return dao.getClientCouriers(clientId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void update(User user) throws ServiceException {
+        DaoFactory daoFactory = JdbcDaoFactory.getInstance();
+        try {
+            GenericDao<User, Integer> dao = (GenericDao<User, Integer>) daoFactory.getDao(User.class);
+            dao.update(user);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 
     @Override
     public User getByLogin(String login) throws ServiceException {
@@ -119,33 +138,17 @@ public class UserServiceImpl implements UserService {
             sendActivateEmail(userFromDb, request);
         } catch (DaoException e) {
             throw new ServiceException("Failed  with DAO. ", e);
-        } /*catch (ValidationException e) {
-            throw new ServiceException("Failed  with Validation. ", e);
-
-        }*/
+        }
     }
 
     @Override
-    public User signUp(User user, String userRole) throws ServiceException {
+    public User signUp(User user) throws ServiceException {
         JdbcDaoFactory daoFactory = (JdbcDaoFactory) FactoryProducer.getDaoFactory(DaoFactoryType.JDBC);
         try {
-            UserValidator validator = new UserValidator();
-            validator.validate(user, userRole);
-
-            UserRoleService userRoleService = new UserRoleServiceImpl();
-            UserRole role = userRoleService.getByName(userRole);
-            user.setUserRoleId(role.getId());
-            if (role == UserRole.ADMINISTRATOR) {
-                throw new ServiceException("Attempt to get unsupported rights");
-            }
-
-            user.setUserStatusId(UserStatus.WAITING_CONFIRMATION.getId());
             GenericDao<User, Integer> userDao = daoFactory.getDao(User.class);
             return userDao.persist(user);
         } catch (DaoException e) {
             throw new ServiceException("Failed  with DAO. ", e);
-        } catch (ValidationException e) {
-            throw new ServiceException(e);
         }
     }
 

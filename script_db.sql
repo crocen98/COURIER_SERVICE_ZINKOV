@@ -59,39 +59,6 @@ INSERT INTO couriers.order_status(status) VALUES('CANCELED');
 
 
 
-CREATE TABLE  couriers.delivery_order (
-  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  id_customer INT NOT NULL,
-  id_courier INT NOT NULL,
-  price DECIMAL(14,2) NULL,
-  id_status INT NOT NULL,
-  start_point VARCHAR(45) NOT NULL,
-  finish_point VARCHAR(45) NOT NULL,
-  description VARCHAR(150) NULL,
-  start_time  TIMESTAMP NOT NULL,
-  finish_time  TIMESTAMP  NULL,
-  expected_time  TIMESTAMP NULL,
-  id_cargo_type INT NOT NULL,
-  id_transport_type INT NOT NULL,
-  CONSTRAINT fk_order_user2
-    FOREIGN KEY (id_customer)
-    REFERENCES couriers.user (id),
-  CONSTRAINT fk_order_order_status1
-    FOREIGN KEY (id_status)
-    REFERENCES couriers.order_status (id),
-  CONSTRAINT fk_delivery_order_user1
-    FOREIGN KEY (id_courier)
-    REFERENCES couriers.user (id),
-       CONSTRAINT fk_order_cargo_type
-     FOREIGN KEY (id_cargo_type)
-     REFERENCES couriers.cargo_types (id),
-       CONSTRAINT fk_order_transport_type
-     FOREIGN KEY (id_transport_type)
-     REFERENCES couriers.transport_type (id)
-  );
-  
-  
-
 CREATE TABLE  couriers.customer_reviews (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   customer_id INT NOT NULL,
@@ -133,7 +100,8 @@ CREATE TABLE  couriers.currier_capability (
     REFERENCES couriers.user (id),
   CONSTRAINT fk_currier_capability_transport_type1
     FOREIGN KEY (transport_id)
-    REFERENCES couriers.transport_type (id)
+    REFERENCES couriers.transport_type (id),
+    UNIQUE(currier_id,transport_id)
    );
 
 
@@ -147,7 +115,8 @@ CREATE TABLE  couriers.supported_cargo_types (
     REFERENCES couriers.cargo_types (id),
   CONSTRAINT fk_supported_cargo_types_currier_capability1
     FOREIGN KEY (currier_capability_id)
-    REFERENCES couriers.currier_capability (id)
+    REFERENCES couriers.currier_capability (id),
+    UNIQUE(type_id,currier_capability_id)
   );
 
 
@@ -156,5 +125,37 @@ CREATE TABLE  couriers.supported_cargo_types (
     registration_key CHAR(32) NOT NULL
   );
 
+
+
+CREATE TABLE  couriers.delivery_order (
+  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  id_customer INT NOT NULL,
+  id_courier INT NOT NULL,
+  price DECIMAL(14,2) NULL,
+  id_status INT NOT NULL,
+  start_point VARCHAR(45) NOT NULL,
+  finish_point VARCHAR(45) NOT NULL,
+  description VARCHAR(150) NULL,
+  start_time  TIMESTAMP NOT NULL,
+  finish_time  TIMESTAMP  NULL,
+  expected_time  TIMESTAMP NULL,
+  id_cargo_type INT NOT NULL,
+  id_transport_type INT NOT NULL,
+  CONSTRAINT fk_order_user2
+    FOREIGN KEY (id_customer)
+    REFERENCES couriers.user (id),
+  CONSTRAINT fk_order_order_status1
+    FOREIGN KEY (id_status)
+    REFERENCES couriers.order_status (id),
+  CONSTRAINT fk_delivery_order_user1
+    FOREIGN KEY (id_courier)
+    REFERENCES couriers.user (id),
+       CONSTRAINT fk_order_cargo_type
+     FOREIGN KEY (id_cargo_type)
+     REFERENCES couriers.cargo_types (id),
+       CONSTRAINT fk_order_transport_type
+     FOREIGN KEY (id_transport_type)
+     REFERENCES couriers.transport_type (id)
+  );
 
 

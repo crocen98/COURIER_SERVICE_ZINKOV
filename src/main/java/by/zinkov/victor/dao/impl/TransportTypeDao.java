@@ -19,6 +19,25 @@ public class TransportTypeDao extends AbstractJdbcDao<TransportType, Integer> im
     private static final String UPDATE_TRANSPORT_TYPE_QUERY = "UPDATE transport_type SET type = ? WHERE id = ?";
     private static final String DELETE_TRANSPORT_TYPE_QUERY = "DELETE FROM transport_type WHERE id = ?";
     private static final String SELECT_TRANSPORT_TYPE_BY_PK = "SELECT * FROM transport_type WHERE type = ? ";
+    private static final String SELECT_TRANSPORT_TYPE_BY_COURIER_ID =
+            "SELECT * FROM transport_type JOIN currier_capability ON" +
+                    " transport_type.id = currier_capability.transport_id" +
+                    " JOIN user ON user.id = currier_capability.currier_id" +
+                    " WHERE user.id = ?";
+
+
+    @Override
+    public TransportType getByCourierId(Integer courierId) throws DaoException {
+        try (PreparedStatement statement = this.connection.prepareStatement(SELECT_TRANSPORT_TYPE_BY_COURIER_ID)) {
+            statement.setInt(1, courierId);
+            ResultSet resultSet = statement.executeQuery();
+            List<TransportType> list = parseResultSet(resultSet);
+            return !list.isEmpty() ? list.get(0) : null;
+        } catch (SQLException e) {
+            throw new DaoException("Problem with select by courierID", e);
+        }
+
+    }
 
     @Override
     public TransportType getByName(String name) throws DaoException {

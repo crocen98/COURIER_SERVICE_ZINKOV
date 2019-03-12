@@ -33,20 +33,39 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
     private static final String SELECT_USER_DTO_BY_LOGIN_AND_PASSWORD = "SELECT * FROM user JOIN user_role ON user.role_id = user_role.id JOIN user_status ON user.status_id = user_status.id WHERE user.login = ? AND user.password = ?";
 
     private static final String SELECT_COURIERS_WITH_APPROPRIATE_TRANSPORT_AND_CARGO_TYPE =
-            "SELECT * from user WHERE user.id IN \n" +
-                    "(SELECT currier_id FROM currier_capability \n" +
-                    "JOIN transport_type\n" +
-                    "ON currier_capability.transport_id = transport_type.id \n" +
-                    "WHERE transport_type.type = ? \n" +
-                    "AND \n" +
-                    "currier_capability.id IN \n" +
-                    "(SELECT currier_capability_id FROM supported_cargo_types\n" +
-                    "JOIN cargo_types ON supported_cargo_types.type_id = cargo_types.id\n" +
-                    "WHERE cargo_types.type = ?))";
+            " SELECT * from user " +
+                    "WHERE " +
+                    "   user.id IN " +
+                    "   (SELECT currier_id FROM currier_capability " +
+                    "   JOIN transport_type " +
+                    "   ON currier_capability.transport_id = transport_type.id " +
+                    "   WHERE transport_type.type = ? " +
+                    "   AND " +
+                    "   currier_capability.id IN " +
+                    "     (SELECT currier_capability_id FROM supported_cargo_types " +
+                    "     JOIN cargo_types ON supported_cargo_types.type_id = cargo_types.id " +
+                    "     WHERE cargo_types.type = ?)) " +
+                    "AND  user.id NOT IN (SELECT  delivery_order.id_courier FROM delivery_order " +
+                    "JOIN order_status ON order_status.id = delivery_order.id_status\n" +
+                    "    WHERE order_status.status = 'PERFORMED' OR order_status.status = 'ORDERED') ;";
+
+    private static final String SELECT_CLIENT_COURIERS_QUERRY =
+            "SELECT DISTINCT *  FROM user JOIN delivery_order " +
+                    "ON user.id = delivery_order.id_courier " +
+                    "JOIN order_status ON delivery_order.id_status = order_status.id " +
+                    "WHERE delivery_order.id_customer = ? AND order_status.status = 'READY'";
 
 
-
-
+    @Override
+    public List<User> getClientCouriers(Integer clientId) throws DaoException {
+        try (PreparedStatement statement = this.connection.prepareStatement(SELECT_CLIENT_COURIERS_QUERRY)) {
+            statement.setInt(1, clientId);
+            ResultSet resultSet = statement.executeQuery();
+            return parseResultSet(resultSet);
+        } catch (SQLException e) {
+            throw new DaoException("Problem with select clients couriers", e);
+        }
+    }
 
     @Override
     public List<User> getCouriersWithAppropriateCargoAndTransportType(String transportType, String cargoType) throws DaoException {

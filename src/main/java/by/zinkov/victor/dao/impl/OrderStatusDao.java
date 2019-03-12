@@ -21,6 +21,22 @@ public class OrderStatusDao extends AbstractJdbcDao<OrderStatus, Integer> implem
                     " WHERE delivery_order.id_customer = ? AND order_status.status = 'ORDERED'" +
                     "OR delivery_order.id_customer = ? AND order_status.status = 'PERFORMED'";
 
+    private static final String SELECT_ORDER_STATUS_BY_NAME_QUERY = "SELECT * FROM order_status WHERE status = ?";
+
+
+
+
+    @Override
+    public OrderStatus getByName(OrderStatus orderStatus) throws DaoException {
+        try (PreparedStatement statement = this.connection.prepareStatement(SELECT_ORDER_STATUS_BY_NAME_QUERY)) {
+            statement.setString(1, orderStatus.toString());
+            ResultSet resultSet = statement.executeQuery();
+            List<OrderStatus> list = parseResultSet(resultSet);
+            return !list.isEmpty() ? list.get(0) : null;
+        } catch (SQLException e) {
+            throw new DaoException("Problem with select by name", e);
+        }
+    }
 
     @Override
     public boolean haveActiveOrder(Integer id) throws DaoException {

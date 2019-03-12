@@ -5,7 +5,7 @@
 
 
 <fmt:requestEncoding value="utf-8"/>
-<fmt:setLocale value="${not empty sessionScope.locale ? sessionScope.locale : 'en_EN'}"/>
+<fmt:setLocale value="${cookie['lang'].value}"/>
 <fmt:setBundle basename="language" var="bundle" scope="application"/>
 
 
@@ -173,7 +173,7 @@
         isInputAction = true;
         cordName = event.target.value;
         ymaps.ready(init);
-        setTimeout(func, 1000);
+        setTimeout(func, 100);
 
         function func() {
             console.log(globalCord + "  globalCord");

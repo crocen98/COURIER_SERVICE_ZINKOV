@@ -9,4 +9,7 @@ public interface CargoTypeService {
     CargoType getByName(String name) throws ServiceException;
 
     List<CargoType> getAllCargoTypes() throws ServiceException;
+    List<CargoType> getByCourierId(Integer courierId) throws ServiceException;
+    CargoType getById(Integer id) throws ServiceException;
+
 }

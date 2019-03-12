@@ -34,6 +34,11 @@ public class UserOrderCommand implements Command {
         UserService userService = factory.getUserService();
         try {
             Order order = orderService.getActiveOrderByClientId(userDto.getId());
+            if(order == null){
+                router.setType(Router.Type.REDIRECT);
+                router.setRoute(CommandEnum.TO_CREATE_ORDER_PAGE.getUrlWithError("arderalreadyhave.error"));
+                return router;
+            }
             UserDto courier = userService.getByPK(order.getIdCourier());
             request.setAttribute(ORDER_ATTRIBUTE, order);
             request.setAttribute(COURIER_ATTRIBUTE,courier);

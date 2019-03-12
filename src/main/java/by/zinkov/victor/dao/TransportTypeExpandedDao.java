@@ -5,5 +5,8 @@ import by.zinkov.victor.domain.TransportType;
 
 public interface TransportTypeExpandedDao {
     @AutoConnection
+    TransportType getByCourierId(Integer courierId) throws DaoException;
+
+    @AutoConnection
     TransportType getByName(String name) throws DaoException;
 }

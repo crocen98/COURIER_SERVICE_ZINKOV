@@ -4,8 +4,8 @@ import java.util.regex.Pattern;
 
 public class UtilValidator {
 
-    private static final String INTEGER_REXEX = "[+-]?(\\d){1,9}";
-    private final Pattern INTEGER_PATTERN = Pattern.compile(INTEGER_REXEX);
+    private static final String INTEGER_REGEX = "[+-]?(\\d){1,9}";
+    private final Pattern INTEGER_PATTERN = Pattern.compile(INTEGER_REGEX);
 
     private static final String EMAIL_REGEX = "^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$";
     private final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);

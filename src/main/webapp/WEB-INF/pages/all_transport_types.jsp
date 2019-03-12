@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <jsp:include page="../frames/header.jsp"/>
+
+<fmt:requestEncoding value="UTF-8" />
+
 
 <div class="container-fluid">
     <!-- Page Heading -->
@@ -21,7 +26,7 @@
                     </button>
                 </div>
                 <div class="modal-body mx-3">
-                    <form class="md-form mb-5" method="POST"
+                    <form class="md-form mb-5" method="POST" accept-charset=UTF-8"
                           action="${pageContext.servletContext.contextPath}/couriers?command=add_transport_type">
                         <input  required type="text" id="defaultForm-email" pattern="(\d|\w|-){1,35}"
                                class="form-control validate" name="transport_name">

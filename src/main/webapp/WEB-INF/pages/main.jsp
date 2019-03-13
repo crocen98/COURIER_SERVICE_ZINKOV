@@ -3,19 +3,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 
-${requestScope.lang} \\\\\
 
 <c:choose>
     <c:when test="${not empty requestScope.lang}">
-        iffff
-        <fmt:setLocale value="${lang}"/>
+        <fmt:setLocale value="${requestScope.lang}"/>
     </c:when>
-    <c:otherwise >
-        else
+    <c:otherwise>
         <fmt:setLocale value="${cookie['lang'].value}"/>
-
     </c:otherwise>
 </c:choose>
+
 <fmt:setBundle basename="language" var="bundle" scope="application"/>
 <html>
 <head>
@@ -37,25 +34,25 @@ ${requestScope.lang} \\\\\
 </head>
 
 <body>
-${cookie['lang'].value}
+
+
 <!-- Navigation -->
 <nav class="navbar navbar-light bg-light static-top">
-    <div class="container">
-        <c:if test="${cookie['lang'].value eq 'en'}">
-            <%--${requestScope.requestURI}--%>
-            <a class="navbar-brand"
-               href="?lang=ru"><span
-                    class="flag-icon flag-icon-ru"> </span>
-                Русский</a>
-        </c:if>
-        <c:if test="${cookie['lang'].value eq 'ru'}">
-            <a class="navbar-brand"
-               href="?lang=en"><span
-                    class="flag-icon flag-icon-ru"> </span>
-                English</a>
-        </c:if>
+    <div class="container d-flex justify-content-end">
+        <div class="btn-group">
+            <button type="button" class="btn btn-info"><fmt:message key="language.button" bundle="${bundle}"/></button>
+            <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="?lang=en">English</a>
+                <a class="dropdown-item" href="?lang=ru">Русский</a>
+            </div>
+        </div>
+
         <%--<a class="navbar-brand" href="#">Language</a>--%>
-        <a class="btn btn-primary" href="${pageContext.servletContext.contextPath}/couriers?command=to_log_in_page">
+        <a class="btn btn-primary" style="margin-left: 10px" href="${pageContext.servletContext.contextPath}/couriers?command=to_log_in_page">
             <fmt:message key="main.loginbuttom" bundle="${bundle}"/></a>
     </div>
 </nav>

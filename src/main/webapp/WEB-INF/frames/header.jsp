@@ -4,7 +4,16 @@
 
 
 <fmt:requestEncoding value="UTF-8"/>
-<fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en_EN'}"/>
+
+<c:choose>
+    <c:when test="${not empty requestScope.lang}">
+        <fmt:setLocale value="${requestScope.lang}"/>
+    </c:when>
+    <c:otherwise>
+        <fmt:setLocale value="${cookie['lang'].value}"/>
+    </c:otherwise>
+</c:choose>
+
 <fmt:setBundle basename="language" var="bundle" scope="application"/>
 
 <html>
@@ -268,27 +277,17 @@
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow row h-100 justify-content-center align-items-center">
 
-
-                        <%--<a class="nav-link dropdown-toggle" href="" id="dropdown09" data-toggle="dropdown"--%>
-                        <%--aria-haspopup="true" aria-expanded="false"><span> </span> English</a>--%>
-                        <%--<div class="dropdown-menu" aria-labelledby="dropdown09">--%>
-                        <%--<a class="dropdown-item" href="#ru"><span class="flag-icon flag-icon-ru"> </span>--%>
-                        <%--Русский</a>--%>
-                        <%--</div>--%>
-
-
-                        <c:if test="${sessionScope.locale eq 'en_EN'}">
-                            <a class="navbar-brand"
-                               href="${pageContext.servletContext.contextPath}/couriers?command=change_language"><span
-                                    class="flag-icon flag-icon-ru"> </span>
-                                Русский</a>
-                        </c:if>
-                        <c:if test="${sessionScope.locale eq'ru_RU'}">
-                            <a class="navbar-brand"
-                               href="${pageContext.servletContext.contextPath}/couriers?command=change_language"><span
-                                    class="flag-icon flag-icon-ru"> </span>
-                                English</a>
-                        </c:if>
+                            <div class="btn-group" style="margin-right: 10px">
+                                <button type="button" class="btn btn-info"><fmt:message key="language.button" bundle="${bundle}"/></button>
+                                <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="?lang=en">English</a>
+                                    <a class="dropdown-item" href="?lang=ru">Русский</a>
+                                </div>
+                            </div>
 
                         <a class="btn btn-primary  dropdown-toggle "
                            href="${pageContext.servletContext.contextPath}/couriers?command=log_out">Log out</a>

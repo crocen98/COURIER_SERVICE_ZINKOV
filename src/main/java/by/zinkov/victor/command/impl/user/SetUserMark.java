@@ -60,12 +60,6 @@ public class SetUserMark implements Command {
 
         try {
             if(customerReviewsService.haveMark(courierId,userDto.getId())){
-                router.setRoute(CommandEnum.TO_CLIENT_COURIERS_PAGE.getUrlWithError("notrightforsetmark.user.error"));
-                return router;
-            }
-
-
-            if(customerReviewsService.haveMark(courierId,userDto.getId())){
                 customerReviewsService.updateCourierMark(courierId,userDto.getId(),rating);
             } else {
                 customerReviewsService.setCourierMark(courierId,userDto.getId(),rating);

@@ -35,7 +35,7 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory<Conne
             Connection connection = connectionPool.retrieveConnection();
 
             List<Method> methods = Arrays.stream(proxy.getClass().getInterfaces()).
-                    flatMap((inter)->Arrays.
+                    flatMap((inter) -> Arrays.
                             stream(inter.getMethods())).
                     collect(Collectors.toList());
 
@@ -51,14 +51,16 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory<Conne
                 if (isReturnConnectionMethod) {
                     setConnectionWithReflection(dao, connection);
                     result = method.invoke(dao, args);
-
-                    connectionPool.putBackConnection(connection);
-                    setConnectionWithReflection(dao, null);
                 } else {
                     result = method.invoke(dao, args);
                 }
             } catch (IllegalAccessException | InvocationTargetException e) {
-                throw  new DaoException("Problem with method " + method.getName(),e);
+                throw new DaoException("Problem with method " + method.getName(), e);
+            } finally {
+                if (isReturnConnectionMethod) {
+                    connectionPool.putBackConnection(connection);
+                    setConnectionWithReflection(dao, null);
+                }
             }
 
             return result;

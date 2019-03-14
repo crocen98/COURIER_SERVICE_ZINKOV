@@ -81,8 +81,8 @@ public class ConnectionPoolImpl implements ConnectionPool {
             lock.lock();
             pool.add(connection);
         } finally {
-            semaphore.release();
             lock.unlock();
+            semaphore.release();
 
         }
     }

@@ -41,6 +41,7 @@ public class ToClientCouriersPage implements Command {
                 map.put(courier, customerReviewsService.getCourierMark(courier.getId()));
             }
 
+
         } catch (ServiceException e) {
             throw new CommandException("Error in ToClientCouriersPage command", e);
         }

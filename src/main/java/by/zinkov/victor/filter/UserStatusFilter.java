@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebFilter(filterName="UserStatusFilter")
+@WebFilter(filterName="UserStatusFilter" ,  urlPatterns = { "/couriers"})
 public class UserStatusFilter implements Filter {
     private static final String USER_SESSION_ATTRIBUTE  = "user";
 

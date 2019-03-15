@@ -1,6 +1,5 @@
 package by.zinkov.victor.command;
 
-import by.zinkov.victor.command.exception.NoSuchCommandException;
 import by.zinkov.victor.command.impl.*;
 import by.zinkov.victor.command.impl.administrator.AddTransportTypeCommand;
 import by.zinkov.victor.command.impl.administrator.DeleteTransportTypeCommand;
@@ -54,6 +53,7 @@ public class CommandProvider {
         commandMap.put(CommandEnum.FINISH_PERFOMING_ORDER_COMMAND, new FinishPerfomingOrderCommand());
         commandMap.put(CommandEnum.TO_CLIENT_COURIERS_PAGE, new ToClientCouriersPage());
         commandMap.put(CommandEnum.SET_USER_MARK, new SetUserMark());
+        commandMap.put(CommandEnum.PAGE_404, new GoPageCommand(Page.PAGE_404));
     }
 
     /**

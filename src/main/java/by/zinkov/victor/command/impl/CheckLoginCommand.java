@@ -3,11 +3,10 @@ package by.zinkov.victor.command.impl;
 import by.zinkov.victor.command.Command;
 import by.zinkov.victor.command.Page;
 import by.zinkov.victor.command.Router;
-import by.zinkov.victor.command.exception.CommandException;
+import by.zinkov.victor.command.CommandException;
 import by.zinkov.victor.domain.User;
 import by.zinkov.victor.service.UserService;
 import by.zinkov.victor.service.ServiceException;
-import by.zinkov.victor.validation.ValidationException;
 import by.zinkov.victor.service.impl.UserServiceImpl;
 import by.zinkov.victor.validation.UtilValidator;
 

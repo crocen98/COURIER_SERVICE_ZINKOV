@@ -86,6 +86,11 @@ public class OrderServiceImpl implements OrderService {
             transactionManager.commit();
 
         } catch (DaoException e) {
+            try {
+                transactionManager.rollback();
+            } catch (DaoException e1) {
+                e1.printStackTrace();
+            }
             throw new ServiceException("Cannot save order!", e);
         } finally {
             try {

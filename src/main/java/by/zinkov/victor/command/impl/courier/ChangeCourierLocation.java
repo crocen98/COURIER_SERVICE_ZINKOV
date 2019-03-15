@@ -4,7 +4,7 @@ import by.zinkov.victor.domain.User;
 import by.zinkov.victor.command.Command;
 import by.zinkov.victor.command.CommandEnum;
 import by.zinkov.victor.command.Router;
-import by.zinkov.victor.command.exception.CommandException;
+import by.zinkov.victor.command.CommandException;
 import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.ServiceException;
 import by.zinkov.victor.service.UserService;

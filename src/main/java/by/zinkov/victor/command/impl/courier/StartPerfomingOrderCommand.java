@@ -2,10 +2,9 @@ package by.zinkov.victor.command.impl.courier;
 
 import by.zinkov.victor.command.Command;
 import by.zinkov.victor.command.CommandEnum;
-import by.zinkov.victor.command.Page;
 import by.zinkov.victor.command.Router;
 import by.zinkov.victor.domain.Order;
-import by.zinkov.victor.command.exception.CommandException;
+import by.zinkov.victor.command.CommandException;
 import by.zinkov.victor.domain.OrderStatus;
 import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.OrderService;

@@ -1,4 +1,4 @@
-package by.zinkov.victor.command.exception;
+package by.zinkov.victor.command;
 
 public class CommandException extends Exception {
     public CommandException(String msg , Exception exception){

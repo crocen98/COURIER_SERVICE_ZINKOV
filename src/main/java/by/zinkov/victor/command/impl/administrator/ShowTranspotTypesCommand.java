@@ -3,7 +3,7 @@ package by.zinkov.victor.command.impl.administrator;
 import by.zinkov.victor.command.Command;
 import by.zinkov.victor.command.Page;
 import by.zinkov.victor.command.Router;
-import by.zinkov.victor.command.exception.CommandException;
+import by.zinkov.victor.command.CommandException;
 import by.zinkov.victor.domain.TransportType;
 import by.zinkov.victor.service.factory.ServiceFactory;
 import by.zinkov.victor.service.TransportTypeService;

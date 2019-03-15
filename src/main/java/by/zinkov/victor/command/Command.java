@@ -1,7 +1,5 @@
 package by.zinkov.victor.command;
 
-import by.zinkov.victor.command.exception.CommandException;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**

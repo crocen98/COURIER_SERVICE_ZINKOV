@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
-@WebFilter(filterName="LocaleFilter")
+@WebFilter(filterName="LocaleFilter" ,  urlPatterns = { "/*"})
 public class LocaleFilter  implements Filter {
     private static final String LOCALE_SESSION_ATTRIBUTE  = "locale";
     private static final String ENGLISH_LANGUAGE = "en_EN";

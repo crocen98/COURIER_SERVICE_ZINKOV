@@ -3,16 +3,14 @@ package by.zinkov.victor.command.impl;
 import by.zinkov.victor.command.Command;
 import by.zinkov.victor.command.Page;
 import by.zinkov.victor.command.Router;
-import by.zinkov.victor.command.exception.CommandException;
+import by.zinkov.victor.command.CommandException;
 import by.zinkov.victor.domain.UserRole;
 import by.zinkov.victor.service.UserRoleService;
 import by.zinkov.victor.service.ServiceException;
 import by.zinkov.victor.service.impl.UserRoleServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class GoSignUpPageCommand implements Command {
 

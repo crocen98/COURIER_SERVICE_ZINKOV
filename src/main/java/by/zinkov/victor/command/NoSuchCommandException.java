@@ -1,4 +1,4 @@
-package by.zinkov.victor.command.exception;
+package by.zinkov.victor.command;
 
 public class NoSuchCommandException extends RuntimeException {
 

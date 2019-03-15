@@ -1,7 +1,7 @@
 package by.zinkov.victor.controller;
 
 import by.zinkov.victor.command.*;
-import by.zinkov.victor.command.exception.CommandException;
+import by.zinkov.victor.command.CommandException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

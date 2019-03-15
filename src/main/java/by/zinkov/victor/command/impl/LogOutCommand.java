@@ -2,7 +2,7 @@ package by.zinkov.victor.command.impl;
 
 import by.zinkov.victor.command.Command;
 import by.zinkov.victor.command.Router;
-import by.zinkov.victor.command.exception.CommandException;
+import by.zinkov.victor.command.CommandException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

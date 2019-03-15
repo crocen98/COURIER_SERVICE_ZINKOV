@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-@WebFilter(filterName="CookieFilter")
+@WebFilter(filterName="CookieFilter" ,  urlPatterns = { "/*"})
 public class CookieFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig)   {

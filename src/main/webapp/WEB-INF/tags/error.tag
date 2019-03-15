@@ -25,15 +25,17 @@
 </c:if>
 
 <script>
-    document.getElementById("delete_error_box").addEventListener("click", function () {
-        var err = document.getElementById("errorsBox");
-        err.style.opacity = 1.0;
-        setInterval(function () {
-            console.log(err.style.height);
-            err.style.opacity -= 0.025;
-            if (err.style.opacity < 0) {
-                err.remove();
-            }
-        }, 25);
-    })
+    if (document.getElementById("delete_error_box")) {
+        document.getElementById("delete_error_box").addEventListener("click", function () {
+            var err = document.getElementById("errorsBox");
+            err.style.opacity = 1.0;
+            setInterval(function () {
+                console.log(err.style.height);
+                err.style.opacity -= 0.025;
+                if (err.style.opacity < 0) {
+                    err.remove();
+                }
+            }, 25);
+        });
+    }
 </script>

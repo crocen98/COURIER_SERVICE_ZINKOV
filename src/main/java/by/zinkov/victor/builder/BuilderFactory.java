@@ -1,6 +1,8 @@
 package by.zinkov.victor.builder;
 
+import by.zinkov.victor.builder.impl.CargoTypeBuilder;
 import by.zinkov.victor.builder.impl.OrderBuilder;
+import by.zinkov.victor.builder.impl.TransportTypeBuilder;
 import by.zinkov.victor.builder.impl.UserBuilder;
 
 public class BuilderFactory {
@@ -13,12 +15,20 @@ public class BuilderFactory {
     private BuilderFactory() {
     }
 
-    public UserBuilder getUserBuilder(){
+    public CargoTypeBuilder getCargoTypeBuilder() {
+        return new CargoTypeBuilder();
+    }
+
+    public UserBuilder getUserBuilder() {
         return new UserBuilder();
     }
 
-    public OrderBuilder getOrderBuilder(){
+    public OrderBuilder getOrderBuilder() {
         return new OrderBuilder();
+    }
+
+    public TransportTypeBuilder getTransportTypeBuilder() {
+        return new TransportTypeBuilder();
     }
 
 }

@@ -15,8 +15,8 @@ public class TransportTypeDao extends AbstractJdbcDao<TransportType, Integer> im
 
     private static final String SELECT_ALL_TRANSPORT_TYPES_QUERY = "SELECT * FROM transport_type";
     private static final String SELECT_TRANSPORT_TYPE_PK_QUERY = "SELECT * FROM transport_type WHERE id = ?";
-    private static final String INSERT_NEW_TRANSPORT_TYPE_QUERY = "INSERT INTO transport_type ( type) VALUES ( ? )";
-    private static final String UPDATE_TRANSPORT_TYPE_QUERY = "UPDATE transport_type SET type = ? WHERE id = ?";
+    private static final String INSERT_NEW_TRANSPORT_TYPE_QUERY = "INSERT INTO transport_type ( type , coefficient) VALUES ( ? ,?)";
+    private static final String UPDATE_TRANSPORT_TYPE_QUERY = "UPDATE transport_type SET type = ? , coefficient = ? WHERE id = ?";
     private static final String DELETE_TRANSPORT_TYPE_QUERY = "DELETE FROM transport_type WHERE id = ?";
     private static final String SELECT_TRANSPORT_TYPE_BY_PK = "SELECT * FROM transport_type WHERE type = ? ";
     private static final String SELECT_TRANSPORT_TYPE_BY_COURIER_ID =
@@ -59,7 +59,8 @@ public class TransportTypeDao extends AbstractJdbcDao<TransportType, Integer> im
         while (rs.next()) {
             TransportType transportType = new TransportType();
             transportType.setId(rs.getInt(i++));
-            transportType.setTransportType(rs.getString(i));
+            transportType.setTransportType(rs.getString(i++));
+            transportType.setCoefficient(rs.getBigDecimal(i));
             transportTypes.add(transportType);
             i = 1;
         }
@@ -70,6 +71,8 @@ public class TransportTypeDao extends AbstractJdbcDao<TransportType, Integer> im
     protected void prepareStatementForInsert(PreparedStatement statement, TransportType object) throws SQLException {
         int i = 1;
         statement.setString(i++, object.getTransportType());
+        statement.setBigDecimal(i++, object.getCoefficient());
+
         if (object.getId() != null) {
             statement.setInt(i, object.getId());
         }

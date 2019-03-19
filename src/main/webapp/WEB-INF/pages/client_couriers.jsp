@@ -22,9 +22,9 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="item" items="${requestScope.couriers}">
+    <c:forEach var="item" items="${requestScope.couriers}" varStatus="loop">
         <tr>
-            <th scope="row">1</th>
+            <th scope="row">${loop.index}</th>
             <td>${item.key.firstName}</td>
             <td>${item.key.lastName}</td>
             <td>${item.key.login}</td>

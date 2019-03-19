@@ -18,7 +18,9 @@ public enum Page {
     COURIER_PROFILE("/WEB-INF/pages/courier_profile.jsp"),
     COURIER_ORDER("/WEB-INF/pages/courier_order.jsp"),
     CLIENT_COURIERS("/WEB-INF/pages/client_couriers.jsp"),
-    PAGE_404("/WEB-INF/pages/404.jsp");
+    PAGE_404("/WEB-INF/pages/404.jsp"),
+    USERS_TABLE("/WEB-INF/pages/users_table.jsp"),
+    ALL_CARGO_TYPES("/WEB-INF/pages/all_cargo_types.jsp");
 
 
 

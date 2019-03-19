@@ -1,10 +1,7 @@
 package by.zinkov.victor.command;
 
 import by.zinkov.victor.command.impl.*;
-import by.zinkov.victor.command.impl.administrator.AddTransportTypeCommand;
-import by.zinkov.victor.command.impl.administrator.DeleteTransportTypeCommand;
-import by.zinkov.victor.command.impl.administrator.EditTransportType;
-import by.zinkov.victor.command.impl.administrator.ShowTranspotTypesCommand;
+import by.zinkov.victor.command.impl.administrator.*;
 import by.zinkov.victor.command.impl.courier.*;
 import by.zinkov.victor.command.impl.user.*;
 
@@ -54,6 +51,13 @@ public class CommandProvider {
         commandMap.put(CommandEnum.TO_CLIENT_COURIERS_PAGE, new ToClientCouriersPage());
         commandMap.put(CommandEnum.SET_USER_MARK, new SetUserMark());
         commandMap.put(CommandEnum.PAGE_404, new GoPageCommand(Page.PAGE_404));
+        commandMap.put(CommandEnum.TO_ALL_USERS_PAGE_COMMAND, new ToAllUsersPageCommand());
+        commandMap.put(CommandEnum.CHANGE_USER_STATUS, new ChangeUserStatus());
+        commandMap.put(CommandEnum.ALL_CARGO_TYPES, new ToAllCargoTypesPage());
+        commandMap.put(CommandEnum.ADD_CARGO_TYPE, new AddCargoType());
+        commandMap.put(CommandEnum.DELETE_CARGO_TYPE, new DeleteCargoType());
+        commandMap.put(CommandEnum.EDIT_CARGO_TYPE, new EditCargoType());
+
     }
 
     /**

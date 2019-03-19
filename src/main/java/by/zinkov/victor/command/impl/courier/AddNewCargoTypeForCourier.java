@@ -3,14 +3,12 @@ package by.zinkov.victor.command.impl.courier;
 import by.zinkov.victor.command.Command;
 import by.zinkov.victor.command.CommandEnum;
 import by.zinkov.victor.command.Router;
+import by.zinkov.victor.domain.CargoType;
 import by.zinkov.victor.domain.CurrierCapability;
 import by.zinkov.victor.domain.SupportedCargoTypes;
 import by.zinkov.victor.domain.TransportType;
 import by.zinkov.victor.dto.UserDto;
-import by.zinkov.victor.service.CurrierCapabilityService;
-import by.zinkov.victor.service.ServiceException;
-import by.zinkov.victor.service.SupportedCargoTypeService;
-import by.zinkov.victor.service.TransportTypeService;
+import by.zinkov.victor.service.*;
 import by.zinkov.victor.service.factory.ServiceFactory;
 import by.zinkov.victor.validation.ValidatorFactory;
 import by.zinkov.victor.validation.impl.AddNewCargoTypeForCourierValidator;
@@ -67,11 +65,12 @@ public class AddNewCargoTypeForCourier implements Command {
                 return router;
             }
 
-            TransportTypeService transportTypeService = serviceFactory.getTransportTypeService();
-            TransportType transportType = transportTypeService.getById(Integer.valueOf(parameters.get(CARGO_TYPE_ID_PARAMETER)));
+            CargoTypeService cargoTypeService = serviceFactory.getCargoTypeService();
+            Integer idCargoType =  Integer.valueOf(parameters.get(CARGO_TYPE_ID_PARAMETER));
+            CargoType cargoType = cargoTypeService.getById(idCargoType);
 
             SupportedCargoTypes supportedCargoTypes = new SupportedCargoTypes();
-            supportedCargoTypes.setTypeId(transportType.getId());
+            supportedCargoTypes.setTypeId(cargoType.getId());
             supportedCargoTypes.setCurrierCapabilityId(capability.getId());
 
             SupportedCargoTypeService supportedCargoTypeService = serviceFactory.getSupportedCargoTypeService();

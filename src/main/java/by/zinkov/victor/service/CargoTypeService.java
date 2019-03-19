@@ -11,5 +11,8 @@ public interface CargoTypeService {
     List<CargoType> getAllCargoTypes() throws ServiceException;
     List<CargoType> getByCourierId(Integer courierId) throws ServiceException;
     CargoType getById(Integer id) throws ServiceException;
+    void add(CargoType cargoType) throws ServiceException;
+    void deleteById(Integer id) throws ServiceException;
+    void update(CargoType cargoType) throws ServiceException;
 
 }

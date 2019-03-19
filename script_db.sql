@@ -77,6 +77,7 @@ CREATE TABLE  couriers.customer_reviews (
 CREATE TABLE  couriers.transport_type (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   type VARCHAR(45) NOT NULL,
+  coefficient DECIMAL(14,2) NULL,
   UNIQUE(type)
 );
 

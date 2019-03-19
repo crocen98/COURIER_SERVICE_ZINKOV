@@ -31,6 +31,8 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
     private static final String SELECT_USER_BY_LOGIN = "SELECT * FROM user WHERE user.login = ?";
     private static final String DELETE_USER_QUERY = "DELETE FROM user WHERE id = ?";
     private static final String SELECT_USER_DTO_BY_LOGIN_AND_PASSWORD = "SELECT * FROM user JOIN user_role ON user.role_id = user_role.id JOIN user_status ON user.status_id = user_status.id WHERE user.login = ? AND user.password = ?";
+    private static final String SELECT_USERS_DTO = "SELECT * FROM user JOIN user_role ON user.role_id = user_role.id JOIN user_status ON user.status_id = user_status.id";
+
 
     private static final String SELECT_COURIERS_WITH_APPROPRIATE_TRANSPORT_AND_CARGO_TYPE =
             " SELECT * from user " +
@@ -84,6 +86,9 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
     @Override
     public UserDto getDtoByPK(Integer id) throws DaoException {
         User user = getByPK(id);
+        if(user == null){
+            return null;
+        }
         return logIn(user.getLogin(), user.getPassword());
     }
 
@@ -100,6 +105,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
             throw new DaoException("Problem with select", e);
         }
     }
+
 
     @Override
     @AutoConnection
@@ -123,6 +129,44 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
         } catch (SQLException e) {
             throw new DaoException("problem with logIn in dao", e);
         }
+    }
+
+
+    @Override
+    public List<UserDto> getAllUsersDto() throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_USERS_DTO)) {
+            ResultSet set = statement.executeQuery();
+            return parseResultSetFoUserDto(set);
+
+        } catch (SQLException e) {
+            throw new DaoException("problem with get all dto users in dao", e);
+        }
+    }
+
+    private List<UserDto> parseResultSetFoUserDto(ResultSet rs) throws SQLException {
+        List<UserDto> users = new ArrayList<>();
+
+        while (rs.next()) {
+            User user = new User();
+            user.setId(rs.getInt(1));
+            user.setLogin(rs.getString(2));
+            user.setPassword(rs.getString(3));
+            user.setFirstName(rs.getString(4));
+            user.setLastName(rs.getString(5));
+            user.setEmail(rs.getString(6));
+            user.setPhone(rs.getString(7));
+            user.setLocation(rs.getString(10));
+            user.setUserStatusId(rs.getInt(8));
+            user.setUserRoleId(rs.getInt(9));
+
+            UserDto userDto = new UserDto(user);
+            String userRole = rs.getString(12);
+            userDto.setUserRole(UserRole.valueOf(userRole));
+            String userStatus = rs.getString(14);
+            userDto.setUserStatus(UserStatus.valueOf(userStatus));
+            users.add(userDto);
+        }
+        return users;
     }
 
     @Override

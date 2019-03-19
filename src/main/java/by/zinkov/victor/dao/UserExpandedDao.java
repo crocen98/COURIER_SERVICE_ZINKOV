@@ -24,4 +24,7 @@ public interface UserExpandedDao {
     @AutoConnection
     List<User> getClientCouriers(Integer clientId) throws DaoException;
 
+    @AutoConnection
+    List<UserDto> getAllUsersDto() throws DaoException;
+
 }

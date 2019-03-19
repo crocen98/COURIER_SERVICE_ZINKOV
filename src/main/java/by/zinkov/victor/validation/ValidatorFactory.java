@@ -12,6 +12,10 @@ public class ValidatorFactory {
     private ValidatorFactory() {
     }
 
+    public AddCargoTypeValidator getAddCargoTypeValidator(){
+        return new AddCargoTypeValidator();
+    }
+
     public SignUpValidator getSignUpValidator() {
         return new SignUpValidator();
     }
@@ -36,4 +40,9 @@ public class ValidatorFactory {
         return new SetUserMarkValidator();
     }
 
+    public AddTransportTypeValidator getAddTransportTypeValidator(){
+        return new AddTransportTypeValidator();
+    }
+
+    public ChangeUserStatusValidator getChangeUserStatusValidator(){return new ChangeUserStatusValidator();}
 }

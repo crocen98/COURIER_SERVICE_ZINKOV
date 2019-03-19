@@ -4,6 +4,10 @@ import java.util.regex.Pattern;
 
 public class UtilValidator {
 
+
+    private static final String DECIMAL_14_2_REGEX = "^[+-]?(\\d){1,14}(\\.(\\d){0,2})|$";
+    private final Pattern DECIMAL_14_2_PATTERN = Pattern.compile(DECIMAL_14_2_REGEX);
+
     private static final String INTEGER_REGEX = "[+-]?(\\d){1,9}";
     private final Pattern INTEGER_PATTERN = Pattern.compile(INTEGER_REGEX);
 
@@ -60,5 +64,13 @@ public class UtilValidator {
             }
         }
         return isMatches;
+    }
+
+
+    public boolean isMatchesDecimal(String number) {
+        if (number == null) {
+            return false;
+        }
+        return DECIMAL_14_2_PATTERN.matcher(number).matches();
     }
 }

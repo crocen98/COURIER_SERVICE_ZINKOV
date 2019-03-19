@@ -23,6 +23,40 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    public void changeStatus(Integer userId) throws ServiceException{
+        DaoFactory daoFactory = JdbcDaoFactory.getInstance();
+        try {
+            GenericDao<User, Integer> dao = (GenericDao<User, Integer>) daoFactory.getDao(User.class);
+            GenericDao<UserStatus, Integer> userStatusDao = (GenericDao<UserStatus, Integer>) daoFactory.getDao(UserStatus.class);
+
+            User user = dao.getByPK(userId);
+            UserStatus userStatus = userStatusDao.getByPK(user.getUserStatusId());
+            UserStatus neededStatus;
+            if(userStatus == UserStatus.BLOCKED){
+                neededStatus=  ((UserStatusExpandedDao) userStatusDao).getByName(UserStatus.ACTIVE.toString());
+            } else{
+                neededStatus= ((UserStatusExpandedDao) userStatusDao).getByName(UserStatus.BLOCKED.toString());
+            }
+            user.setUserStatusId(neededStatus.getId());
+            dao.update(user);
+
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<User> getAll() throws ServiceException {
+        DaoFactory daoFactory = JdbcDaoFactory.getInstance();
+        try {
+            GenericDao<User, Integer> dao = (GenericDao<User, Integer>) daoFactory.getDao(User.class);
+            return dao.getAll();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public List<User> getClientCouriers(Integer clientId) throws ServiceException {
         DaoFactory daoFactory = JdbcDaoFactory.getInstance();
         try {
@@ -188,6 +222,18 @@ public class UserServiceImpl implements UserService {
             genericUserDao.update(user);
         } catch (DaoException e) {
             throw new ServiceException("Cannot find user by id", e);
+        }
+    }
+
+
+    @Override
+    public List<UserDto> getAllUsersDto() throws ServiceException {
+        DaoFactory daoFactory = FactoryProducer.getDaoFactory(DaoFactoryType.JDBC);
+        try {
+            UserExpandedDao userDao = (UserExpandedDao) daoFactory.getDao(User.class);
+           return  userDao.getAllUsersDto();
+        } catch (DaoException e) {
+            throw new ServiceException("Cannot get all users dto", e);
         }
     }
 }

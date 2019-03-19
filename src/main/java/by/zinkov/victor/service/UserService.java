@@ -38,4 +38,10 @@ public interface UserService {
     List<User> getClientCouriers(Integer clientId) throws ServiceException;
 
 
+    List<User> getAll() throws ServiceException;
+
+    List<UserDto> getAllUsersDto() throws ServiceException;
+
+
+    void changeStatus(Integer userId) throws ServiceException;
 }

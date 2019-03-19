@@ -60,35 +60,25 @@ public class TransportTypeServiceImpl implements TransportTypeService {
     }
 
     @Override
-    public void add(String name) throws ServiceException {
+    public void add(TransportType transportType) throws ServiceException {
         DaoFactory daoFactory = JdbcDaoFactory.getInstance();
         try {
             GenericDao<TransportType, Integer> dao = daoFactory.getDao(TransportType.class);
-            TransportType transportType = new TransportType();
-            transportType.setTransportType(name);
             dao.persist(transportType);
         } catch (DaoException e) {
-            throw new ServiceException("Problem with add transport with bane: " + name, e);
+            throw new ServiceException("Problem with add transport with bane: ", e);
         }
     }
 
 
     @Override
-    public void edit(String id, String name) throws ServiceException {
+    public void edit(TransportType transportType) throws ServiceException {
         DaoFactory daoFactory = JdbcDaoFactory.getInstance();
         try {
-            UtilValidator stringValidator = UtilValidator.getInstance();
-            stringValidator.isMatchesInt(id, UtilValidator.POSITIVE_RANGE);
-            Integer transportId = Integer.valueOf(id);
-
-            TransportType transportType = new TransportType();
-            transportType.setTransportType(name);
-            transportType.setId(transportId);
-
             GenericDao<TransportType, Integer> dao = daoFactory.getDao(TransportType.class);
             dao.update(transportType);
         } catch (DaoException e) {
-            throw new ServiceException("Problem with edit transport with bane: " + name, e);
+            throw new ServiceException("Problem with edit transport with bane: ", e);
         }
     }
 

@@ -9,9 +9,9 @@ public interface TransportTypeService {
 
     void delete(Integer transportTypeId) throws ServiceException;
 
-    void add(String name) throws ServiceException;
+    void add(TransportType transportType) throws ServiceException;
 
-    void edit(String id, String name)throws ServiceException;
+    void edit(TransportType transportType)throws ServiceException;
     TransportType getByName(String name) throws ServiceException;
 
     TransportType getByCourierId(Integer courierId) throws ServiceException;

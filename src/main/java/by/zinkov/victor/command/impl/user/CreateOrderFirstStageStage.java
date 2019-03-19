@@ -6,6 +6,7 @@ import by.zinkov.victor.command.Command;
 import by.zinkov.victor.command.CommandEnum;
 import by.zinkov.victor.command.Page;
 import by.zinkov.victor.command.Router;
+import by.zinkov.victor.domain.TransportType;
 import by.zinkov.victor.domain.User;
 import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.*;
@@ -20,6 +21,7 @@ import by.zinkov.victor.domain.Order;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -67,7 +69,6 @@ public class CreateOrderFirstStageStage implements Command {
         request.setAttribute(TRANSPORT_TYPE_ATTRIBUTE, parameters.get(TRANSPORT_TYPE_ATTRIBUTE));
         request.setAttribute(CARGO_TYPE_ATTRIBUTE, parameters.get(CARGO_TYPE_ATTRIBUTE));
 
-
         try {
             ServiceFactory factory = ServiceFactory.getInstance();
             OrderStatusService orderStatusService = factory.getOrderStatusService();
@@ -92,13 +93,16 @@ public class CreateOrderFirstStageStage implements Command {
             double distance = calculateDistance(order);
             request.setAttribute(DISTANCE_ATTRIBUTE, distance);
 
+            TransportTypeService transportTypeService = factory.getTransportTypeService();
+            TransportType transportType = transportTypeService.getById(order.getIdTransportType());
+            BigDecimal price = BigDecimal.valueOf(transportType.getCoefficient().doubleValue() * distance);
+            order.setPrice(price);
+
         } catch (ServiceException e) {
             LOGGER.error(e);
             session.setAttribute(ORDER_ATTRIBUTE, null);
             router.setType(Router.Type.REDIRECT);
-
             router.setRoute(CommandEnum.TO_CREATE_ORDER_PAGE.getUrlWithError("Cannot create order! Problem in service"));
-            e.printStackTrace();
         }
         return router;
     }

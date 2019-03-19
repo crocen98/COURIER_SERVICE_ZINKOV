@@ -36,8 +36,13 @@ public enum CommandEnum {
     FINISH_PERFOMING_ORDER_COMMAND("finish_perfoming_order_command", RequestMethod.GET, AccessLevel.COURIER),
     TO_CLIENT_COURIERS_PAGE("to_client_couriers_page", RequestMethod.GET, AccessLevel.CLIENT),
     SET_USER_MARK("set_user_mark", RequestMethod.POST, AccessLevel.CLIENT),
-    PAGE_404("page_404", RequestMethod.GET, AccessLevel.ALL);
-
+    PAGE_404("page_404", RequestMethod.GET, AccessLevel.ALL),
+    TO_ALL_USERS_PAGE_COMMAND("to_all_users_page_command", RequestMethod.GET, AccessLevel.ADMINISTRATOR),
+    CHANGE_USER_STATUS("change_user_status", RequestMethod.POST, AccessLevel.ADMINISTRATOR),
+    ALL_CARGO_TYPES("all_cargo_types", RequestMethod.GET, AccessLevel.ADMINISTRATOR),
+    ADD_CARGO_TYPE("add_cargo_type", RequestMethod.POST, AccessLevel.ADMINISTRATOR),
+    DELETE_CARGO_TYPE("delete_cargo_type", RequestMethod.POST, AccessLevel.ADMINISTRATOR),
+    EDIT_CARGO_TYPE("edit_cargo_type", RequestMethod.POST, AccessLevel.ADMINISTRATOR);
 
     private final String name;
     private final RequestMethod method;
@@ -53,7 +58,7 @@ public enum CommandEnum {
 
 
         return Arrays.stream(CommandEnum.values())
-                .filter(cmd-> cmd.name.equalsIgnoreCase(name))
+                .filter(cmd -> cmd.name.equalsIgnoreCase(name))
                 .findFirst().orElse(CommandEnum.PAGE_404);
     }
 

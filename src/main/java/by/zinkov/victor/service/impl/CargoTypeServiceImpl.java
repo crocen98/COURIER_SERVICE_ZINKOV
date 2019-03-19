@@ -14,6 +14,40 @@ import java.util.List;
 public class CargoTypeServiceImpl implements CargoTypeService {
 
     @Override
+    public void update(CargoType cargoType) throws ServiceException {
+        DaoFactory daoFactory = JdbcDaoFactory.getInstance();
+        try {
+            GenericDao<CargoType, Integer> dao = daoFactory.getDao(CargoType.class);
+            dao.update(cargoType);
+        } catch (DaoException e) {
+            throw new ServiceException("Problem with delete cargo type: ", e);
+        }
+    }
+
+    @Override
+    public void deleteById(Integer id) throws ServiceException {
+        DaoFactory daoFactory = JdbcDaoFactory.getInstance();
+        try {
+            GenericDao<CargoType, Integer> dao = daoFactory.getDao(CargoType.class);
+            CargoType cargoType = dao.getByPK(id);
+            dao.delete(cargoType);
+        } catch (DaoException e) {
+            throw new ServiceException("Problem with delete cargo type: ", e);
+        }
+    }
+
+    @Override
+    public void add(CargoType cargoType) throws ServiceException {
+        DaoFactory daoFactory = JdbcDaoFactory.getInstance();
+        try {
+            GenericDao<CargoType, Integer> dao = daoFactory.getDao(CargoType.class);
+            dao.persist(cargoType);
+        } catch (DaoException e) {
+            throw new ServiceException("Problem with add cargo type: ", e);
+        }
+    }
+
+    @Override
     public CargoType getById(Integer id) throws ServiceException {
         DaoFactory daoFactory = JdbcDaoFactory.getInstance();
 

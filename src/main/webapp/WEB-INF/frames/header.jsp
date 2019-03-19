@@ -98,6 +98,29 @@
         </c:if>
 
 
+        <c:if test="${sessionScope.user.userRole eq 'ADMINISTRATOR'}">
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="${pageContext.servletContext.contextPath}/couriers?command=all_transport_types">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Transport types</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="${pageContext.servletContext.contextPath}/couriers?command=all_cargo_types">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Cargo types</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="${pageContext.servletContext.contextPath}/couriers?command=to_all_users_page_command">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Users</span></a>
+            </li>
+        </c:if>
+
         <hr class="sidebar-divider d-none d-md-block">
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>

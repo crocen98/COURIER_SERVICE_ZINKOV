@@ -10,8 +10,8 @@ public class AddTransportTypeValidator implements Validator {
     private static final String TRANSPORT_NAME_PARAMETER = "transport_name";
     private static final String COEFFICIENT_PARAMETER = "coefficient";
 
-    private static final String TRANSPORT_NAME_ERROR = "transport_name.validation.error";
-    private static final String COEFFICIENT_ERROR = "coefficient.validation.error";
+    private static final String TRANSPORT_NAME_ERROR = "validation.transport_name.error";
+    private static final String COEFFICIENT_ERROR = "validation.coefficient.error";
 
 
     @Override

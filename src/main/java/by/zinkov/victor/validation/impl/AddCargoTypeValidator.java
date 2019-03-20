@@ -18,7 +18,7 @@ public class AddCargoTypeValidator implements Validator {
 
         Map<String, String> errorsMap = new HashMap<>();
         String transportName = requestParameters.get(CARGO_TYPE_PARAMETER);
-        if (!validator.simpleStingMatches(transportName, 45)) {
+        if (!validator.simpleStingMatches(transportName, 35)) {
             errorsMap.put(transportName, CARGO_TYPE_ERROR);
         }
         return errorsMap;

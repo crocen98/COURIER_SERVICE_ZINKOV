@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class ToCourierActiveOrderPage implements Command {
+public class ToCourierActiveOrderPage extends Command {
     private static final String USER_ATTRIBUTE = "user";
     private static final String DISTANCE_ATTRIBUTE = "distance";
     private static final String CLIENT_ATTRIBUTE = "client";

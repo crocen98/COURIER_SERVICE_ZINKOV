@@ -5,8 +5,13 @@ import java.util.regex.Pattern;
 public class UtilValidator {
 
 
-    private static final String DECIMAL_14_2_REGEX = "^[+-]?(\\d){1,14}(\\.(\\d){0,2})|$";
+    private static final String DECIMAL_14_2_REGEX = "^[+-]?(\\d){1,14}(\\.(\\d){1,2})|$";
     private final Pattern DECIMAL_14_2_PATTERN = Pattern.compile(DECIMAL_14_2_REGEX);
+
+
+    private static final String SIMPLE_STRING_REGEX = "^(\\w|\\d|-|[a-яА-Я]){1,35}$";
+    private final Pattern SIMPLE_STRING_PATTERN = Pattern.compile(SIMPLE_STRING_REGEX);
+
 
     private static final String INTEGER_REGEX = "[+-]?(\\d){1,9}";
     private final Pattern INTEGER_PATTERN = Pattern.compile(INTEGER_REGEX);
@@ -45,7 +50,9 @@ public class UtilValidator {
     }
 
     public boolean simpleStingMatches(String string, int maxLength) {
-        return string != null && string.length() < maxLength && !string.trim().equals("");
+        return string != null && string.length() < maxLength
+                &&
+                SIMPLE_STRING_PATTERN.matcher(string).matches();
     }
 
     public boolean isMatchesInt(String stringInt, int[] range) {

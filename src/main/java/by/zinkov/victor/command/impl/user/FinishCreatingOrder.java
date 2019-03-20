@@ -12,7 +12,7 @@ import by.zinkov.victor.validation.UtilValidator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class FinishCreatingOrder implements Command {
+public class FinishCreatingOrder extends Command {
     private static final String ORDER_ATTRIBUTE = "order";
     private static final String COURIER_ID_PARAMETER = "courier_id";
 

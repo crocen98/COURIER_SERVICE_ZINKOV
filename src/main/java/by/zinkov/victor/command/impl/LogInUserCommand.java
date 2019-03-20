@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class LogInUserCommand implements Command {
+public class LogInUserCommand extends Command {
     private static final Logger LOGGER = LogManager.getLogger(LogInUserCommand.class);
 
     private static final String LOGIN_PARAMETER = "login";
@@ -34,9 +34,7 @@ public class LogInUserCommand implements Command {
         UserService service = new UserServiceImpl();
         try {
             Thread.sleep(400);
-            System.out.println("LOGIN");
             UserDto userDto = service.LogIn(login,password);
-            System.out.println("LOGIN after");
 
             HttpSession session = request.getSession();
             session.setAttribute(USER_ATTRIBUTE , userDto);

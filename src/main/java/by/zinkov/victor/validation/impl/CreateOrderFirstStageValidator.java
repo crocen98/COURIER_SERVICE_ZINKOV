@@ -22,13 +22,12 @@ public class CreateOrderFirstStageValidator implements Validator {
     private static final String DESCRIPTION_PARAMETER = "description";
     private static final String START_TIME_PARAMETER = "start_time";
 
-
-    private static final String CARGO_TYPE_ERROR_KEY = "createorder.notexistingcargotype.error";
-    private static final String TRANSPORT_TYPE_ERROR_KEY = "createorder.notexistingtransporttype.error";
-    private static final String POINT_ERROR_KEY = "createorder.pointvalid.error";
-    private static final String DESCRIPTION_ERROR_KEY = "createorder.descriptionvalid.error";
-    private static final String START_TIME_VALIDATION_ERROR_KEY = "createorder.timevalid.error";
-    private static final String TIME_IN_PAST_ERROR_KEY = "createorder.pasttime.error";
+    private static final String CARGO_TYPE_ERROR_KEY = "validation.not_existing_cargo_type.error";
+    private static final String TRANSPORT_TYPE_ERROR_KEY = "validation.not_existing_transport_type.error";
+    private static final String POINT_ERROR_KEY = "validation.point.error";
+    private static final String DESCRIPTION_ERROR_KEY = "validation.description.error";
+    private static final String START_TIME_VALIDATION_ERROR_KEY = "validation.time_invalid.error";
+    private static final String TIME_IN_PAST_ERROR_KEY = "validation.past_time.error";
 
 
     @Override

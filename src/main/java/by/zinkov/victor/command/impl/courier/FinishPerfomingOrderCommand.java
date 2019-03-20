@@ -15,7 +15,7 @@ import by.zinkov.victor.service.factory.ServiceFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class FinishPerfomingOrderCommand implements Command {
+public class FinishPerfomingOrderCommand extends Command {
     private static final String USER = "user";
 
     @Override

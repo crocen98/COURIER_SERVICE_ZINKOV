@@ -19,11 +19,6 @@
     }
 </style>
 <div class="container">
-    <c:if test="${param.error != null}">
-    <div class="alert alert-danger" role="alert">
-        <strong>Oh snap!</strong> ${param.error}
-    </div>
-    </c:if>
     <div class="card o-hidden border-0 shadow-lg my-5">
         <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
@@ -64,10 +59,10 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input id="date" required type="date" class="form-control" placeholder="First Name">
+                                    <input id="date" required type="date" pattern="^\d{1,2}\.\d{1,2}\.\d{4}$" class="form-control" placeholder="First Name">
                                 </div>
                                 <div class="col-sm-6 input-group date">
-                                    <input id="time" required type="time" class="form-control" placeholder="Last Name">
+                                    <input  id="time" required type="time" class="form-control" placeholder="Last Name" pattern="^\d{2}:\d{2}">
                                 </div>
                                 <input required id="date_time" name="start_time" type="hidden" value="">
                             </div>

@@ -23,16 +23,16 @@ public class SignUpValidator implements Validator {
     private static final String PASSWORD_FIELD = "password";
     private static final String LOCATION_FIELD = "location";
 
-    private static final String ROLE_ERROR_KEY = "signup.rolenotvalid.error";
-    private static final String LOGIN_ERROR_KEY = "signup.loginnotvalid.error";
-    private static final String FIRST_NAME_ERROR_KEY = "signup.firstnamenotvalid.error";
-    private static final String LAST_NAME_ERROR_KEY = "signup.lastnamenotvalid.error";
-    private static final String EMAIL_ERROR_KEY = "signup.emailnotvalid.error";
-    private static final String PHONE_ERROR_KEY = "signup.phonenotvalid.error";
-    private static final String PASSWORD_ERROR_KEY = "signup.passwordnotvalid.error";
-    private static final String LOCATION_ERROR_KEY = "signup.locationnotvalid.error";
+    private static final String ROLE_ERROR_KEY = "validation.role.error";
+    private static final String LOGIN_ERROR_KEY = "validation.login.error";
+    private static final String FIRST_NAME_ERROR_KEY = "validation.first_name.error";
+    private static final String LAST_NAME_ERROR_KEY = "validation.last_name.error";
+    private static final String EMAIL_ERROR_KEY = "validation.email.error";
+    private static final String PHONE_ERROR_KEY = "validation.phone.error";
+    private static final String PASSWORD_ERROR_KEY = "validation.password.error";
+    private static final String LOCATION_ERROR_KEY = "validation.point.error";
 
-    private static final String LOGIN_ALREADY_USE_ERROR_KEY = "error.logincheck";
+    private static final String LOGIN_ALREADY_USE_ERROR_KEY = "validation.login_use.error";
 
 
     @Override

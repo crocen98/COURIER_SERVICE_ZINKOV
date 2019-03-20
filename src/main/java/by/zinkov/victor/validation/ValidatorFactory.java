@@ -12,6 +12,13 @@ public class ValidatorFactory {
     private ValidatorFactory() {
     }
 
+    public ActivateCommandValidator getActivateCommandValidator(){
+        return new ActivateCommandValidator();
+    }
+    public DeleteByIdValidator getDeleteByIdValidator(){
+        return new DeleteByIdValidator();
+    }
+
     public AddCargoTypeValidator getAddCargoTypeValidator(){
         return new AddCargoTypeValidator();
     }

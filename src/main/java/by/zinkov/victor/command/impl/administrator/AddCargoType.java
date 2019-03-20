@@ -13,34 +13,27 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
-import java.util.HashMap;
+
 import java.util.Map;
 
-public class AddCargoType implements Command {
+public class AddCargoType extends Command {
     private static final Logger LOGGER = LogManager.getLogger(AddCargoType.class);
-    private static final String ERRORS_ATTRIBUTE = "error";
+    private static final String ERRORS_ATTRIBUTE = "errors";
+
     @Override
-    public Router execute(HttpServletRequest request) throws CommandException {
+    public Router execute(HttpServletRequest request) {
         Router router = new Router();
         router.setRoute(CommandEnum.ALL_CARGO_TYPES.getUrl());
         router.setType(Router.Type.REDIRECT);
-
-        Map<String, String> parameters = new HashMap<>();
-        Enumeration<String> enumeration = request.getParameterNames();
-        while (enumeration.hasMoreElements()) {
-            String paramName = enumeration.nextElement();
-            String paramValue = request.getParameter(paramName);
-            parameters.put(paramName, paramValue);
-        }
-
+        Map<String, String> parameters = readParameters(request);
         ValidatorFactory validatorFactory = ValidatorFactory.getInstance();
         AddCargoTypeValidator addCargoTypeValidator = validatorFactory.getAddCargoTypeValidator();
         Map<String, String> errors = addCargoTypeValidator.validate(parameters);
-        if (errors.size() != 0){
+
+        if (errors.size() != 0) {
             router.setType(Router.Type.FORWARD);
             router.setRoute(Page.INDEX.getRout());
-            request.setAttribute(ERRORS_ATTRIBUTE,errors);
+            request.setAttribute(ERRORS_ATTRIBUTE, errors);
             return router;
         }
 

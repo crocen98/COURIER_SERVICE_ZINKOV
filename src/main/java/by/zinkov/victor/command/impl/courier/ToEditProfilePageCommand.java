@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class ToEditProfilePageCommand implements Command {
+public class ToEditProfilePageCommand extends Command {
 
     private static final String USER_ATTRIBUTE = "user";
     private static final String TRANSPORT_TYPE_ATTRIBUTE = "transport_type";

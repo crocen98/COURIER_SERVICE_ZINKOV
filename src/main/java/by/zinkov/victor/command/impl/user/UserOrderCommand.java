@@ -14,7 +14,7 @@ import by.zinkov.victor.domain.Order;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class UserOrderCommand implements Command {
+public class UserOrderCommand extends Command {
     private static final String USER_ATTRIBUTE = "user";
     private static final String COURIER_ATTRIBUTE = "courier";
     private static final String ORDER_ATTRIBUTE = "order";

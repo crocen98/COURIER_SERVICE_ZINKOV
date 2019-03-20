@@ -12,8 +12,9 @@ import java.util.Map;
 
 public class NewTransportTypeForCourierValidator implements Validator {
     private static final String TRANSPORT_TYPE_ID_PARAMETER = "transport_type_id";
-    private static final String NOT_MATCHES_NUMBER_KEY = "validation.notmatchespositivint.error";
-    private static final String CANNOT_FIND_TRANSPORT = "validation.cannotfindtransort.error";
+
+    private static final String NOT_MATCHES_NUMBER_KEY = "validation.not_valid_id.error";
+    private static final String CANNOT_FIND_TRANSPORT = "validation.not_existing_transport_type.error";
 
     @Override
     public Map<String, String> validate(Map<String, String> requestParameters) throws ServiceException {

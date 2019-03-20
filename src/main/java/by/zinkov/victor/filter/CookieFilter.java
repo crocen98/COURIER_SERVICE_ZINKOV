@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-@WebFilter(filterName="CookieFilter" ,  urlPatterns = { "/"})
+@WebFilter(filterName="CookieFilter")
 public class CookieFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig)   {
@@ -18,6 +18,7 @@ public class CookieFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        System.out.println("COKI");
         if (request instanceof HttpServletRequest) {
             String lang = request.getParameter("lang");
             HttpServletRequest httpRequest = (HttpServletRequest) request;

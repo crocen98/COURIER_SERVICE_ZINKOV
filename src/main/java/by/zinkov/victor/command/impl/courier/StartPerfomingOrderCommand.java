@@ -4,7 +4,6 @@ import by.zinkov.victor.command.Command;
 import by.zinkov.victor.command.CommandEnum;
 import by.zinkov.victor.command.Router;
 import by.zinkov.victor.domain.Order;
-import by.zinkov.victor.command.CommandException;
 import by.zinkov.victor.domain.OrderStatus;
 import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.OrderService;
@@ -15,11 +14,11 @@ import by.zinkov.victor.service.factory.ServiceFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class StartPerfomingOrderCommand implements Command {
+public class StartPerfomingOrderCommand extends Command {
     private static final String USER = "user";
 
     @Override
-    public Router execute(HttpServletRequest request) throws CommandException {
+    public Router execute(HttpServletRequest request) {
         Router router = new Router();
         router.setType(Router.Type.REDIRECT);
         router.setRoute(CommandEnum.TO_COURIER_ACTIVE_ORDER_PAGE.getUrl());

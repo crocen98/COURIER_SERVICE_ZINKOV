@@ -1,6 +1,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
+<fmt:requestEncoding value="UTF-8"/>
+
+<c:choose>
+    <c:when test="${not empty requestScope.lang}">
+        <fmt:setLocale value="${requestScope.lang}"/>
+    </c:when>
+    <c:otherwise>
+        <fmt:setLocale value="${cookie['lang'].value}"/>
+    </c:otherwise>
+</c:choose>
+
+<fmt:setBundle basename="language" var="bundle" scope="application"/>
 <html>
 
 <head>
@@ -34,12 +48,12 @@
 
 <!-- Custom scripts for all pages-->
 <div class="container">
-    <!-- Outer Row -->
     <c:if test="${param.error != null}">
         <div class="alert alert-danger" role="alert">
-            <strong>Oh snap!</strong> ${param.error}
+            <strong>Oh snap!</strong><fmt:message key="${param.error}" bundle="${bundle}"/>
         </div>
     </c:if>
+
     <div class="row justify-content-center">
 
         <div class="col-xl-10 col-lg-12 col-md-9">

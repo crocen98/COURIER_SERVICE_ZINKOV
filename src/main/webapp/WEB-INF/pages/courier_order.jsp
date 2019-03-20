@@ -60,7 +60,7 @@
             <a href="${pageContext.servletContext.contextPath}/couriers?command=start_perfoming_order_command">
                 <button type="button" class="btn btn-success">Accept order</button>
             </a>
-            <a href="${pageContext.servletContext.contextPath}/couriers?command=cancel_perfoming_order_command">
+            <a href="${pageContext.servletContext.contextPath}/couriers?command=cancel_order">
                 <button type="button" class="btn btn-danger">Cancel order</button>
             </a>
         </c:if>

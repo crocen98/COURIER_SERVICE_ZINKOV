@@ -2,8 +2,20 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:requestEncoding value="utf-8"/>
-<fmt:setBundle basename="language"  var="bundle" scope="application"/>
-<fmt:setLocale value="${not empty sessionScope.locale ? sessionScope.locale : 'en_EN'}"/>
+
+
+<fmt:requestEncoding value="UTF-8"/>
+
+<c:choose>
+    <c:when test="${not empty requestScope.lang}">
+        <fmt:setLocale value="${requestScope.lang}"/>
+    </c:when>
+    <c:otherwise>
+        <fmt:setLocale value="${cookie['lang'].value}"/>
+    </c:otherwise>
+</c:choose>
+
+<fmt:setBundle basename="language" var="bundle" scope="application"/>
 
 <html>
 
@@ -68,11 +80,11 @@
                                 </div>
                                 <form class="user" action="${pageContext.request.contextPath}/couriers?command=log_in" method="POST">
                                     <div class="form-group">
-                                        <input required type="text" pattern="(\w|\d|-){1,35}" class="form-control form-control-user" name="login" value="client"  placeholder="Enter login ...">
+                                        <input required type="text" pattern="(\w|\d|-|_){1,35}" class="form-control form-control-user" name="login" value="client"  placeholder="Enter login ...">
                                     </div>
 
                                     <div class="form-group">
-                                        <input  required type="password" pattern="(\w|\d|-){1,35}" class="form-control form-control-user"  value="12345" name="password" placeholder="Password">
+                                        <input  required type="password" pattern="(\w|\d|-|_){1,35}" class="form-control form-control-user"  value="12345" name="password" placeholder="Password">
                                     </div>
 
                                     <button  class="btn btn-primary btn-user btn-block">

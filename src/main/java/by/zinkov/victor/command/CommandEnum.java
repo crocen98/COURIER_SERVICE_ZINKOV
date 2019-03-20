@@ -42,7 +42,8 @@ public enum CommandEnum {
     ALL_CARGO_TYPES("all_cargo_types", RequestMethod.GET, AccessLevel.ADMINISTRATOR),
     ADD_CARGO_TYPE("add_cargo_type", RequestMethod.POST, AccessLevel.ADMINISTRATOR),
     DELETE_CARGO_TYPE("delete_cargo_type", RequestMethod.POST, AccessLevel.ADMINISTRATOR),
-    EDIT_CARGO_TYPE("edit_cargo_type", RequestMethod.POST, AccessLevel.ADMINISTRATOR);
+    EDIT_CARGO_TYPE("edit_cargo_type", RequestMethod.POST, AccessLevel.ADMINISTRATOR),
+    CANCEL_ORDER("cancel_order" , RequestMethod.POST, AccessLevel.CLIENT,AccessLevel.COURIER);
 
     private final String name;
     private final RequestMethod method;

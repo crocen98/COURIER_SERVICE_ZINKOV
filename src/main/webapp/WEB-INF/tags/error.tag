@@ -12,7 +12,7 @@
                     <strong> <fmt:message key="error.tag.letdown" bundle="${bundle}"/></strong>
                     <br>
                 </c:if>
-                Error in ${type.key}: <fmt:message key="${type.value}" bundle="${bundle}"/>
+                <fmt:message key="error_in.tag.msg" bundle="${bundle}"/> <c:out value="${type.key}"/>: <fmt:message key="${type.value}" bundle="${bundle}"/>
                 <br>
                 <c:if test="${loop.last}">
                     <div id="delete_error_box" class="btn"
@@ -29,11 +29,12 @@
         document.getElementById("delete_error_box").addEventListener("click", function () {
             var err = document.getElementById("errorsBox");
             err.style.opacity = 1.0;
-            setInterval(function () {
+            var intervalController = setInterval(function () {
                 console.log(err.style.height);
                 err.style.opacity -= 0.025;
                 if (err.style.opacity < 0) {
                     err.remove();
+                    clearInterval(intervalController);
                 }
             }, 25);
         });

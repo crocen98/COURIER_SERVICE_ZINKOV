@@ -13,7 +13,7 @@ import by.zinkov.victor.service.factory.ServiceFactory;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class ToAllCargoTypesPage implements Command {
+public class ToAllCargoTypesPage extends Command {
     private static final String LIST_CARGO_TYPES_ATTRIBUTE = "cargo_types";
 
     @Override

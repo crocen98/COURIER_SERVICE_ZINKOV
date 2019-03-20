@@ -6,16 +6,13 @@ import by.zinkov.victor.service.ServiceException;
 import by.zinkov.victor.service.UserService;
 import by.zinkov.victor.service.factory.ServiceFactory;
 import by.zinkov.victor.validation.ValidatorFactory;
-import by.zinkov.victor.validation.impl.AddTransportTypeValidator;
 import by.zinkov.victor.validation.impl.ChangeUserStatusValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Map;
 
-public class ChangeUserStatus implements Command {
+public class ChangeUserStatus extends Command {
     private static final String USER_ID_PARAMETER = "user_id";
     private static final String ERRORS_ATTRIBUTE = "errors";
     private static final String USER_DTO_ATTRIBUTE = "user";
@@ -25,15 +22,7 @@ public class ChangeUserStatus implements Command {
         Router router = new Router();
         router.setType(Router.Type.REDIRECT);
         router.setRoute(CommandEnum.TO_ALL_USERS_PAGE_COMMAND.getUrl());
-
-        Map<String, String> parameters = new HashMap<>();
-        Enumeration<String> enumeration = request.getParameterNames();
-        while (enumeration.hasMoreElements()) {
-            String paramName = enumeration.nextElement();
-            String paramValue = request.getParameter(paramName);
-            parameters.put(paramName, paramValue);
-        }
-
+        Map<String,String> parameters = readParameters(request);
         ValidatorFactory validatorFactory = ValidatorFactory.getInstance();
         ChangeUserStatusValidator addTransportTypeValidator = validatorFactory.getChangeUserStatusValidator();
         Map<String, String> errors = null;

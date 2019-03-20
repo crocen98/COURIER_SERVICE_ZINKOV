@@ -6,7 +6,6 @@ import by.zinkov.victor.command.Router;
 import by.zinkov.victor.domain.CargoType;
 import by.zinkov.victor.domain.CurrierCapability;
 import by.zinkov.victor.domain.SupportedCargoTypes;
-import by.zinkov.victor.domain.TransportType;
 import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.*;
 import by.zinkov.victor.service.factory.ServiceFactory;
@@ -17,11 +16,9 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Map;
 
-public class AddNewCargoTypeForCourier implements Command {
+public class AddNewCargoTypeForCourier extends Command {
     private static final Logger LOGGER = LogManager.getLogger(NewTransportTypeForCourier.class);
     private static final String CARGO_TYPE_ID_PARAMETER = "cargo_type_id";
 
@@ -36,15 +33,7 @@ public class AddNewCargoTypeForCourier implements Command {
         HttpSession session = request.getSession();
         UserDto userDto = (UserDto) session.getAttribute(USER);
         Integer userId = userDto.getId();
-
-        Map<String, String> parameters = new HashMap<>();
-        Enumeration<String> enumeration = request.getParameterNames();
-        while (enumeration.hasMoreElements()) {
-            String paramName = enumeration.nextElement();
-            String paramValue = request.getParameter(paramName);
-            parameters.put(paramName, paramValue);
-        }
-
+        Map<String,String> parameters = readParameters(request);
         ValidatorFactory validatorFactory = ValidatorFactory.getInstance();
         AddNewCargoTypeForCourierValidator validator = validatorFactory.getAddNewCargoTypeForCourierValidator();
 

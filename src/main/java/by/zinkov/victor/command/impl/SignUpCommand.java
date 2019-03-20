@@ -24,7 +24,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SignUpCommand implements Command {
+public class SignUpCommand extends Command {
     private static final Logger LOGGER = LogManager.getLogger(SignUpCommand.class);
 
     private static final String USER_ROLE_PARAMETER = "user_role";
@@ -36,13 +36,7 @@ public class SignUpCommand implements Command {
         router.setType(Router.Type.FORWARD);
         router.setRoute(Page.ACTIVATE_PAGE.getRout());
 
-        Map<String, String> parameters = new HashMap<>();
-        Enumeration<String> enumeration = request.getParameterNames();
-        while (enumeration.hasMoreElements()) {
-            String paramName = enumeration.nextElement();
-            String paramValue = request.getParameter(paramName);
-            parameters.put(paramName, paramValue);
-        }
+        Map<String,String> parameters = readParameters(request);
 
         ValidatorFactory validatorFactory = ValidatorFactory.getInstance();
         SignUpValidator signUpValidator = validatorFactory.getSignUpValidator();

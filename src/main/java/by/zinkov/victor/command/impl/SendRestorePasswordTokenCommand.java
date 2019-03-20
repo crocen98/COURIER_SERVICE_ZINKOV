@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SendRestorePasswordTokenCommand implements Command {
+public class SendRestorePasswordTokenCommand extends Command {
     private static final Logger LOGGER = LogManager.getLogger(LogInUserCommand.class);
 
     private static final String LOGIN_PARAMETER = "login";
@@ -29,13 +29,8 @@ public class SendRestorePasswordTokenCommand implements Command {
         Router router = new Router();
         router.setRoute(Page.ACTIVATE_PAGE.getRout());
         router.setType(Router.Type.FORWARD);
-        Map<String, String> parameters = new HashMap<>();
-        while (request.getParameterNames().hasMoreElements()) {
-            String paramName = request.getParameterNames().nextElement();
-            String paramValue = request.getParameter(paramName);
-            parameters.put(paramName, paramValue);
-        }
 
+        Map<String,String> parameters = readParameters(request);
         ValidatorFactory validatorFactory = ValidatorFactory.getInstance();
         SendRestorePasswordTokenValidator validator = validatorFactory.getSendRestorePasswordTokenValidator();
         Map<String, String> errorsMap = validator.validate(parameters);

@@ -11,8 +11,6 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Cargo types</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
     </div>
     <%-- begin modal-forms--%>
     <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -30,7 +28,7 @@
                           action="${pageContext.servletContext.contextPath}/couriers?command=add_cargo_type">
 
 
-                        <input required type="text" id="defaultForm-email" pattern="(\d|\w|-){1,35}"
+                        <input required type="text" id="defaultForm-email" pattern="^(\w|\d|-|[a-яА-Я]){1,35}$"
                                class="form-control validate" name="cargo_type">
                         <label data-error="wrong" data-success="right" for="defaultForm-email">Cargo type
                             </label>
@@ -57,7 +55,7 @@
                 <div class="modal-body mx-3">
                     <form class="md-form mb-5" method="POST"
                           action="${pageContext.servletContext.contextPath}/couriers?command=edit_cargo_type">
-                        <input type="text" required id="newName" pattern="(\w|\d|-){1,35}" name="cargo_type"
+                        <input type="text" required id="newName" pattern="^(\w|\d|-|[a-яА-Я]){1,35}$" name="cargo_type"
                                class="form-control validate">
                         <label data-error="wrong" data-success="right" for="newName">New name</label>
                         <input required id="changingTransportTypeId" name="cargo_type_id" type="hidden" value="">
@@ -70,12 +68,7 @@
         </div>
     </div>
 
-    <%-- end modal-forms--%>
-    <c:if test="${param.error != null}">
-    <div class="alert alert-danger" role="alert">
-        <strong>Oh snap!</strong> ${param.error}
-    </div>
-    </c:if>
+
     <div class="text-left">
         <a href="" class="btn btn-primary btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">
             Add new cargo type</a>

@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class ToCreateOrderPage implements Command {
+public class ToCreateOrderPage extends Command {
     private static final String USER_ATTRIBUTE = "user";
     private static final Logger LOGGER = LogManager.getLogger(ToCreateOrderPage.class);
 

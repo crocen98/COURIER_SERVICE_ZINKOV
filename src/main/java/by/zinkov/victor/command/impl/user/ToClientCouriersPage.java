@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ToClientCouriersPage implements Command {
+public class ToClientCouriersPage extends Command {
     private static final String USER = "user";
     private static final String COURIERS = "couriers";
 

@@ -18,7 +18,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SetUserMark implements Command {
+public class SetUserMark extends Command {
     private static final String ERRORS_ATTRIBUTE = "errors";
 
     private static final String RATING_PARAMETER = "rating";
@@ -33,14 +33,7 @@ public class SetUserMark implements Command {
         router.setRoute(CommandEnum.TO_CLIENT_COURIERS_PAGE.getUrl());
         HttpSession session = request.getSession();
         UserDto userDto = (UserDto)session.getAttribute(USER);
-        Map<String, String> parameters = new HashMap<>();
-        Enumeration<String> enumeration = request.getParameterNames();
-        while (enumeration.hasMoreElements()) {
-            String paramName = enumeration.nextElement();
-            String paramValue = request.getParameter(paramName);
-            parameters.put(paramName, paramValue);
-        }
-
+        Map<String,String> parameters = readParameters(request);
         ValidatorFactory validatorFactory = ValidatorFactory.getInstance();
         SetUserMarkValidator setUserMarkValidator = validatorFactory.getSetUserMarkValidator();
         Map<String,String> errors = setUserMarkValidator.validate(parameters);

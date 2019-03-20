@@ -12,7 +12,7 @@ import by.zinkov.victor.validation.UtilValidator;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CheckLoginCommand implements Command {
+public class CheckLoginCommand extends Command {
     private static final String LOGIN_PARAMETER = "login";
     private static final String LOGIN_STATUS_ATTRIBUTE = "login_status";
 
@@ -26,7 +26,9 @@ public class CheckLoginCommand implements Command {
         UserService service = new UserServiceImpl();
         UtilValidator validator = UtilValidator.getInstance();
         try {
-            validator.simpleStingMatches(login, 45/*, "login"*/);
+            if(!validator.simpleStingMatches(login, 45)){
+                request.setAttribute(LOGIN_STATUS_ATTRIBUTE, true);
+            }
             User user = service.getByLogin(login);
             if (user == null) {
                 request.setAttribute(LOGIN_STATUS_ATTRIBUTE, true);
@@ -34,9 +36,7 @@ public class CheckLoginCommand implements Command {
                 request.setAttribute(LOGIN_STATUS_ATTRIBUTE, false);
             }
             return router;
-        } /*catch (ValidationException e) {
-            throw new CommandException("Not valid data", e);
-        } */catch (ServiceException e) {
+        } catch (ServiceException e) {
             throw new CommandException("Problem with checking user", e);
         }
     }

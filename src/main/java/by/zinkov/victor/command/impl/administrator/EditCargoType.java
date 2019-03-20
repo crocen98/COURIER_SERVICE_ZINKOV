@@ -13,14 +13,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Map;
 
-public class EditCargoType implements Command {
+public class EditCargoType extends Command {
     private static final Logger LOGGER = LogManager.getLogger(EditCargoType.class);
-    private static final String CARGO_TYPE_PARAMETER = "cargo_type";
-    private static final String CARGO__ID_PARAMETER = "cargo_type_id";
     private static final String ERRORS_ATTRIBUTE = "error";
 
     @Override
@@ -29,16 +25,7 @@ public class EditCargoType implements Command {
         CargoTypeService service = factory.getCargoTypeService();
         Router router = new Router();
 
-
-
-        Map<String, String> parameters = new HashMap<>();
-        Enumeration<String> enumeration = request.getParameterNames();
-        while (enumeration.hasMoreElements()) {
-            String paramName = enumeration.nextElement();
-            String paramValue = request.getParameter(paramName);
-            parameters.put(paramName, paramValue);
-        }
-
+        Map<String,String> parameters = readParameters(request);
         ValidatorFactory validatorFactory = ValidatorFactory.getInstance();
         AddCargoTypeValidator addCargoTypeValidator = validatorFactory.getAddCargoTypeValidator();
         Map<String, String> errors = addCargoTypeValidator.validate(parameters);

@@ -37,9 +37,10 @@
     <!-- Outer Row -->
     <c:if test="${param.error != null}">
         <div class="alert alert-danger" role="alert">
-            <strong>Oh snap!</strong> ${param.error}
+            <strong>Oh snap!</strong><fmt:message key="${param.error}" bundle="${bundle}"/>
         </div>
     </c:if>
+
     <div class="row justify-content-center">
 
         <div class="col-xl-10 col-lg-12 col-md-9">
@@ -56,11 +57,11 @@
                                 </div>
                                 <form class="user" action="${pageContext.request.contextPath}/couriers?command=restore_password" method="POST">
                                     <div class="form-group">
-                                        <input  required type="password" pattern="(\w|\d|-){1,35}" class="form-control form-control-user"   name="password" placeholder="Password">
+                                        <input  required type="password" pattern="^(\w|\d|-|_){1,35}$" class="form-control form-control-user"   name="password" placeholder="Password">
                                     </div>
 
                                     <div class="form-group">
-                                        <input  required type="password" pattern="(\w|\d|-){1,35}" class="form-control form-control-user"    placeholder="Repeat">
+                                        <input  required type="password" pattern="(\w|\d|-|_){1,35}" class="form-control form-control-user"    placeholder="Repeat">
                                     </div>
                                     <input required id="keyInput" name="key" type="hidden" value="">
                                     <input required id="userIdInput" name="user_id" type="hidden" value="key">

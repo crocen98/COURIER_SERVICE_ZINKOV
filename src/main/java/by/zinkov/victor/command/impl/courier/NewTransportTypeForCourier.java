@@ -17,11 +17,9 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Map;
 
-public class NewTransportTypeForCourier implements Command {
+public class NewTransportTypeForCourier extends Command {
     private static final Logger LOGGER = LogManager.getLogger(NewTransportTypeForCourier.class);
     private static final String TRANSPORT_TYPE_ID_PARAMETER = "transport_type_id";
 
@@ -37,14 +35,7 @@ public class NewTransportTypeForCourier implements Command {
         UserDto userDto = (UserDto) session.getAttribute(USER);
         Integer userId = userDto.getId();
 
-        Map<String, String> parameters = new HashMap<>();
-        Enumeration<String> enumeration = request.getParameterNames();
-        while (enumeration.hasMoreElements()) {
-            String paramName = enumeration.nextElement();
-            String paramValue = request.getParameter(paramName);
-            parameters.put(paramName, paramValue);
-        }
-
+        Map<String,String> parameters = readParameters(request);
 
         ValidatorFactory validatorFactory = ValidatorFactory.getInstance();
         NewTransportTypeForCourierValidator validator = validatorFactory.getNewTransportTypeForCourierValidator();

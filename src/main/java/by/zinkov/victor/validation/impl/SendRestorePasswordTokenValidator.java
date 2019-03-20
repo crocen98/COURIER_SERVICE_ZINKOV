@@ -17,11 +17,11 @@ public class SendRestorePasswordTokenValidator implements Validator {
     private static final String EMAIL_PARAMETER = "email";
     private static final String PHONE_PARAMETER = "phone";
 
-    private static final String LOGIN_ERROR = "signup.loginnotvalid.error";
-    private static final String LOGIN_DONT_USE_ERROR = "restorepasswor.logindontuse.error";
+    private static final String LOGIN_ERROR = "validation.login.error";
+    private static final String LOGIN_DONT_USE_ERROR = "validation.login_dont_use.error";
 
-    private static final String EMAIL_ERROR = "signup.emailnotvalid.error";
-    private static final String PHONE_ERROR = "signup.phonenotvalid.error";
+    private static final String EMAIL_ERROR = "validation.email.error";
+    private static final String PHONE_ERROR = "validation.phone.error";
 
     @Override
     public Map<String, String> validate(Map<String, String> parameters) {

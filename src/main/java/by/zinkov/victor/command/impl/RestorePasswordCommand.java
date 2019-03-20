@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class RestorePasswordCommand implements Command {
+public class RestorePasswordCommand extends Command {
     private static final String USER_ID = "user_id";
     private static final String PASSWORD = "password";
     private static final String ACTIVATE_STRING = "key";

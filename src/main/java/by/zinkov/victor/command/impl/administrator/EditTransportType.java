@@ -16,11 +16,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Map;
 
-public class EditTransportType implements Command {
+public class EditTransportType extends Command {
     private static final Logger LOGGER = LogManager.getLogger(EditTransportType.class);
     private static final String ERRORS_ATTRIBUTE = "error";
 
@@ -30,15 +28,7 @@ public class EditTransportType implements Command {
         TransportTypeService service = factory.getTransportTypeServiceImpl();
         Router router = new Router();
 
-
-
-        Map<String, String> parameters = new HashMap<>();
-        Enumeration<String> enumeration = request.getParameterNames();
-        while (enumeration.hasMoreElements()) {
-            String paramName = enumeration.nextElement();
-            String paramValue = request.getParameter(paramName);
-            parameters.put(paramName, paramValue);
-        }
+        Map<String,String> parameters = readParameters(request);
 
         ValidatorFactory validatorFactory = ValidatorFactory.getInstance();
         AddTransportTypeValidator addTransportTypeValidator = validatorFactory.getAddTransportTypeValidator();

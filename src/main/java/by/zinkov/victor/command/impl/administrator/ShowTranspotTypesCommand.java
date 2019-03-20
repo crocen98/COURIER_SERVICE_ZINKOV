@@ -12,7 +12,7 @@ import by.zinkov.victor.service.ServiceException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class ShowTranspotTypesCommand implements Command {
+public class ShowTranspotTypesCommand extends Command {
     private static final String LIST_TRANSPORT_TYPES_ATTRIBUTE = "transport_types";
 
     @Override

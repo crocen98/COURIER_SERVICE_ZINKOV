@@ -13,8 +13,8 @@ public class SetUserMarkValidator implements Validator {
     private static final String COURIER_ID_PARAMETER = "courier_id";
 
 
-    private static final String RATING_PARAMETER_ERROR = "rating.validation.error";
-    private static final String COURIER_ID_PARAMETER_ERROR = "courier_id.validation.error";
+    private static final String RATING_PARAMETER_ERROR = "validation.rating.error";
+    private static final String COURIER_ID_PARAMETER_ERROR = "validation.not_valid_id.error";
 
 
     @Override

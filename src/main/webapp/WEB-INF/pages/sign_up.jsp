@@ -3,9 +3,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 
+<fmt:requestEncoding value="UTF-8"/>
 
-<fmt:requestEncoding value="utf-8"/>
-<fmt:setLocale value="${cookie['lang'].value}"/>
+<c:choose>
+    <c:when test="${not empty requestScope.lang}">
+        <fmt:setLocale value="${requestScope.lang}"/>
+    </c:when>
+    <c:otherwise>
+        <fmt:setLocale value="${cookie['lang'].value}"/>
+    </c:otherwise>
+</c:choose>
+
 <fmt:setBundle basename="language" var="bundle" scope="application"/>
 
 
@@ -45,13 +53,12 @@
     }
 </style>
 <div class="container">
+    <c:if test="${param.error != null}">
+        <div class="alert alert-danger" role="alert">
+            <strong>Oh snap!</strong><fmt:message key="${param.error}" bundle="${bundle}"/>
+        </div>
+    </c:if>
     <tag:error errorMap="errors"/>
-
-    <%--<c:if test="${param.error != null}">--%>
-    <%--<div class="alert alert-danger" role="alert">--%>
-    <%--<strong>Oh snap!</strong> ${param.error}--%>
-    <%--</div>--%>
-    <%--</c:if>--%>
     <div class="card o-hidden border-0 shadow-lg my-5">
         <div class="card-body p-0">
             <div class="row">
@@ -82,18 +89,18 @@
                                 </div>
                                 <input id="logininput" oninput="loadXMLDoc(this)" required type="text"
                                        class="form-control form-control-user"
-                                       pattern="(\w|\d|-){1,35}" name="login"
+                                       pattern="(\w|\d|-|_){1,35}" name="login"
                                        placeholder="<fmt:message key="form.login" bundle="${bundle}"/>">
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input required type="text" class="form-control form-control-user"
-                                           pattern="(\w|\d|-){1,35}" name="first_name"
+                                           pattern="^(\w|\d|-|[a-яА-Я]){1,35}$" name="first_name"
                                            placeholder="<fmt:message key="form.firstname" bundle="${bundle}"/>">
                                 </div>
                                 <div class="col-sm-6">
                                     <input required type="text" class="form-control form-control-user"
-                                           pattern="(\w|\d|-){1,35}" name="last_name"
+                                           pattern="^(\w|\d|-|[a-яА-Я]){1,35}$" name="last_name"
                                            placeholder="<fmt:message key="form.lastnmae" bundle="${bundle}"/>">
                                 </div>
                             </div>
@@ -110,12 +117,12 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input required type="password" pattern="(\w|\d|-){1,35}"
+                                    <input required type="password" pattern="(\w|\d|-|_){1,35}"
                                            class="form-control form-control-user"
                                            id="exampleInputPassword" placeholder="<fmt:message key="form.password" bundle="${bundle}"/>" name="password">
                                 </div>
                                 <div class="col-sm-6">
-                                    <input required type="password" pattern="(\w|\d|-){1,35}"
+                                    <input required type="password" pattern="(\w|\d|-|_){1,35}"
                                            class="form-control form-control-user"
                                            id="exampleRepeatPassword" placeholder="<fmt:message key="form.repeatpassword" bundle="${bundle}"/>">
                                 </div>
@@ -149,7 +156,6 @@
                 </div>
             </div>
         </div>
-        ${not empty sessionScope.locale ? sessionScope.locale : 'en_EN'}
         <div id="map" style="width: 100%; height: 400px"></div>
     </div>
 

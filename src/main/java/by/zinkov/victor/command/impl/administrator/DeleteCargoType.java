@@ -2,30 +2,47 @@ package by.zinkov.victor.command.impl.administrator;
 
 import by.zinkov.victor.command.Command;
 import by.zinkov.victor.command.CommandEnum;
-import by.zinkov.victor.command.CommandException;
 import by.zinkov.victor.command.Router;
 import by.zinkov.victor.service.CargoTypeService;
 import by.zinkov.victor.service.ServiceException;
-import by.zinkov.victor.service.TransportTypeService;
 import by.zinkov.victor.service.factory.ServiceFactory;
+import by.zinkov.victor.validation.ValidatorFactory;
+import by.zinkov.victor.validation.impl.DeleteByIdValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
-public class DeleteCargoType implements Command {
-    private static final Logger LOGGER = LogManager.getLogger(DeleteTransportTypeCommand.class);
+public class DeleteCargoType extends Command {
+    private static final Logger LOGGER = LogManager.getLogger(DeleteCargoType.class);
 
     private static final String CARGO_TYPE_ID_PARAMETER = "cargo_type_id";
+    private static final String CARGO_TYPE_ID_ERROR_KEY = "cargo_type_id.validation.error";
+    private static final String ERROR = "error";
+
+
     @Override
     public Router execute(HttpServletRequest request) {
-        ServiceFactory factory =  ServiceFactory.getInstance();
-        CargoTypeService service = factory.getCargoTypeService();
         Router router = new Router();
+        router.setRoute(CommandEnum.ALL_CARGO_TYPES.getUrl());
+        router.setType(Router.Type.REDIRECT);
+
+        ServiceFactory factory = ServiceFactory.getInstance();
+        CargoTypeService service = factory.getCargoTypeService();
+        Map<String, String> parameters = super.readParameters(request);
+        ValidatorFactory validatorFactory = ValidatorFactory.getInstance();
+        DeleteByIdValidator validator = validatorFactory.getDeleteByIdValidator();
+        validator.setErrorKey(CARGO_TYPE_ID_ERROR_KEY);
+        validator.setIdParameter(CARGO_TYPE_ID_PARAMETER);
+        Map<String, String> errorsMap = validator.validate(parameters);
+        if (errorsMap.size() != 0) {
+            request.setAttribute(ERROR, errorsMap);
+            router.setRoute(Router.INDEX_ROUT);
+            router.setType(Router.Type.FORWARD);
+        }
         try {
-            router.setRoute(CommandEnum.ALL_CARGO_TYPES.getUrl());
-            router.setType(Router.Type.REDIRECT);
-            String cargoTypeId =  request.getParameter(CARGO_TYPE_ID_PARAMETER);
+            String cargoTypeId = parameters.get(CARGO_TYPE_ID_PARAMETER);
             service.deleteById(Integer.valueOf(cargoTypeId));
         } catch (ServiceException e) {
             LOGGER.error(e);

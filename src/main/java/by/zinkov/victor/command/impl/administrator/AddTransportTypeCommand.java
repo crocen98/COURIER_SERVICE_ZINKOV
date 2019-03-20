@@ -22,7 +22,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddTransportTypeCommand implements Command {
+public class AddTransportTypeCommand extends Command {
     private static final Logger LOGGER = LogManager.getLogger(AddTransportTypeCommand.class);
     private static final String ERRORS_ATTRIBUTE = "error";
 
@@ -32,13 +32,7 @@ public class AddTransportTypeCommand implements Command {
         router.setRoute(CommandEnum.ALL_TRANSPORT_TYPES.getUrl());
         router.setType(Router.Type.REDIRECT);
 
-        Map<String, String> parameters = new HashMap<>();
-        Enumeration<String> enumeration = request.getParameterNames();
-        while (enumeration.hasMoreElements()) {
-            String paramName = enumeration.nextElement();
-            String paramValue = request.getParameter(paramName);
-            parameters.put(paramName, paramValue);
-        }
+        Map<String,String> parameters = readParameters(request);
 
         ValidatorFactory validatorFactory = ValidatorFactory.getInstance();
         AddTransportTypeValidator addTransportTypeValidator = validatorFactory.getAddTransportTypeValidator();

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
-public class ToAllUsersPageCommand implements Command {
+public class ToAllUsersPageCommand extends Command {
     private static final String USERS_ATTRIBUTE = "users";
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {

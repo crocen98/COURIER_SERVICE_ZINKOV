@@ -26,8 +26,9 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-public class CreateOrderFirstStageStage implements Command {
+public class CreateOrderFirstStageStage extends Command {
     private static final Logger LOGGER = LogManager.getLogger(CreateOrderFirstStageStage.class);
     private static final String ORDER_ATTRIBUTE = "order";
     private static final String USER_ATTRIBUTE = "user";
@@ -46,15 +47,7 @@ public class CreateOrderFirstStageStage implements Command {
         session.setAttribute(ORDER_ATTRIBUTE, null);
 
         UserDto user = (UserDto) session.getAttribute(USER_ATTRIBUTE);
-
-        Map<String, String> parameters = new HashMap<>();
-        Enumeration<String> enumeration = request.getParameterNames();
-        while (enumeration.hasMoreElements()) {
-            String paramName = enumeration.nextElement();
-            String paramValue = request.getParameter(paramName);
-            parameters.put(paramName, paramValue);
-        }
-
+        Map<String,String> parameters = readParameters(request);
         ValidatorFactory validatorFactory = ValidatorFactory.getInstance();
         CreateOrderFirstStageValidator createOrderFirstStageValidator = validatorFactory.getCreateOrderFirstStageValidator();
         Map<String, String> errors = createOrderFirstStageValidator.validate(parameters);
@@ -88,6 +81,9 @@ public class CreateOrderFirstStageStage implements Command {
 
             UserService userService = new UserServiceImpl();
             List<User> couriers = userService.getCouriersByParams(parameters.get(TRANSPORT_TYPE_ATTRIBUTE), parameters.get(CARGO_TYPE_ATTRIBUTE));
+            couriers = couriers.stream().filter(item ->
+                    calculateDistance(item.getLocation(), order.getStartPoint()) <= 30
+            ).collect(Collectors.toList());
             request.setAttribute(COURIERS_ATTRIBUTE, couriers);
 
             double distance = calculateDistance(order);
@@ -97,6 +93,7 @@ public class CreateOrderFirstStageStage implements Command {
             TransportType transportType = transportTypeService.getById(order.getIdTransportType());
             BigDecimal price = BigDecimal.valueOf(transportType.getCoefficient().doubleValue() * distance);
             order.setPrice(price);
+
 
         } catch (ServiceException e) {
             LOGGER.error(e);
@@ -110,5 +107,10 @@ public class CreateOrderFirstStageStage implements Command {
     private double calculateDistance(Order order) {
         DistanceService service = new DistanceService();
         return service.calculate(order.getStartPoint(), order.getFinishPoint());
+    }
+
+    private double calculateDistance(String order, String courier) {
+        DistanceService service = new DistanceService();
+        return service.calculate(order, courier);
     }
 }

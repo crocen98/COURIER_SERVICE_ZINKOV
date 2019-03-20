@@ -13,8 +13,8 @@ import java.util.Map;
 public class ChangeUserStatusValidator implements Validator {
     private static final String USER_ID_PARAMETER = "user_id";
 
-    private static final String VALIDATION_USER_ID_ERROR_KEY = "validation.user_id.error";
-    private static final String NOT_FIND_USER_ID_ERROR_KEY = "validation.user_id.error";
+    private static final String VALIDATION_USER_ID_ERROR_KEY = "validation.not_valid_id.error";
+    private static final String NOT_FIND_USER_ID_ERROR_KEY = "validation.user_id_not_find.error";
 
     @Override
     public Map<String, String> validate(Map<String, String> parameters) throws ServiceException {

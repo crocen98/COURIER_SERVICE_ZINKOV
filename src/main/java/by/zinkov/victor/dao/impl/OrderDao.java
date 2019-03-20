@@ -49,6 +49,11 @@ public class OrderDao extends AbstractJdbcDao<Order, Integer> implements Generic
                     "OR delivery_order.id_courier = ? AND order_status.status = 'PERFORMED'";
 
 
+
+    private static final String SELECT_ORDERED_ORDER_BY_USER_ID =
+            "SELECT * FROM delivery_order JOIN order_status ON order_status.id = delivery_order.id_status" +
+                    " WHERE delivery_order.id_customer = ? AND order_status.status = 'ORDERED'";
+
     @Override
     public boolean isOrderExpectedStatusMatches(Integer OrderId, Integer expectedStatusId) throws DaoException {
         try (PreparedStatement statement = this.connection.prepareStatement(SELECT_ORDER_BY_ID_WITH_STATUS)) {
@@ -61,6 +66,8 @@ public class OrderDao extends AbstractJdbcDao<Order, Integer> implements Generic
             throw new DaoException("Problem with select active order by user id", e);
         }
     }
+
+
 
     @Override
     public Order getActiveOrderByCourierId(Integer id) throws DaoException {

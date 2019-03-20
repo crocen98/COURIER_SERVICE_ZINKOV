@@ -38,7 +38,6 @@ public class CommandProvider {
         commandMap.put(CommandEnum.CREATE_ORDER_PAGE_SECOND_STAGE, new CreateOrderFirstStageStage());
         commandMap.put(CommandEnum.FINISH_CREATING_ORDER, new FinishCreatingOrder());
         commandMap.put(CommandEnum.CHECK_LOGIN, new CheckLoginCommand());
-        commandMap.put(CommandEnum.CHANGE_LANGUAGE, new ChangeLanguageCommand());
         commandMap.put(CommandEnum.TO_USER_ORDER_PAGE, new UserOrderCommand());
         commandMap.put(CommandEnum.EDIT_COURIER_PROFILE_PAGE, new ToEditProfilePageCommand());
         commandMap.put(CommandEnum.NEW_TRANSPORT_TYPE_FOR_COURIER, new NewTransportTypeForCourier());
@@ -57,6 +56,7 @@ public class CommandProvider {
         commandMap.put(CommandEnum.ADD_CARGO_TYPE, new AddCargoType());
         commandMap.put(CommandEnum.DELETE_CARGO_TYPE, new DeleteCargoType());
         commandMap.put(CommandEnum.EDIT_CARGO_TYPE, new EditCargoType());
+        commandMap.put(CommandEnum.CANCEL_ORDER, new CancelOrderCommand());
 
     }
 

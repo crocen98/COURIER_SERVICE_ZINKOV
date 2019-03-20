@@ -27,7 +27,6 @@ import java.util.Map;
 public class SignUpCommand extends Command {
     private static final Logger LOGGER = LogManager.getLogger(SignUpCommand.class);
 
-    private static final String USER_ROLE_PARAMETER = "user_role";
     private static final String ERRORS_ATTRIBUTE = "errors";
 
     @Override
@@ -60,7 +59,7 @@ public class SignUpCommand extends Command {
         } catch (ServiceException e) {
             LOGGER.error(e);
             router.setType(Router.Type.REDIRECT);
-            router.setRoute(CommandEnum.SIGN_UP.getUrlWithError("problem with creating account!"));
+            router.setRoute(CommandEnum.SIGN_UP.getUrlWithError(e.getErrorKey()));
         }
         return router;
     }

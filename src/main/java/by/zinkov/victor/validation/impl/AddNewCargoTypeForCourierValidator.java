@@ -1,6 +1,5 @@
 package by.zinkov.victor.validation.impl;
 
-import by.zinkov.victor.service.ServiceException;
 import by.zinkov.victor.validation.UtilValidator;
 import by.zinkov.victor.validation.Validator;
 

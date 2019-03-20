@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class EditTransportType extends Command {
     private static final Logger LOGGER = LogManager.getLogger(EditTransportType.class);
-    private static final String ERRORS_ATTRIBUTE = "error";
+    private static final String ERRORS_ATTRIBUTE = "errors";
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -54,7 +54,7 @@ public class EditTransportType extends Command {
 
         } catch (ServiceException e) {
             LOGGER.error(e);
-            router.setRoute(CommandEnum.ALL_TRANSPORT_TYPES.getUrlWithError(e.getMessage()));
+            router.setRoute(CommandEnum.ALL_TRANSPORT_TYPES.getUrlWithError(e.getErrorKey()));
         }
         return router;
     }

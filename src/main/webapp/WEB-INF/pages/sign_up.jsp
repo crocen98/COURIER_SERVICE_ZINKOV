@@ -55,7 +55,9 @@
 <div class="container">
     <c:if test="${param.error != null}">
         <div class="alert alert-danger" role="alert">
-            <strong>Oh snap!</strong><fmt:message key="${param.error}" bundle="${bundle}"/>
+            <strong>
+                <fmt:message key="error.tag.letdown" bundle="${bundle}"/>
+            </strong><fmt:message key="${param.error}" bundle="${bundle}"/>
         </div>
     </c:if>
     <tag:error errorMap="errors"/>

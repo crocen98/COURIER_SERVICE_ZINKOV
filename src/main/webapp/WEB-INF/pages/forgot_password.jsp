@@ -51,7 +51,9 @@
     <!-- Outer Row -->
     <c:if test="${param.error != null}">
         <div class="alert alert-danger" role="alert">
-            <strong>Oh snap!</strong><fmt:message key="${param.error}" bundle="${bundle}"/>
+            <strong>
+                <fmt:message key="error.tag.letdown" bundle="${bundle}"/>
+            </strong><fmt:message key="${param.error}" bundle="${bundle}"/>
         </div>
     </c:if>
     <div class="row justify-content-center">
@@ -66,7 +68,9 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Restore password!</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">
+                                        <fmt:message key="main.restore_password" bundle="${bundle}"/>
+                                    </h1>
                                 </div>
                                 <form class="user" action="${pageContext.request.contextPath}/couriers?command=send_restore_token" method="POST">
                                     <div class="form-group">
@@ -84,22 +88,20 @@
                                                class="form-control form-control-user" name="phone"
                                                placeholder="Phone">
                                     </div>
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox small">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck">
-                                            <label class="custom-control-label" for="customCheck">Remember Me</label>
-                                        </div>
-                                    </div>
                                     <button  class="btn btn-primary btn-user btn-block">
                                         Restore
                                     </button>
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=to_log_in_page">Already have an account? Login!</a>
+                                    <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=to_log_in_page">
+                                        <fmt:message key="signup.alreadyhaveaccount" bundle="${bundle}"/>
+                                    </a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=sign_up">Create an Account!</a>
+                                    <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=sign_up">
+                                        <fmt:message key="signup.formname" bundle="${bundle}"/>
+                                    </a>
                                 </div>
                             </div>
                         </div>

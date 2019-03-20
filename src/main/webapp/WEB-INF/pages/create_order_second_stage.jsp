@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="../frames/header.jsp"/>
 <script src="https://api-maps.yandex.ru/2.1/?apikey=b9f00779-39b3-4da0-b8c3-becb9d63520e&lang=ru_RU"
         type="text/javascript"></script>
@@ -9,35 +10,61 @@
         <div class="col-md-5">
             <h3>Your order:</h3>
             <div class="notice notice-info">
-                <strong>Price:</strong> ${sessionScope.order.price}
+                <strong>
+                    <fmt:message key="courier_order.price" bundle="${bundle}"/>
+                </strong> ${sessionScope.order.price}
             </div>
             <div class="notice notice-info">
-                <strong>Distance:</strong> ${requestScope.distance}
+                <strong>
+                    <fmt:message key="courier_order.distance" bundle="${bundle}"/>
+
+                </strong> ${requestScope.distance}
             </div>
             <div class="notice notice-info">
-                <strong>Description:</strong> <c:out value="${sessionScope.order.description}"/>
+                <strong>
+                    <fmt:message key="courier_order.description" bundle="${bundle}"/>
+                </strong> <c:out value="${sessionScope.order.description}"/>
             </div>
             <div class="notice notice-info">
-                <strong>Order time:</strong> ${sessionScope.order.startTime}
+                <strong>
+                    <fmt:message key="courier_order.order_time" bundle="${bundle}"/>
+                </strong> ${sessionScope.order.startTime}
             </div>
             <div class="notice notice-info">
-                <strong>Cargo type:</strong> ${requestScope.cargo_type}
+                <strong>
+                    <fmt:message key="courier_order.cargo_type" bundle="${bundle}"/>
+                </strong> ${requestScope.cargo_type}
             </div>
             <div class="notice notice-info">
-                <strong>Transport type:</strong> ${requestScope.transport_type}
+                <strong>
+                    <fmt:message key="courier_order.transport_type" bundle="${bundle}"/>
+                </strong> ${requestScope.transport_type}
             </div>
             <div class="notice notice-info">
-                <strong>Point A:</strong> <span id=firstPoint>loading...</span>
+                <strong>
+                    <fmt:message key="courier_order.point_a" bundle="${bundle}"/>
+
+                </strong>
+                     <span id=firstPoint>
+                         <fmt:message key="courier_order.loading" bundle="${bundle}"/>
+                    </span>
             </div>
             <div class="notice notice-info">
-                <strong>Point B:</strong> <span id=secondPoint>loading...</span>
+                <strong>
+                    <fmt:message key="courier_order.point_b" bundle="${bundle}"/>
+                </strong> <span id=secondPoint>
+                                    <fmt:message key="courier_order.loading" bundle="${bundle}"/>
+
+            </span>
             </div>
         </div>
         <div class="col-md-7" id="map" style="display:inline-block;width:100%;"></div>
     </div>
     <hr style="margin-top: 50px;">
 
-    <h3>Couriers:</h3>
+    <h3>
+        <fmt:message key="couriers" bundle="${bundle}"/>:
+    </h3>
     <div class="row" id="courier_cards">
         <c:forEach var="elem" items="${requestScope.couriers}" varStatus="status">
             <div class="col-lg-4">
@@ -51,7 +78,8 @@
 
                     <div class="team-back">
                         <div style="display: flex;   align-items: center; justify-content: center;">
-                            <h1 class="mark_on_card" style="height: 100px;"> MARK: 10</h1>
+                            <h1 class="mark_on_card" style="height: 100px;">
+                                <fmt:message key="client_couriers.mark" bundle="${bundle}"/>: 10</h1>
                         </div>
 
                         <form name="transport_form_${elem.id}"

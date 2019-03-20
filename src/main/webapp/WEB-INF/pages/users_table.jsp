@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="../frames/header.jsp"/>
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <tag:error errorMap="errors"/>
@@ -10,13 +11,33 @@
     <thead>
     <tr>
         <th scope="col">#</th>
-        <th scope="col">First name</th>
-        <th scope="col">Last name</th>
-        <th scope="col">Login</th>
-        <th scope="col">Phone</th>
-        <th scope="col">Email</th>
-        <th scope="col">Role</th>
-        <th scope="col">Status</th>
+        <th scope="col">
+            <fmt:message key="form.firstname" bundle="${bundle}"/>
+        </th>
+        <th scope="col">
+            <fmt:message key="form.lastnmae" bundle="${bundle}"/>
+
+        </th>
+        <th scope="col">
+            <fmt:message key="form.login" bundle="${bundle}"/>
+
+        </th>
+        <th scope="col">
+            <fmt:message key="form.phone" bundle="${bundle}"/>
+
+        </th>
+        <th scope="col">
+            <fmt:message key="form.email" bundle="${bundle}"/>
+
+        </th>
+        <th scope="col">
+            <fmt:message key="main.role" bundle="${bundle}"/>
+
+        </th>
+        <th scope="col">
+            <fmt:message key="main.status" bundle="${bundle}"/>
+
+        </th>
     </tr>
     </thead>
     <tbody>

@@ -3,6 +3,7 @@
 <jsp:include page="../frames/header.jsp"/>
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <tag:error errorMap="errors"/>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <h3>My couriers</h3>
@@ -10,13 +11,27 @@
     <thead>
     <tr>
         <th scope="col">#</th>
-        <th scope="col">First name</th>
-        <th scope="col">Last name</th>
-        <th scope="col">Login</th>
-        <th scope="col">Phone</th>
-        <th scope="col">Email</th>
-        <th scope="col">Mark</th>
-        <th scope="col">Your mark</th>
+        <th scope="col">
+            <fmt:message key="form.firstname" bundle="${bundle}"/>
+        </th>
+        <th scope="col">
+            <fmt:message key="form.lastnmae" bundle="${bundle}"/>
+        </th>
+        <th scope="col">
+            <fmt:message key="form.login" bundle="${bundle}"/>
+        </th>
+        <th scope="col">
+            <fmt:message key="form.phone" bundle="${bundle}"/>
+        </th>
+        <th scope="col">
+            <fmt:message key="form.email" bundle="${bundle}"/>
+        </th>
+        <th scope="col">
+            <fmt:message key="client_couriers.mark" bundle="${bundle}"/>
+        </th>
+        <th scope="col">
+            <fmt:message key="client_couriers.your_mark" bundle="${bundle}"/>
+        </th>
 
 
     </tr>

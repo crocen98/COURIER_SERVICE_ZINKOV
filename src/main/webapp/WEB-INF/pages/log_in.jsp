@@ -61,7 +61,9 @@
     <!-- Outer Row -->
     <c:if test="${param.error != null}">
         <div class="alert alert-danger" role="alert">
-            <strong>Oh snap!</strong><fmt:message key="${param.error}" bundle="${bundle}"/>
+            <strong>
+                <fmt:message key="error.tag.letdown" bundle="${bundle}"/>
+            </strong><fmt:message key="${param.error}" bundle="${bundle}"/>
         </div>
     </c:if>
     <div class="row justify-content-center">
@@ -76,7 +78,7 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                    <h1 class="h4 text-gray-900 mb-4"><fmt:message key="activate.welcomeback" bundle="${bundle}"/></h1>
                                 </div>
                                 <form class="user" action="${pageContext.request.contextPath}/couriers?command=log_in" method="POST">
                                     <div class="form-group">
@@ -88,16 +90,18 @@
                                     </div>
 
                                     <button  class="btn btn-primary btn-user btn-block">
-                                        Login
+                                        <fmt:message key="form.login" bundle="${bundle}"/>
                                     </button>
 
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=to_password_recovery_page">Forgot Password?</a>
+                                    <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=to_password_recovery_page"><fmt:message key="signup.forgotpassword" bundle="${bundle}"/></a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=sign_up">Create an Account!</a>
+                                    <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=sign_up">
+                                        <fmt:message key="signup.formname" bundle="${bundle}"/>
+                                    </a>
                                 </div>
                             </div>
                         </div>

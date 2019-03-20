@@ -46,7 +46,7 @@ public class AddCargoType extends Command {
             service.add(cargoType);
         } catch (ServiceException e) {
             LOGGER.error(e);
-            router.setRoute(CommandEnum.ALL_CARGO_TYPES.getUrlWithError(e.getMessage()));
+            router.setRoute(CommandEnum.ALL_CARGO_TYPES.getUrlWithError(e.getErrorKey()));
         }
         return router;
     }

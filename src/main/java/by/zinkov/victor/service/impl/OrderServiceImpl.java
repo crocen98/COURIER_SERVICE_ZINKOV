@@ -16,7 +16,6 @@ import org.apache.logging.log4j.Logger;
 
 public class OrderServiceImpl implements OrderService {
     private static final Logger LOGGER = LogManager.getLogger(OrderServiceImpl.class);
-
     @Override
     public void cancelOrder(Integer userId, UserRole userRole) throws ServiceException {
         DaoFactory daoFactory = JdbcDaoFactory.getInstance();
@@ -41,7 +40,9 @@ public class OrderServiceImpl implements OrderService {
                     ((GenericDao<Order, Integer>) orderDao).update(activeOrder);
                     manager.commit();
                 } else {
-                    throw new ServiceException("already_perfom.error");
+                    ServiceException exception = new ServiceException("Order already performing!");
+                    exception.setErrorKey("order_already_performing");
+                    throw exception;
                 }
             }
 
@@ -51,7 +52,9 @@ public class OrderServiceImpl implements OrderService {
             } catch (DaoException e1) {
                 throw new RuntimeException("problem with db transactions");
             }
-            throw new ServiceException("error.key",e);
+            ServiceException exception = new ServiceException("Problem with canceling order!" ,e);
+            exception.setErrorKey("canceling_order");
+            throw exception;
         } finally {
             try {
                 manager.end();
@@ -76,21 +79,25 @@ public class OrderServiceImpl implements OrderService {
             if (!orderDao.isOrderExpectedStatusMatches(order.getId(), expectedStatusId)) {
                 LOGGER.info("ROLLBACK TRANSACTION");
                 transactionManager.rollback();
-                throw new ServiceException("cannot start perfoming order");
+
+                ServiceException exception = new ServiceException("Cannot start performing order");
+                exception.setErrorKey("start_performing_order");
+                throw exception;
             }
             ((GenericDao<Order, Integer>) orderDao).update(order);
             LOGGER.info("COMMIT TRANSACTION");
 
             transactionManager.commit();
         } catch (DaoException e) {
-            e.printStackTrace();
-            throw new ServiceException("Cannot update order!", e);
+            ServiceException exception = new ServiceException("Cannot update order!", e);
+            exception.setErrorKey("update_order");
+            throw exception;
         } finally {
             try {
                 LOGGER.info("END TRANSACTION");
                 transactionManager.end();
             } catch (DaoException e) {
-                throw new ServiceException("problem with close transaction", e);
+                throw new RuntimeException("problem with close transaction", e);
             }
         }
     }
@@ -102,7 +109,9 @@ public class OrderServiceImpl implements OrderService {
             OrderExpandedDao dao = (OrderExpandedDao) daoFactory.getDao(Order.class);
             return dao.getActiveOrderByCourierId(id);
         } catch (DaoException e) {
-            throw new ServiceException("Cannot save order!", e);
+            ServiceException exception = new ServiceException("Cannot save order!", e);
+            exception.setErrorKey("save_order");
+            throw exception;
         }
     }
 
@@ -113,7 +122,9 @@ public class OrderServiceImpl implements OrderService {
             OrderExpandedDao dao = (OrderExpandedDao) daoFactory.getDao(Order.class);
             return dao.getActiveOrder(id);
         } catch (DaoException e) {
-            throw new ServiceException("Cannot get active order!", e);
+            ServiceException exception = new ServiceException("Cannot get active order! Client doesn't have active order!" , e);
+            exception.setErrorKey("get_active_order");
+            throw exception;
         }
     }
 
@@ -132,17 +143,20 @@ public class OrderServiceImpl implements OrderService {
                 LOGGER.info("Start rollback transaction");
                 transactionManager.rollback();
                 LOGGER.info("Finish rollback transaction");
-                throw new ServiceException("Transaction rollback, user have more than one active order!");
+                ServiceException exception = new ServiceException("Transaction rollback, user have more than one active order!");
+                exception.setErrorKey("user_have_more_than_one_active_order");
+                throw exception;
             }
             transactionManager.commit();
-
         } catch (DaoException e) {
             try {
                 transactionManager.rollback();
             } catch (DaoException e1) {
-                e1.printStackTrace();
+                throw new RuntimeException(e1);
             }
-            throw new ServiceException("Cannot save order!", e);
+            ServiceException exception = new ServiceException("Cannot save order!" , e);
+            exception.setErrorKey("save_order");
+            throw exception;
         } finally {
             try {
                 LOGGER.info("Start end() transaction");

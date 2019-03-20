@@ -38,19 +38,17 @@
 <body class="bg-gradient-primary">
 
 <script src="${pageContext.request.contextPath}/js/jquery/jquery.min.js"></script>
-
-<!-- Bootstrap core JavaScript-->
 <script src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery/jquery.easing.min.js"></script>
-
-<!-- Core plugin JavaScript-->
 <script src="${pageContext.request.contextPath}/js/sb-admin-2.min.js"></script>
 
-<!-- Custom scripts for all pages-->
 <div class="container">
     <c:if test="${param.error != null}">
         <div class="alert alert-danger" role="alert">
-            <strong>Oh snap!</strong><fmt:message key="${param.error}" bundle="${bundle}"/>
+            <strong>
+                <fmt:message key="error.tag.letdown" bundle="${bundle}"/>
+            </strong>
+            <fmt:message key="${param.error}" bundle="${bundle}"/>
         </div>
     </c:if>
 
@@ -66,15 +64,19 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                    <h1 class="h4 text-gray-900 mb-4"><fmt:message key="activate.welcomeback" bundle="${bundle}"/></h1>
                                 </div>
-                                    On your email was sent message for activate account!
+                                <fmt:message key="activate.message" bundle="${bundle}"/>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                    <a class="small" href="forgot-password.html">
+                                        <fmt:message key="signup.forgotpassword" bundle="${bundle}"/>
+                                    </a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" href="register.html">Create an Account!</a>
+                                    <a class="small" href="register.html">
+                                        <fmt:message key="signup.formname" bundle="${bundle}"/>
+                                    </a>
                                 </div>
                             </div>
                         </div>

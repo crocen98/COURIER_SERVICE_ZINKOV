@@ -65,7 +65,7 @@ public class ActivateCommand extends Command {
             }
         } catch (ServiceException e) {
             LOGGER.error(e);
-            router.setRoute(Router.INDEX_ROUT);
+            router.setRoute(Router.INDEX_ERROR_ROUT + e.getErrorKey());
         }
         return router;
     }

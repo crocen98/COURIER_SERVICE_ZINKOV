@@ -18,7 +18,9 @@ public class CurrierCapabilityServiceImpl implements CurrierCapabilityService {
             GenericDao<CurrierCapability,Integer> dao = (GenericDao<CurrierCapability,Integer>) daoFactory.getDao(CurrierCapability.class);
              dao.update(currierCapability);
         } catch (DaoException e) {
-            throw new ServiceException("Cannot get currier capability by courier id", e);
+            ServiceException exception = new ServiceException("Cannot update currier capability:", e);
+            exception.setErrorKey("update_capability_by");
+            throw exception;
         }
     }
 
@@ -29,7 +31,9 @@ public class CurrierCapabilityServiceImpl implements CurrierCapabilityService {
             CurrierCapabilityExpandedDao dao = (CurrierCapabilityExpandedDao) daoFactory.getDao(CurrierCapability.class);
             return dao.getByCourierId(courierId);
         } catch (DaoException e) {
-            throw new ServiceException("Cannot get currier capability by courier id", e);
+            ServiceException exception = new ServiceException("Cannot get currier capability by courier id!", e);
+            exception.setErrorKey("find_capability_by_courier_id");
+            throw exception;
         }
     }
 
@@ -40,7 +44,9 @@ public class CurrierCapabilityServiceImpl implements CurrierCapabilityService {
             GenericDao<CurrierCapability, Integer> dao = (GenericDao<CurrierCapability, Integer>) daoFactory.getDao(CurrierCapability.class);
             return dao.persist(currierCapability);
         } catch (DaoException e) {
-            throw new ServiceException("Cannot create currier capability!", e);
+            ServiceException exception = new ServiceException("Cannot create currier capability!", e);
+            exception.setErrorKey("create_capability");
+            throw exception;
         }
     }
 }

@@ -53,7 +53,7 @@ public class SendRestorePasswordTokenCommand extends Command {
         } catch (ServiceException e) {
             LOGGER.error(e);
             router.setType(Router.Type.REDIRECT);
-            router.setRoute(CommandEnum.TO_CHANGE_PASSWORD_PAGE.getUrlWithError("problem with changing password!"));
+            router.setRoute(CommandEnum.TO_CHANGE_PASSWORD_PAGE.getUrlWithError(e.getErrorKey()));
         }
         return router;
     }

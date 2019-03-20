@@ -26,10 +26,11 @@
                     <div class="d-flex justify-content-center" style="margin-top: 10px;">
                         <button class="btn btn-primary">
                             <c:if test="${transport_type == null}">
-                                Add transport
+                                <fmt:message key="courier_profile.add_transport" bundle="${bundle}"/>
+
                             </c:if>
                             <c:if test="${transport_type != null}">
-                                Change transport
+                                <fmt:message key="courier_profile.change_transport" bundle="${bundle}"/>
                             </c:if>
 
                         </button>
@@ -46,7 +47,9 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Add new cargo type</h4>
+                <h4 class="modal-title w-100 font-weight-bold">
+                    <fmt:message key="all_cargo_types.new_cargo" bundle="${bundle}"/>
+                </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -61,7 +64,7 @@
                     </select>
                     <div class="d-flex justify-content-center" style="margin-top: 10px;">
                         <button class="btn btn-primary">
-                            Add
+                            <fmt:message key="main.add" bundle="${bundle}"/>
                         </button>
                     </div>
                 </form>
@@ -73,19 +76,23 @@
 
 <div class="container">
     <h3>
+        <fmt:message key="main.profile" bundle="${bundle}"/>
+
         Profile
     </h3>
     <div class="row">
         <div class="col-md-5">
             <h3>Your order:</h3>
             <div class="notice notice-info">
-                <strong>Transport type:</strong> ${transport_type.transportType}
+                <strong>
+                    <fmt:message key="courier_order.transport_type" bundle="${bundle}"/>
+                </strong> ${transport_type.transportType}
                 <c:if test="${transport_type == null}">
                     <div class="text-left">
                         <br>
                         <button class="btn btn-primary btn-rounded mb-4" data-toggle="modal"
                                 data-target="#firstSelectTransport">
-                            Add
+                            <fmt:message key="main.add" bundle="${bundle}"/>
                         </button>
                     </div>
                 </c:if>
@@ -94,14 +101,16 @@
                         <br>
                         <button class="btn btn-primary btn-rounded mb-4" data-toggle="modal"
                                 data-target="#firstSelectTransport">
-                            Change
+                            <fmt:message key="change_password.change" bundle="${bundle}"/>
                         </button>
                     </div>
                 </c:if>
             </div>
             <c:if test="${transport_type !=null}">
                 <div class="notice notice-info">
-                    <strong>Cargo types:</strong>
+                    <strong>
+                        <fmt:message key="courier_order.cargo_type" bundle="${bundle}"/>
+                    </strong>
                     <ul>
                         <c:forEach var="type" items="${cargo_types}">
                             <li>${type.type}
@@ -122,7 +131,7 @@
                         <br>
                         <button class="btn btn-primary btn-rounded mb-4" data-toggle="modal"
                                 data-target="#add_cargo_type">
-                            Add
+                            <fmt:message key="main.add" bundle="${bundle}"/>
                         </button>
                     </div>
                 </div>
@@ -136,14 +145,15 @@
             <div id="map" style="display:inline-block;width:100%; height: 500px;"></div>
             <div class="form-group">
                 <div class="form-group">
-                    <form action="${pageContext.servletContext.contextPath}/couriers?command=new_courier_position" method="POST">
+                    <form action="${pageContext.servletContext.contextPath}/couriers?command=new_courier_position"
+                          method="POST">
                         <input required type="text" class="form-control form-control-user"
                                id="coordinates"
                                placeholder="<fmt:message key="form.location" bundle="${bundle}"/>">
                         <input required id="сoordinatesInput" name="location" type="hidden"
                                value="${user.location}">
                         <button class="btn btn-primary" style="margin-top: 10px">
-                            Change location
+                            <fmt:message key="courier_profile.change_location" bundle="${bundle}"/>
                         </button>
                     </form>
                 </div>

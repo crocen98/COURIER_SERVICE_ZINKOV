@@ -10,11 +10,15 @@ import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.*;
 import by.zinkov.victor.service.factory.ServiceFactory;
 import by.zinkov.victor.domain.Order;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class UserOrderCommand extends Command {
+    private static final Logger LOGGER = LogManager.getLogger(UserOrderCommand.class);
+
     private static final String USER_ATTRIBUTE = "user";
     private static final String COURIER_ATTRIBUTE = "courier";
     private static final String ORDER_ATTRIBUTE = "order";
@@ -39,7 +43,7 @@ public class UserOrderCommand extends Command {
             Order order = orderService.getActiveOrderByClientId(userDto.getId());
             if (order == null) {
                 router.setType(Router.Type.REDIRECT);
-                router.setRoute(CommandEnum.TO_CREATE_ORDER_PAGE.getUrlWithError("arderalreadyhave.error"));
+                router.setRoute(CommandEnum.TO_CREATE_ORDER_PAGE.getUrlWithError("have_active_order.error"));
                 return router;
             }
 
@@ -53,8 +57,9 @@ public class UserOrderCommand extends Command {
             double distance = calculateDistance(order);
             request.setAttribute(DISTANCE_ATTRIBUTE, distance);
         } catch (ServiceException e) {
+            LOGGER.error(e);
             router.setType(Router.Type.REDIRECT);
-            router.setRoute(CommandEnum.TO_CREATE_ORDER_PAGE.getUrlWithError("createorderpage.error"));
+            router.setRoute(CommandEnum.TO_CREATE_ORDER_PAGE.getUrlWithError(e.getErrorKey()));
         }
 
 

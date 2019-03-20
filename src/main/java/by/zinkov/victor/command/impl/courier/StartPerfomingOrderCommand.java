@@ -32,7 +32,7 @@ public class StartPerfomingOrderCommand extends Command {
         try {
             Order order = orderService.getActiveOrderByCourierId(userDto.getId());
             if (null == order) {
-                router.setRoute(CommandEnum.TO_COURIER_ACTIVE_ORDER_PAGE.getUrlWithError("cannothaveorder.order"));
+                router.setRoute(CommandEnum.TO_COURIER_ACTIVE_ORDER_PAGE.getUrlWithError("error.cannot_have_order.order"));
                 return router;
             }
             oldStatusId = order.getIdStatus();
@@ -42,7 +42,7 @@ public class StartPerfomingOrderCommand extends Command {
             order.setIdStatus(orderStatus.getId());
             orderService.update(order, oldStatusId);
         } catch (ServiceException e) {
-            router.setRoute(CommandEnum.TO_COURIER_ACTIVE_ORDER_PAGE.getUrlWithError("cannot.start.perfoming.order"));
+            router.setRoute(CommandEnum.TO_COURIER_ACTIVE_ORDER_PAGE.getUrlWithError(e.getErrorKey()));
         }
 
 

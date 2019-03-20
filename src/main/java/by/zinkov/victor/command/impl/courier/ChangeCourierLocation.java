@@ -31,7 +31,7 @@ public class ChangeCourierLocation extends Command {
         UtilValidator validator = UtilValidator.getInstance();
 
         if (!validator.coordinatesMatches(location)) {
-            router.setRoute(CommandEnum.EDIT_COURIER_PROFILE_PAGE.getUrlWithError("validation.location.error"));
+            router.setRoute(CommandEnum.EDIT_COURIER_PROFILE_PAGE.getUrlWithError("validation.point.error"));
             return router;
         }
 
@@ -47,7 +47,7 @@ public class ChangeCourierLocation extends Command {
             userDto.setLocation(location);
         } catch (ServiceException e) {
             LOGGER.error(e);
-            router.setRoute(CommandEnum.EDIT_COURIER_PROFILE_PAGE.getUrlWithError("changelocation.error"));
+            router.setRoute(CommandEnum.EDIT_COURIER_PROFILE_PAGE.getUrlWithError(e.getErrorKey()));
         }
         return router;
     }

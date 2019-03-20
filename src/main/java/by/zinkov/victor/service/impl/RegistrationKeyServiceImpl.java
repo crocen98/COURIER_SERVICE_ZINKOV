@@ -20,7 +20,9 @@ public class RegistrationKeyServiceImpl implements RegistrationKeyService {
             GenericDao<RegistrationKey, Integer> registrationKeyDao = daoFactory.getDao(RegistrationKey.class);
             registrationKeyDao.persist(key);
         } catch (DaoException e) {
-            throw new ServiceException("Problem with save activate key", e);
+            ServiceException exception = new ServiceException("Problem with save activate key", e);
+            exception.setErrorKey("save_activate_key");
+            throw exception;
         }
     }
 
@@ -32,7 +34,9 @@ public class RegistrationKeyServiceImpl implements RegistrationKeyService {
             GenericDao<RegistrationKey, Integer> registrationKeyDao = daoFactory.getDao(RegistrationKey.class);
             return registrationKeyDao.getByPK(id);
         } catch (DaoException e) {
-            throw new ServiceException("Problem with get activate key", e);
+            ServiceException exception = new ServiceException("Problem with get activate key", e);
+            exception.setErrorKey("get_activate_key");
+            throw exception;
         }
     }
 
@@ -44,7 +48,9 @@ public class RegistrationKeyServiceImpl implements RegistrationKeyService {
             GenericDao<RegistrationKey, Integer> registrationKeyDao = daoFactory.getDao(RegistrationKey.class);
             registrationKeyDao.delete(key);
         } catch (DaoException e) {
-            throw new ServiceException("Problem with get delete key", e);
+            ServiceException exception = new ServiceException("Problem with get delete key", e);
+            exception.setErrorKey("delete_activate_key");
+            throw exception;
         }
     }
 }

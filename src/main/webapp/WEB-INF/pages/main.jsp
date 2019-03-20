@@ -62,7 +62,9 @@
 <tag:error errorMap="errors"/>
 <c:if test="${param.error != null}">
     <div class="alert alert-danger" role="alert">
-        <strong>Oh snap!</strong> ${param.error}
+        <strong>
+        <fmt:message key="error.tag.letdown" bundle="${bundle}"/>
+        </strong> ${param.error}
     </div>
 </c:if>
 <header class="masthead text-white text-center">

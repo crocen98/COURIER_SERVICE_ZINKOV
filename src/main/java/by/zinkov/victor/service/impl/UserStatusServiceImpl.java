@@ -16,7 +16,9 @@ public class UserStatusServiceImpl implements UserStatusService {
             UserStatusExpandedDao dao = (UserStatusExpandedDao) daoFactory.getDao(UserStatus.class);
             return dao.getByName(name);
         } catch (DaoException e) {
-            throw new ServiceException("Problem with get  UserStatus by name!", e);
+            ServiceException exception = new ServiceException("Problem with get  UserStatus by name!", e);
+            exception.setErrorKey("get_user_status_by_name");
+            throw exception;
         }
     }
 }

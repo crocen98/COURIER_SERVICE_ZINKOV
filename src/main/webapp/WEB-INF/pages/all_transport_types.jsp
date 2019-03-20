@@ -10,15 +10,18 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Transport types</h1>
+        <h1 class="h3 mb-0 text-gray-800">
+            <fmt:message key="transport_types" bundle="${bundle}"/>
+        </h1>
     </div>
-    <%-- begin modal-forms--%>
     <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header text-center">
-                    <h4 class="modal-title w-100 font-weight-bold">New transport type</h4>
+                    <h4 class="modal-title w-100 font-weight-bold">
+                        <fmt:message key="all_transport_types.new_transport_type" bundle="${bundle}"/>
+                    </h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -29,16 +32,21 @@
                         <input required type="text" id="defaultForm-coefficient"
                                pattern="^[+-]?(\d){1,14}(\.(\d){0,2})|$"
                                class="form-control validate" name="coefficient">
-                        <label data-error="wrong" data-success="right" for="defaultForm-coefficient">coefficient of
-                            price for one km
+                        <label data-error="wrong" data-success="right" for="defaultForm-coefficient">
+                            <fmt:message key="all_transport_types.coefficient" bundle="${bundle}"/>
                         </label>
 
                         <input required type="text" id="defaultForm-email" pattern="^(\w|\d|-|[a-яА-Я]){1,35}$"
                                class="form-control validate" name="transport_name">
-                        <label data-error="wrong" data-success="right" for="defaultForm-email">Transport
+                        <label data-error="wrong" data-success="right" for="defaultForm-email">
+                            <fmt:message key="all_transport_types.transport_name" bundle="${bundle}"/>
+
+                            Transport
                             name</label>
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-primary">ADD TRANSPORT</button>
+                            <button class="btn btn-primary">
+                                <fmt:message key="all_transport_types.add_transport_type" bundle="${bundle}"/>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -52,7 +60,9 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header text-center">
-                    <h4 class="modal-title w-100 font-weight-bold">Edit transport</h4>
+                    <h4 class="modal-title w-100 font-weight-bold">
+                        <fmt:message key="all_transport_types.edit_transport" bundle="${bundle}"/>
+                    </h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -66,16 +76,20 @@
                         <input required type="text" id="defaultForm-coefficient2"
                                pattern="^[+-]?(\d){1,14}(\.(\d){0,2})|$"
                                class="form-control validate" name="coefficient">
-                        <label data-error="wrong" data-success="right" for="defaultForm-coefficient">coefficient of
-                            price for one km
+                        <label data-error="wrong" data-success="right" for="defaultForm-coefficient">
+                            <fmt:message key="all_transport_types.coefficient" bundle="${bundle}"/>
                         </label>
                         <input type="text" required id="newName" pattern="^(\w|\d|-|[a-яА-Я]){1,35}$"
                                name="transport_name"
                                class="form-control validate">
-                        <label data-error="wrong" data-success="right" for="newName">New name</label>
+                        <label data-error="wrong" data-success="right" for="newName">
+                            <fmt:message key="all_transport_types.transport_name" bundle="${bundle}"/>
+                        </label>
                         <input required id="changingTransportTypeId" name="transport_type_id" type="hidden" value="">
                         <div class=" d-flex justify-content-center">
-                            <button class="btn btn-primary">CHANGE TRANSPORT</button>
+                            <button class="btn btn-primary">
+                                <fmt:message key="all_transport_types.edit_transport_type" bundle="${bundle}"/>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -86,7 +100,8 @@
     <%-- end modal-forms--%>
     <div class="text-left">
         <a href="" class="btn btn-primary btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">
-            Add new transport type</a>
+            <fmt:message key="all_transport_types.new_transport_type" bundle="${bundle}"/>
+         </a>
     </div>
 
     <div class="row">
@@ -124,10 +139,12 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <!-- <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div> -->
-                                Type:
+                                <fmt:message key="all_transport_types.type" bundle="${bundle}"/>
+                                :
                                 <div class="h5 mb-0 font-weight-bold text-gray-800"><c:out
                                         value="${elem.transportType}"/></div>
-                                Coefficient:
+                                <fmt:message key="all_transport_types.coefficient_word" bundle="${bundle}"/>
+                                :
                                 <div class="h5 mb-0 font-weight-bold text-gray-800"><c:out
                                         value="${elem.coefficient}"/></div>
                             </div>

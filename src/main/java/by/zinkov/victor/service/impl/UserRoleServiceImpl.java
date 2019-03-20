@@ -19,7 +19,9 @@ public class UserRoleServiceImpl implements UserRoleService {
             GenericDao<UserRole, Integer> dao = daoFactory.getDao(UserRole.class);
             return dao.getAll();
         } catch (DaoException e) {
-            throw new ServiceException("Problem with get all UserRole", e);
+            ServiceException exception = new ServiceException("Problem with get all UserRole!", e);
+            exception.setErrorKey("get_all_user_role");
+            throw exception;
         }
     }
 
@@ -30,7 +32,9 @@ public class UserRoleServiceImpl implements UserRoleService {
             UserRoleExpandedDao dao = (UserRoleExpandedDao) daoFactory.getDao(UserRole.class);
             return dao.getByName(name);
         } catch (DaoException e) {
-            throw new ServiceException("Problem with get all UserRole", e);
+            ServiceException exception = new ServiceException("Problem with get  by name UserRole!", e);
+            exception.setErrorKey("get_by_name_user_role");
+            throw exception;
         }
     }
 }

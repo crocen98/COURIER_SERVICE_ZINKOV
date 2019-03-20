@@ -69,7 +69,7 @@ public class CreateOrderFirstStageStage extends Command {
 
             if (orderStatusService.haveActiveOrder(user.getId())) {
                 router.setType(Router.Type.REDIRECT);
-                router.setRoute(CommandEnum.TO_USER_ORDER_PAGE.getUrlWithError("orderpage.error"));
+                router.setRoute(CommandEnum.TO_USER_ORDER_PAGE.getUrlWithError("have_active_order.error"));
                 return router;
             }
 
@@ -99,7 +99,7 @@ public class CreateOrderFirstStageStage extends Command {
             LOGGER.error(e);
             session.setAttribute(ORDER_ATTRIBUTE, null);
             router.setType(Router.Type.REDIRECT);
-            router.setRoute(CommandEnum.TO_CREATE_ORDER_PAGE.getUrlWithError("Cannot create order! Problem in service"));
+            router.setRoute(CommandEnum.TO_CREATE_ORDER_PAGE.getUrlWithError(e.getErrorKey()));
         }
         return router;
     }

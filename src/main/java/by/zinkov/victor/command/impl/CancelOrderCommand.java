@@ -1,7 +1,6 @@
 package by.zinkov.victor.command.impl;
 
 import by.zinkov.victor.command.Command;
-import by.zinkov.victor.command.CommandException;
 import by.zinkov.victor.command.Router;
 import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.OrderService;
@@ -35,7 +34,7 @@ public class CancelOrderCommand extends Command {
             orderService.cancelOrder(userDto.getId(),userDto.getUserRole());
         } catch (ServiceException e) {
             LOGGER.error(e);
-            router.setRoute(Router.INDEX_ERROR_ROUT + e.getMessage());
+            router.setRoute(Router.INDEX_ERROR_ROUT + e.getErrorKey());
         }
         return router;
     }

@@ -55,7 +55,7 @@ public class DeleteCourierCargoType extends Command {
             supportedCargoTypeService.deleteByCourierId(userDto.getId(),Integer.valueOf(cargoTypeId));
         } catch (ServiceException e) {
             LOGGER.error(e);
-            router.setRoute(CommandEnum.EDIT_COURIER_PROFILE_PAGE.getUrlWithError("cargotype.cannotdelete.error"));
+            router.setRoute(CommandEnum.EDIT_COURIER_PROFILE_PAGE.getUrlWithError(e.getErrorKey()));
         }
         return router;
     }

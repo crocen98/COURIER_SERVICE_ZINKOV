@@ -20,7 +20,9 @@ public class SupportedCargoTypeServiceImpl implements SupportedCargoTypeService 
             SupportedCargoTypesExpandedDao dao = (SupportedCargoTypesExpandedDao) daoFactory.getDao(SupportedCargoTypes.class);
             dao.deleteByCourierId(courierId, cargoTypeID);
         } catch (DaoException e) {
-            throw new ServiceException("Problem with save cargoType for courier!", e);
+            ServiceException exception = new ServiceException("Problem with delete cargoType for courier!", e);
+            exception.setErrorKey("delete_supported_cargo_type");
+            throw exception;
         }
     }
 
@@ -31,7 +33,9 @@ public class SupportedCargoTypeServiceImpl implements SupportedCargoTypeService 
             GenericDao<SupportedCargoTypes, Integer> registrationKeyDao = daoFactory.getDao(SupportedCargoTypes.class);
             registrationKeyDao.persist(cargoTypes);
         } catch (DaoException e) {
-            throw new ServiceException("Problem with save cargoType for courier!", e);
+            ServiceException exception = new ServiceException("Problem with save cargoType for courier!", e);
+            exception.setErrorKey("save_supported_cargo_type");
+            throw exception;
         }
     }
 }

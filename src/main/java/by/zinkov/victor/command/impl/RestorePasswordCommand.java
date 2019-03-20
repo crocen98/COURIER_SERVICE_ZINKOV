@@ -36,7 +36,7 @@ public class RestorePasswordCommand extends Command {
             request.getSession().setAttribute(USER_ATTRIBUTE, userDto);
         } catch (ServiceException e) {
             LOGGER.error(e);
-            router.setRoute(CommandEnum.TO_PASSWORD_RECOVERY_PAGE.getUrlWithError("Cannot recovery password!"));
+            router.setRoute(CommandEnum.TO_PASSWORD_RECOVERY_PAGE.getUrlWithError(e.getErrorKey()));
         }
         return  router;
     }

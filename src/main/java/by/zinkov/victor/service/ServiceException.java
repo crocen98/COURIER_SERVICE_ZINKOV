@@ -4,10 +4,10 @@ package by.zinkov.victor.service;
  * Service Exception
  */
 public class ServiceException extends Exception {
-    private String errorKey = "unidentified.error";
+    private String errorKey = "unidentified";
 
     public String getErrorKey() {
-        return errorKey;
+        return errorKey + ".error";
     }
 
     public void setErrorKey(String errorKey) {

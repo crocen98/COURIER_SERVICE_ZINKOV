@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class AddTransportTypeCommand extends Command {
     private static final Logger LOGGER = LogManager.getLogger(AddTransportTypeCommand.class);
-    private static final String ERRORS_ATTRIBUTE = "error";
+    private static final String ERRORS_ATTRIBUTE = "errors";
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -53,7 +53,7 @@ public class AddTransportTypeCommand extends Command {
             service.add(transportType);
         } catch (ServiceException e) {
             LOGGER.error(e);
-            router.setRoute(CommandEnum.ALL_TRANSPORT_TYPES.getUrlWithError(e.getMessage()));
+            router.setRoute(CommandEnum.ALL_TRANSPORT_TYPES.getUrlWithError(e.getErrorKey()));
         }
         return router;
     }

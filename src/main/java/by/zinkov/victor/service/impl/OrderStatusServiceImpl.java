@@ -19,7 +19,9 @@ public class OrderStatusServiceImpl implements OrderStatusService {
             GenericDao<OrderStatus, Integer> dao = (GenericDao<OrderStatus, Integer>) daoFactory.getDao(OrderStatus.class);
             return dao.getByPK(id);
         } catch (DaoException e) {
-            throw new ServiceException("Cannot get orderStatus by id!", e);
+            ServiceException exception = new ServiceException("Cannot get orderStatus by id!", e);
+            exception.setErrorKey("get_order_status");
+            throw exception;
         }
     }
 
@@ -30,7 +32,9 @@ public class OrderStatusServiceImpl implements OrderStatusService {
             OrderStatusExpandedDao dao = (OrderStatusExpandedDao) daoFactory.getDao(OrderStatus.class);
             return dao.getByName(orderStatus);
         } catch (DaoException e) {
-            throw new ServiceException("Cannot get orderStatus by mame!", e);
+            ServiceException exception = new ServiceException("Cannot get orderStatus by name!", e);
+            exception.setErrorKey("get_order_status_by_name");
+            throw exception;
         }
     }
 
@@ -41,7 +45,9 @@ public class OrderStatusServiceImpl implements OrderStatusService {
             OrderStatusExpandedDao dao = (OrderStatusExpandedDao) daoFactory.getDao(OrderStatus.class);
             return dao.haveActiveOrder(id);
         } catch (DaoException e) {
-            throw new ServiceException("Cannot save order!", e);
+            ServiceException exception = new ServiceException("Cannot save order!", e);
+            exception.setErrorKey("save_order");
+            throw exception;
         }
     }
 }

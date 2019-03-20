@@ -50,7 +50,7 @@ public class AddNewCargoTypeForCourier extends Command {
             CurrierCapability capability = currierCapabilityService.getByCourierId(userId);
 
             if (capability == null) {
-                router.setRoute(CommandEnum.EDIT_COURIER_PROFILE_PAGE.getUrlWithError("error.unsupporedaction")); ///change
+                router.setRoute(CommandEnum.EDIT_COURIER_PROFILE_PAGE.getUrlWithError("error.unsupported_action")); ///change
                 return router;
             }
 
@@ -66,7 +66,7 @@ public class AddNewCargoTypeForCourier extends Command {
             supportedCargoTypeService.add(supportedCargoTypes);
         } catch (ServiceException e) {
             LOGGER.error(e);
-            router.setRoute(CommandEnum.EDIT_COURIER_PROFILE_PAGE.getUrlWithError("error.error")); ///change
+            router.setRoute(CommandEnum.EDIT_COURIER_PROFILE_PAGE.getUrlWithError(e.getErrorKey()));
         }
 
         return router;

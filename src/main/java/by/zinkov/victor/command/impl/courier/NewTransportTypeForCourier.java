@@ -67,7 +67,7 @@ public class NewTransportTypeForCourier extends Command {
             currierCapabilityService.update(capability);
         } catch (ServiceException e) {
             LOGGER.error(e);
-            router.setRoute(CommandEnum.EDIT_COURIER_PROFILE_PAGE.getUrlWithError("error.error")); ///change
+            router.setRoute(CommandEnum.EDIT_COURIER_PROFILE_PAGE.getUrlWithError(e.getErrorKey())); ///change
         }
 
         return router;

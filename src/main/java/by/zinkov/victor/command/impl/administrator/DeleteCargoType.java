@@ -19,7 +19,7 @@ public class DeleteCargoType extends Command {
 
     private static final String CARGO_TYPE_ID_PARAMETER = "cargo_type_id";
     private static final String CARGO_TYPE_ID_ERROR_KEY = "cargo_type_id.validation.error";
-    private static final String ERROR = "error";
+    private static final String ERRORS = "errors";
 
 
     @Override
@@ -37,7 +37,7 @@ public class DeleteCargoType extends Command {
         validator.setIdParameter(CARGO_TYPE_ID_PARAMETER);
         Map<String, String> errorsMap = validator.validate(parameters);
         if (errorsMap.size() != 0) {
-            request.setAttribute(ERROR, errorsMap);
+            request.setAttribute(ERRORS, errorsMap);
             router.setRoute(Router.INDEX_ROUT);
             router.setType(Router.Type.FORWARD);
         }
@@ -46,7 +46,7 @@ public class DeleteCargoType extends Command {
             service.deleteById(Integer.valueOf(cargoTypeId));
         } catch (ServiceException e) {
             LOGGER.error(e);
-            router.setRoute(CommandEnum.ALL_CARGO_TYPES.getUrlWithError(e.getMessage()));
+            router.setRoute(CommandEnum.ALL_CARGO_TYPES.getUrlWithError(e.getErrorKey()));
         }
         return router;
 

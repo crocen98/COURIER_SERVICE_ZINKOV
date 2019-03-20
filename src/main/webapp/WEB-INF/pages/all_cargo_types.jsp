@@ -10,7 +10,9 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Cargo types</h1>
+        <h1 class="h3 mb-0 text-gray-800">
+            <fmt:message key="cargo_types" bundle="${bundle}"/>
+        </h1>
     </div>
     <%-- begin modal-forms--%>
     <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -30,10 +32,13 @@
 
                         <input required type="text" id="defaultForm-email" pattern="^(\w|\d|-|[a-яА-Я]){1,35}$"
                                class="form-control validate" name="cargo_type">
-                        <label data-error="wrong" data-success="right" for="defaultForm-email">Cargo type
-                            </label>
+                        <label data-error="wrong" data-success="right" for="defaultForm-email">
+                            <fmt:message key="cargo_type" bundle="${bundle}"/>
+                        </label>
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-primary">ADD CARGO TYPE</button>
+                            <button class="btn btn-primary">
+                                <fmt:message key="all_cargo_types.add_cargo_type" bundle="${bundle}"/>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -47,7 +52,9 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header text-center">
-                    <h4 class="modal-title w-100 font-weight-bold">Edit cargo</h4>
+                    <h4 class="modal-title w-100 font-weight-bold">
+                        <fmt:message key="all_cargo_types.edit_cargo" bundle="${bundle}"/>
+                    </h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -60,7 +67,9 @@
                         <label data-error="wrong" data-success="right" for="newName">New name</label>
                         <input required id="changingTransportTypeId" name="cargo_type_id" type="hidden" value="">
                         <div class=" d-flex justify-content-center">
-                            <button class="btn btn-primary">CHANGE CARGO TYPE</button>
+                            <button class="btn btn-primary">
+                                <fmt:message key="all_cargo_types.edit_cargo" bundle="${bundle}"/>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -71,7 +80,9 @@
 
     <div class="text-left">
         <a href="" class="btn btn-primary btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">
-            Add new cargo type</a>
+            <fmt:message key="all_cargo_types.new_cargo" bundle="${bundle}"/>
+
+        </a>
     </div>
 
     <div class="row">

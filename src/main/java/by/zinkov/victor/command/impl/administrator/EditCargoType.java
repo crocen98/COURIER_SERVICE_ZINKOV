@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class EditCargoType extends Command {
     private static final Logger LOGGER = LogManager.getLogger(EditCargoType.class);
-    private static final String ERRORS_ATTRIBUTE = "error";
+    private static final String ERRORS_ATTRIBUTE = "errors";
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -40,9 +40,6 @@ public class EditCargoType extends Command {
         CargoTypeBuilder builder = builderFactory.getCargoTypeBuilder();
         CargoType cargoType = builder.build(parameters);
 
-
-
-
         try {
             router.setRoute(CommandEnum.ALL_CARGO_TYPES.getUrl());
             router.setType(Router.Type.REDIRECT);
@@ -50,7 +47,7 @@ public class EditCargoType extends Command {
 
         } catch (ServiceException e) {
             LOGGER.error(e);
-            router.setRoute(CommandEnum.ALL_TRANSPORT_TYPES.getUrlWithError(e.getMessage()));
+            router.setRoute(CommandEnum.ALL_TRANSPORT_TYPES.getUrlWithError(e.getErrorKey()));
         }
         return router;
     }

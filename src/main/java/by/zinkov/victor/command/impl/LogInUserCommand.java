@@ -48,7 +48,7 @@ public class LogInUserCommand extends Command {
            }
         } catch (ServiceException e) {
             LOGGER.error(e);
-            router.setRoute(CommandEnum.TO_LOG_IN_PAGE.getUrlWithError("login.error"));
+            router.setRoute(CommandEnum.TO_LOG_IN_PAGE.getUrlWithError(e.getErrorKey()));
         } catch (InterruptedException e) {
             LOGGER.error(e);
             throw new CommandException("Problem with pause!",e);

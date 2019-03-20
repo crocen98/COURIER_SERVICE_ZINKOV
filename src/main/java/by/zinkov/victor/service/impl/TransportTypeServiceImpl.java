@@ -8,7 +8,6 @@ import by.zinkov.victor.dao.factory.JdbcDaoFactory;
 import by.zinkov.victor.domain.TransportType;
 import by.zinkov.victor.service.TransportTypeService;
 import by.zinkov.victor.service.ServiceException;
-import by.zinkov.victor.validation.UtilValidator;
 
 import java.util.List;
 
@@ -21,7 +20,9 @@ public class TransportTypeServiceImpl implements TransportTypeService {
             GenericDao<TransportType, Integer> dao = (GenericDao<TransportType, Integer>) daoFactory.getDao(TransportType.class);
             return dao.getByPK(pk);
         } catch (DaoException e) {
-            throw new ServiceException("Problem with get all TransportType by pk", e);
+            ServiceException exception = new ServiceException("Problem with get TransportType by pk", e);
+            exception.setErrorKey("get_transport_type");
+            throw exception;
         }
     }
 
@@ -32,7 +33,9 @@ public class TransportTypeServiceImpl implements TransportTypeService {
             TransportTypeExpandedDao dao = (TransportTypeExpandedDao) daoFactory.getDao(TransportType.class);
             return dao.getByCourierId(courierId);
         } catch (DaoException e) {
-            throw new ServiceException("Problem with get all TransportTypes", e);
+            ServiceException exception = new ServiceException("Problem with get TransportType for courier", e);
+            exception.setErrorKey("get_transport_type_for_courier");
+            throw exception;
         }
     }
 
@@ -43,7 +46,9 @@ public class TransportTypeServiceImpl implements TransportTypeService {
             GenericDao<TransportType, Integer> dao = daoFactory.getDao(TransportType.class);
             return dao.getAll();
         } catch (DaoException e) {
-            throw new ServiceException("Problem with get all TransportTypes", e);
+            ServiceException exception = new ServiceException("Problem with get all TransportTypes", e);
+            exception.setErrorKey("all_transport_types");
+            throw exception;
         }
     }
 
@@ -55,7 +60,9 @@ public class TransportTypeServiceImpl implements TransportTypeService {
             TransportType transportType = dao.getByPK(transportTypeId);
             dao.delete(transportType);
         } catch (DaoException e) {
-            throw new ServiceException("Problem with delete by id: " + transportTypeId, e);
+            ServiceException exception = new ServiceException("Problem with delete transport type by id", e);
+            exception.setErrorKey("delete_transport_type");
+            throw exception;
         }
     }
 
@@ -66,7 +73,9 @@ public class TransportTypeServiceImpl implements TransportTypeService {
             GenericDao<TransportType, Integer> dao = daoFactory.getDao(TransportType.class);
             dao.persist(transportType);
         } catch (DaoException e) {
-            throw new ServiceException("Problem with add transport with bane: ", e);
+            ServiceException exception = new ServiceException("Problem with add transport with bane:", e);
+            exception.setErrorKey("add_transport_type");
+            throw exception;
         }
     }
 
@@ -78,7 +87,9 @@ public class TransportTypeServiceImpl implements TransportTypeService {
             GenericDao<TransportType, Integer> dao = daoFactory.getDao(TransportType.class);
             dao.update(transportType);
         } catch (DaoException e) {
-            throw new ServiceException("Problem with edit transport with bane: ", e);
+            ServiceException exception = new ServiceException("Problem with edit transport with bane!", e);
+            exception.setErrorKey("edit_transport_type");
+            throw exception;
         }
     }
 
@@ -89,7 +100,9 @@ public class TransportTypeServiceImpl implements TransportTypeService {
             TransportTypeExpandedDao dao = (TransportTypeExpandedDao) daoFactory.getDao(TransportType.class);
             return dao.getByName(name);
         } catch (DaoException e) {
-            throw new ServiceException("Cannot find by name!", e);
+            ServiceException exception = new ServiceException("Cannot find transport type by name!", e);
+            exception.setErrorKey("get_transport_type_by_name");
+            throw exception;
         }
     }
 }

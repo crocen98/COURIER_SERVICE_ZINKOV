@@ -61,7 +61,7 @@ public class ToEditProfilePageCommand extends Command {
             request.setAttribute(ALL_CARGO_TYPES_ATTRIBUTE, allCargoTypes);
 
         } catch (ServiceException e) {
-            router.setRoute(Router.INDEX_ERROR_ROUT + " problem! Try again!");
+            router.setRoute(Router.INDEX_ERROR_ROUT + e.getErrorKey());
             router.setType(Router.Type.REDIRECT);
         }
         return router;

@@ -1,6 +1,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:requestEncoding value="UTF-8"/>
 
+<c:choose>
+    <c:when test="${not empty requestScope.lang}">
+        <fmt:setLocale value="${requestScope.lang}"/>
+    </c:when>
+    <c:otherwise>
+        <fmt:setLocale value="${cookie['lang'].value}"/>
+    </c:otherwise>
+</c:choose>
+
+<fmt:setBundle basename="language" var="bundle" scope="application"/>
 <html>
 
 <head>
@@ -25,19 +37,18 @@
 
 <script src="${pageContext.request.contextPath}/js/jquery/jquery.min.js"></script>
 
-<!-- Bootstrap core JavaScript-->
 <script src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery/jquery.easing.min.js"></script>
 
-<!-- Core plugin JavaScript-->
 <script src="${pageContext.request.contextPath}/js/sb-admin-2.min.js"></script>
 
-<!-- Custom scripts for all pages-->
 <div class="container">
-    <!-- Outer Row -->
     <c:if test="${param.error != null}">
         <div class="alert alert-danger" role="alert">
-            <strong>Oh snap!</strong><fmt:message key="${param.error}" bundle="${bundle}"/>
+            <strong>
+                <fmt:message key="error.tag.letdown" bundle="${bundle}"/>
+            </strong>
+            <fmt:message key="${param.error}" bundle="${bundle}"/>
         </div>
     </c:if>
 
@@ -53,7 +64,9 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Enter new password</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">
+                                        <fmt:message key="change_password.new_password" bundle="${bundle}"/>
+                                    </h1>
                                 </div>
                                 <form class="user" action="${pageContext.request.contextPath}/couriers?command=restore_password" method="POST">
                                     <div class="form-group">
@@ -69,7 +82,8 @@
                                     <div class="form-group">
                                     </div>
                                     <button  class="btn btn-primary btn-user btn-block">
-                                        Change
+                                        <fmt:message key="change_password.change" bundle="${bundle}"/>
+
                                     </button>
                                 </form>
                             </div>

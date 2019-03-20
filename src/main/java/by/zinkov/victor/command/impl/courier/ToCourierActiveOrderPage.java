@@ -68,7 +68,7 @@ public class ToCourierActiveOrderPage extends Command {
             request.setAttribute(ORDER_STATUS, orderStatus);
         } catch (ServiceException e) {
             LOGGER.error(e);
-            router.setRoute(Router.INDEX_ERROR_ROUT + "error with active order!");
+            router.setRoute(Router.INDEX_ERROR_ROUT + e.getErrorKey());
             router.setType(Router.Type.REDIRECT);
         }
         return router;

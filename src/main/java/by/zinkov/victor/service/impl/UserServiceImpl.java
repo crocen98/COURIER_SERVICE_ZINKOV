@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void changeStatus(Integer userId) throws ServiceException{
+    public void changeStatus(Integer userId) throws ServiceException {
         DaoFactory daoFactory = JdbcDaoFactory.getInstance();
         try {
             GenericDao<User, Integer> dao = (GenericDao<User, Integer>) daoFactory.getDao(User.class);
@@ -32,16 +32,18 @@ public class UserServiceImpl implements UserService {
             User user = dao.getByPK(userId);
             UserStatus userStatus = userStatusDao.getByPK(user.getUserStatusId());
             UserStatus neededStatus;
-            if(userStatus == UserStatus.BLOCKED){
-                neededStatus=  ((UserStatusExpandedDao) userStatusDao).getByName(UserStatus.ACTIVE.toString());
-            } else{
-                neededStatus= ((UserStatusExpandedDao) userStatusDao).getByName(UserStatus.BLOCKED.toString());
+            if (userStatus == UserStatus.BLOCKED) {
+                neededStatus = ((UserStatusExpandedDao) userStatusDao).getByName(UserStatus.ACTIVE.toString());
+            } else {
+                neededStatus = ((UserStatusExpandedDao) userStatusDao).getByName(UserStatus.BLOCKED.toString());
             }
             user.setUserStatusId(neededStatus.getId());
             dao.update(user);
 
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            ServiceException exception = new ServiceException("Problem with change  UserStatus!", e);
+            exception.setErrorKey("change_user_status");
+            throw exception;
         }
     }
 
@@ -52,7 +54,9 @@ public class UserServiceImpl implements UserService {
             GenericDao<User, Integer> dao = (GenericDao<User, Integer>) daoFactory.getDao(User.class);
             return dao.getAll();
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            ServiceException exception = new ServiceException("Problem with get all users!", e);
+            exception.setErrorKey("get_all_users");
+            throw exception;
         }
     }
 
@@ -63,7 +67,9 @@ public class UserServiceImpl implements UserService {
             UserExpandedDao dao = (UserExpandedDao) daoFactory.getDao(User.class);
             return dao.getClientCouriers(clientId);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            ServiceException exception = new ServiceException("Problem with get all Client's couriers!", e);
+            exception.setErrorKey("get_clients_couriers");
+            throw exception;
         }
     }
 
@@ -74,7 +80,9 @@ public class UserServiceImpl implements UserService {
             GenericDao<User, Integer> dao = (GenericDao<User, Integer>) daoFactory.getDao(User.class);
             dao.update(user);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            ServiceException exception = new ServiceException("Problem with update information about user!", e);
+            exception.setErrorKey("update_user");
+            throw exception;
         }
     }
 
@@ -85,7 +93,9 @@ public class UserServiceImpl implements UserService {
             UserExpandedDao dao = (UserExpandedDao) daoFactory.getDao(User.class);
             return dao.getByLogin(login);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            ServiceException exception = new ServiceException("Problem with get user by login!", e);
+            exception.setErrorKey("get_user_by_login");
+            throw exception;
         }
     }
 
@@ -100,7 +110,9 @@ public class UserServiceImpl implements UserService {
             UserExpandedDao userExpandedDao = (UserExpandedDao) daoFactory.getDao(User.class);
             return userExpandedDao.getCouriersWithAppropriateCargoAndTransportType(transportType.getTransportType(), cargoType.getType());
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            ServiceException exception = new ServiceException("Problem with get  couriers by params!", e);
+            exception.setErrorKey("get_couriers_by_params");
+            throw exception;
         }
     }
 
@@ -123,10 +135,14 @@ public class UserServiceImpl implements UserService {
             userDao.update(user);
             service.remove(key);
             if (!Objects.equals(key.getKey(), activateString)) {
-                throw new ServiceException("Secure problems! Key does not belong your!");
+                ServiceException exception = new ServiceException("Secure problems! Key does not belong your!");
+                exception.setErrorKey("secure_user");
+                throw exception;
             }
-        } catch (/*ValidationException |*/ DaoException e) {
-            throw new ServiceException("Cannot change password", e);
+        } catch (DaoException e) {
+            ServiceException exception = new ServiceException("Cannot change password", e);
+            exception.setErrorKey("change_user_password");
+            throw exception;
         }
 
     }
@@ -160,18 +176,22 @@ public class UserServiceImpl implements UserService {
             UserExpandedDao userDao = (UserExpandedDao) daoFactory.getDao(User.class);
             UtilValidator validator = UtilValidator.getInstance();
             validator.emailMatches(user.getEmail());
-            validator.simpleStingMatches(user.getLogin(), 45/*, "login"*/);
+            validator.simpleStingMatches(user.getLogin(), 45);
             validator.phoneMatches(user.getPhone());
 
             User userFromDb = userDao.getByLogin(user.getLogin());
             if (userFromDb == null
                     || !Objects.equals(userFromDb.getEmail(), user.getEmail())
                     || !Objects.equals(userFromDb.getPhone(), user.getPhone())) {
-                throw new ServiceException("Cannot find user by email.");
+                ServiceException exception = new ServiceException("Cannot find user by email.");
+                exception.setErrorKey("find_user_by_email");
+                throw exception;
             }
             sendActivateEmail(userFromDb, request);
         } catch (DaoException e) {
-            throw new ServiceException("Failed  with DAO. ", e);
+            ServiceException exception = new ServiceException("Cannot restore user by email", e);
+            exception.setErrorKey("restore_user_by_email");
+            throw exception;
         }
     }
 
@@ -182,7 +202,10 @@ public class UserServiceImpl implements UserService {
             GenericDao<User, Integer> userDao = daoFactory.getDao(User.class);
             return userDao.persist(user);
         } catch (DaoException e) {
-            throw new ServiceException("Failed  with DAO. ", e);
+            ServiceException exception = new ServiceException("Cannot Sign up" , e);
+            exception.setErrorKey("sign_up_user");
+            throw exception;
+
         }
     }
 
@@ -194,7 +217,9 @@ public class UserServiceImpl implements UserService {
             UserExpandedDao userDao = (UserExpandedDao) daoFactory.getDao(User.class);
             return userDao.logIn(login, password);
         } catch (DaoException e) {
-            throw new ServiceException("Incorrect login or password", e);
+            ServiceException exception = new ServiceException("Incorrect login or password" , e);
+            exception.setErrorKey("user_log_in");
+            throw exception;
         }
     }
 
@@ -206,7 +231,9 @@ public class UserServiceImpl implements UserService {
             UserExpandedDao userDao = (UserExpandedDao) daoFactory.getDao(User.class);
             return userDao.getDtoByPK(id);
         } catch (DaoException e) {
-            throw new ServiceException("Cannot find user by id", e);
+            ServiceException exception = new ServiceException("Cannot find user by id" , e);
+            exception.setErrorKey("find_user_by_id");
+            throw exception;
         }
     }
 
@@ -221,7 +248,9 @@ public class UserServiceImpl implements UserService {
             user.setUserStatusId(UserStatus.ACTIVE.getId());
             genericUserDao.update(user);
         } catch (DaoException e) {
-            throw new ServiceException("Cannot find user by id", e);
+            ServiceException exception = new ServiceException("Cannot set new user status!" , e);
+            exception.setErrorKey("set_new_user_status");
+            throw exception;
         }
     }
 
@@ -231,9 +260,11 @@ public class UserServiceImpl implements UserService {
         DaoFactory daoFactory = FactoryProducer.getDaoFactory(DaoFactoryType.JDBC);
         try {
             UserExpandedDao userDao = (UserExpandedDao) daoFactory.getDao(User.class);
-           return  userDao.getAllUsersDto();
+            return userDao.getAllUsersDto();
         } catch (DaoException e) {
-            throw new ServiceException("Cannot get all users dto", e);
+            ServiceException exception = new ServiceException("Cannot get all users!" , e);
+            exception.setErrorKey("get_all_users");
+            throw exception;
         }
     }
 }

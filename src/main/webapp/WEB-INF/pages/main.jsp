@@ -219,7 +219,6 @@
 <script src="${pageContext.request.contextPath}/js/jquery/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.bundle.min.js"></script>
 
-<jsp:include page="../frames/footer.jsp"/>
 
 <!-- Bootstrap core JavaScript -->
 

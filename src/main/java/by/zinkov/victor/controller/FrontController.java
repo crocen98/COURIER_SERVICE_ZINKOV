@@ -50,8 +50,9 @@ public class FrontController extends HttpServlet {
         }
 
         String page = router.getRoute();
+        LOGGER.info(request.getContextPath() + "  " +page);
         if (router.getType() == Router.Type.REDIRECT) {
-            response.sendRedirect(page);
+            response.sendRedirect(request.getContextPath() + page);
         } else {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(page);
             requestDispatcher.forward(request, response);

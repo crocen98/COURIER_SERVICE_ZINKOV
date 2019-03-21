@@ -76,9 +76,8 @@
 
 <div class="container">
     <h3>
-        <fmt:message key="main.profile" bundle="${bundle}"/>
+        <fmt:message key="main.edit_profile" bundle="${bundle}"/>
 
-        Profile
     </h3>
     <div class="row">
         <div class="col-md-5">
@@ -137,17 +136,21 @@
                 </div>
             </c:if>
             <div class="notice notice-info">
-                <strong>Mark:</strong> ${mark}
+                <strong>
+                    <fmt:message key="main.mark" bundle="${bundle}"/>:
+                    </strong> ${mark}
             </div>
         </div>
         <div class="col-md-7">
-            <h3>Last location: <span id="lastCordinates"> </span></h3>
+            <h3>
+                <fmt:message key="main.last_location" bundle="${bundle}"/>
+                <span id="lastCordinates"> </span></h3>
             <div id="map" style="display:inline-block;width:100%; height: 500px;"></div>
             <div class="form-group">
                 <div class="form-group">
                     <form action="${pageContext.servletContext.contextPath}/index?command=new_courier_position"
                           method="POST">
-                        <input required type="text" class="form-control form-control-user"
+                        <input  disabled required type="text" class="form-control form-control-user"
                                id="coordinates"
                                placeholder="<fmt:message key="form.location" bundle="${bundle}"/>">
                         <input required id="сoordinatesInput" name="location" type="hidden"

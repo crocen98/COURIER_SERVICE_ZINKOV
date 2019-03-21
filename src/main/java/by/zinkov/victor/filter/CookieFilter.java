@@ -18,7 +18,6 @@ public class CookieFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        System.out.println("COKI");
         if (request instanceof HttpServletRequest) {
             String lang = request.getParameter("lang");
             HttpServletRequest httpRequest = (HttpServletRequest) request;

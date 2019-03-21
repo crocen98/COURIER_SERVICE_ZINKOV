@@ -12,6 +12,7 @@
 
 <style>
     footer {
+        margin-top: 60px;
         position: absolute;
         bottom: 0;
         width: 100%;

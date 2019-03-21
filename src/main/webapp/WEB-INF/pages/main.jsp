@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
 <c:choose>
@@ -12,7 +13,6 @@
         <fmt:setLocale value="${cookie['lang'].value}"/>
     </c:otherwise>
 </c:choose>
-
 <fmt:setBundle basename="language" var="bundle" scope="application"/>
 <html>
 <head>
@@ -45,9 +45,17 @@
                     aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
+
+            <c:set var="parametersString" value="${pageContext.request.queryString}"/>
+            <c:set var="lang" value="lang"/>
+            <c:if test="${fn:contains(parametersString, lang)}">
+                <c:set var="paramsStringsWithLangParameter" value="${fn:substringBefore(parametersString, lang)}"/>
+                <c:set var="parametersString" value="${fn:substring(paramsStringsWithLangParameter, 0, fn:length(paramsStringsWithLangParameter) - 1)}"/>
+            </c:if>
+
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="?lang=en">English</a>
-                <a class="dropdown-item" href="?lang=ru">Русский</a>
+                <a class="dropdown-item" href="${requestScope.requestURI}?${parametersString}&lang=en">English</a>
+                <a class="dropdown-item" href="${requestScope.requestURI}?${parametersString}&lang=ru">Русский</a>
             </div>
         </div>
 

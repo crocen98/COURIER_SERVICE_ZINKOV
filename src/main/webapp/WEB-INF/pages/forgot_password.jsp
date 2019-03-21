@@ -74,22 +74,22 @@
                                 </div>
                                 <form class="user" action="${pageContext.request.contextPath}/index?command=send_restore_token" method="POST">
                                     <div class="form-group">
-                                        <input required type="text" pattern="(\w|\d|-|_){1,35}" class="form-control form-control-user" name="login"   placeholder="Enter login ...">
+                                        <input required type="text" pattern="(\w|\d|-|_){1,35}" class="form-control form-control-user" name="login"   placeholder="<fmt:message key="form.login" bundle="${bundle}"/>">
                                     </div>
 
                                     <div class="form-group">
                                         <input required type="email" class="form-control form-control-user" name="email"
-                                               placeholder="Email Address">
+                                               placeholder="<fmt:message key="form.email" bundle="${bundle}"/>">
                                     </div>
 
                                     <div class="form-group">
                                         <input required type="phone"
                                                pattern="^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$"
                                                class="form-control form-control-user" name="phone"
-                                               placeholder="Phone">
+                                               placeholder="<fmt:message key="form.phone" bundle="${bundle}"/>">
                                     </div>
                                     <button  class="btn btn-primary btn-user btn-block">
-                                        Restore
+                                        <fmt:message key="main.restore_password" bundle="${bundle}"/>
                                     </button>
                                 </form>
                                 <hr>

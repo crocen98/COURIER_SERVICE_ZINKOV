@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
 <fmt:requestEncoding value="UTF-8"/>
@@ -169,14 +170,21 @@
                                         aria-haspopup="true" aria-expanded="false">
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
+                                <c:set var="parametersString" value="${pageContext.request.queryString}"/>
+                                <c:set var="lang" value="lang"/>
+                                <c:if test="${fn:contains(parametersString, lang)}">
+                                    <c:set var="paramsStringsWithLangParameter" value="${fn:substringBefore(parametersString, lang)}"/>
+                                    <c:set var="parametersString" value="${fn:substring(paramsStringsWithLangParameter, 0, fn:length(paramsStringsWithLangParameter) - 1)}"/>
+                                </c:if>
+
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="?lang=en">English</a>
-                                    <a class="dropdown-item" href="?lang=ru">Русский</a>
+                                    <a class="dropdown-item" href="${requestScope.requestURI}?${parametersString}&lang=en">English</a>
+                                    <a class="dropdown-item" href="${requestScope.requestURI}?${parametersString}&lang=ru">Русский</a>
                                 </div>
                             </div>
 
                         <a class="btn btn-primary  dropdown-toggle "
-                           href="${pageContext.servletContext.contextPath}/?command=log_out">Log out</a>
+                           href="${pageContext.servletContext.contextPath}/index/?command=log_out">Log out</a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">

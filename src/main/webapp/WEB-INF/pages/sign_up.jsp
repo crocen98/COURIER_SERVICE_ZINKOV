@@ -13,7 +13,6 @@
         <fmt:setLocale value="${cookie['lang'].value}"/>
     </c:otherwise>
 </c:choose>
-
 <fmt:setBundle basename="language" var="bundle" scope="application"/>
 
 

@@ -61,7 +61,7 @@
                 </strong> <span id=secondPoint><fmt:message key="courier_order.loading" bundle="${bundle}"/></span>
             </div>
 
-            <a href="${pageContext.servletContext.contextPath}/couriers?command=cancel_order">
+            <a href="${pageContext.servletContext.contextPath}/index?command=cancel_order">
                 <button type="button" class="btn btn-danger">
                     <fmt:message key="courier_order.cancel_order" bundle="${bundle}"/>
                 </button>

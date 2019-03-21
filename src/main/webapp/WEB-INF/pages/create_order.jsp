@@ -37,7 +37,7 @@
                         <%--${elem} 1000--%>
                         <%--</c:forEach>--%>
                         <form class="user" method="POST"
-                              action="${pageContext.servletContext.contextPath}/couriers?command=create_order_page_second_stage">
+                              action="${pageContext.servletContext.contextPath}/index?command=create_order_page_second_stage">
                             <div class="form-group">
                                 <textarea required type="text" class="form-control " name="description"
                                           placeholder="description"></textarea>

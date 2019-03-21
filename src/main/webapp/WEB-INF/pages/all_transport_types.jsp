@@ -28,7 +28,7 @@
                 </div>
                 <div class="modal-body mx-3">
                     <form class="md-form mb-5" method="POST" accept-charset=UTF-8"
-                          action="${pageContext.servletContext.contextPath}/couriers?command=add_transport_type">
+                          action="${pageContext.servletContext.contextPath}/index?command=add_transport_type">
                         <input required type="text" id="defaultForm-coefficient"
                                pattern="^[+-]?(\d){1,14}(\.(\d){0,2})|$"
                                class="form-control validate" name="coefficient">
@@ -69,7 +69,7 @@
                 </div>
                 <div class="modal-body mx-3">
                     <form class="md-form mb-5" method="POST"
-                          action="${pageContext.servletContext.contextPath}/couriers?command=change_transport_type">
+                          action="${pageContext.servletContext.contextPath}/index?command=change_transport_type">
                         <i class="fas fa fa-pencil fa-2x prefix grey-text" aria-hidden="true"></i>
 
 
@@ -128,7 +128,7 @@
                 <div class="card border-left-primary shadow h-100 py-2">
 
                     <form name="transport_form_${elem.id}"
-                          action="${pageContext.servletContext.contextPath}/couriers?command=delete_transport_type"
+                          action="${pageContext.servletContext.contextPath}/index?command=delete_transport_type"
                           method="POST">
                         <input name="transport_type_id" type="hidden" value="${elem.id}">
                         <button class="btn" style="color:red;text-align: right; margin-right: -10px">

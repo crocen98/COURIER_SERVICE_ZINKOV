@@ -17,7 +17,7 @@
             </div>
             <div class="modal-body mx-3">
                 <form class="md-form mb-5" method="POST" accept-charset=UTF-8"
-                      action="${pageContext.servletContext.contextPath}/couriers?command=new_transport_type_for_courier">
+                      action="${pageContext.servletContext.contextPath}/index?command=new_transport_type_for_courier">
                     <select class="form-control " style="border-radius: 15px;" id="sel1" name="transport_type_id">
                         <c:forEach var="elem" items="${transport_types}" varStatus="status">
                             <option value="${elem.id}">${elem.transportType}</option>
@@ -56,7 +56,7 @@
             </div>
             <div class="modal-body mx-3">
                 <form class="md-form mb-5" method="POST" accept-charset=UTF-8"
-                      action="${pageContext.servletContext.contextPath}/couriers?command=add_cargo_type_for_courier">
+                      action="${pageContext.servletContext.contextPath}/index?command=add_cargo_type_for_courier">
                     <select class="form-control " style="border-radius: 15px;" id="sel2" name="cargo_type_id">
                         <c:forEach var="elem" items="${all_cargo_types}" varStatus="status">
                             <option value="${elem.id}">${elem.type}</option>
@@ -116,7 +116,7 @@
                             <li>${type.type}
 
                                 <form name="transport_form_${type.id}" style="display: inline-block;"
-                                      action="${pageContext.servletContext.contextPath}/couriers?command=delete_cargo_type_for_courier"
+                                      action="${pageContext.servletContext.contextPath}/index?command=delete_cargo_type_for_courier"
                                       method="POST">
                                     <input name="cargo_type_id" type="hidden" value="${type.id}">
                                     <button class="btn" style="color:red;text-align: right; margin-right: -10px">
@@ -145,7 +145,7 @@
             <div id="map" style="display:inline-block;width:100%; height: 500px;"></div>
             <div class="form-group">
                 <div class="form-group">
-                    <form action="${pageContext.servletContext.contextPath}/couriers?command=new_courier_position"
+                    <form action="${pageContext.servletContext.contextPath}/index?command=new_courier_position"
                           method="POST">
                         <input required type="text" class="form-control form-control-user"
                                id="coordinates"

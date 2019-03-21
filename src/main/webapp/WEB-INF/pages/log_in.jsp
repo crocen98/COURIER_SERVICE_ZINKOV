@@ -80,7 +80,7 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4"><fmt:message key="activate.welcomeback" bundle="${bundle}"/></h1>
                                 </div>
-                                <form class="user" action="${pageContext.request.contextPath}/couriers?command=log_in" method="POST">
+                                <form class="user" action="${pageContext.request.contextPath}/index?command=log_in" method="POST">
                                     <div class="form-group">
                                         <input required type="text" pattern="(\w|\d|-|_){1,35}" class="form-control form-control-user" name="login" value="client"  placeholder="Enter login ...">
                                     </div>
@@ -96,10 +96,10 @@
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=to_password_recovery_page"><fmt:message key="signup.forgotpassword" bundle="${bundle}"/></a>
+                                    <a class="small" href="${pageContext.servletContext.contextPath}/index?command=to_password_recovery_page"><fmt:message key="signup.forgotpassword" bundle="${bundle}"/></a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=sign_up">
+                                    <a class="small" href="${pageContext.servletContext.contextPath}/index?command=sign_up">
                                         <fmt:message key="signup.formname" bundle="${bundle}"/>
                                     </a>
                                 </div>

@@ -68,7 +68,7 @@ public enum CommandEnum {
     }
 
     public String getUrl() {
-        return "/couriers/couriers?command=" + name;
+        return "/index?command=" + name;
     }
 
     public String getUrlWithError(String error) {

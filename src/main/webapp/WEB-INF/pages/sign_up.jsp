@@ -72,7 +72,7 @@
                                                                            bundle="${bundle}"/></h1>
                         </div>
                         <form class="user" method="POST"
-                              action="${pageContext.servletContext.contextPath}/couriers?command=register_command">
+                              action="${pageContext.servletContext.contextPath}/index?command=register_command">
                             <div class="form-group row">
                                 <label for="sel1">
                                     <fmt:message key="signup.rolecheck" bundle="${bundle}"/>
@@ -148,11 +148,11 @@
                         <hr>
                         <div class="text-center">
                             <a class="small"
-                               href="${pageContext.servletContext.contextPath}/couriers?command=to_password_recovery_page"><fmt:message key="signup.forgotpassword" bundle="${bundle}"/></a>
+                               href="${pageContext.servletContext.contextPath}/index?command=to_password_recovery_page"><fmt:message key="signup.forgotpassword" bundle="${bundle}"/></a>
                         </div>
                         <div class="text-center">
                             <a class="small"
-                               href="${pageContext.servletContext.contextPath}/couriers?command=to_log_in_page"><fmt:message key="signup.alreadyhaveaccount" bundle="${bundle}"/></a>
+                               href="${pageContext.servletContext.contextPath}/index?command=to_log_in_page"><fmt:message key="signup.alreadyhaveaccount" bundle="${bundle}"/></a>
                         </div>
                     </div>
                 </div>

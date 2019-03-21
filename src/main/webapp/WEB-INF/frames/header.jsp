@@ -61,13 +61,13 @@
         <c:if test="${sessionScope.user.userRole eq 'CLIENT'}">
             <li class="nav-item">
                 <a class="nav-link"
-                   href="${pageContext.servletContext.contextPath}/couriers?command=to_create_order_page">
+                   href="${pageContext.servletContext.contextPath}/index?command=to_create_order_page">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>new order</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link"
-                   href="${pageContext.servletContext.contextPath}/couriers?command=to_user_order_page">
+                   href="${pageContext.servletContext.contextPath}/index?command=to_user_order_page">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>My order</span></a>
             </li>
@@ -75,7 +75,7 @@
 
             <li class="nav-item">
                 <a class="nav-link"
-                   href="${pageContext.servletContext.contextPath}/couriers?command=to_client_couriers_page">
+                   href="${pageContext.servletContext.contextPath}/index?command=to_client_couriers_page">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>My couriers</span></a>
             </li>
@@ -84,14 +84,14 @@
         <c:if test="${sessionScope.user.userRole eq 'COURIER'}">
             <li class="nav-item">
                 <a class="nav-link"
-                   href="${pageContext.servletContext.contextPath}/couriers?command=edit_courier_profile_page">
+                   href="${pageContext.servletContext.contextPath}/index?command=edit_courier_profile_page">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Profile</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link"
-                   href="${pageContext.servletContext.contextPath}/couriers?command=to_courier_active_order_page">
+                   href="${pageContext.servletContext.contextPath}/index?command=to_courier_active_order_page">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Active order</span></a>
             </li>
@@ -101,21 +101,21 @@
         <c:if test="${sessionScope.user.userRole eq 'ADMINISTRATOR'}">
             <li class="nav-item">
                 <a class="nav-link"
-                   href="${pageContext.servletContext.contextPath}/couriers?command=all_transport_types">
+                   href="${pageContext.servletContext.contextPath}/index?command=all_transport_types">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Transport types</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link"
-                   href="${pageContext.servletContext.contextPath}/couriers?command=all_cargo_types">
+                   href="${pageContext.servletContext.contextPath}/index?command=all_cargo_types">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Cargo types</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link"
-                   href="${pageContext.servletContext.contextPath}/couriers?command=to_all_users_page_command">
+                   href="${pageContext.servletContext.contextPath}/index?command=to_all_users_page_command">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Users</span></a>
             </li>
@@ -176,7 +176,7 @@
                             </div>
 
                         <a class="btn btn-primary  dropdown-toggle "
-                           href="${pageContext.servletContext.contextPath}/couriers?command=log_out">Log out</a>
+                           href="${pageContext.servletContext.contextPath}/?command=log_out">Log out</a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">

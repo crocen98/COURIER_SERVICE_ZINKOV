@@ -27,7 +27,7 @@
                 </div>
                 <div class="modal-body mx-3">
                     <form class="md-form mb-5" method="POST" accept-charset=UTF-8"
-                          action="${pageContext.servletContext.contextPath}/couriers?command=add_cargo_type">
+                          action="${pageContext.servletContext.contextPath}/index?command=add_cargo_type">
 
 
                         <input required type="text" id="defaultForm-email" pattern="^(\w|\d|-|[a-яА-Я]){1,35}$"
@@ -61,7 +61,7 @@
                 </div>
                 <div class="modal-body mx-3">
                     <form class="md-form mb-5" method="POST"
-                          action="${pageContext.servletContext.contextPath}/couriers?command=edit_cargo_type">
+                          action="${pageContext.servletContext.contextPath}/index?command=edit_cargo_type">
                         <input type="text" required id="newName" pattern="^(\w|\d|-|[a-яА-Я]){1,35}$" name="cargo_type"
                                class="form-control validate">
                         <label data-error="wrong" data-success="right" for="newName">New name</label>
@@ -109,7 +109,7 @@
                 <div class="card border-left-primary shadow h-100 py-2">
 
                     <form name="transport_form_${elem.id}"
-                          action="${pageContext.servletContext.contextPath}/couriers?command=delete_cargo_type"
+                          action="${pageContext.servletContext.contextPath}/index?command=delete_cargo_type"
                           method="POST">
                         <input name="cargo_type_id" type="hidden" value="${elem.id}">
                         <button class="btn" style="color:red;text-align: right; margin-right: -10px">

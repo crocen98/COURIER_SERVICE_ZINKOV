@@ -94,12 +94,12 @@
         </div>
 
         <c:if test="${requestScope.order_status == 'ORDERED'}">
-            <a href="${pageContext.servletContext.contextPath}/couriers?command=start_perfoming_order_command">
+            <a href="${pageContext.servletContext.contextPath}/index?command=start_perfoming_order_command">
                 <button type="button" class="btn btn-success">
                     <fmt:message key="courier_order.accept_order" bundle="${bundle}"/>
                 </button>
             </a>
-            <a href="${pageContext.servletContext.contextPath}/couriers?command=cancel_order">
+            <a href="${pageContext.servletContext.contextPath}/index?command=cancel_order">
                 <button type="button" class="btn btn-danger">
                     <fmt:message key="courier_order.cancel_order" bundle="${bundle}"/>
                 </button>
@@ -107,7 +107,7 @@
         </c:if>
 
         <c:if test="${requestScope.order_status == 'PERFORMED'}">
-            <a href="${pageContext.servletContext.contextPath}/couriers?command=finish_perfoming_order_command">
+            <a href="${pageContext.servletContext.contextPath}/index?command=finish_perfoming_order_command">
                 <button type="button" class="btn btn-success">
                     <fmt:message key="courier_order.finish_order" bundle="${bundle}"/>
                 </button>

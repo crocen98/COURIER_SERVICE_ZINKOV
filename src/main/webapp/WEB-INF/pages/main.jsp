@@ -52,7 +52,7 @@
         </div>
 
         <%--<a class="navbar-brand" href="#">Language</a>--%>
-        <a class="btn btn-primary" style="margin-left: 10px" href="${pageContext.servletContext.contextPath}/couriers?command=to_log_in_page">
+        <a class="btn btn-primary" style="margin-left: 10px" href="${pageContext.servletContext.contextPath}/index?command=to_log_in_page">
             <fmt:message key="main.loginbuttom" bundle="${bundle}"/></a>
     </div>
 </nav>
@@ -79,7 +79,7 @@
                 <%--<div class="form-row">--%>
                 <div class="col-12 col-md-12">
                     <a class="btn btn-block btn-lg btn-primary"
-                       href="${pageContext.servletContext.contextPath}/couriers?command=sign_up">
+                       href="${pageContext.servletContext.contextPath}/index?command=sign_up">
                         <fmt:message key="main.signpbuttom" bundle="${bundle}"/>
                     </a>
                 </div>
@@ -207,7 +207,7 @@
                     <div class="form-row">
                         <div class="col-12 col-md-12">
                             <a class="btn btn-block btn-lg btn-primary"
-                               href="${pageContext.servletContext.contextPath}/couriers?command=sign_up">
+                               href="${pageContext.servletContext.contextPath}/index?command=sign_up">
                                 <fmt:message key="main.signpbuttom" bundle="${bundle}"/>
                             </a>
                         </div>

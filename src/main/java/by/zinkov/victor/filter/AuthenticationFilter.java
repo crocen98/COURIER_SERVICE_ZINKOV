@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Arrays;
 
-@WebFilter(filterName="AuthenticationFilter"  ,  urlPatterns = { "/couriers"})
+@WebFilter(filterName="AuthenticationFilter"  ,  urlPatterns =  "/")
 public class AuthenticationFilter implements Filter {
     private static final String USER_SESSION_ATTRIBUTE  = "user";
     private static final String COMMAND_PARAMETER = "command";

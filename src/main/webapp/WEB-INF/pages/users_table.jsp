@@ -62,7 +62,7 @@
                 ${item.userStatus}
 
             <c:if test="${item.id != sessionScope.user.id}">
-                <form method="POST" action="${pageContext.servletContext.contextPath}/couriers?command=change_user_status">
+                <form method="POST" action="${pageContext.servletContext.contextPath}/index?command=change_user_status">
                     <input type="hidden" value="${item.id}" name="user_id">
                     <c:choose>
                     <c:when test="${item.userStatus != 'ACTIVE'}">

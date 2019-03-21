@@ -72,7 +72,7 @@
                                         <fmt:message key="main.restore_password" bundle="${bundle}"/>
                                     </h1>
                                 </div>
-                                <form class="user" action="${pageContext.request.contextPath}/couriers?command=send_restore_token" method="POST">
+                                <form class="user" action="${pageContext.request.contextPath}/index?command=send_restore_token" method="POST">
                                     <div class="form-group">
                                         <input required type="text" pattern="(\w|\d|-|_){1,35}" class="form-control form-control-user" name="login"   placeholder="Enter login ...">
                                     </div>
@@ -94,12 +94,12 @@
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=to_log_in_page">
+                                    <a class="small" href="${pageContext.servletContext.contextPath}/index?command=to_log_in_page">
                                         <fmt:message key="signup.alreadyhaveaccount" bundle="${bundle}"/>
                                     </a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" href="${pageContext.servletContext.contextPath}/couriers?command=sign_up">
+                                    <a class="small" href="${pageContext.servletContext.contextPath}/index?command=sign_up">
                                         <fmt:message key="signup.formname" bundle="${bundle}"/>
                                     </a>
                                 </div>

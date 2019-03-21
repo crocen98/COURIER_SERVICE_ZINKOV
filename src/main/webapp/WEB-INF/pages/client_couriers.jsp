@@ -47,7 +47,7 @@
             <td>${item.key.email}</td>
             <td>${item.value}</td>
             <td>
-                <form method="POST" action="${pageContext.servletContext.contextPath}/couriers?command=set_user_mark">
+                <form method="POST" action="${pageContext.servletContext.contextPath}/index?command=set_user_mark">
                     <div class="starrating risingstar d-flex justify-content-end flex-row-reverse radioStar">
                         <button class="btn btn-warning" style="margin-left: 5px;">Send review</button>
                         <input type="radio" id="star5_${item.key.id}" name="rating" value="10"/><label for="star5_${item.key.id}"

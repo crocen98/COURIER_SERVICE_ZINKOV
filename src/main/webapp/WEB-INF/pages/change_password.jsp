@@ -68,7 +68,7 @@
                                         <fmt:message key="change_password.new_password" bundle="${bundle}"/>
                                     </h1>
                                 </div>
-                                <form class="user" action="${pageContext.request.contextPath}/couriers?command=restore_password" method="POST">
+                                <form class="user" action="${pageContext.request.contextPath}/index?command=restore_password" method="POST">
                                     <div class="form-group">
                                         <input  required type="password" pattern="^(\w|\d|-|_){1,35}$" class="form-control form-control-user"   name="password" placeholder="Password">
                                     </div>

@@ -14,38 +14,38 @@ import java.util.List;
 public class UserDaoTest extends AbstractDaoTest {
     @Test
     public void insertNewUser24() throws DaoException {
-        GenericDao<User,Integer> userDao = JdbcDaoFactory.getInstance().getDao(User.class);
-//        User user =  User.builder().build();
-        User user = new User();
-        user.setLocation("trash");
-        user.setLogin("crocen98");
-        user.setLastName("Zinkov");
-        user.setFirstName("Victor");
-        user.setEmail("s@icloud.com");
-        user.setPhone("+35291052630");
-        user.setUserStatusId(1);
-        user.setUserRoleId(2);
-        user.setPassword("122234234512223423451222342345122234234545555");
-
-        Assert.assertEquals(null,user.getId());
-        userDao.persist(user);
-        Assert.assertEquals((Integer)0,user.getId());
-
-//        User user2 =  User.builder().build();
-        User user2 = new User();
-
-        user2.setLocation("trash");
-        user2.setLogin("crocen988");
-        user2.setLastName("Zinkov");
-        user2.setFirstName("Victor");
-        user2.setEmail("s@icloud.com");
-        user2.setPhone("+35291052630");
-        user2.setUserStatusId(1);
-        user2.setUserRoleId(2);
-        user2.setPassword("122234234512223423451222342345122234234545555");
-
-        userDao.persist(user2);
-        Assert.assertEquals((Integer)1,user2.getId());
+//        GenericDao<User,Integer> userDao = JdbcDaoFactory.getInstance().getDao(User.class);
+////        User user =  User.builder().build();
+//        User user = new User();
+//        user.setLocation("trash");
+//        user.setLogin("crocen98");
+//        user.setLastName("Zinkov");
+//        user.setFirstName("Victor");
+//        user.setEmail("s@icloud.com");
+//        user.setPhone("+35291052630");
+//        user.setUserStatusId(1);
+//        user.setUserRoleId(2);
+//        user.setPassword("122234234512223423451222342345122234234545555");
+//
+//        Assert.assertEquals(null,user.getId());
+//        userDao.persist(user);
+//        Assert.assertEquals((Integer)0,user.getId());
+//
+////        User user2 =  User.builder().build();
+//        User user2 = new User();
+//
+//        user2.setLocation("trash");
+//        user2.setLogin("crocen988");
+//        user2.setLastName("Zinkov");
+//        user2.setFirstName("Victor");
+//        user2.setEmail("s@icloud.com");
+//        user2.setPhone("+35291052630");
+//        user2.setUserStatusId(1);
+//        user2.setUserRoleId(2);
+//        user2.setPassword("122234234512223423451222342345122234234545555");
+//
+//        userDao.persist(user2);
+//        Assert.assertEquals((Integer)1,user2.getId());
     }
 
     @Test

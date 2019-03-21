@@ -83,7 +83,7 @@
                         </div>
 
                         <form name="transport_form_${elem.id}"
-                              action="${pageContext.servletContext.contextPath}/couriers?command=finish_creating_order"
+                              action="${pageContext.servletContext.contextPath}/index?command=finish_creating_order"
                               method="POST">
                             <input name="courier_id" type="hidden" value="${elem.id}">
                             <button class="btn" style="color:red;text-align: right; margin-right: -10px">

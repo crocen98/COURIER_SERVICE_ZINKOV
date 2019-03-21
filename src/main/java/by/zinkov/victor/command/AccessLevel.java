@@ -5,5 +5,5 @@ public enum AccessLevel {
     ADMINISTRATOR,
     CLIENT,
     COURIER,
-    VISITOR;
+    VISITOR
 }

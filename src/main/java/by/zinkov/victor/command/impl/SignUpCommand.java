@@ -65,7 +65,7 @@ public class SignUpCommand extends Command {
     }
 
     private String registrationLinkBuild(String randomString, Integer userId, String url) {
-        return String.format("Hi!  your link: %s/couriers?command=activate&user_id=%d&value=%s", url, userId, randomString);
+        return String.format("Hi!  your link: %s/index?command=activate&user_id=%d&value=%s", url, userId, randomString);
     }
 
     private void sendActivateEmail(User user, HttpServletRequest request) throws ServiceException {

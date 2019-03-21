@@ -3,6 +3,9 @@
          xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+
+
+
   <display-name>сouriers_service</display-name>
   <filter-mapping>
     <filter-name>UserStatusFilter</filter-name>
@@ -37,7 +40,10 @@
     <servlet-name>default</servlet-name>
     <url-pattern>*.jpg</url-pattern>
   </servlet-mapping>
-
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/pages/404.jsp</location>
+    </error-page>
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>*.ttf</url-pattern>

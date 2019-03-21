@@ -31,7 +31,7 @@
         <div class="error mx-auto" data-text="404">404</div>
         <p class="lead text-gray-800 mb-5"><fmt:message key="page404.not_found" bundle="${bundle}"/></p>
         <p class="text-gray-500 mb-0"><fmt:message key="page404.msg" bundle="${bundle}"/></p>
-        <a href="/">&larr; <fmt:message key="page404.back_to_main" bundle="${bundle}"/></a>
+        <a href="${pageContext.servletContext.contextPath}/">&larr; <fmt:message key="page404.back_to_main" bundle="${bundle}"/></a>
     </div>
 
 </div>

@@ -8,6 +8,7 @@ import by.zinkov.victor.service.TransportTypeService;
 import by.zinkov.victor.service.factory.ServiceFactory;
 import by.zinkov.victor.validation.UtilValidator;
 import by.zinkov.victor.validation.Validator;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -74,19 +75,24 @@ public class CreateOrderFirstStageValidator implements Validator {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATETIME_PATTERN);
         Date date;
-        try {
-            date = dateFormat.parse(requestParameters.get(START_TIME_PARAMETER));
+        if (requestParameters.get(START_TIME_PARAMETER) != null) {
+            try {
+                date = dateFormat.parse(requestParameters.get(START_TIME_PARAMETER));
 
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(new Date());
-            cal.add(Calendar.HOUR_OF_DAY, 1);
-            Date ourAfterOrder = cal.getTime();
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(new Date());
+                cal.add(Calendar.HOUR_OF_DAY, 1);
+                Date ourAfterOrder = cal.getTime();
 
-            if (date.before(ourAfterOrder)) {
-                errorsMap.put(START_TIME_PARAMETER, TIME_IN_PAST_ERROR_KEY);
+                if (date.before(ourAfterOrder)) {
+                    errorsMap.put(START_TIME_PARAMETER, TIME_IN_PAST_ERROR_KEY);
+                }
+            } catch (ParseException e) {
+                errorsMap.put(START_TIME_PARAMETER, START_TIME_VALIDATION_ERROR_KEY);
             }
-        } catch (ParseException e) {
+        } else {
             errorsMap.put(START_TIME_PARAMETER, START_TIME_VALIDATION_ERROR_KEY);
+
         }
 
         return errorsMap;

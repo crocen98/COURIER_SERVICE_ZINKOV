@@ -9,7 +9,7 @@ public class UtilValidator {
     private final Pattern DECIMAL_14_2_PATTERN = Pattern.compile(DECIMAL_14_2_REGEX);
 
 
-    private static final String SIMPLE_STRING_REGEX = "^(\\w|\\d|-|[a-яА-Я]){1,35}$";
+    private static final String SIMPLE_STRING_REGEX = "^(\\w|\\d| |-|[a-яА-Я]){1,35}$";
     private final Pattern SIMPLE_STRING_PATTERN = Pattern.compile(SIMPLE_STRING_REGEX);
 
 

@@ -164,13 +164,6 @@
                                         aria-haspopup="true" aria-expanded="false">
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
-                                <c:set var="parametersString" value="${pageContext.request.queryString}"/>
-                                <c:set var="lang" value="lang"/>
-                                <c:if test="${fn:contains(parametersString, lang)}">
-                                    <c:set var="paramsStringsWithLangParameter" value="${fn:substringBefore(parametersString, lang)}"/>
-                                    <c:set var="parametersString" value="${fn:substring(paramsStringsWithLangParameter, 0, fn:length(paramsStringsWithLangParameter) - 1)}"/>
-                                </c:if>
-
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="${requestScope.requestURI}?${parametersString}&lang=en">English</a>
                                     <a class="dropdown-item" href="${requestScope.requestURI}?${parametersString}&lang=ru">Русский</a>

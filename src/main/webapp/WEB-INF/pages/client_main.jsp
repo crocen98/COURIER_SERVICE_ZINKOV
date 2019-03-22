@@ -4,9 +4,25 @@
 <jsp:include page="../frames/header.jsp"/>
 
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <tag:error errorMap="errors"/>
+
+<c:set var="parameters_main_page" value="${pageContext.request.queryString}"/>
+<c:set var="command" value="command"/>
+<c:if test="${fn:contains(parameters_main_page, command)}">
+<c:set var="paramsStringsWithCommandParameter" value="${fn:substringBefore(parameters_main_page, command)}"/>
+<c:set var="parameters_main_page" value="${fn:substring(paramsStringsWithCommandParameter, 0, fn:length(paramsStringsWithCommandParameter) - 1)}"/>
+</c:if>
+
+
+<%--<c:set var="parametersString" value="${pageContext.request.queryString}"/>--%>
+<%--<c:set var="lang" value="lang"/>--%>
+<%--<c:if test="${fn:contains(parametersString, lang)}">--%>
+    <%--<c:set var="paramsStringsWithLangParameter" value="${fn:substringBefore(parametersString, lang)}"/>--%>
+    <%--<c:set var="parametersString" value="${fn:substring(paramsStringsWithLangParameter, 0, fn:length(paramsStringsWithLangParameter) - 1)}"/>--%>
+<%--</c:if>--%>
 
 <div class="container">
     <div class="row">

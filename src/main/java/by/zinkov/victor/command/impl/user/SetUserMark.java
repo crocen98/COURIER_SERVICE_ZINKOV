@@ -57,6 +57,7 @@ public class SetUserMark extends Command {
                 customerReviewsService.setCourierMark(courierId, userDto.getId(), rating);
             }
         } catch (ServiceException e) {
+            e.printStackTrace();
             throw new CommandException("error.error", e);
         }
         return router;

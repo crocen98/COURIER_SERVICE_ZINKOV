@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-@WebFilter(filterName="CookieFilter")
+@WebFilter(filterName="CookieFilter", urlPatterns = {""})
 public class CookieFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig)   {
@@ -18,6 +18,7 @@ public class CookieFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        System.out.println(request.getServletContext().getContextPath() + "FILTER");
         if (request instanceof HttpServletRequest) {
             String lang = request.getParameter("lang");
             HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -29,8 +30,11 @@ public class CookieFilter implements Filter {
             } else {
                 Optional<Cookie[]> cookies = Optional.ofNullable(httpRequest.getCookies());
                 Cookie langCookie = cookies.map(Stream::of).orElse(Stream.empty())
-                        .filter(cookie -> cookie.getName().equalsIgnoreCase("lang")).findFirst()
+                        .filter(cookie -> cookie.getName()
+                                .equalsIgnoreCase("lang"))
+                        .findFirst()
                         .orElse(new Cookie("lang", "en"));
+
                 langCookie.setPath(httpRequest.getContextPath());
                 ((HttpServletResponse) response).addCookie(langCookie);
             }

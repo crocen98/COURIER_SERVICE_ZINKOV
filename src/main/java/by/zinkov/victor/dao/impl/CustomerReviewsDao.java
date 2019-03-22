@@ -21,7 +21,7 @@ public class CustomerReviewsDao extends AbstractJdbcDao<CustomerReviews, Integer
             "INSERT INTO customer_reviews ( customer_id , courier_id , mark) " +
                     "VALUES ( ? , ? , ? )";
     private static final String UPDATE_CUSTOMER_REVIEW_QUERY = "UPDATE customer_reviews SET " +
-            "customer_id = ? , courier_id = ? , mark = ? WHERE id = ?";
+            "customer_id = ? , courier_id = ? , mark = ? ,id = ? WHERE id = ?";
 
     private static final String DELETE_CUSTOMER_REVIEW_QUERY = "DELETE FROM customer_reviews WHERE id = ?";
     private static final String SELECT_COURIER_MARK_BY_ID_QUERY =
@@ -97,6 +97,7 @@ public class CustomerReviewsDao extends AbstractJdbcDao<CustomerReviews, Integer
         statement.setByte(3, object.getMark());
         if (object.getId() != null) {
             statement.setInt(4, object.getId());
+            statement.setInt(5, object.getId());
         }
 
     }

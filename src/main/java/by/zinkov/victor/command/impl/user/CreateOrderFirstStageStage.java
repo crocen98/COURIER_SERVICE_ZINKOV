@@ -22,8 +22,6 @@ import by.zinkov.victor.domain.Order;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -36,6 +34,7 @@ public class CreateOrderFirstStageStage extends Command {
     private static final String TRANSPORT_TYPE_ATTRIBUTE = "transport_type";
     private static final String COURIERS_ATTRIBUTE = "couriers";
     private static final String DISTANCE_ATTRIBUTE = "distance";
+    private static final String ERRORS_ATTRIBUTE = "errors";
 
 
     @Override
@@ -53,9 +52,10 @@ public class CreateOrderFirstStageStage extends Command {
         Map<String, String> errors = createOrderFirstStageValidator.validate(parameters);
         if (errors.size() != 0) {
             LOGGER.warn("User enter not valid data it maybe bug or he is hacks us. User info:\n" + user);
-            router.setType(Router.Type.REDIRECT);
+            request.setAttribute(ERRORS_ATTRIBUTE, errors);
+            router.setType(Router.Type.FORWARD);
             session.setAttribute(ORDER_ATTRIBUTE, null);
-            router.setRoute(CommandEnum.TO_CREATE_ORDER_PAGE.getUrl());
+            router.setRoute(Page.START_AUTHORIZED_PAGE.getRout());
             return router;
         }
 

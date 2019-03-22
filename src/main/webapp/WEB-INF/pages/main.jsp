@@ -4,15 +4,13 @@
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+<c:if test="${sessionScope.lang != null}">
+    <fmt:setLocale value="${sessionScope.lang}"/>
+</c:if>
+<c:if test="${sessionScope.lang == null}">
+    <fmt:setLocale value="en"/>
+</c:if>
 
-<c:choose>
-    <c:when test="${not empty requestScope.lang}">
-        <fmt:setLocale value="${requestScope.lang}"/>
-    </c:when>
-    <c:otherwise>
-        <fmt:setLocale value="${cookie['lang'].value}"/>
-    </c:otherwise>
-</c:choose>
 <fmt:setBundle basename="language" var="bundle" scope="application"/>
 <html>
 <head>
@@ -34,7 +32,6 @@
 </head>
 
 <body>
-
 
 <!-- Navigation -->
 <nav class="navbar navbar-light bg-light static-top">

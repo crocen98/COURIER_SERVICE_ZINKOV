@@ -5,14 +5,8 @@
 
 <fmt:requestEncoding value="UTF-8"/>
 
-<c:choose>
-    <c:when test="${not empty requestScope.lang}">
-        <fmt:setLocale value="${requestScope.lang}"/>
-    </c:when>
-    <c:otherwise>
-        <fmt:setLocale value="${cookie['lang'].value}"/>
-    </c:otherwise>
-</c:choose>
+<fmt:setLocale value="${sessionScope.lang}"/>
+
 
 <fmt:setBundle basename="language" var="bundle" scope="application"/>
 <html>

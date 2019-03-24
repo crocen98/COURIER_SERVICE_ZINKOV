@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class SignUpValidator implements Validator {
 
-    private static int MAX_VARCHAR_DB_FIELD_LENGTH = 45;
+    private static int MAX_VARCHAR_DB_FIELD_LENGTH = 35;
 
     private static final String USER_ROLE_PARAMETER = "user_role";
     private static final String LOGIN_FIELD = "login";
@@ -22,6 +22,8 @@ public class SignUpValidator implements Validator {
     private static final String PHONE_FIELD = "phone";
     private static final String PASSWORD_FIELD = "password";
     private static final String LOCATION_FIELD = "location";
+    private static final String PASSWORD_HASH_PARAMETER = "password_hash";
+
 
     private static final String ROLE_ERROR_KEY = "validation.role.error";
     private static final String LOGIN_ERROR_KEY = "validation.login.error";
@@ -31,6 +33,8 @@ public class SignUpValidator implements Validator {
     private static final String PHONE_ERROR_KEY = "validation.phone.error";
     private static final String PASSWORD_ERROR_KEY = "validation.password.error";
     private static final String LOCATION_ERROR_KEY = "validation.point.error";
+    private static final String HASH_ERROR_KEY = "validation.hash.error";
+
 
     private static final String LOGIN_ALREADY_USE_ERROR_KEY = "validation.login_use.error";
 
@@ -73,6 +77,10 @@ public class SignUpValidator implements Validator {
         }
         if (!validator.simpleStingMatches(parameters.get(PASSWORD_FIELD), MAX_VARCHAR_DB_FIELD_LENGTH)) {
             errorsMap.put(PASSWORD_FIELD, PASSWORD_ERROR_KEY);
+        } else {
+            if (!validator.passwordHashMatches(parameters.get(PASSWORD_HASH_PARAMETER))) {
+                errorsMap.put(PASSWORD_HASH_PARAMETER, HASH_ERROR_KEY);
+            }
         }
         if (!validator.coordinatesMatches(parameters.get(LOCATION_FIELD))) {
             errorsMap.put(LOCATION_FIELD, LOCATION_ERROR_KEY);

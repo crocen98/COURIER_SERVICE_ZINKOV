@@ -68,7 +68,7 @@ public class CreateOrderFirstStageValidator implements Validator {
             errorsMap.put(FINISH_POINT_PARAMETER, POINT_ERROR_KEY);
         }
 
-        if (!validator.simpleStingMatches((requestParameters.get(DESCRIPTION_PARAMETER)), 150)) {
+        if (requestParameters.get(DESCRIPTION_PARAMETER) == null || requestParameters.get(DESCRIPTION_PARAMETER).length() > 150) {
             errorsMap.put(DESCRIPTION_PARAMETER, DESCRIPTION_ERROR_KEY);
         }
 

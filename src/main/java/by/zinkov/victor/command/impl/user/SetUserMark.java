@@ -51,11 +51,14 @@ public class SetUserMark extends Command {
         Integer rating = Integer.valueOf(parameters.get(RATING_PARAMETER));
 
         try {
-            if (customerReviewsService.haveMark(courierId, userDto.getId())) {
-                customerReviewsService.updateCourierMark(courierId, userDto.getId(), rating);
-            } else {
-                customerReviewsService.setCourierMark(courierId, userDto.getId(), rating);
-            }
+//            if (customerReviewsService.haveMark(courierId, userDto.getId())) {
+//                System.out.println("have");
+//                customerReviewsService.updateCourierMark(courierId, userDto.getId(), rating);
+//            } else {
+//                System.out.println("dont have");
+//                customerReviewsService.setCourierMark(courierId, userDto.getId(), rating);
+//            }
+            customerReviewsService.setCourierMark(courierId, userDto.getId(), rating);
         } catch (ServiceException e) {
             e.printStackTrace();
             throw new CommandException("error.error", e);

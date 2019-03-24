@@ -19,7 +19,7 @@ public class CustomerReviewsDao extends AbstractJdbcDao<CustomerReviews, Integer
     private static final String SELECT_CUSTOMER_REVIEWS_BY_PK_QUERY = "SELECT * FROM customer_reviews WHERE id = ?";
     private static final String INSERT_NEW_CUSTOMER_REVIEW_QUERY =
             "INSERT INTO customer_reviews ( customer_id , courier_id , mark) " +
-                    "VALUES ( ? , ? , ? )";
+                    "VALUES ( ? , ? , ? ) ";
     private static final String UPDATE_CUSTOMER_REVIEW_QUERY = "UPDATE customer_reviews SET " +
             "customer_id = ? , courier_id = ? , mark = ? ,id = ? WHERE id = ?";
 
@@ -44,7 +44,8 @@ public class CustomerReviewsDao extends AbstractJdbcDao<CustomerReviews, Integer
             return customerReview.isEmpty() ? null : customerReview.get(0);
         } catch (SQLException e) {
             throw new DaoException("Problem with get CustomerReview by currierId and userId", e);
-        }    }
+        }
+    }
 
     @Override
     public boolean haveMark(Integer courierId, Integer userId) throws DaoException {
@@ -65,10 +66,11 @@ public class CustomerReviewsDao extends AbstractJdbcDao<CustomerReviews, Integer
         try (PreparedStatement statement = this.connection.prepareStatement(SELECT_COURIER_MARK_BY_ID_QUERY)) {
             statement.setInt(1, courierId);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return resultSet.getDouble(1);
+            Double avg = null;
+            while (resultSet.next()) {
+                avg= resultSet.getDouble(1);
             }
-            return null;
+            return avg;
         } catch (SQLException e) {
             throw new DaoException("Problem with calculate mark by currierId", e);
         }

@@ -13,6 +13,10 @@ public class UtilValidator {
     private final Pattern SIMPLE_STRING_PATTERN = Pattern.compile(SIMPLE_STRING_REGEX);
 
 
+    private static final String PASSWORD_REGEX = "^(\\w|\\d|){64}$";
+    private final Pattern PASSWORD_PATTERN = Pattern.compile(PASSWORD_REGEX);
+
+
     private static final String INTEGER_REGEX = "[+-]?(\\d){1,9}";
     private final Pattern INTEGER_PATTERN = Pattern.compile(INTEGER_REGEX);
 
@@ -47,6 +51,11 @@ public class UtilValidator {
 
     public boolean emailMatches(String email) {
         return email != null && EMAIL_PATTERN.matcher(email).matches();
+    }
+
+    public boolean passwordHashMatches(String pass){
+        return pass != null &&
+                PASSWORD_PATTERN.matcher(pass).matches();
     }
 
     public boolean simpleStingMatches(String string, int maxLength) {

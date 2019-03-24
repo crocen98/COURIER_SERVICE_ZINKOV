@@ -27,7 +27,7 @@ INSERT INTO couriers.user_status(status) VALUES('WAITING_CONFIRMATION');
 CREATE TABLE couriers.user ( 
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   login VARCHAR(45) NOT NULL,
-  password CHAR(45) NOT NULL,
+  password CHAR(64) NOT NULL,
   first_name VARCHAR(45) NOT NULL,
   last_name VARCHAR(45) NOT NULL,
   email VARCHAR(45) NOT NULL,
@@ -160,7 +160,31 @@ CREATE TABLE  couriers.delivery_order (
   );
 
 
+a8e8f93dc9dfe306433c92589c82874cb9d7b2c7dc194d55907447bdcf794d6f
 
+
+INSERT INTO couriers.user
+(id,
+login,
+password,
+first_name,
+last_name,
+email,
+phone,
+status_id,
+role_id,
+location)
+VALUES
+(1,
+'admin',
+'a8e8f93dc9dfe306433c92589c82874cb9d7b2c7dc194d55907447bdcf794d6f',
+'admin',
+'Zincou',
+'szzz2008@icloud.com',
+'+375291052630',
+2,
+1,
+'3.0330551,27.5526288,14.25');
 
 
 

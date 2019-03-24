@@ -5,6 +5,7 @@ import by.zinkov.victor.dto.UserDto;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Example of user service
@@ -31,7 +32,7 @@ public interface UserService {
 
     void changePassword(String id, String password, String activateString) throws ServiceException;
 
-    List<User> getCouriersByParams(String transportType, String cargoType) throws ServiceException;
+    Map<User,Double> getCouriersByParams(String transportType, String cargoType) throws ServiceException;
 
     void update(User user) throws ServiceException;
 

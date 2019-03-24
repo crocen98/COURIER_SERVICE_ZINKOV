@@ -20,7 +20,7 @@ public class UserStatusFilter implements Filter {
     private static final String USER_SESSION_ATTRIBUTE = "user";
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
 
     }
 

@@ -64,7 +64,7 @@
                             <h1 class="h4 text-gray-900 mb-4"><fmt:message key="signup.formname"
                                                                            bundle="${bundle}"/></h1>
                         </div>
-                        <form class="user" method="POST"
+                        <form class="user" method="POST" id="form_signup"
                               action="${pageContext.servletContext.contextPath}/index?command=register_command">
                             <div class="form-group row">
                                 <label for="sel1">
@@ -114,38 +114,46 @@
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input required type="password" pattern="(\w|\d|-|_){1,35}"
                                            class="form-control form-control-user"
-                                           id="exampleInputPassword" placeholder="<fmt:message key="form.password" bundle="${bundle}"/>" name="password">
+                                           id="exampleInputPassword"
+                                           placeholder="<fmt:message key="form.password" bundle="${bundle}"/>"
+                                           name="password">
                                 </div>
+                                <input type="hidden" id="password_hash" name="password_hash">
+
                                 <div class="col-sm-6">
                                     <input required type="password" pattern="(\w|\d|-|_){1,35}"
                                            class="form-control form-control-user"
-                                           id="exampleRepeatPassword" placeholder="<fmt:message key="form.repeatpassword" bundle="${bundle}"/>">
+                                           id="exampleRepeatPassword"
+                                           placeholder="<fmt:message key="form.repeatpassword" bundle="${bundle}"/>">
                                 </div>
 
                             </div>
                             <div class="form-group">
                                 <div class="form-group">
-                                    <input required type="text" class="form-control form-control-user" disabled
-                                           id="coordinates"
+                                    <input required type="text" class="form-control form-control-user"
+                                           id="coordinates" disabled
                                            placeholder="<fmt:message key="form.location" bundle="${bundle}"/>">
                                     <input required id="сoordinatesInput" name="location" type="hidden"
-                                           value="53.8620412579027,27.66345453515624">
+                                           value="">
                                 </div>
 
                             </div>
                             <div class=" d-flex justify-content-center">
-                                <button id="but_sign_up" class="btn btn-primary btn-user btn-block"><fmt:message key="signup.formname" bundle="${bundle}"/>
+                                <button id="but" disabled id="but_sign_up" class="btn btn-primary btn-user btn-block">
+                                    <fmt:message key="signup.formname" bundle="${bundle}"/>
                                 </button>
                             </div>
                         </form>
                         <hr>
                         <div class="text-center">
                             <a class="small"
-                               href="${pageContext.servletContext.contextPath}/index?command=to_password_recovery_page"><fmt:message key="signup.forgotpassword" bundle="${bundle}"/></a>
+                               href="${pageContext.servletContext.contextPath}/index?command=to_password_recovery_page"><fmt:message
+                                    key="signup.forgotpassword" bundle="${bundle}"/></a>
                         </div>
                         <div class="text-center">
                             <a class="small"
-                               href="${pageContext.servletContext.contextPath}/index?command=to_log_in_page"><fmt:message key="signup.alreadyhaveaccount" bundle="${bundle}"/></a>
+                               href="${pageContext.servletContext.contextPath}/index?command=to_log_in_page"><fmt:message
+                                    key="signup.alreadyhaveaccount" bundle="${bundle}"/></a>
                         </div>
                     </div>
                 </div>
@@ -155,14 +163,29 @@
     </div>
 
 </div>
-
+<script src="${pageContext.request.contextPath}/js/sha256.js"></script>
+<script src="${pageContext.request.contextPath}/js/script.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.bundle.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/js/jquery/jquery.easing.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/js/sb-admin-2.min.js"></script>
+<script>
+    hashPass("password_hash","form_signup", "exampleInputPassword", "logininput");
+</script>
 
+<script>
+    var inputCoordinates = document.getElementById("coordinates");
+
+    inputCoordinates.addEventListener("input", function (eventTarget) {
+        console.log(eventTarget.target.value);
+        console.log("inpuuuuuuutttt");
+        if (eventTarget.target.value != null) {
+            document.getElementById("but").removeAttribute("disabled");
+        }
+    });
+</script>
 
 <script type="text/javascript">
     var globalCord;

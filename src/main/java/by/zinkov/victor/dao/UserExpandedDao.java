@@ -6,6 +6,7 @@ import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.ServiceException;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserExpandedDao {
     @AutoConnection
@@ -19,7 +20,7 @@ public interface UserExpandedDao {
     User getByLogin(String login) throws DaoException;
 
     @AutoConnection
-    List<User> getCouriersWithAppropriateCargoAndTransportType(String transportType, String cargoType) throws DaoException;
+    Map<User,Double> getCouriersWithAppropriateCargoAndTransportType(String transportType, String cargoType) throws DaoException;
 
     @AutoConnection
     List<User> getClientCouriers(Integer clientId) throws DaoException;

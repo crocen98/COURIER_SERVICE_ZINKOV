@@ -35,6 +35,7 @@ public class CreateOrderFirstStageStage extends Command {
     private static final String COURIERS_ATTRIBUTE = "couriers";
     private static final String DISTANCE_ATTRIBUTE = "distance";
     private static final String ERRORS_ATTRIBUTE = "errors";
+    private static final int MAX_RADIUS_OF_DETECTING_COURIER = 40;
 
 
     @Override
@@ -80,11 +81,12 @@ public class CreateOrderFirstStageStage extends Command {
             session.setAttribute(ORDER_ATTRIBUTE, order);
 
             UserService userService = new UserServiceImpl();
-            List<User> couriers = userService.getCouriersByParams(parameters.get(TRANSPORT_TYPE_ATTRIBUTE), parameters.get(CARGO_TYPE_ATTRIBUTE));
-            couriers = couriers.stream().filter(item ->
-                    calculateDistance(item.getLocation(), order.getStartPoint()) <= 30
-            ).collect(Collectors.toList());
+            Map<User, Double> couriers = userService.getCouriersByParams(parameters.get(TRANSPORT_TYPE_ATTRIBUTE), parameters.get(CARGO_TYPE_ATTRIBUTE));
+            couriers = couriers.entrySet().stream().filter(item ->
+                    calculateDistance(item.getKey().getLocation(), order.getStartPoint()) <= MAX_RADIUS_OF_DETECTING_COURIER
+            ).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
             request.setAttribute(COURIERS_ATTRIBUTE, couriers);
+            System.out.println(couriers);
 
             double distance = calculateDistance(order);
             request.setAttribute(DISTANCE_ATTRIBUTE, distance);

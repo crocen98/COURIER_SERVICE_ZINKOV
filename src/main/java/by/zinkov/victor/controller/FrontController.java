@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns ="/" , name = "index")
+@WebServlet(urlPatterns = "/", name = "index")
 public class FrontController extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger(FrontController.class);
@@ -37,25 +37,24 @@ public class FrontController extends HttpServlet {
         LOGGER.info(request.getRequestURI());
         String commandName = request.getParameter(COMMAND_REQUEST_PARAMETER);
         CommandEnum commandEnum = CommandEnum.getByName(commandName);
-        Command command = CommandProvider.getInstance().takeCommand(commandEnum);
-        LOGGER.info("Command :" + commandName + " work in controller");
         Router router = new Router();
-        try {
-            router = command.execute(request);
-        } catch (CommandException e) {
-            LOGGER.error(e);
-            request.setAttribute(ERROR,e.getMessage());
-            router.setType(Router.Type.FORWARD);
-            router.setRoute(Page.ERROR.getRout());
-        }
-
-        String page = router.getRoute();
-        LOGGER.info(request.getContextPath() + "  " +page);
-        if (router.getType() == Router.Type.REDIRECT) {
-            response.sendRedirect(request.getContextPath() + page);
-        } else {
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher(page);
-            requestDispatcher.forward(request, response);
-        }
+            Command command = CommandProvider.getInstance().takeCommand(commandEnum);
+            LOGGER.info("Command :" + commandName + " work in controller");
+            try {
+                router = command.execute(request);
+            } catch (CommandException e) {
+                LOGGER.error(e);
+                request.setAttribute(ERROR, e.getMessage());
+                router.setType(Router.Type.FORWARD);
+                router.setRoute(Page.ERROR.getRout());
+            }
+            String page = router.getRoute();
+            LOGGER.info(request.getContextPath() + "  " + page);
+            if (router.getType() == Router.Type.REDIRECT) {
+                response.sendRedirect(request.getContextPath() + page);
+            } else {
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher(page);
+                requestDispatcher.forward(request, response);
+            }
     }
 }

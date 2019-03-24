@@ -74,14 +74,16 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4"><fmt:message key="activate.welcomeback" bundle="${bundle}"/></h1>
                                 </div>
-                                <form class="user" action="${pageContext.request.contextPath}/index?command=log_in" method="POST">
+                                <form class="user" action="${pageContext.request.contextPath}/index?command=log_in" method="POST" id="form_signup">
                                     <div class="form-group">
-                                        <input required type="text" pattern="(\w|\d|-|_){1,35}" class="form-control form-control-user" name="login" value="client"  placeholder="Enter login ...">
+                                        <input required type="text" pattern="(\w|\d|-|_){1,35}" class="form-control form-control-user" name="login" value="client"  placeholder="Enter login ..." id="logininput">
                                     </div>
 
                                     <div class="form-group">
-                                        <input  required type="password" pattern="(\w|\d|-|_){1,35}" class="form-control form-control-user"  value="12345" name="password" placeholder="Password">
+                                        <input  required type="password" pattern="(\w|\d|-|_){1,35}" class="form-control form-control-user"  value="12345" name="password" placeholder="Password" id="exampleInputPassword" >
                                     </div>
+
+                                    <input type="hidden" id="password_hash" name="password_hash">
 
                                     <button  class="btn btn-primary btn-user btn-block">
                                         <fmt:message key="form.login" bundle="${bundle}"/>
@@ -110,5 +112,9 @@
 </div>
 
 </body>
-
+<script src="${pageContext.request.contextPath}/js/sha256.js"></script>
+<script src="${pageContext.request.contextPath}/js/script.js"></script>
+<script>
+    hashPass("password_hash","form_signup", "exampleInputPassword", "logininput");
+</script>
 </html>

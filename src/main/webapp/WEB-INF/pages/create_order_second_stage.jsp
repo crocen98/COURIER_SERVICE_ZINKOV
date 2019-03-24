@@ -66,26 +66,26 @@
         <fmt:message key="couriers" bundle="${bundle}"/>:
     </h3>
     <div class="row" id="courier_cards">
-        <c:forEach var="elem" items="${requestScope.couriers}" varStatus="status">
+        <c:forEach var="elem" items="${requestScope.couriers}">
             <div class="col-lg-4">
                 <div class="our-team-main">
 
                     <div class="team-front">
                         <img src="http://placehold.it/110x110/9c27b0/fff?text=Dilip" class="img-fluid"/>
-                        <h3>${elem.login}</h3>
-                        <p>${elem.firstName} ${elem.lastName}</p>
+                        <h3>${elem.key.login}</h3>
+                        <p>${elem.key.firstName} ${elem.key.lastName}</p>
                     </div>
 
                     <div class="team-back">
                         <div style="display: flex;   align-items: center; justify-content: center;">
                             <h1 class="mark_on_card" style="height: 100px;">
-                                <fmt:message key="client_couriers.mark" bundle="${bundle}"/>: 10</h1>
+                                <fmt:message key="client_couriers.mark" bundle="${bundle}"/>: ${elem.value}</h1>
                         </div>
 
-                        <form name="transport_form_${elem.id}"
+                        <form name="transport_form_${elem.key.id}"
                               action="${pageContext.servletContext.contextPath}/index?command=finish_creating_order"
                               method="POST">
-                            <input name="courier_id" type="hidden" value="${elem.id}">
+                            <input name="courier_id" type="hidden" value="${elem.key.id}">
                             <button class="btn" style="color:red;text-align: right; margin-right: -10px">
                                 <i class="fa fa-plus fa-2x "></i>
                                 <h2 style="display: inline">Select</h2>

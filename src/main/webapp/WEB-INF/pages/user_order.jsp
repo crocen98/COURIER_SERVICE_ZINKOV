@@ -34,18 +34,28 @@
             <div class="notice notice-info">
                 <strong>
                     <fmt:message key="courier_order.cargo_type" bundle="${bundle}"/>
-                </strong> ${requestScope.cargo_type}
+                </strong> ${requestScope.cargo_type.type}
             </div>
             <div class="notice notice-info">
                 <strong>
                     <fmt:message key="courier_order.transport_type" bundle="${bundle}"/>
-                </strong> ${requestScope.transport_type}
+                </strong> ${requestScope.transport_type.transportType}
             </div>
 
             <div class="notice notice-info">
                 <strong>
                     <fmt:message key="courier_order.courier" bundle="${bundle}"/>
                 </strong> ${requestScope.courier.login}
+            </div>
+            <div class="notice notice-info">
+                <strong>
+                    <fmt:message key="form.phone" bundle="${bundle}"/>
+                </strong> ${requestScope.courier.phone}
+            </div>
+            <div class="notice notice-info">
+                <strong>
+                    <fmt:message key="form.email" bundle="${bundle}"/>
+                </strong> ${requestScope.courier.email}
             </div>
             <%--<div class="notice notice-info">--%>
             <%--<strong>Status:</strong> ${requestScope.order.orderStatus}--%>

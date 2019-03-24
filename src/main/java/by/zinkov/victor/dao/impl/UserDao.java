@@ -14,7 +14,9 @@ import by.zinkov.victor.dto.UserDto;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Example User DAO implementation
@@ -35,21 +37,29 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
 
 
     private static final String SELECT_COURIERS_WITH_APPROPRIATE_TRANSPORT_AND_CARGO_TYPE =
-            " SELECT * from user " +
-                    "WHERE " +
-                    "   user.id IN " +
-                    "   (SELECT currier_id FROM currier_capability " +
-                    "   JOIN transport_type " +
-                    "   ON currier_capability.transport_id = transport_type.id " +
-                    "   WHERE transport_type.type = ? " +
-                    "   AND " +
-                    "   currier_capability.id IN " +
-                    "     (SELECT currier_capability_id FROM supported_cargo_types " +
-                    "     JOIN cargo_types ON supported_cargo_types.type_id = cargo_types.id " +
-                    "     WHERE cargo_types.type = ?)) " +
-                    "AND  user.id NOT IN (SELECT  delivery_order.id_courier FROM delivery_order " +
-                    "JOIN order_status ON order_status.id = delivery_order.id_status\n" +
-                    "    WHERE order_status.status = 'PERFORMED' OR order_status.status = 'ORDERED') ;";
+            "    SELECT user.id ,login , password , first_name,last_name , email ,phone , status_id , role_id , location , AVG(mark)from couriers.user JOIN couriers.customer_reviews ON customer_reviews.courier_id = user.id\n" +
+                    "            WHERE\n" +
+                    "    user.id IN\n" +
+                    "            (SELECT currier_id FROM couriers.currier_capability\n" +
+                    "                    JOIN couriers.transport_type\n" +
+                    "                    ON currier_capability.transport_id = transport_type.id\n" +
+                    "                    WHERE transport_type.type = ?\n" +
+                    "                    AND\n" +
+                    "                    currier_capability.id IN\n" +
+                    "                    (SELECT currier_capability_id FROM couriers.supported_cargo_types\n" +
+                    "                    JOIN couriers.cargo_types ON supported_cargo_types.type_id = cargo_types.id\n" +
+                    "                    WHERE cargo_types.type = ?))\n" +
+                    "    AND  user.id NOT IN (SELECT  delivery_order.id_courier FROM couriers.delivery_order\n" +
+                    "            JOIN couriers.order_status ON order_status.id = delivery_order.id_status\n" +
+                    "            WHERE order_status.status = 'PERFORMED' OR order_status.status = 'ORDERED')\n" +
+                    "    GROUP BY user.id;";
+
+
+
+
+
+
+
 
     private static final String SELECT_CLIENT_COURIERS_QUERRY =
             "SELECT DISTINCT *  FROM user JOIN delivery_order " +
@@ -70,13 +80,13 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
     }
 
     @Override
-    public List<User> getCouriersWithAppropriateCargoAndTransportType(String transportType, String cargoType) throws DaoException {
+    public Map<User,Double> getCouriersWithAppropriateCargoAndTransportType(String transportType, String cargoType) throws DaoException {
         try (PreparedStatement statement = this.connection.prepareStatement(SELECT_COURIERS_WITH_APPROPRIATE_TRANSPORT_AND_CARGO_TYPE)) {
             statement.setString(1, transportType);
             statement.setString(2, cargoType);
 
             ResultSet resultSet = statement.executeQuery();
-            return parseResultSet(resultSet);
+            return parseResultSetWithUserMark(resultSet);
 
         } catch (SQLException e) {
             throw new DaoException("Problem with select appropriate couriers", e);
@@ -176,17 +186,20 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
 
         while (rs.next()) {
             User user = new User();
-            user.setId(rs.getInt(1));
-            user.setLogin(rs.getString(2));
-            user.setPassword(rs.getString(3));
-            user.setFirstName(rs.getString(4));
-            user.setLastName(rs.getString(5));
-            user.setEmail(rs.getString(6));
-            user.setPhone(rs.getString(7));
-            user.setLocation(rs.getString(10));
-            user.setUserStatusId(rs.getInt(8));
-            user.setUserRoleId(rs.getInt(9));
+            setUserFields(user,rs);
             users.add(user);
+        }
+        return users;
+    }
+
+
+    Map<User, Double> parseResultSetWithUserMark(ResultSet rs) throws SQLException {
+        Map<User, Double> users = new HashMap<>();
+
+        while (rs.next()) {
+            User user = new User();
+            setUserFields(user,rs);
+            users.put(user, rs.getDouble(11));
         }
         return users;
     }
@@ -239,4 +252,19 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
     public String getDeleteQuery() {
         return DELETE_USER_QUERY;
     }
+
+
+    private void setUserFields(User user, ResultSet rs) throws SQLException {
+        user.setId(rs.getInt(1));
+        user.setLogin(rs.getString(2));
+        user.setPassword(rs.getString(3));
+        user.setFirstName(rs.getString(4));
+        user.setLastName(rs.getString(5));
+        user.setEmail(rs.getString(6));
+        user.setPhone(rs.getString(7));
+        user.setUserStatusId(rs.getInt(8));
+        user.setUserRoleId(rs.getInt(9));
+        user.setLocation(rs.getString(10));
+    }
+
 }

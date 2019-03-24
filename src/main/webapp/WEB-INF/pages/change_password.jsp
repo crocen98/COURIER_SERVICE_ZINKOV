@@ -68,20 +68,26 @@
                                         <fmt:message key="change_password.new_password" bundle="${bundle}"/>
                                     </h1>
                                 </div>
-                                <form class="user" action="${pageContext.request.contextPath}/index?command=restore_password" method="POST">
+                                <form class="user"
+                                      action="${pageContext.request.contextPath}/index?command=restore_password"
+                                      method="POST" id="form_signup">
                                     <div class="form-group">
-                                        <input  required type="password" pattern="^(\w|\d|-|_){1,35}$" class="form-control form-control-user"   name="password" placeholder="Password">
+                                        <input required type="password" pattern="^(\w|\d|-|_){1,35}$"
+                                               class="form-control form-control-user" name="password"
+                                               placeholder="Password" id="exampleInputPassword">
                                     </div>
 
                                     <div class="form-group">
-                                        <input  required type="password" pattern="(\w|\d|-|_){1,35}" class="form-control form-control-user"    placeholder="Repeat">
+                                        <input required type="password" pattern="(\w|\d|-|_){1,35}"
+                                               class="form-control form-control-user" placeholder="Repeat">
                                     </div>
                                     <input required id="keyInput" name="key" type="hidden" value="">
+                                    <input type="hidden" id="password_hash" name="password_hash">
                                     <input required id="userIdInput" name="user_id" type="hidden" value="key">
-
+                                    <input type="hidden" id="logininput">
                                     <div class="form-group">
                                     </div>
-                                    <button  class="btn btn-primary btn-user btn-block">
+                                    <button class="btn btn-primary btn-user btn-block">
                                         <fmt:message key="change_password.change" bundle="${bundle}"/>
 
                                     </button>
@@ -99,12 +105,20 @@
 </div>
 
 </body>
+<script src="${pageContext.request.contextPath}/js/sha256.js"></script>
+<script src="${pageContext.request.contextPath}/js/script.js"></script>
+<script>
+    hashPass("password_hash", "form_signup", "exampleInputPassword", "logininput");
+</script>
 <script>
     var urlParams = new URLSearchParams(window.location.search);
     var key = urlParams.get("value");
     var userId = urlParams.get("user_id");
-    document.getElementById("keyInput").setAttribute("value" , key);
-    document.getElementById("userIdInput").setAttribute("value" , userId);
+    var login = urlParams.get("login");
+    document.getElementById("keyInput").setAttribute("value", key);
+    document.getElementById("userIdInput").setAttribute("value", userId);
+    document.getElementById("logininput").setAttribute("value", login);
+
 
 </script>
 </html>

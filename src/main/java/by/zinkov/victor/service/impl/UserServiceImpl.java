@@ -14,6 +14,7 @@ import by.zinkov.victor.util.StringGenerator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -100,7 +101,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getCouriersByParams(String transportTypeString, String cargoTypeString) throws ServiceException {
+    public Map<User,Double> getCouriersByParams(String transportTypeString, String cargoTypeString) throws ServiceException {
         DaoFactory daoFactory = JdbcDaoFactory.getInstance();
         try {
             CargoTypeExpandedDao cargoTypeExpandedDao = (CargoTypeExpandedDao) daoFactory.getDao(CargoType.class);
@@ -118,15 +119,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void changePassword(String id, String password, String activateString) throws ServiceException {
-        UtilValidator validator = UtilValidator.getInstance();
 
         try {
-            validator.isMatchesInt(id, UtilValidator.POSITIVE_RANGE);
-            validator.simpleStingMatches(password, 45/*, "password"*/);
-            validator.simpleStingMatches(activateString, 32/*, activateString*/);
-
             RegistrationKeyService service = new RegistrationKeyServiceImpl();
             RegistrationKey key = service.getById(Integer.valueOf(id));
+            if (key == null) {
+                ServiceException exception = new ServiceException("Secure problems! Key does not find!");
+                exception.setErrorKey("cannot_find_key");
+                throw exception;
+            }
 
             DaoFactory daoFactory = FactoryProducer.getDaoFactory(DaoFactoryType.JDBC);
             GenericDao<User, Integer> userDao = daoFactory.getDao(User.class);
@@ -151,8 +152,8 @@ public class UserServiceImpl implements UserService {
         return String.format("Hi!  your activation link: %s/couriers?command=activate&user_id=%d&value=%s", url, userId, randomString);
     }
 
-    private String restoreLinkBuild(String randomString, Integer userId, String url) {
-        return String.format("Hi!  your restore link: %s/couriers?command=to_change_password_page&user_id=%d&value=%s", url, userId, randomString);
+    private String restoreLinkBuild(String randomString, Integer userId, String url, String login) {
+        return String.format("Hi!  your restore link: %s/couriers?command=to_change_password_page&user_id=%d&value=%s&login=%s", url, userId, randomString,login);
     }
 
     private void sendActivateEmail(User user, HttpServletRequest request) throws ServiceException {
@@ -162,7 +163,7 @@ public class UserServiceImpl implements UserService {
         Integer port = request.getLocalPort();
         String url;
         url = "http://207.154.220.222" + ":" + port + request.getContextPath();
-        String activateLink = restoreLinkBuild(randomString, user.getId(), url);
+        String activateLink = restoreLinkBuild(randomString, user.getId(), url, user.getLogin());
         sender.sendEmail(activateLink, user.getEmail());
         RegistrationKeyService registrationKeyService = new RegistrationKeyServiceImpl();
         registrationKeyService.add(user.getId(), randomString);

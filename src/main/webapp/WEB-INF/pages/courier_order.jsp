@@ -16,12 +16,12 @@
                     <strong>
                         <fmt:message key="courier_order.price" bundle="${bundle}"/>
                     </strong>
-                        ${requestScope.order.price}
+                        <c:out value="${requestScope.order.price}"/>
                 </div>
                 <div class="notice notice-info">
                     <strong>
                         <fmt:message key="courier_order.distance" bundle="${bundle}"/>
-                    </strong> ${requestScope.distance}
+                    </strong> <c:out value="${requestScope.distance}"/>
                 </div>
                 <div class="notice notice-info">
                     <strong>
@@ -33,17 +33,17 @@
                     <strong>
                         <fmt:message key="courier_order.order_time" bundle="${bundle}"/>
                     </strong>
-                        ${requestScope.order.startTime}
+                    <c:out value="${requestScope.order.startTime}"/>
                 </div>
                 <div class="notice notice-info">
                     <strong>
                         <fmt:message key="courier_order.cargo_type" bundle="${bundle}"/>
-                    </strong> ${requestScope.cargo_type.type}
+                    </strong> <c:out value="${requestScope.cargo_type.type}"/>
                 </div>
                 <div class="notice notice-info">
                     <strong>
                         <fmt:message key="courier_order.transport_type" bundle="${bundle}"/>
-                    </strong> ${requestScope.transport_type.transportType}
+                    </strong> <c:out value="${requestScope.transport_type.transportType}"/>
                 </div>
                 <div class="notice notice-info">
                     <strong>

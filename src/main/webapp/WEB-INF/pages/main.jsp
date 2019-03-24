@@ -66,11 +66,11 @@
 
 <tag:error errorMap="errors"/>
 <c:if test="${param.error != null}">
-    <div class="alert alert-danger" role="alert">
-        <strong>
+<div class="alert alert-danger" role="alert">
+    <strong>
         <fmt:message key="error.tag.letdown" bundle="${bundle}"/>
-        </strong> ${param.error}
-    </div>
+    </strong><fmt:message key="${param.error}" bundle="${bundle}"/>
+</div>
 </c:if>
 <header class="masthead text-white text-center">
     <div class="overlay"></div>

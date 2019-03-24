@@ -19,7 +19,7 @@ public class UserBuilder implements FromMapEntityBuilder<User> {
     private static final String LAST_NAME_FIELD = "last_name";
     private static final String EMAIL_FIELD = "email";
     private static final String PHONE_FIELD = "phone";
-    private static final String PASSWORD_FIELD = "password";
+    private static final String PASSWORD_FIELD = "password_hash";
     private static final String LOCATION_FIELD = "location";
 
     @Override

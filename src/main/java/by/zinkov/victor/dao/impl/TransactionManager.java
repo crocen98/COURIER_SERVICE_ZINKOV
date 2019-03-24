@@ -21,6 +21,7 @@ public final class TransactionManager {
         try {
             ConnectionPool pool = ConnectionPoolImpl.getInstance();
             this.connection = pool.retrieveConnection();
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
             connection.setAutoCommit(false);
             SetterObjectField setter = new SetterObjectField();
 
@@ -38,6 +39,7 @@ public final class TransactionManager {
 
     public void end() throws DaoException {
         try {
+            connection.setAutoCommit(true);
             connection.close();
         } catch (SQLException e) {
             throw new DaoException("problem with  return connection" , e);

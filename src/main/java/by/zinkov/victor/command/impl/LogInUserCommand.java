@@ -1,57 +1,72 @@
 package by.zinkov.victor.command.impl;
 
-import by.zinkov.victor.command.Command;
+import by.zinkov.victor.command.*;
 
-import by.zinkov.victor.command.CommandEnum;
-import by.zinkov.victor.command.Router;
-import by.zinkov.victor.command.CommandException;
 import by.zinkov.victor.domain.UserStatus;
 import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.UserService;
 import by.zinkov.victor.service.ServiceException;
 import by.zinkov.victor.service.impl.UserServiceImpl;
+import by.zinkov.victor.validation.Validator;
+import by.zinkov.victor.validation.ValidatorFactory;
+import by.zinkov.victor.validation.impl.LogInUserValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 public class LogInUserCommand extends Command {
     private static final Logger LOGGER = LogManager.getLogger(LogInUserCommand.class);
 
     private static final String LOGIN_PARAMETER = "login";
-    private static final String PASSWORD_PARAMETER = "password";
+    private static final String PASSWORD_HASH_PARAMETER = "password_hash";
     private static final String USER_ATTRIBUTE = "user";
+    private static final String ERRORS = "errors";
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         router.setType(Router.Type.REDIRECT);
 
-        String login = request.getParameter(LOGIN_PARAMETER);
-        String password = request.getParameter(PASSWORD_PARAMETER);
+
+        Map<String, String> parameters = super.readParameters(request);
+
+        ValidatorFactory validatorFactory = ValidatorFactory.getInstance();
+        LogInUserValidator validator = validatorFactory.getLogInUserValidator();
+        Map<String, String> errorsMap = validator.validate(parameters);
+
+        if(errorsMap.size() != 0){
+            router.setRoute(Page.INDEX.getRout());
+            router.setType(Router.Type.FORWARD);
+            request.setAttribute(ERRORS,errorsMap);
+            return router;
+        }
+
+        String login = parameters.get(LOGIN_PARAMETER);
+        String password = parameters.get(PASSWORD_HASH_PARAMETER);
 
         UserService service = new UserServiceImpl();
         try {
-            Thread.sleep(400);
-            UserDto userDto = service.LogIn(login,password);
+            Thread.sleep(200);
+            UserDto userDto = service.LogIn(login, password);
 
-            HttpSession session = request.getSession();
-            session.setAttribute(USER_ATTRIBUTE , userDto);
-            router.setRoute(Router.INDEX_ROUT);
-           if(userDto.getUserStatus() == UserStatus.BLOCKED){
-               router.setRoute(Router.INDEX_ERROR_ROUT+ "BLOCKED");
-               session.setAttribute(USER_ATTRIBUTE,null);
-           } else if(userDto.getUserStatus() == UserStatus.WAITING_CONFIRMATION){
-               router.setRoute(Router.INDEX_ERROR_ROUT+ "WAITING_CONFIRMATION");
-               session.setAttribute(USER_ATTRIBUTE,null);
-           }
+            if (userDto.getUserStatus() == UserStatus.BLOCKED) {
+                router.setRoute(Router.INDEX_ERROR_ROUT + "BLOCKED");
+            } else if (userDto.getUserStatus() == UserStatus.WAITING_CONFIRMATION) {
+                router.setRoute(Router.INDEX_ERROR_ROUT + "WAITING_CONFIRMATION");
+            } else {
+                HttpSession session = request.getSession();
+                session.setAttribute(USER_ATTRIBUTE, userDto);
+                router.setRoute(Router.INDEX_ROUT);
+            }
         } catch (ServiceException e) {
             LOGGER.error(e);
             router.setRoute(CommandEnum.TO_LOG_IN_PAGE.getUrlWithError(e.getErrorKey()));
         } catch (InterruptedException e) {
             LOGGER.error(e);
-            throw new CommandException("Problem with pause!",e);
+            throw new CommandException("Problem with pause!", e);
         }
         return router;
     }

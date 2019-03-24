@@ -12,6 +12,14 @@ public class ValidatorFactory {
     private ValidatorFactory() {
     }
 
+
+
+    public LogInUserValidator getLogInUserValidator() {
+        return new LogInUserValidator();
+    }
+    public RestorePasswordValidator getRestorePasswordValidator(){
+        return new RestorePasswordValidator();
+    }
     public ActivateCommandValidator getActivateCommandValidator(){
         return new ActivateCommandValidator();
     }

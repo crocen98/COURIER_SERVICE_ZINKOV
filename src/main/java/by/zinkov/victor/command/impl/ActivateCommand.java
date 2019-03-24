@@ -34,16 +34,16 @@ public class ActivateCommand extends Command {
         Router router = new Router();
         router.setType(Router.Type.REDIRECT);
 
-        Map<String,String> parameters = super.readParameters(request);
+        Map<String, String> parameters = super.readParameters(request);
         ValidatorFactory validatorFactory = ValidatorFactory.getInstance();
         Validator validator = validatorFactory.getActivateCommandValidator();
         RegistrationKeyService service = new RegistrationKeyServiceImpl();
         try {
-            Map<String,String> errorsMap =  validator.validate(parameters);
-            if(errorsMap.size() != 0){
+            Map<String, String> errorsMap = validator.validate(parameters);
+            if (errorsMap.size() != 0) {
                 router.setRoute(Page.INDEX.getRout());
                 router.setType(Router.Type.FORWARD);
-                request.setAttribute(ERRORS,errorsMap);
+                request.setAttribute(ERRORS, errorsMap);
                 return router;
             }
 
@@ -51,17 +51,22 @@ public class ActivateCommand extends Command {
             String value = parameters.get(ACTIVATE_STRING);
 
             RegistrationKey key = service.getById(id);
-            if(key.getKey().equals(value)){
-                UserService userService = new UserServiceImpl();
-                UserDto userDto  = userService.getByPK(id);
-                userService.setNewStatus(userDto.getId(),UserStatus.ACTIVE.toString());
-                userDto.setUserStatus(UserStatus.ACTIVE);
-                service.remove(key);
-                HttpSession session = request.getSession();
-                session.setAttribute(USER_ATTRIBUTE, userDto);
-                router.setRoute(Router.INDEX_ROUT);
+            if (key == null) {
+                router.setType(Router.Type.REDIRECT);
+                router.setRoute(Router.INDEX_ERROR_ROUT + "not_active_error_key.error");
             } else {
-                throw new CommandException("Attempt to gain unauthorized access!");
+                if ((key.getKey().equals(value))) {
+                    UserService userService = new UserServiceImpl();
+                    UserDto userDto = userService.getByPK(id);
+                    userService.setNewStatus(userDto.getId(), UserStatus.ACTIVE.toString());
+                    userDto.setUserStatus(UserStatus.ACTIVE);
+                    service.remove(key);
+                    HttpSession session = request.getSession();
+                    session.setAttribute(USER_ATTRIBUTE, userDto);
+                    router.setRoute(Router.INDEX_ROUT);
+                } else {
+                    throw new CommandException("Attempt to gain unauthorized access!");
+                }
             }
         } catch (ServiceException e) {
             LOGGER.error(e);

@@ -49,6 +49,10 @@ public enum CommandEnum {
     private final RequestMethod method;
     private final AccessLevel[] levels;
 
+    public RequestMethod getMethod() {
+        return method;
+    }
+
     CommandEnum(String name, RequestMethod expectedMethod, AccessLevel... levels) {
         this.name = name;
         this.method = expectedMethod;

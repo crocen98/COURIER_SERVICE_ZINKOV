@@ -15,9 +15,10 @@ public class SupportedCargoTypes implements Identified<Integer>, Serializable {
         return id;
     }
 
-    public void setId(Integer id){
+    public void setId(Integer id) {
         this.id = id;
     }
+
     public int getCurrierCapabilityId() {
         return currierCapabilityId;
     }

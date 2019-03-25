@@ -5,7 +5,7 @@ import by.zinkov.victor.dao.Identified;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class RegistrationKey implements Identified<Integer> , Serializable {
+public class RegistrationKey implements Identified<Integer>, Serializable {
     private String key;
     private Integer userId;
 

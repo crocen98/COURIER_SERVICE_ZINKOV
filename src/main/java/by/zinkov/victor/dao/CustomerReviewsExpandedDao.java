@@ -8,7 +8,7 @@ public interface CustomerReviewsExpandedDao {
     Double getCourierMark(Integer courierId) throws DaoException;
 
     @AutoConnection
-    CustomerReviews getByCourierUserId(Integer courierId,Integer userId) throws DaoException;
+    CustomerReviews getByCourierUserId(Integer courierId, Integer userId) throws DaoException;
 
     @AutoConnection
     boolean haveMark(Integer courierId, Integer userId) throws DaoException;

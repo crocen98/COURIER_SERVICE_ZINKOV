@@ -3,12 +3,13 @@ package by.zinkov.victor.domain;
 import by.zinkov.victor.dao.Identified;
 
 public enum UserRole implements Identified<Integer> {
-    ADMINISTRATOR(1,"Administrator"),
-    COURIER(2,"Courier"),
-    CLIENT(3,"Client");
+    ADMINISTRATOR(1, "Administrator"),
+    COURIER(2, "Courier"),
+    CLIENT(3, "Client");
     private Integer id;
-    private  String role;
-     UserRole(int id, String role){
+    private String role;
+
+    UserRole(int id, String role) {
         this.id = id;
         this.role = role;
 

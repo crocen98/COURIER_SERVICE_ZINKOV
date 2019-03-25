@@ -8,13 +8,15 @@ import java.util.List;
 
 /**
  * Generic DAO
- * @param <T> - Identified entity
+ *
+ * @param <T>  - Identified entity
  * @param <PK> - Entity primary key
  */
 public interface GenericDao<T extends Identified<PK>, PK extends Serializable> {
 
     /**
      * Save identified entity in DB
+     *
      * @param object identified entity
      * @return identified entity in DB
      * @throws PersistException should be clarify
@@ -24,6 +26,7 @@ public interface GenericDao<T extends Identified<PK>, PK extends Serializable> {
 
     /**
      * Get identified entity by PK
+     *
      * @param id id
      * @return identified entity
      * @throws DaoException should be clarify
@@ -33,6 +36,7 @@ public interface GenericDao<T extends Identified<PK>, PK extends Serializable> {
 
     /**
      * Update identified entity
+     *
      * @param object identified entity
      * @throws PersistException should be clarify
      */
@@ -41,6 +45,7 @@ public interface GenericDao<T extends Identified<PK>, PK extends Serializable> {
 
     /**
      * Delete identified entity
+     *
      * @param object identified entity
      * @throws PersistException should be clarify
      */
@@ -49,6 +54,7 @@ public interface GenericDao<T extends Identified<PK>, PK extends Serializable> {
 
     /**
      * Get all identified entity
+     *
      * @return identified entity
      * @throws DaoException should be clarify
      */

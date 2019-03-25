@@ -5,7 +5,8 @@ import by.zinkov.victor.domain.Order;
 
 public interface OrderExpandedDao {
     @AutoConnection
-     Order getActiveOrder(Integer id) throws DaoException;
+    Order getActiveOrder(Integer id) throws DaoException;
+
     @AutoConnection
     boolean isCourierHaveMoreThanOneActiveOrder(Integer courierId) throws DaoException;
 
@@ -13,6 +14,5 @@ public interface OrderExpandedDao {
     Order getActiveOrderByCourierId(Integer id) throws DaoException;
 
     @AutoConnection
-
     boolean isOrderExpectedStatusMatches(Integer OrderId, Integer expectedStatusId) throws DaoException;
 }

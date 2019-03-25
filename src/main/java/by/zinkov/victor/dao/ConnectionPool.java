@@ -11,6 +11,7 @@ public interface ConnectionPool {
 
     /**
      * Return connection from CP if exists
+     *
      * @return - connection from CP if exists
      * @throws ConnectionPoolException - should be clarify
      */
@@ -18,12 +19,14 @@ public interface ConnectionPool {
 
     /**
      * Put back connection after using
+     *
      * @param connection - connection
      */
     void putBackConnection(Connection connection);
 
     /**
      * Destroy CP. RequestMethod close all connections.
+     *
      * @throws ConnectionPoolException should be clarify
      */
     void destroyPool() throws ConnectionPoolException;

@@ -20,7 +20,7 @@ public interface UserExpandedDao {
     User getByLogin(String login) throws DaoException;
 
     @AutoConnection
-    Map<User,Double> getCouriersWithAppropriateCargoAndTransportType(String transportType, String cargoType) throws DaoException;
+    Map<User, Double> getCouriersWithAppropriateCargoAndTransportType(String transportType, String cargoType) throws DaoException;
 
     @AutoConnection
     List<User> getClientCouriers(Integer clientId) throws DaoException;

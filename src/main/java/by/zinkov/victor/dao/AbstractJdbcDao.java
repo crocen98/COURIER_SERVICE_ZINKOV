@@ -33,6 +33,7 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
     public abstract String getUpdateQuery();
 
     public abstract String getDeleteQuery();
+
     @AutoConnection
     @Override
     public T getByPK(PK key) throws DaoException {
@@ -47,6 +48,7 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
             throw new DaoException("Problem with select", e);
         }
     }
+
     @AutoConnection
     @Override
     public List<T> getAll() throws DaoException {
@@ -80,7 +82,7 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
     }
 
     @Override
-@AutoConnection
+    @AutoConnection
     public void update(T object) throws DaoException {
 
         try (PreparedStatement statement = this.connection.prepareStatement(getUpdateQuery())) {
@@ -90,6 +92,7 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
             throw new DaoException("Problem with update entity", e);
         }
     }
+
     @AutoConnection
     @Override
     public void delete(T object) throws DaoException {

@@ -5,7 +5,7 @@ import by.zinkov.victor.dao.Identified;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class CurrierCapability  implements Identified<Integer>, Serializable {
+public class CurrierCapability implements Identified<Integer>, Serializable {
     private Integer id;
     private Integer currierId = 0;
     private Integer transportId = 0;
@@ -18,11 +18,11 @@ public class CurrierCapability  implements Identified<Integer>, Serializable {
     }
 
 
-
     @Override
     public void setId(Integer id) {
         this.id = id;
     }
+
     public int getCurrierId() {
         return currierId;
     }

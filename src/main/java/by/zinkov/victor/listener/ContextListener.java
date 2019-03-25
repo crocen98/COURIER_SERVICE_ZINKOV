@@ -25,6 +25,7 @@ public class ContextListener implements ServletContextListener {
             ConnectionPoolImpl.getInstance().destroyPool();
         } catch (ConnectionPoolException e) {
             LOGGER.error(e);
+            throw new DestroyConnectionPoolException(e);
         }
 
     }

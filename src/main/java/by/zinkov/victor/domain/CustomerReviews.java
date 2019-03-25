@@ -6,18 +6,20 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class CustomerReviews implements Identified<Integer>, Serializable {
-        private Integer id;
-        private Integer customerId;
-        private Integer courierId;
-        private Byte mark;
+    private Integer id;
+    private Integer customerId;
+    private Integer courierId;
+    private Byte mark;
 
     @Override
     public Integer getId() {
         return id;
     }
+
     public void setId(Integer id) {
         this.id = id;
     }
+
     public int getCustomerId() {
         return customerId;
     }

@@ -12,6 +12,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -19,7 +22,7 @@ import java.util.stream.Collectors;
  * Jdbc DAO Factory
  */
 public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory<Connection> {
-    private static volatile JdbcDaoFactory instance;
+    private static  JdbcDaoFactory instance = new JdbcDaoFactory();
     private Map<Class, Supplier<GenericDao>> creators = new HashMap<>();
 
     private class DaoInvocationHandler implements InvocationHandler {
@@ -83,14 +86,6 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory<Conne
     }
 
     public static JdbcDaoFactory getInstance() {
-        if (instance == null) {
-            synchronized (JdbcDaoFactory.class) {
-                if (instance == null) {
-                    instance = new JdbcDaoFactory();
-                }
-            }
-        }
-
         return instance;
     }
 

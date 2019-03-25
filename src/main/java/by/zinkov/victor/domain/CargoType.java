@@ -9,8 +9,6 @@ public class CargoType implements Identified<Integer>, Serializable {
     private Integer id;
     private String type;
 
-
-
     public void setId(Integer id) {
         this.id = id;
     }

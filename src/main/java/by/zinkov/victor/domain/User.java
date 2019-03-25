@@ -1,14 +1,11 @@
 package by.zinkov.victor.domain;
 
 import by.zinkov.victor.dao.Identified;
-import lombok.Builder;
-import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-//@Data
-//@Builder
+
 public class User implements Identified<Integer>, Serializable {
     private Integer id;
     private String password;

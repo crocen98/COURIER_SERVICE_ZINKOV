@@ -2,13 +2,14 @@ package by.zinkov.victor.domain;
 
 import by.zinkov.victor.dao.Identified;
 
-public enum  OrderStatus implements Identified<Integer> {
+public enum OrderStatus implements Identified<Integer> {
     PERFORMED(1),
     ORDERED(2),
     READY(3),
     CANCELED(4);
 
     private Integer id;
+
     @Override
     public Integer getId() {
         return id;
@@ -20,7 +21,7 @@ public enum  OrderStatus implements Identified<Integer> {
     }
 
 
-    OrderStatus(Integer id){
+    OrderStatus(Integer id) {
         this.id = id;
     }
 }

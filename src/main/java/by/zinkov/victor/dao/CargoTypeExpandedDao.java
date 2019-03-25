@@ -8,6 +8,7 @@ import java.util.List;
 public interface CargoTypeExpandedDao {
     @AutoConnection
     CargoType getByName(String name) throws DaoException;
+
     @AutoConnection
     List<CargoType> getByCourierId(Integer courierId) throws DaoException;
 }

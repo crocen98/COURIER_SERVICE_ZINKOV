@@ -122,13 +122,10 @@
     </div>
 
     <script>
-
-
         var links = document.getElementsByClassName("editCargoTypeLink")
         for (var i = 0; i < links.length; ++i) {
             links[i].addEventListener('click', editTransportType, false);
         }
-
         function editTransportType(event) {
             var allElements = event.target.nextElementSibling;
             console.log(allElements);

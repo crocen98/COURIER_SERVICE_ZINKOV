@@ -20,12 +20,9 @@
     </script>
     <title>SB Admin 2 - Register</title>
 
-    <!-- Custom fonts for this template-->
     <link href="${pageContext.request.contextPath}/css/fontawesome-free/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
-
-    <!-- Custom styles for this template-->
     <link href="${pageContext.request.contextPath}/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
@@ -87,7 +84,8 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input required type="email" class="form-control form-control-user" name="email"
+                                <input required type="email" pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
+                                       class="form-control form-control-user" name="email"
                                        placeholder="<fmt:message key="form.email" bundle="${bundle}"/>">
                             </div>
 
@@ -159,210 +157,13 @@
 
 <script src="${pageContext.request.contextPath}/js/sb-admin-2.min.js"></script>
 <script>
-    hashPass("password_hash","form_signup", "exampleInputPassword", "logininput");
+    hashPass("password_hash", "form_signup", "exampleInputPassword", "logininput");
 </script>
 
-<script>
-    var inputCoordinates = document.getElementById("coordinates");
-
-    inputCoordinates.addEventListener("input", function (eventTarget) {
-        console.log(eventTarget.target.value);
-        console.log("inpuuuuuuutttt");
-        if (eventTarget.target.value != null) {
-            document.getElementById("but").removeAttribute("disabled");
-        }
-    });
-</script>
-
-<script type="text/javascript">
-    var globalCord;
-    var cordName;
-    var isInputAction = false;
-    document.getElementById("coordinates").addEventListener("input", inputCordForm);
-
-    function inputCordForm(event) {
-        isInputAction = true;
-        cordName = event.target.value;
-        ymaps.ready(init);
-        setTimeout(func, 100);
-
-        function func() {
-            console.log(globalCord + "  globalCord");
-            document.getElementById("сoordinatesInput").value = globalCord;
-            isInputAction = false;
-        }
-    }
-
-    ymaps.ready(init);
-
-    function init() {
-
-        myMap = new ymaps.Map('map', {
-            center: [53.54588147535851, 28.113893988281244],
-            zoom: 10
-        }, {
-            searchControlProvider: 'yandex#search'
-        });
-
-        var location = ymaps.geolocation;
-        location.get({
-            provider: 'yandex',
-            mapStateAutoApply: true
-        }).then(function (result) {
-            // Красным цветом пометим положение, вычисленное через ip.
-            result.geoObjects.options.set('preset', 'islands#redCircleIcon');
-            result.geoObjects.get(0).properties.set({
-                balloonContentBody: 'Мое местоположение'
-            });
-            myMap.geoObjects.add(result.geoObjects);
-        });
-
-        var myPlacemark;
-        if (isInputAction) {
-            console.log(isInputAction);
-            console.log(cordName);
-            console.log("ISINPUTACTION");
-            var myGeocoder = ymaps.geocode(cordName);
-            var res = myGeocoder.then(
-                function (result) {
-                    var coordinates = result.geoObjects.get(0).geometry.getCoordinates();
-
-                    globalCord = coordinates;
-                },
-                function (err) {
-                    alert('Ошибка');
-                }
-            );
-
-            var myCircle = ymaps.Circle([
-                // Координаты центра круга.
-                [53.91071905554657, 27.861208441406248],
-                // Радиус круга в метрах.
-                10000
-            ], {
-                // Описываем свойства круга.
-                // Содержимое балуна.
-                balloonContent: "Радиус круга - 10 км",
-                // Содержимое хинта.
-                hintContent: "Подвинь меня"
-            }, {
-                // Задаем опции круга.
-                // Включаем возможность перетаскивания круга.
-                draggable: true,
-                // Цвет заливки.
-                // Последний байт (77) определяет прозрачность.
-                // Прозрачность заливки также можно задать используя опцию "fillOpacity".
-                fillColor: "#DB709377",
-                // Цвет обводки.
-                strokeColor: "#990066",
-                // Прозрачность обводки.
-                strokeOpacity: 0.8,
-                // Ширина обводки в пикселях.
-                strokeWidth: 5
-            });
-            myMap.geoObjects.add(myCircle);
-
-        } else {
+<script src="${pageContext.request.contextPath}/js/sigh_up.js"></script>
 
 
-            myMap.events.add('click', function (e) {
-                var coords = e.get('coords');
-                console.log("coords");
-                console.log(coords);
 
-
-                // Если метка уже создана – просто передвигаем ее.
-                if (myPlacemark) {
-                    myPlacemark.geometry.setCoordinates(coords);
-                }
-                // Если нет – создаем.
-                else {
-                    myPlacemark = createPlacemark(coords);
-                    myMap.geoObjects.add(myPlacemark);
-                    // Слушаем событие окончания перетаскивания на метке.
-                    myPlacemark.events.add('dragend', function () {
-                        getAddress(myPlacemark.geometry.getCoordinates());
-                    });
-                }
-                getAddress(coords);
-            });
-
-
-            ///////////////////////
-
-
-            ///////////////////////////////
-
-
-            // Создание метки.
-            function createPlacemark(coords) {
-                return new ymaps.Placemark(coords, {
-                    iconCaption: 'поиск...'
-                }, {
-                    preset: 'islands#violetDotIconWithCaption',
-                    draggable: true
-                });
-            }
-
-            // Определяем адрес по координатам (обратное геокодирование).
-            function getAddress(coords) {
-                myPlacemark.properties.set('iconCaption', 'поиск...');
-                ymaps.geocode(coords).then(function (res) {
-                    var firstGeoObject = res.geoObjects.get(0);
-
-                    myPlacemark.properties
-                        .set({
-                            // Формируем строку с данными об объекте.
-                            iconCaption: [
-                                // Название населенного пункта или вышестоящее административно-территориальное образование.
-                                firstGeoObject.getLocalities().length ? firstGeoObject.getLocalities() : firstGeoObject.getAdministrativeAreas(),
-                                // Получаем путь до топонима, если метод вернул null, запрашиваем наименование здания.
-                                firstGeoObject.getThoroughfare() || firstGeoObject.getPremise()
-                            ].filter(Boolean).join(', '),
-                            // В качестве контента балуна задаем строку с адресом объекта.
-                            balloonContent: firstGeoObject.getAddressLine()
-                        });
-
-                    console.log(myPlacemark.properties._data.balloonContent);
-                    document.getElementById("coordinates").value = myPlacemark.properties._data.balloonContent;
-                    document.getElementById("сoordinatesInput").value = coords;
-                });
-            }
-        }
-    }
-
-
-    function loadXMLDoc(userLogin) {
-        console.log("ACTIONNNNNNNNNNN");
-        var xmlhttp;
-
-        if (window.XMLHttpRequest) {
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function () {
-            if (xmlhttp.status == 200) {
-                var isValidLogin = xmlhttp.responseText;
-                var labelItem = document.getElementById("label_login");
-                console.log(isValidLogin);
-                labelItem.innerHTML = xmlhttp.responseText;
-                if (document.getElementById("logininputlabel").getAttribute("class") == "disabled") {
-                    document.getElementById("but_sign_up").disabled = true;
-                } else {
-                    document.getElementById("but_sign_up").disabled = false;
-                }
-            } else {
-
-            }
-        };
-
-        xmlhttp.open("POST", "AjaxServlet", true);
-        xmlhttp.setRequestHeader("content-type", "application/x-www-form-urlencoded");
-        xmlhttp.send("command=check_login&login=" + userLogin.value);
-    }
-
-</script>
 
 </body>
 

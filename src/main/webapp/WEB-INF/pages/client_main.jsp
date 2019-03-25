@@ -15,14 +15,6 @@
 <c:set var="paramsStringsWithCommandParameter" value="${fn:substringBefore(parameters_main_page, command)}"/>
 <c:set var="parameters_main_page" value="${fn:substring(paramsStringsWithCommandParameter, 0, fn:length(paramsStringsWithCommandParameter) - 1)}"/>
 </c:if>
-
-
-<%--<c:set var="parametersString" value="${pageContext.request.queryString}"/>--%>
-<%--<c:set var="lang" value="lang"/>--%>
-<%--<c:if test="${fn:contains(parametersString, lang)}">--%>
-    <%--<c:set var="paramsStringsWithLangParameter" value="${fn:substringBefore(parametersString, lang)}"/>--%>
-    <%--<c:set var="parametersString" value="${fn:substring(paramsStringsWithLangParameter, 0, fn:length(paramsStringsWithLangParameter) - 1)}"/>--%>
-<%--</c:if>--%>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 
 <div class="container">

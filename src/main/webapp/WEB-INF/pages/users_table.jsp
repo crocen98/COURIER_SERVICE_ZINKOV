@@ -5,7 +5,6 @@
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <tag:error errorMap="errors"/>
 
-
 <h3>My couriers</h3>
 <table class="table table-striped">
     <thead>

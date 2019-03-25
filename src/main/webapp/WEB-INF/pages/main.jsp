@@ -4,36 +4,25 @@
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<c:if test="${sessionScope.lang != null}">
-    <fmt:setLocale value="${sessionScope.lang}"/>
-</c:if>
-<c:if test="${sessionScope.lang == null}">
-    <fmt:setLocale value="en"/>
-</c:if>
+<fmt:setLocale value="${sessionScope.lang}"/>
+
 
 <fmt:setBundle basename="language" var="bundle" scope="application"/>
 <html>
 <head>
     <title>Landing Page - Start Bootstrap Theme</title>
-
-    <!-- Bootstrap core CSS -->
     <link href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom fonts for this template -->
     <link href="${pageContext.request.contextPath}/css/fontawesome-free/all.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/simple-line-icons/simple-line-icons.css" rel="stylesheet"
           type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
           type="text/css">
-
-    <!-- Custom styles for this template -->
     <link href="${pageContext.request.contextPath}/css/landing-page.min.css" rel="stylesheet">
 
 </head>
 
 <body>
 
-<!-- Navigation -->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container d-flex justify-content-end">
         <div class="btn-group">
@@ -56,13 +45,11 @@
             </div>
         </div>
 
-        <%--<a class="navbar-brand" href="#">Language</a>--%>
         <a class="btn btn-primary" style="margin-left: 10px" href="${pageContext.servletContext.contextPath}/index?command=to_log_in_page">
             <fmt:message key="main.loginbuttom" bundle="${bundle}"/></a>
     </div>
 </nav>
 
-<!-- Masthead -->
 
 <tag:error errorMap="errors"/>
 <c:if test="${param.error != null}">
@@ -82,22 +69,19 @@
                 </h1>
             </div>
             <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-                <%--<form >--%>
-                <%--<div class="form-row">--%>
+
                 <div class="col-12 col-md-12">
                     <a class="btn btn-block btn-lg btn-primary"
                        href="${pageContext.servletContext.contextPath}/index?command=sign_up">
                         <fmt:message key="main.signpbuttom" bundle="${bundle}"/>
                     </a>
                 </div>
-                <%--</div>--%>
-                <%--</form>--%>
+
             </div>
         </div>
     </div>
 </header>
 
-<!-- Icons Grid -->
 <section class="features-icons bg-light text-center">
     <div class="container">
         <h2 style="margin-bottom: 40px">
@@ -182,8 +166,6 @@
     </div>
 </section>
 
-
-<!-- Image Showcases -->
 <section class="showcase">
     <div class="container-fluid p-0">
         <div class="row no-gutters">
@@ -216,8 +198,6 @@
 <script src="${pageContext.request.contextPath}/js/jquery/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.bundle.min.js"></script>
 
-
-<!-- Bootstrap core JavaScript -->
 
 
 

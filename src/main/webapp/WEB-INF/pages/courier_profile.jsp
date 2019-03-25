@@ -140,7 +140,7 @@
             <div class="notice notice-info">
                 <strong>
                     <fmt:message key="main.mark" bundle="${bundle}"/>:
-                    </strong> ${mark}
+                </strong> ${mark}
             </div>
         </div>
         <div class="col-md-7">
@@ -152,7 +152,7 @@
                 <div class="form-group">
                     <form action="${pageContext.servletContext.contextPath}/index?command=new_courier_position"
                           method="POST">
-                        <input  disabled required type="text" class="form-control form-control-user"
+                        <input disabled required type="text" class="form-control form-control-user"
                                id="coordinates"
                                placeholder="<fmt:message key="form.location" bundle="${bundle}"/>">
                         <input required id="сoordinatesInput" name="location" type="hidden"
@@ -172,7 +172,6 @@
 <jsp:include page="../frames/footer.jsp"/>
 
 <script type="text/javascript">
-    var globalCord;
     var cordName;
     var isInputAction = false;
     document.getElementById("coordinates").addEventListener("input", inputCordForm);
@@ -181,13 +180,6 @@
         isInputAction = true;
         cordName = event.target.value;
         ymaps.ready(init);
-        setTimeout(func, 100);
-
-        function func() {
-            console.log(globalCord + "  globalCord");
-            document.getElementById("сoordinatesInput").value = globalCord;
-            isInputAction = false;
-        }
     }
 
     ymaps.ready(init);
@@ -208,7 +200,6 @@
         }).then(function (result) {
             console.log(result);
             console.log("${user.location}".split(","));
-            // Красным цветом пометим положение, вычисленное через ip.
             result.geoObjects.position = "${user.location}".split(",");
             console.log(result.geoObjects.position + "POSITION");
             result.geoObjects.options.set('preset', 'islands#redCircleIcon');
@@ -219,121 +210,75 @@
         });
 
         var myPlacemark;
-        if (isInputAction) {
-            console.log(isInputAction);
-            console.log(cordName);
-            console.log("ISINPUTACTION");
-            var myGeocoder = ymaps.geocode(cordName);
-            var res = myGeocoder.then(
-                function (result) {
-                    var coordinates = result.geoObjects.get(0).geometry.getCoordinates();
 
-                    globalCord = coordinates;
-                },
-                function (err) {
-                    alert('Ошибка');
-                }
-            );
+        myMap.events.add('click', function (e) {
+            var coords = e.get('coords');
+            console.log("coords");
+            console.log(coords);
+            if (myPlacemark) {
+                myPlacemark.geometry.setCoordinates(coords);
+            }
+            else {
+                myPlacemark = createPlacemark(coords);
+                myMap.geoObjects.add(myPlacemark);
+                myPlacemark.events.add('dragend', function () {
+                    getAddress(myPlacemark.geometry.getCoordinates());
+                });
+            }
+            getAddress(coords);
+        });
 
-        } else {
-
-
-            myMap.events.add('click', function (e) {
-                var coords = e.get('coords');
-                console.log("coords");
-                console.log(coords);
-
-
-                // Если метка уже создана – просто передвигаем ее.
-                if (myPlacemark) {
-                    myPlacemark.geometry.setCoordinates(coords);
-                }
-                // Если нет – создаем.
-                else {
-                    myPlacemark = createPlacemark(coords);
-                    myMap.geoObjects.add(myPlacemark);
-                    // Слушаем событие окончания перетаскивания на метке.
-                    myPlacemark.events.add('dragend', function () {
-                        getAddress(myPlacemark.geometry.getCoordinates());
-                    });
-                }
-                getAddress(coords);
+        function createPlacemark(coords) {
+            return new ymaps.Placemark(coords, {
+                iconCaption: 'поиск...'
+            }, {
+                preset: 'islands#violetDotIconWithCaption',
+                draggable: true
             });
+        }
 
+        getMyAdress("${user.location}".split(","));
 
-            ///////////////////////
+        function getMyAdress(coords) {
+            var myPlacemark2;
+            myPlacemark2 = createPlacemark(coords);
+            myMap.geoObjects.add(myPlacemark2);
+            myPlacemark2.events.add('dragend', function () {
+                getAddress(myPlacemark2.geometry.getCoordinates());
+            });
+            myPlacemark2.properties.set('iconCaption', 'поиск...');
+            ymaps.geocode(coords).then(function (res) {
+                var firstGeoObject = res.geoObjects.get(0);
 
+                myPlacemark2.properties
+                    .set({
+                        iconCaption: [
+                            firstGeoObject.getLocalities().length ? firstGeoObject.getLocalities() : firstGeoObject.getAdministrativeAreas(),
+                            firstGeoObject.getThoroughfare() || firstGeoObject.getPremise()
+                        ].filter(Boolean).join(', '),
+                        balloonContent: firstGeoObject.getAddressLine()
+                    });
+                console.log("FINAL ");
+                document.getElementById("lastCordinates").innerText = myPlacemark2.properties._data.balloonContent;
+            });
+        }
 
-            ///////////////////////////////
+        function getAddress(coords) {
+            myPlacemark.properties.set('iconCaption', 'поиск...');
+            ymaps.geocode(coords).then(function (res) {
+                var firstGeoObject = res.geoObjects.get(0);
 
-
-            // Создание метки.
-            function createPlacemark(coords) {
-                return new ymaps.Placemark(coords, {
-                    iconCaption: 'поиск...'
-                }, {
-                    preset: 'islands#violetDotIconWithCaption',
-                    draggable: true
-                });
-            }
-
-            getMyAdress("${user.location}".split(","));
-
-
-            function getMyAdress(coords) {
-                var myPlacemark2;
-
-                myPlacemark2 = createPlacemark(coords);
-                myMap.geoObjects.add(myPlacemark2);
-                // Слушаем событие окончания перетаскивания на метке.
-                myPlacemark2.events.add('dragend', function () {
-                    getAddress(myPlacemark2.geometry.getCoordinates());
-                });
-                console.log("FINAL 1");
-
-                console.log("FINAL 2");
-                myPlacemark2.properties.set('iconCaption', 'поиск...');
-                ymaps.geocode(coords).then(function (res) {
-                    var firstGeoObject = res.geoObjects.get(0);
-
-                    myPlacemark2.properties
-                        .set({
-                            iconCaption: [
-                                firstGeoObject.getLocalities().length ? firstGeoObject.getLocalities() : firstGeoObject.getAdministrativeAreas(),
-                                firstGeoObject.getThoroughfare() || firstGeoObject.getPremise()
-                            ].filter(Boolean).join(', '),
-                            balloonContent: firstGeoObject.getAddressLine()
-                        });
-                    console.log("FINAL ");
-                    document.getElementById("lastCordinates").innerText = myPlacemark2.properties._data.balloonContent;
-                });
-            }
-
-
-            // Определяем адрес по координатам (обратное геокодирование).
-            function getAddress(coords) {
-                myPlacemark.properties.set('iconCaption', 'поиск...');
-                ymaps.geocode(coords).then(function (res) {
-                    var firstGeoObject = res.geoObjects.get(0);
-
-                    myPlacemark.properties
-                        .set({
-                            // Формируем строку с данными об объекте.
-                            iconCaption: [
-                                // Название населенного пункта или вышестоящее административно-территориальное образование.
-                                firstGeoObject.getLocalities().length ? firstGeoObject.getLocalities() : firstGeoObject.getAdministrativeAreas(),
-                                // Получаем путь до топонима, если метод вернул null, запрашиваем наименование здания.
-                                firstGeoObject.getThoroughfare() || firstGeoObject.getPremise()
-                            ].filter(Boolean).join(', '),
-                            // В качестве контента балуна задаем строку с адресом объекта.
-                            balloonContent: firstGeoObject.getAddressLine()
-                        });
-
-                    console.log(myPlacemark.properties._data.balloonContent);
-                    document.getElementById("coordinates").value = myPlacemark.properties._data.balloonContent;
-                    document.getElementById("сoordinatesInput").value = coords;
-                });
-            }
+                myPlacemark.properties
+                    .set({
+                        iconCaption: [
+                            firstGeoObject.getLocalities().length ? firstGeoObject.getLocalities() : firstGeoObject.getAdministrativeAreas(),
+                            firstGeoObject.getThoroughfare() || firstGeoObject.getPremise()
+                        ].filter(Boolean).join(', '),
+                        balloonContent: firstGeoObject.getAddressLine()
+                    });
+                document.getElementById("coordinates").value = myPlacemark.properties._data.balloonContent;
+                document.getElementById("сoordinatesInput").value = coords;
+            });
         }
     }
 

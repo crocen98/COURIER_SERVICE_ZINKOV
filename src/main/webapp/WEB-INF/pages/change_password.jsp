@@ -2,30 +2,16 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:requestEncoding value="UTF-8"/>
-
-<c:choose>
-    <c:when test="${not empty requestScope.lang}">
-        <fmt:setLocale value="${requestScope.lang}"/>
-    </c:when>
-    <c:otherwise>
-        <fmt:setLocale value="${cookie['lang'].value}"/>
-    </c:otherwise>
-</c:choose>
-
+<fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="language" var="bundle" scope="application"/>
 <html>
-
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>SB Admin 2 - Login</title>
-
-
     <link href="${pageContext.request.contextPath}/css/fontawesome-free/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">

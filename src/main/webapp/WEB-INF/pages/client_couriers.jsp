@@ -32,8 +32,6 @@
         <th scope="col">
             <fmt:message key="client_couriers.your_mark" bundle="${bundle}"/>
         </th>
-
-
     </tr>
     </thead>
     <tbody>
@@ -74,8 +72,6 @@
 
     @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
-    /* Styling h1 and links
-    ––––––––––––––––––––––––––––––––– */
     .radioStar h1[alt="Simple"] {
         color: white;
     }
@@ -93,9 +89,6 @@
     .starrating > input {
         display: none;
     }
-
-    /* Remove radio buttons */
-
     .starrating > label:before {
         content: "\f005"; /* Star */
         font-size: 2em;
@@ -104,21 +97,15 @@
     }
 
     .starrating > label {
-        color: #222222; /* Start color when not clicked */
+        color: #222222;
     }
 
     .starrating > input:checked ~ label {
         color: #ffca08;
     }
 
-    /* Set yellow color when star checked */
-
     .starrating > input:hover ~ label {
         color: #ffca08;
     }
-
-    /* Set yellow color when star hover */
-
-
 </style>
 <jsp:include page="../frames/footer.jsp"/>

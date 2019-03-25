@@ -8,7 +8,6 @@
 
 <fmt:setLocale value="${sessionScope.lang}"/>
 
-
 <fmt:setBundle basename="language" var="bundle" scope="application"/>
 
 <html>
@@ -36,16 +35,12 @@
 
 <script src="${pageContext.request.contextPath}/js/jquery/jquery.min.js"></script>
 
-<!-- Bootstrap core JavaScript-->
 <script src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery/jquery.easing.min.js"></script>
 
-<!-- Core plugin JavaScript-->
 <script src="${pageContext.request.contextPath}/js/sb-admin-2.min.js"></script>
 
-<!-- Custom scripts for all pages-->
 <div class="container">
-    <!-- Outer Row -->
     <c:if test="${param.error != null}">
         <div class="alert alert-danger" role="alert">
             <strong>
@@ -59,36 +54,43 @@
 
             <div class="card o-hidden border-0 shadow-lg my-5">
                 <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
                     <div class="row">
                         <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4"><fmt:message key="activate.welcomeback" bundle="${bundle}"/></h1>
+                                    <h1 class="h4 text-gray-900 mb-4"><fmt:message key="activate.welcomeback"
+                                                                                   bundle="${bundle}"/></h1>
                                 </div>
-                                <form class="user" action="${pageContext.request.contextPath}/index?command=log_in" method="POST" id="form_signup">
+                                <form class="user" action="${pageContext.request.contextPath}/index?command=log_in"
+                                      method="POST" id="form_signup">
                                     <div class="form-group">
-                                        <input required type="text" pattern="(\w|\d|-|_){1,35}" class="form-control form-control-user" name="login" value="client"  placeholder="Enter login ..." id="logininput">
+                                        <input required type="text" pattern="(\w|\d|-|_){1,35}"
+                                               class="form-control form-control-user" name="login" value="client"
+                                               placeholder="Enter login ..." id="logininput">
                                     </div>
 
                                     <div class="form-group">
-                                        <input  required type="password" pattern="(\w|\d|-|_){1,35}" class="form-control form-control-user"  value="12345" name="password" placeholder="Password" id="exampleInputPassword" >
+                                        <input required type="password" pattern="(\w|\d|-|_){1,35}"
+                                               class="form-control form-control-user" value="12345" name="password"
+                                               placeholder="Password" id="exampleInputPassword">
                                     </div>
 
                                     <input type="hidden" id="password_hash" name="password_hash">
 
-                                    <button  class="btn btn-primary btn-user btn-block">
+                                    <button class="btn btn-primary btn-user btn-block">
                                         <fmt:message key="form.login" bundle="${bundle}"/>
                                     </button>
-
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="${pageContext.servletContext.contextPath}/index?command=to_password_recovery_page"><fmt:message key="signup.forgotpassword" bundle="${bundle}"/></a>
+                                    <a class="small"
+                                       href="${pageContext.servletContext.contextPath}/index?command=to_password_recovery_page"><fmt:message
+                                            key="signup.forgotpassword" bundle="${bundle}"/></a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" href="${pageContext.servletContext.contextPath}/index?command=sign_up">
+                                    <a class="small"
+                                       href="${pageContext.servletContext.contextPath}/index?command=sign_up">
                                         <fmt:message key="signup.formname" bundle="${bundle}"/>
                                     </a>
                                 </div>
@@ -108,6 +110,6 @@
 <script src="${pageContext.request.contextPath}/js/sha256.js"></script>
 <script src="${pageContext.request.contextPath}/js/script.js"></script>
 <script>
-    hashPass("password_hash","form_signup", "exampleInputPassword", "logininput");
+    hashPass("password_hash", "form_signup", "exampleInputPassword", "logininput");
 </script>
 </html>

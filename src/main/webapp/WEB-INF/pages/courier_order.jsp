@@ -131,61 +131,7 @@
 
 <jsp:include page="../frames/footer.jsp"/>
 
+<script src="${pageContext.request.contextPath}/js/order_on_map.js"></script>
 <script>
-    ymaps.ready(init);
-
-    function init() {
-
-        myMap = new ymaps.Map('map', {
-            center: "${requestScope.order.startPoint}".split(","),
-            zoom: 6
-        }, {
-            searchControlProvider: 'yandex#search'
-        });
-        getAddress("${requestScope.order.startPoint}", "firstPoint")
-        getAddress("${requestScope.order.finishPoint}", "secondPoint")
-
-
-        myGeoObject = new ymaps.GeoObject({
-            geometry: {
-                type: "Point",
-                coordinates: "${requestScope.order.startPoint}".split(",")
-            },
-            properties: {
-                iconContent: 'Point A',
-            }
-        }, {
-            preset: 'islands#blackStretchyIcon',
-            draggable: false
-        });
-
-        myGeoObject2 = new ymaps.GeoObject({
-            geometry: {
-                type: "Point",
-                coordinates: "${requestScope.order.finishPoint}".split(",")
-            },
-            properties: {
-                iconContent: 'Point B',
-            }
-        }, {
-            preset: 'islands#blackStretchyIcon',
-            draggable: false
-        });
-
-
-        myMap.geoObjects
-            .add(myGeoObject)
-            .add(myGeoObject2)
-    }
-
-
-    function getAddress(coords, idElement) {
-        var cordArr = coords.split(',');
-        ymaps.geocode(cordArr).then(function (res) {
-            var firstGeoObject = res.geoObjects.get(0);
-            document.getElementById(idElement).textContent = firstGeoObject.getAddressLine();
-        });
-    }
-
-
+    initMapOrders("${requestScope.order.startPoint}" ,"${requestScope.order.finishPoint}" );
 </script>

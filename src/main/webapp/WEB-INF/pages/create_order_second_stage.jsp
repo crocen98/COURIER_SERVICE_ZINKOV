@@ -46,7 +46,7 @@
                     <fmt:message key="courier_order.point_a" bundle="${bundle}"/>
 
                 </strong>
-                     <span id=firstPoint>
+                <span id=firstPoint>
                          <fmt:message key="courier_order.loading" bundle="${bundle}"/>
                     </span>
             </div>
@@ -99,66 +99,12 @@
         </c:forEach>
     </div>
 
-
 </div>
 
 <jsp:include page="../frames/footer.jsp"/>
 
+<script src="${pageContext.request.contextPath}/js/order_on_map.js"></script>
 <script>
-    ymaps.ready(init);
-
-    function init() {
-
-        myMap = new ymaps.Map('map', {
-            center: "${sessionScope.order.startPoint}".split(","),
-            zoom: 6
-        }, {
-            searchControlProvider: 'yandex#search'
-        });
-        getAddress("${sessionScope.order.startPoint}", "firstPoint")
-        getAddress("${sessionScope.order.finishPoint}", "secondPoint")
-
-
-        myGeoObject = new ymaps.GeoObject({
-            geometry: {
-                type: "Point",
-                coordinates: "${sessionScope.order.startPoint}".split(",")
-            },
-            properties: {
-                iconContent: 'Point A',
-            }
-        }, {
-            preset: 'islands#blackStretchyIcon',
-            draggable: false
-        });
-
-        myGeoObject2 = new ymaps.GeoObject({
-            geometry: {
-                type: "Point",
-                coordinates: "${sessionScope.order.finishPoint}".split(",")
-            },
-            properties: {
-                iconContent: 'Point B',
-            }
-        }, {
-            preset: 'islands#blackStretchyIcon',
-            draggable: false
-        });
-
-
-        myMap.geoObjects
-            .add(myGeoObject)
-            .add(myGeoObject2)
-    }
-
-
-    function getAddress(coords, idElement) {
-        var cordArr = coords.split(',');
-        ymaps.geocode(cordArr).then(function (res) {
-            var firstGeoObject = res.geoObjects.get(0);
-            document.getElementById(idElement).textContent = firstGeoObject.getAddressLine();
-        });
-    }
-
-
+    initMapOrders("${requestScope.order.startPoint}" ,"${requestScope.order.finishPoint}" );
+</script>
 </script>

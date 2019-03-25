@@ -6,8 +6,6 @@
 <fmt:requestEncoding value="UTF-8"/>
 
 <fmt:setLocale value="${sessionScope.lang}"/>
-
-
 <fmt:setBundle basename="language" var="bundle" scope="application"/>
 <html>
 
@@ -33,17 +31,11 @@
 <body class="bg-gradient-primary">
 
 <script src="${pageContext.request.contextPath}/js/jquery/jquery.min.js"></script>
-
-<!-- Bootstrap core JavaScript-->
 <script src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery/jquery.easing.min.js"></script>
 
-<!-- Core plugin JavaScript-->
 <script src="${pageContext.request.contextPath}/js/sb-admin-2.min.js"></script>
-
-<!-- Custom scripts for all pages-->
 <div class="container">
-    <!-- Outer Row -->
     <c:if test="${param.error != null}">
         <div class="alert alert-danger" role="alert">
             <strong>
@@ -57,7 +49,6 @@
 
             <div class="card o-hidden border-0 shadow-lg my-5">
                 <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
                     <div class="row">
                         <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                         <div class="col-lg-6">
@@ -67,13 +58,18 @@
                                         <fmt:message key="main.restore_password" bundle="${bundle}"/>
                                     </h1>
                                 </div>
-                                <form class="user" action="${pageContext.request.contextPath}/index?command=send_restore_token" method="POST">
+                                <form class="user"
+                                      action="${pageContext.request.contextPath}/index?command=send_restore_token"
+                                      method="POST">
                                     <div class="form-group">
-                                        <input required type="text" pattern="(\w|\d|-|_){1,35}" class="form-control form-control-user" name="login"   placeholder="<fmt:message key="form.login" bundle="${bundle}"/>">
+                                        <input required type="text" pattern="(\w|\d|-|_){1,35}"
+                                               class="form-control form-control-user" name="login"
+                                               placeholder="<fmt:message key="form.login" bundle="${bundle}"/>">
                                     </div>
 
                                     <div class="form-group">
-                                        <input required type="email" class="form-control form-control-user" name="email"
+                                        <input required type="email" pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
+                                               class="form-control form-control-user" name="email"
                                                placeholder="<fmt:message key="form.email" bundle="${bundle}"/>">
                                     </div>
 
@@ -83,18 +79,20 @@
                                                class="form-control form-control-user" name="phone"
                                                placeholder="<fmt:message key="form.phone" bundle="${bundle}"/>">
                                     </div>
-                                    <button  class="btn btn-primary btn-user btn-block">
+                                    <button class="btn btn-primary btn-user btn-block">
                                         <fmt:message key="main.restore_password" bundle="${bundle}"/>
                                     </button>
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="${pageContext.servletContext.contextPath}/index?command=to_log_in_page">
+                                    <a class="small"
+                                       href="${pageContext.servletContext.contextPath}/index?command=to_log_in_page">
                                         <fmt:message key="signup.alreadyhaveaccount" bundle="${bundle}"/>
                                     </a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" href="${pageContext.servletContext.contextPath}/index?command=sign_up">
+                                    <a class="small"
+                                       href="${pageContext.servletContext.contextPath}/index?command=sign_up">
                                         <fmt:message key="signup.formname" bundle="${bundle}"/>
                                     </a>
                                 </div>

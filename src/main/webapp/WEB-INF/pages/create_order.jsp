@@ -6,20 +6,8 @@
 <script src="https://api-maps.yandex.ru/2.1/?apikey=b9f00779-39b3-4da0-b8c3-becb9d63520e&lang=ru_RU"
         type="text/javascript">
 </script>
-<style>
+<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 
-    input:invalid {
-        border-color: red;
-    }
-
-    input:valid {
-        border-color: green;
-    }
-
-    .typesTransport {
-        height: 200px;
-    }
-</style>
 <div class="container">
     <div class="card o-hidden border-0 shadow-lg my-5">
         <div class="card-body p-0">

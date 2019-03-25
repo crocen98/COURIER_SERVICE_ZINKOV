@@ -23,6 +23,7 @@
     <%--<c:set var="paramsStringsWithLangParameter" value="${fn:substringBefore(parametersString, lang)}"/>--%>
     <%--<c:set var="parametersString" value="${fn:substring(paramsStringsWithLangParameter, 0, fn:length(paramsStringsWithLangParameter) - 1)}"/>--%>
 <%--</c:if>--%>
+<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 
 <div class="container">
     <div class="row">
@@ -68,54 +69,6 @@
         </div>
     </div>
 </div>
-<style>
 
-.our-team-main img {
-    border-radius: 50%;
-    margin-bottom: 20px;
-    width: 90px;
-}
-
-.our-team-main h3 {
-    font-size: 20px;
-    font-weight: 700;
-}
-
-.our-team-main p {
-    margin-bottom: 0;
-}
-
-.notice {
-    padding: 15px;
-    background-color: #fafafa;
-    border-left: 6px solid #7f7f84;
-    margin-bottom: 10px;
-    -webkit-box-shadow: 0 5px 8px -6px rgba(0, 0, 0, .2);
-    -moz-box-shadow: 0 5px 8px -6px rgba(0, 0, 0, .2);
-    box-shadow: 0 5px 8px -6px rgba(0, 0, 0, .2);
-}
-
-.notice-success > strong {
-    color: #80D651;
-}
-
-.notice-info {
-    border-color: #45ABCD;
-}
-
-.notice-info > strong {
-    color: #45ABCD;
-}
-
-.notice-warning > strong {
-    color: #FEAF20;
-}
-
-
-
-.notice-danger > strong {
-    color: #d73814;
-}
-</style>
 
 <jsp:include page="../frames/footer.jsp"/>

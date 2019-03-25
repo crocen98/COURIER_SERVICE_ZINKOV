@@ -82,6 +82,7 @@ public class CreateOrderFirstStageStage extends Command {
 
             UserService userService = new UserServiceImpl();
             Map<User, Double> couriers = userService.getCouriersByParams(parameters.get(TRANSPORT_TYPE_ATTRIBUTE), parameters.get(CARGO_TYPE_ATTRIBUTE));
+            System.out.println(couriers);
             couriers = couriers.entrySet().stream().filter(item ->
                     calculateDistance(item.getKey().getLocation(), order.getStartPoint()) <= MAX_RADIUS_OF_DETECTING_COURIER
             ).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));

@@ -105,24 +105,6 @@
     </div>
 
     <div class="row">
-
-        <style>
-
-            input:invalid {
-                border-color: red;
-            }
-
-            input:valid {
-                border-color: green;
-            }
-
-            .typesTransport {
-                height: 200px;
-            }
-        </style>
-
-
-        <!-- Earnings (Monthly) Card Example -->
         <c:forEach var="elem" items="${requestScope.transport_types}" varStatus="status">
             <div class="col-xl-3 col-md-6 mb-4 typesTransport">
                 <div class="card border-left-primary shadow h-100 py-2">

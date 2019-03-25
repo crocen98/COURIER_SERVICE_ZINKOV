@@ -33,30 +33,31 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
     private static final String SELECT_USER_BY_LOGIN = "SELECT * FROM user WHERE user.login = ?";
     private static final String DELETE_USER_QUERY = "DELETE FROM user WHERE id = ?";
     private static final String SELECT_USER_DTO_BY_LOGIN_AND_PASSWORD = "SELECT * FROM user JOIN user_role ON user.role_id = user_role.id JOIN user_status ON user.status_id = user_status.id WHERE user.login = ? AND user.password = ?";
-    private static final String SELECT_USERS_DTO =
-            "SELECT * FROM user JOIN user_role ON user.role_id = user_role.id JOIN user_status ON user.status_id = user_status.id " +
-                    "WHERE user.id > ? " +
-                    "ORDER BY user.id " +
-                    "LIMIT 10";
+    private static final String SELECT_USERS_DTO ="SELECT * FROM user JOIN user_role ON user.role_id = user_role.id JOIN user_status ON user.status_id = user_status.id " +
+            "LIMIT ?,10";
+//            "SELECT * FROM user JOIN user_role ON user.role_id = user_role.id JOIN user_status ON user.status_id = user_status.id " +
+//                    "WHERE user.id > ? " +
+//                    "ORDER BY user.id " +
+//                    "LIMIT 10";
 
     private static final String SELECT_COUNT_USERS = "SELECT COUNT(id) FROM user";
 
     private static final String SELECT_COURIERS_WITH_APPROPRIATE_TRANSPORT_AND_CARGO_TYPE =
-            "    SELECT user.id ,login , password , first_name,last_name , email ,phone , status_id , role_id , location , AVG(mark)from couriers.user JOIN couriers.customer_reviews ON customer_reviews.courier_id = user.id\n" +
-                    "            WHERE\n" +
-                    "    user.id IN\n" +
-                    "            (SELECT currier_id FROM couriers.currier_capability\n" +
-                    "                    JOIN couriers.transport_type\n" +
-                    "                    ON currier_capability.transport_id = transport_type.id\n" +
-                    "                    WHERE transport_type.type = ?\n" +
-                    "                    AND\n" +
-                    "                    currier_capability.id IN\n" +
-                    "                    (SELECT currier_capability_id FROM couriers.supported_cargo_types\n" +
-                    "                    JOIN couriers.cargo_types ON supported_cargo_types.type_id = cargo_types.id\n" +
-                    "                    WHERE cargo_types.type = ?))\n" +
-                    "    AND  user.id NOT IN (SELECT  delivery_order.id_courier FROM couriers.delivery_order\n" +
-                    "            JOIN couriers.order_status ON order_status.id = delivery_order.id_status\n" +
-                    "            WHERE order_status.status = 'PERFORMED' OR order_status.status = 'ORDERED')\n" +
+            "    SELECT user.id ,login , password , first_name,last_name , email ,phone , status_id , role_id , location , AVG(mark) from couriers.user LEFT JOIN couriers.customer_reviews ON customer_reviews.courier_id = user.id\n" +
+                    "            WHERE " +
+                    "    user.id IN " +
+                    "            (SELECT currier_id FROM couriers.currier_capability " +
+                    "                    JOIN couriers.transport_type " +
+                    "                    ON currier_capability.transport_id = transport_type.id " +
+                    "                    WHERE transport_type.type = ? " +
+                    "                    AND " +
+                    "                    currier_capability.id IN " +
+                    "                    (SELECT currier_capability_id FROM couriers.supported_cargo_types " +
+                    "                    JOIN couriers.cargo_types ON supported_cargo_types.type_id = cargo_types.id " +
+                    "                    WHERE cargo_types.type = ?)) " +
+                    "    AND  user.id NOT IN (SELECT  delivery_order.id_courier FROM couriers.delivery_order " +
+                    "            JOIN couriers.order_status ON order_status.id = delivery_order.id_status " +
+                    "            WHERE order_status.status = 'PERFORMED' OR order_status.status = 'ORDERED') " +
                     "    GROUP BY user.id;";
 
 

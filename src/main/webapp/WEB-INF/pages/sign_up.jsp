@@ -27,24 +27,11 @@
 
     <!-- Custom styles for this template-->
     <link href="${pageContext.request.contextPath}/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 
 <body class="bg-gradient-primary">
-<style>
 
-    input:invalid {
-        border-color: red;
-    }
-
-    input:valid {
-        border-color: green;
-    }
-
-    .typesTransport {
-        height: 200px;
-    }
-</style>
 <div class="container">
     <c:if test="${param.error != null}">
         <div class="alert alert-danger" role="alert">

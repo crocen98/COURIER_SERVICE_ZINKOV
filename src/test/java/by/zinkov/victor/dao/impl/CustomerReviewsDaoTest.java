@@ -18,21 +18,7 @@ public class CustomerReviewsDaoTest  extends AbstractDaoTest {
 
 
         GenericDao<User,Integer> userDao = JdbcDaoFactory.getInstance().getDao(User.class);
-//        User user = User.builder()
-//                .location("trash")
-//                .login("crocen98")
-//                .lastName("Zinkov")
-//                .firstName("Victor")
-//                .email("s@icloud.com")
-//                .phone("+35291052630")
-//                .userStatusId(1)
-//                .userRoleId(2)
-//                .password("122234234512223423451222342345122234234545555")
-//                .build();
-
         User user = new User();
-
-
         user.setLocation("trash");
         user.setLogin("crocen98");
         user.setLastName("Zinkov");
@@ -71,10 +57,7 @@ public class CustomerReviewsDaoTest  extends AbstractDaoTest {
     @Test
     public void insertTwoObjectAndDeleteOneTest() throws DaoException {
         GenericDao<User,Integer> userDao = JdbcDaoFactory.getInstance().getDao(User.class);
-       // User user =  User.builder().build();
-
         User user = new User();
-
         user.setLocation("trash");
         user.setLogin("crocen98");
         user.setLastName("Zinkov");
@@ -105,11 +88,7 @@ public class CustomerReviewsDaoTest  extends AbstractDaoTest {
     @Test
     public void insertOneObjectAndFindByPKOne() throws DaoException {
         GenericDao<User,Integer> userDao = JdbcDaoFactory.getInstance().getDao(User.class);
-        //User user =  User.builder().build();
-
-
         User user = new User();
-
         user.setLocation("trash");
         user.setLogin("crocen98");
         user.setLastName("Zinkov");
@@ -120,15 +99,12 @@ public class CustomerReviewsDaoTest  extends AbstractDaoTest {
         user.setUserRoleId(2);
         user.setPassword("122234234512223423451222342345122234234545555");
         userDao.persist(user);
-
         GenericDao<CustomerReviews,Integer> customerReviewsDao = JdbcDaoFactory.getInstance().getDao(CustomerReviews.class);
         CustomerReviews customerReviewsOne = new CustomerReviews();
         customerReviewsOne.setCourierId(0);
         customerReviewsOne.setCustomerId(0);
         customerReviewsOne.setMark((byte) 1);
-
         customerReviewsDao.persist(customerReviewsOne);
-
         CustomerReviews customerReviewsTest = customerReviewsDao.getByPK(0);
         Assert.assertEquals(customerReviewsOne.getId(),customerReviewsTest.getId());
         Assert.assertEquals(customerReviewsOne,customerReviewsTest);

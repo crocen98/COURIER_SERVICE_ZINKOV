@@ -48,7 +48,7 @@ public class SendRestorePasswordTokenCommand extends Command {
             user.setPhone(parameters.get(PHONE_PARAMETER));
 
             UserService service = new UserServiceImpl();
-            service.restoreUserByEmail(user,request);
+            service.restoreUserByEmail(user,request.getRequestURL().toString());
 
         } catch (ServiceException e) {
             LOGGER.error(e);

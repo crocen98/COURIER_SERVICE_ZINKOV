@@ -110,7 +110,7 @@
 
             <li class="nav-item">
                 <a class="nav-link"
-                   href="${pageContext.servletContext.contextPath}/index?command=to_all_users_page_command">
+                   href="${pageContext.servletContext.contextPath}/index?command=to_all_users_page_command&page=1">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Users</span></a>
             </li>

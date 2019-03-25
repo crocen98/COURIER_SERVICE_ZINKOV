@@ -31,9 +31,6 @@ public class FrontController extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=utf-8");
-
-
         LOGGER.info(request.getRequestURI());
         String commandName = request.getParameter(COMMAND_REQUEST_PARAMETER);
         CommandEnum commandEnum = CommandEnum.getByName(commandName);

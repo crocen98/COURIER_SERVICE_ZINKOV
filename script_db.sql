@@ -26,12 +26,12 @@ INSERT INTO couriers.user_status(status) VALUES('WAITING_CONFIRMATION');
 
 CREATE TABLE couriers.user ( 
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  login VARCHAR(45) NOT NULL,
+  login VARCHAR(35) NOT NULL,
   password CHAR(64) NOT NULL,
-  first_name VARCHAR(45) NOT NULL,
-  last_name VARCHAR(45) NOT NULL,
-  email VARCHAR(45) NOT NULL,
-  phone VARCHAR(45) NOT NULL,
+  first_name VARCHAR(35) NOT NULL,
+  last_name VARCHAR(35) NOT NULL,
+  email VARCHAR(35) NOT NULL,
+  phone VARCHAR(35) NOT NULL,
   status_id INT NOT NULL,
   role_id INT NOT NULL,
   location VARCHAR(45) NULL,
@@ -76,7 +76,7 @@ CREATE TABLE  couriers.customer_reviews (
 
 CREATE TABLE  couriers.transport_type (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  type VARCHAR(45) NOT NULL,
+  type VARCHAR(35) NOT NULL,
   coefficient DECIMAL(14,2) NULL,
   UNIQUE(type)
 );
@@ -84,7 +84,7 @@ CREATE TABLE  couriers.transport_type (
 
 CREATE TABLE  couriers.cargo_types (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  type VARCHAR(45) NOT NULL,
+  type VARCHAR(35) NOT NULL,
    UNIQUE(type)
  );
 
@@ -160,7 +160,6 @@ CREATE TABLE  couriers.delivery_order (
   );
 
 
-a8e8f93dc9dfe306433c92589c82874cb9d7b2c7dc194d55907447bdcf794d6f
 
 
 INSERT INTO couriers.user

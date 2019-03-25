@@ -53,7 +53,7 @@ public class UtilValidator {
         return email != null && EMAIL_PATTERN.matcher(email).matches();
     }
 
-    public boolean passwordHashMatches(String pass){
+    public boolean passwordHashMatches(String pass) {
         return pass != null &&
                 PASSWORD_PATTERN.matcher(pass).matches();
     }

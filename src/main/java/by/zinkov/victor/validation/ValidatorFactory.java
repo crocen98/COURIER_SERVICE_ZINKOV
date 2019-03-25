@@ -13,7 +13,9 @@ public class ValidatorFactory {
     }
 
 
-
+    public ToAllUsersPageValidator getToAllUsersPageValidator(){
+        return new ToAllUsersPageValidator();
+    }
     public LogInUserValidator getLogInUserValidator() {
         return new LogInUserValidator();
     }

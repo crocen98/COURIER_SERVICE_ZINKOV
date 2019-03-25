@@ -18,7 +18,9 @@ public interface UserService {
      * @return - saved user
      * @throws ServiceException should be clarify
      */
-    User signUp(User user) throws ServiceException;
+
+    int getUsersCount() throws ServiceException;
+    User signUp(User user, String url) throws ServiceException;
 
     UserDto LogIn(String login, String password) throws ServiceException;
 
@@ -28,7 +30,7 @@ public interface UserService {
 
     void setNewStatus(Integer id, String status) throws ServiceException;
 
-    void restoreUserByEmail(User user, HttpServletRequest request) throws ServiceException;
+    void restoreUserByEmail(User user, String url) throws ServiceException;
 
     void changePassword(String id, String password, String activateString) throws ServiceException;
 
@@ -41,7 +43,7 @@ public interface UserService {
 
     List<User> getAll() throws ServiceException;
 
-    List<UserDto> getAllUsersDto() throws ServiceException;
+    List<UserDto> getAllUsersDto(int start) throws ServiceException;
 
 
     void changeStatus(Integer userId) throws ServiceException;

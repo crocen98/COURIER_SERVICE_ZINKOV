@@ -33,8 +33,13 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
     private static final String SELECT_USER_BY_LOGIN = "SELECT * FROM user WHERE user.login = ?";
     private static final String DELETE_USER_QUERY = "DELETE FROM user WHERE id = ?";
     private static final String SELECT_USER_DTO_BY_LOGIN_AND_PASSWORD = "SELECT * FROM user JOIN user_role ON user.role_id = user_role.id JOIN user_status ON user.status_id = user_status.id WHERE user.login = ? AND user.password = ?";
-    private static final String SELECT_USERS_DTO = "SELECT * FROM user JOIN user_role ON user.role_id = user_role.id JOIN user_status ON user.status_id = user_status.id";
+    private static final String SELECT_USERS_DTO =
+            "SELECT * FROM user JOIN user_role ON user.role_id = user_role.id JOIN user_status ON user.status_id = user_status.id " +
+                    "WHERE user.id > ? " +
+                    "ORDER BY user.id " +
+                    "LIMIT 10";
 
+    private static final String SELECT_COUNT_USERS = "SELECT COUNT(id) FROM user";
 
     private static final String SELECT_COURIERS_WITH_APPROPRIATE_TRANSPORT_AND_CARGO_TYPE =
             "    SELECT user.id ,login , password , first_name,last_name , email ,phone , status_id , role_id , location , AVG(mark)from couriers.user JOIN couriers.customer_reviews ON customer_reviews.courier_id = user.id\n" +
@@ -141,10 +146,21 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
         }
     }
 
+    @Override
+    public int countUsers() throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_COUNT_USERS)) {
+            ResultSet set = statement.executeQuery();
+            set.next();
+            return set.getInt(1);
+        } catch (SQLException e) {
+            throw new DaoException("problem with get all dto users in dao", e);
+        }
+    }
 
     @Override
-    public List<UserDto> getAllUsersDto() throws DaoException {
+    public List<UserDto> getAllUsersDto(int start) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(SELECT_USERS_DTO)) {
+            statement.setInt(1,start);
             ResultSet set = statement.executeQuery();
             return parseResultSetFoUserDto(set);
 

@@ -149,20 +149,18 @@ public class UserServiceImpl implements UserService {
     }
 
     private String registrationLinkBuild(String randomString, Integer userId, String url) {
-        return String.format("Hi!  your activation link: %s/couriers?command=activate&user_id=%d&value=%s", url, userId, randomString);
+        return String.format("Hi!  your activation link: %s?command=activate&user_id=%d&value=%s", url, userId, randomString);
     }
 
     private String restoreLinkBuild(String randomString, Integer userId, String url, String login) {
-        return String.format("Hi!  your restore link: %s/couriers?command=to_change_password_page&user_id=%d&value=%s&login=%s", url, userId, randomString,login);
+        return String.format("Hi!  your restore link: %s?command=to_change_password_page&user_id=%d&value=%s&login=%s", url, userId, randomString,login);
+
     }
 
-    private void sendActivateEmail(User user, HttpServletRequest request) throws ServiceException {
+    private void sendActivateEmail(User user, String url) throws ServiceException {
         StringGenerator generator = new StringGenerator();
         String randomString = generator.generate();
         MailSender sender = MailSender.getInstance();
-        Integer port = request.getLocalPort();
-        String url;
-        url = "http://207.154.220.222" + ":" + port + request.getContextPath();
         String activateLink = restoreLinkBuild(randomString, user.getId(), url, user.getLogin());
         sender.sendEmail(activateLink, user.getEmail());
         RegistrationKeyService registrationKeyService = new RegistrationKeyServiceImpl();
@@ -170,16 +168,27 @@ public class UserServiceImpl implements UserService {
     }
 
 
+
+    private void sendRigestrationEmail(User user, String url) throws ServiceException {
+        StringGenerator generator = new StringGenerator();
+        String randomString = generator.generate();
+        MailSender sender = MailSender.getInstance();
+        String activateLink = registrationLinkBuild(randomString, user.getId(), url);
+        sender.sendEmail(activateLink, user.getEmail());
+        RegistrationKeyService registrationKeyService = new RegistrationKeyServiceImpl();
+        registrationKeyService.add(user.getId(), randomString);
+    }
+
+
+
+
+
+
     @Override
-    public void restoreUserByEmail(User user, HttpServletRequest request) throws ServiceException {
+    public void restoreUserByEmail(User user, String url) throws ServiceException {
         JdbcDaoFactory daoFactory = (JdbcDaoFactory) FactoryProducer.getDaoFactory(DaoFactoryType.JDBC);
         try {
             UserExpandedDao userDao = (UserExpandedDao) daoFactory.getDao(User.class);
-            UtilValidator validator = UtilValidator.getInstance();
-            validator.emailMatches(user.getEmail());
-            validator.simpleStingMatches(user.getLogin(), 45);
-            validator.phoneMatches(user.getPhone());
-
             User userFromDb = userDao.getByLogin(user.getLogin());
             if (userFromDb == null
                     || !Objects.equals(userFromDb.getEmail(), user.getEmail())
@@ -188,7 +197,7 @@ public class UserServiceImpl implements UserService {
                 exception.setErrorKey("find_user_by_email");
                 throw exception;
             }
-            sendActivateEmail(userFromDb, request);
+            sendActivateEmail(userFromDb, url);
         } catch (DaoException e) {
             ServiceException exception = new ServiceException("Cannot restore user by email", e);
             exception.setErrorKey("restore_user_by_email");
@@ -197,11 +206,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User signUp(User user) throws ServiceException {
+    public User signUp(User user, String url) throws ServiceException {
         JdbcDaoFactory daoFactory = (JdbcDaoFactory) FactoryProducer.getDaoFactory(DaoFactoryType.JDBC);
         try {
             GenericDao<User, Integer> userDao = daoFactory.getDao(User.class);
-            return userDao.persist(user);
+            user =  userDao.persist(user);
+            sendRigestrationEmail(user,url);
+            return user;
         } catch (DaoException e) {
             ServiceException exception = new ServiceException("Cannot Sign up" , e);
             exception.setErrorKey("sign_up_user");
@@ -257,11 +268,24 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<UserDto> getAllUsersDto() throws ServiceException {
+    public int getUsersCount() throws ServiceException {
         DaoFactory daoFactory = FactoryProducer.getDaoFactory(DaoFactoryType.JDBC);
         try {
             UserExpandedDao userDao = (UserExpandedDao) daoFactory.getDao(User.class);
-            return userDao.getAllUsersDto();
+            return userDao.countUsers();
+        } catch (DaoException e) {
+            ServiceException exception = new ServiceException("Cannot get count users!" , e);
+            exception.setErrorKey("count_users");
+            throw exception;
+        }
+}
+
+    @Override
+    public List<UserDto> getAllUsersDto(int start) throws ServiceException {
+        DaoFactory daoFactory = FactoryProducer.getDaoFactory(DaoFactoryType.JDBC);
+        try {
+            UserExpandedDao userDao = (UserExpandedDao) daoFactory.getDao(User.class);
+            return userDao.getAllUsersDto(start);
         } catch (DaoException e) {
             ServiceException exception = new ServiceException("Cannot get all users!" , e);
             exception.setErrorKey("get_all_users");

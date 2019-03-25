@@ -21,12 +21,16 @@ public class CargoTypeDaoTest extends AbstractDaoTest {
         GenericDao<CargoType,Integer>  cargoTypeDao = JdbcDaoFactory.getInstance().getDao(CargoType.class);
         CargoType cargoType = new CargoType();
         cargoType.setType("trash");
+
+
         Assert.assertEquals(null,cargoType.getId());
         cargoTypeDao.persist(cargoType);
         cargoType.setId(null);
+        cargoType.setType("trash_two");
         cargoTypeDao.persist(cargoType);
         Assert.assertEquals((Integer)1,cargoType.getId());
         cargoType.setId(null);
+        cargoType.setType("trash_tree");
         cargoTypeDao.persist(cargoType);
         Assert.assertEquals((Integer)2,cargoType.getId());
     }

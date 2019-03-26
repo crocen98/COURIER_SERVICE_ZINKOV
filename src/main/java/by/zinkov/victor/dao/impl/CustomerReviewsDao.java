@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerReviewsDao extends AbstractJdbcDao<CustomerReviews, Integer> implements GenericDao<CustomerReviews, Integer>, CustomerReviewsExpandedDao {
+public class CustomerReviewsDao extends AbstractJdbcDao<CustomerReviews, Integer> implements CustomerReviewsExpandedDao {
 
     private static final String SELECT_ALL_CUSTOMER_REVIEWS_QUERY = "SELECT * FROM customer_reviews";
     private static final String SELECT_CUSTOMER_REVIEWS_BY_PK_QUERY = "SELECT * FROM customer_reviews WHERE id = ?";

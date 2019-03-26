@@ -14,15 +14,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CurrierCapabilityDao extends AbstractJdbcDao<CurrierCapability, Integer> implements GenericDao<CurrierCapability, Integer> , CurrierCapabilityExpandedDao {
+public class CurrierCapabilityDao extends AbstractJdbcDao<CurrierCapability, Integer> implements CurrierCapabilityExpandedDao {
     private static final String SELECT_ALL_CAPABILITIES_QUERY = "SELECT * FROM currier_capability";
     private static final String SELECT_CAPABILITY_BY_PK_QUERY = "SELECT * FROM currier_capability WHERE id = ?";
     private static final String INSERT_NEW_CAPABILITY_QUERY = "INSERT INTO currier_capability ( currier_id , transport_id , is_work ) VALUES ( ? , ? , ? )";
     private static final String UPDATE_CAPABILITY_QUERY = "UPDATE currier_capability SET currier_id = ? , transport_id = ? , is_work = ? WHERE id = ?";
     private static final String DELETE_CAPABILITY_QUERY = "DELETE FROM currier_capability WHERE id = ?";
-    private static final String SELECT_CAPABILITY_BY_CURRIER_ID_QUERY =
-            " SELECT * FROM currier_capability" +
-            " WHERE currier_capability.currier_id = ?";
+    private static final String SELECT_CAPABILITY_BY_CURRIER_ID_QUERY = " SELECT * FROM currier_capability WHERE currier_capability.currier_id = ?";
 
     @Override
     public CurrierCapability getByCourierId(Integer courierId) throws DaoException {

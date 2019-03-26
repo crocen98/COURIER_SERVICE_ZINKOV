@@ -47,7 +47,8 @@
             <td>
                 <form method="POST" action="${pageContext.servletContext.contextPath}/index?command=set_user_mark">
                     <div class="starrating risingstar d-flex justify-content-end flex-row-reverse radioStar">
-                        <button class="btn btn-warning" style="margin-left: 5px;">Send review</button>
+                        <button class="btn btn-warning" style="margin-left: 5px;"><fmt:message key="send_review" bundle="${bundle}"/>
+                        </button>
                         <input type="radio" id="star5_${item.key.id}" name="rating" value="10"/><label for="star5_${item.key.id}"
                                                                                         title="5 star">10</label>
                         <input type="radio" id="star4_${item.key.id}" name="rating" value="8"/><label for="star4_${item.key.id}"

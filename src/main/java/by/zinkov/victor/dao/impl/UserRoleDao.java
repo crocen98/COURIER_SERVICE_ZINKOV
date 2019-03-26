@@ -2,7 +2,6 @@ package by.zinkov.victor.dao.impl;
 
 import by.zinkov.victor.dao.AbstractJdbcDao;
 import by.zinkov.victor.dao.AutoConnection;
-import by.zinkov.victor.dao.GenericDao;
 import by.zinkov.victor.dao.UserRoleExpandedDao;
 import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.domain.UserRole;
@@ -13,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRoleDao extends AbstractJdbcDao<UserRole, Integer> implements GenericDao<UserRole, Integer>, UserRoleExpandedDao {
+public class UserRoleDao extends AbstractJdbcDao<UserRole, Integer> implements UserRoleExpandedDao {
     private static final String SELECT_ALL_USER_ROLES_QUERY = "SELECT * FROM user_role ";
     private static final String SELECT_USER_ROLE_BY_PK_QUERY = "SELECT * FROM user_role WHERE id = ?";
     private static final String SELECT_USER_ROLE_BY_NAME = "SELECT * FROM user_role WHERE role = ?";

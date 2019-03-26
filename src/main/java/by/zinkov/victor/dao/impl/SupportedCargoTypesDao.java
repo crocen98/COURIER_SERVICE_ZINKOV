@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SupportedCargoTypesDao extends AbstractJdbcDao<SupportedCargoTypes, Integer> implements GenericDao<SupportedCargoTypes, Integer>, SupportedCargoTypesExpandedDao {
+public class SupportedCargoTypesDao extends AbstractJdbcDao<SupportedCargoTypes, Integer> implements SupportedCargoTypesExpandedDao {
 
     private static final String SELECT_ALL_SUPPORTED_CARO_TYPES_QUERY = "SELECT * FROM supported_cargo_types";
     private static final String SELECT_SUPPORTED_CARO_TYPES_BY_PK_QUERY = "SELECT * FROM supported_cargo_types WHERE id = ?";

@@ -5,7 +5,7 @@ import by.zinkov.victor.domain.CargoType;
 
 import java.util.List;
 
-public interface CargoTypeExpandedDao {
+public interface CargoTypeExpandedDao extends GenericDao<CargoType, Integer> {
     @AutoConnection
     CargoType getByName(String name) throws DaoException;
 

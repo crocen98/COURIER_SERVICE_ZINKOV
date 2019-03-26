@@ -57,6 +57,7 @@ public class CommandProvider {
         commandMap.put(CommandEnum.DELETE_CARGO_TYPE, new DeleteCargoType());
         commandMap.put(CommandEnum.EDIT_CARGO_TYPE, new EditCargoType());
         commandMap.put(CommandEnum.CANCEL_ORDER, new CancelOrderCommand());
+        commandMap.put(CommandEnum.TO_ALL_ORDERS_PAGE_COMMAND, new ToAllOrderPageCommand());
 
     }
 

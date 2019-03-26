@@ -1,18 +1,17 @@
 package by.zinkov.victor.dao.impl;
 
 import by.zinkov.victor.dao.AbstractJdbcDao;
-import by.zinkov.victor.dao.GenericDao;
 import by.zinkov.victor.dao.OrderExpandedDao;
 import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.domain.Order;
-import by.zinkov.victor.domain.OrderStatus;
+import by.zinkov.victor.dto.OrderDto;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class OrderDao extends AbstractJdbcDao<Order, Integer> implements GenericDao<Order, Integer>, OrderExpandedDao {
+public class OrderDao extends AbstractJdbcDao<Order, Integer> implements OrderExpandedDao {
 
     private static final String SELECT_ALL_ORDERS_QUERY = "SELECT * FROM delivery_order ";
     private static final String SELECT_ORDER_BY_PK_QUERY = "SELECT * FROM delivery_order WHERE id = ?";
@@ -24,6 +23,69 @@ public class OrderDao extends AbstractJdbcDao<Order, Integer> implements Generic
             "id_customer = ? , id_courier = ? , price = ? , id_status = ? , start_point = ? , finish_point = ? ," +
             " description = ? , start_time = ? , finish_time = ?, expected_time = ? , id_cargo_type = ? , id_transport_type = ? " +
             "WHERE id = ?";
+
+    private static final String SELECT_USERS_ORDERS_COUNT_QUERY = "SELECT COUNT(id) FROM delivery_order WHERE id_customer = ?";
+
+    private static final String SELECT_USERS_ORDER =
+            "SELECT delivery_order.id, user.login, user.first_name, user.last_name, user.email,user.phone, " +
+            "delivery_order.price, order_status.status,delivery_order.description, delivery_order.start_time, " +
+            "delivery_order.finish_time, transport_type.type,cargo_types.type " +
+            "FROM delivery_order JOIN user ON delivery_order.id_courier = user.id " +
+            "JOIN order_status ON delivery_order.id_status = order_status.id " +
+            "JOIN transport_type ON delivery_order.id_transport_type = transport_type.id " +
+            "JOIN cargo_types ON delivery_order.id_cargo_type = cargo_types.id " +
+            "WHERE delivery_order.id_customer = ? " +
+            "ORDER BY delivery_order.start_time DESC " +
+            "LIMIT ?,20";
+
+    @Override
+    public List<OrderDto> getAllOrdersDto(Integer page, Integer userId) throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_USERS_ORDER)) {
+            statement.setInt(1,userId);
+            statement.setInt(2,page);
+            ResultSet set = statement.executeQuery();
+            return parseResultSetFoOrderDto(set);
+
+        } catch (SQLException e) {
+            throw new DaoException("problem with get all orderDto in dao", e);
+        }
+    }
+
+    private List<OrderDto> parseResultSetFoOrderDto(ResultSet rs) throws SQLException {
+        List<OrderDto> orders = new ArrayList<>();
+        int i = 1;
+        while (rs.next()) {
+            OrderDto order = new OrderDto();
+            order.setId(rs.getInt(i++));
+            order.setCourierLogin(rs.getString(i++));
+            order.setCourierFirstName(rs.getString(i++));
+            order.setCourierLastName(rs.getString(i++));
+            order.setCourierEmail(rs.getString(i++));
+            order.setCourierPhone(rs.getString(i++));
+            order.setPrice(rs.getBigDecimal(i++));
+            order.setStatus(rs.getString(i++));
+            order.setDescription(rs.getString(i++));
+            order.setStartTime(rs.getTimestamp(i++));
+            order.setFinishTime(rs.getTimestamp(i++));
+            order.setTransportType(rs.getString(i++));
+            order.setCargoType(rs.getString(i));
+            orders.add(order);
+            i = 1;
+        }
+        return orders;
+    }
+
+    @Override
+    public int getUsersOrdersCount(Integer userId) throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_USERS_ORDERS_COUNT_QUERY)) {
+            statement.setInt(1,userId);
+            ResultSet set = statement.executeQuery();
+            set.next();
+            return set.getInt(1);
+        } catch (SQLException e) {
+            throw new DaoException("problem with get all orders in dao", e);
+        }
+    }
 
     private static final String DELETE_USER_QUERY = "DELETE FROM delivery_order WHERE id = ?";
 

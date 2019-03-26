@@ -89,7 +89,7 @@
                             <input name="courier_id" type="hidden" value="${elem.key.id}">
                             <button class="btn" style="color:red;text-align: right; margin-right: -10px">
                                 <i class="fa fa-plus fa-2x "></i>
-                                <h2 style="display: inline">Select</h2>
+                                <h2 style="display: inline">  <fmt:message key="select" bundle="${bundle}"/></h2>
                             </button>
                         </form>
                     </div>
@@ -105,6 +105,49 @@
 
 <script src="${pageContext.request.contextPath}/js/order_on_map.js"></script>
 <script>
-    initMapOrders("${requestScope.order.startPoint}" ,"${requestScope.order.finishPoint}" );
-</script>
+    ymaps.ready(init);
+    function init() {
+        myMap = new ymaps.Map('map', {
+            center: "${sessionScope.order.startPoint}".split(","),
+            zoom: 6
+        }, {
+            searchControlProvider: 'yandex#search'
+        });
+        getAddress("${sessionScope.order.startPoint}", "firstPoint")
+        getAddress("${sessionScope.order.finishPoint}", "secondPoint")
+        myGeoObject = new ymaps.GeoObject({
+            geometry: {
+                type: "Point",
+                coordinates: "${sessionScope.order.startPoint}".split(",")
+            },
+            properties: {
+                iconContent: 'Point A',
+            }
+        }, {
+            preset: 'islands#blackStretchyIcon',
+            draggable: false
+        });
+        myGeoObject2 = new ymaps.GeoObject({
+            geometry: {
+                type: "Point",
+                coordinates: "${sessionScope.order.finishPoint}".split(",")
+            },
+            properties: {
+                iconContent: 'Point B',
+            }
+        }, {
+            preset: 'islands#blackStretchyIcon',
+            draggable: false
+        });
+        myMap.geoObjects
+            .add(myGeoObject)
+            .add(myGeoObject2)
+    }
+    function getAddress(coords, idElement) {
+        var cordArr = coords.split(',');
+        ymaps.geocode(cordArr).then(function (res) {
+            var firstGeoObject = res.geoObjects.get(0);
+            document.getElementById(idElement).textContent = firstGeoObject.getAddressLine();
+        });
+    }
 </script>

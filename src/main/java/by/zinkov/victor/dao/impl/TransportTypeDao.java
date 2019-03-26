@@ -11,7 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransportTypeDao extends AbstractJdbcDao<TransportType, Integer> implements GenericDao<TransportType, Integer>, TransportTypeExpandedDao {
+public class TransportTypeDao extends AbstractJdbcDao<TransportType, Integer> implements TransportTypeExpandedDao {
 
     private static final String SELECT_ALL_TRANSPORT_TYPES_QUERY = "SELECT * FROM transport_type";
     private static final String SELECT_TRANSPORT_TYPE_PK_QUERY = "SELECT * FROM transport_type WHERE id = ?";

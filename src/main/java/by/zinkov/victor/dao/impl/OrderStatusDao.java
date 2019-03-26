@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderStatusDao extends AbstractJdbcDao<OrderStatus, Integer> implements GenericDao<OrderStatus, Integer>, OrderStatusExpandedDao {
+public class OrderStatusDao extends AbstractJdbcDao<OrderStatus, Integer> implements OrderStatusExpandedDao {
 
     private static final String SELECT_ALL_ORDERS_STATUS_QUERY = "SELECT * FROM order_status ";
     private static final String SELECT_ORDER_STATUS_BY_PK_QUERY = "SELECT * FROM order_status WHERE id = ?";
@@ -45,7 +45,7 @@ public class OrderStatusDao extends AbstractJdbcDao<OrderStatus, Integer> implem
             statement.setInt(2, id);
             ResultSet resultSet = statement.executeQuery();
             List<OrderStatus> list = parseResultSet(resultSet);
-            return !list.isEmpty() ? true : false;
+            return !list.isEmpty();
         } catch (SQLException e) {
             throw new DaoException("Problem with select", e);
         }

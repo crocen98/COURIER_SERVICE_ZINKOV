@@ -29,7 +29,6 @@
                             <div class="form-group row">
                                 <label for="sel1">
                                     <fmt:message key="transport_type" bundle="${bundle}"/>
-                                    Transport type
                                 </label>
                                 <select class="form-control " style="border-radius: 15px;" id="sel1"
                                         name="transport_type">
@@ -81,14 +80,14 @@
                                 <div class="form-group">
                                     <input required type="text" class="form-control form-control-user" disabled
                                            id="coordinates"
-                                           placeholder="Point A">
+                                           placeholder="<fmt:message key="courier_order.point_a" bundle="${bundle}"/>">
                                     <input required id="сoordinatesInput" name="start_point" type="hidden">
                                 </div>
 
                                 <div class="form-group">
                                     <input required type="text" class="form-control form-control-user" disabled
                                            id="coordinatesone"
-                                           placeholder="Point B">
+                                           placeholder="<fmt:message key="courier_order.point_b" bundle="${bundle}"/>">
                                     <input required id="сoordinatesInputone" name="finish_point" type="hidden">
                                 </div>
                             </div>

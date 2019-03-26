@@ -3,7 +3,6 @@ package by.zinkov.victor.dao.impl;
 
 import by.zinkov.victor.dao.AbstractJdbcDao;
 import by.zinkov.victor.dao.AutoConnection;
-import by.zinkov.victor.dao.GenericDao;
 import by.zinkov.victor.dao.UserExpandedDao;
 import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.domain.User;
@@ -21,7 +20,7 @@ import java.util.Map;
 /**
  * Example User DAO implementation
  */
-public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDao<User, Integer>, UserExpandedDao {
+public class UserDao extends AbstractJdbcDao<User, Integer> implements UserExpandedDao {
     private static final String SELECT_ALL_USERS_QUERY = "SELECT * FROM user ";
     private static final String SELECT_USER_BY_PK_QUERY = "SELECT * FROM user WHERE id = ?";
     private static final String INSERT_NEW_USER_QUERY =
@@ -33,12 +32,9 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
     private static final String SELECT_USER_BY_LOGIN = "SELECT * FROM user WHERE user.login = ?";
     private static final String DELETE_USER_QUERY = "DELETE FROM user WHERE id = ?";
     private static final String SELECT_USER_DTO_BY_LOGIN_AND_PASSWORD = "SELECT * FROM user JOIN user_role ON user.role_id = user_role.id JOIN user_status ON user.status_id = user_status.id WHERE user.login = ? AND user.password = ?";
-    private static final String SELECT_USERS_DTO ="SELECT * FROM user JOIN user_role ON user.role_id = user_role.id JOIN user_status ON user.status_id = user_status.id " +
+    private static final String SELECT_USERS_DTO ="SELECT * FROM user JOIN user_role ON user.role_id = user_role.id JOIN user_status ON user.status_id = user_status.id ORDER BY user.id " +
             "LIMIT ?,10";
-//            "SELECT * FROM user JOIN user_role ON user.role_id = user_role.id JOIN user_status ON user.status_id = user_status.id " +
-//                    "WHERE user.id > ? " +
-//                    "ORDER BY user.id " +
-//                    "LIMIT 10";
+
 
     private static final String SELECT_COUNT_USERS = "SELECT COUNT(id) FROM user";
 
@@ -172,7 +168,6 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements GenericDa
 
     private List<UserDto> parseResultSetFoUserDto(ResultSet rs) throws SQLException {
         List<UserDto> users = new ArrayList<>();
-
         while (rs.next()) {
             User user = new User();
             user.setId(rs.getInt(1));

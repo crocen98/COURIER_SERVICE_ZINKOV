@@ -20,7 +20,8 @@ public enum Page {
     CLIENT_COURIERS("/WEB-INF/pages/client_couriers.jsp"),
     PAGE_404("/WEB-INF/pages/404.jsp"),
     USERS_TABLE("/WEB-INF/pages/users_table.jsp"),
-    ALL_CARGO_TYPES("/WEB-INF/pages/all_cargo_types.jsp");
+    ALL_CARGO_TYPES("/WEB-INF/pages/all_cargo_types.jsp"),
+    ALL_USERS_ORDER("WEB-INF/pages/all_users_order.jsp");
 
 
 

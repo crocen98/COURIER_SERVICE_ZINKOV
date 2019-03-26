@@ -8,14 +8,45 @@ import by.zinkov.victor.domain.Order;
 import by.zinkov.victor.domain.OrderStatus;
 import by.zinkov.victor.domain.User;
 import by.zinkov.victor.domain.UserRole;
+import by.zinkov.victor.dto.OrderDto;
 import by.zinkov.victor.service.DistanceService;
 import by.zinkov.victor.service.OrderService;
 import by.zinkov.victor.service.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
+
 public class OrderServiceImpl implements OrderService {
     private static final Logger LOGGER = LogManager.getLogger(OrderServiceImpl.class);
+
+
+    @Override
+    public int getUsersOrdersCount(Integer user_id) throws ServiceException {
+        DaoFactory daoFactory = FactoryProducer.getDaoFactory(DaoFactoryType.JDBC);
+        try {
+            OrderExpandedDao orderExpandedDao = (OrderExpandedDao) daoFactory.getDao(Order.class);
+            return orderExpandedDao.getUsersOrdersCount(user_id);
+        } catch (DaoException e) {
+            ServiceException exception = new ServiceException("Cannot get count orders!" , e);
+            exception.setErrorKey("count_orders");
+            throw exception;
+        }
+    }
+
+    @Override
+    public List<OrderDto> getAllUsersOrders(Integer page, Integer userId) throws ServiceException{
+        DaoFactory daoFactory = FactoryProducer.getDaoFactory(DaoFactoryType.JDBC);
+        try {
+            OrderExpandedDao orderExpandedDao = (OrderExpandedDao) daoFactory.getDao(Order.class);
+            return orderExpandedDao.getAllOrdersDto(page, userId);
+        } catch (DaoException e) {
+            ServiceException exception = new ServiceException("Cannot get all users orders!" , e);
+            exception.setErrorKey("get_all_users");
+            throw exception;
+        }
+    }
+
     @Override
     public void cancelOrder(Integer userId, UserRole userRole) throws ServiceException {
         DaoFactory daoFactory = JdbcDaoFactory.getInstance();

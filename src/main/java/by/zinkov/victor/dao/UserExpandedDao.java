@@ -3,12 +3,10 @@ package by.zinkov.victor.dao;
 import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.domain.User;
 import by.zinkov.victor.dto.UserDto;
-import by.zinkov.victor.service.ServiceException;
-
 import java.util.List;
 import java.util.Map;
 
-public interface UserExpandedDao {
+public interface UserExpandedDao extends GenericDao<User, Integer> {
     @AutoConnection
     UserDto logIn(String login, String password) throws DaoException;
 

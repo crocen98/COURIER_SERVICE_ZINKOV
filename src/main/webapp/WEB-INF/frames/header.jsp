@@ -59,21 +59,29 @@
                 <a class="nav-link"
                    href="${pageContext.servletContext.contextPath}/index?command=to_create_order_page">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>new order</span></a>
+                    <span><fmt:message key="hrefmsg.new_order" bundle="${bundle}"/></span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link"
                    href="${pageContext.servletContext.contextPath}/index?command=to_user_order_page">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>My order</span></a>
+                    <span><fmt:message key="hrefmsg.my_order" bundle="${bundle}"/></span></a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="${pageContext.servletContext.contextPath}/index?command=to_all_orders_page_command&page=1">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span><fmt:message key="hrefmsg.all_orders" bundle="${bundle}"/></span></a>
+            </li>
+
 
 
             <li class="nav-item">
                 <a class="nav-link"
                    href="${pageContext.servletContext.contextPath}/index?command=to_client_couriers_page">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>My couriers</span></a>
+                    <span><fmt:message key="hrefmsg.my_couriers" bundle="${bundle}"/></span></a>
             </li>
         </c:if>
 
@@ -82,14 +90,14 @@
                 <a class="nav-link"
                    href="${pageContext.servletContext.contextPath}/index?command=edit_courier_profile_page">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Profile</span></a>
+                    <span><fmt:message key="hrefmsg.profile" bundle="${bundle}"/></span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link"
                    href="${pageContext.servletContext.contextPath}/index?command=to_courier_active_order_page">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Active order</span></a>
+                    <span><fmt:message key="hrefmsg.active_order" bundle="${bundle}"/></span></a>
             </li>
         </c:if>
 
@@ -99,21 +107,21 @@
                 <a class="nav-link"
                    href="${pageContext.servletContext.contextPath}/index?command=all_transport_types">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Transport types</span></a>
+                    <span><fmt:message key="hrefmsg.transport_types" bundle="${bundle}"/></span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link"
                    href="${pageContext.servletContext.contextPath}/index?command=all_cargo_types">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Cargo types</span></a>
+                    <span><fmt:message key="hrefmsg.cargo_types" bundle="${bundle}"/></span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link"
                    href="${pageContext.servletContext.contextPath}/index?command=to_all_users_page_command&page=1">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Users</span></a>
+                    <span><fmt:message key="hrefmsg.users" bundle="${bundle}"/></span></a>
             </li>
         </c:if>
 
@@ -178,7 +186,7 @@
                             </div>
 
                         <a class="btn btn-primary  dropdown-toggle "
-                           href="${pageContext.servletContext.contextPath}/index/?command=log_out">Log out</a>
+                           href="${pageContext.servletContext.contextPath}/index/?command=log_out"><fmt:message key="logout" bundle="${bundle}"/></a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">

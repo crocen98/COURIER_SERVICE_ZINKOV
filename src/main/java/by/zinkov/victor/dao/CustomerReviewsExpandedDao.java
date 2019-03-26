@@ -3,7 +3,7 @@ package by.zinkov.victor.dao;
 import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.domain.CustomerReviews;
 
-public interface CustomerReviewsExpandedDao {
+public interface CustomerReviewsExpandedDao extends GenericDao<CustomerReviews, Integer> {
     @AutoConnection
     Double getCourierMark(Integer courierId) throws DaoException;
 

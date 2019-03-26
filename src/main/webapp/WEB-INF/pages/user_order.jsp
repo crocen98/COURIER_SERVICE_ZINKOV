@@ -11,7 +11,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-5">
-            <h3>Your order:</h3>
+            <h3><fmt:message key="courier_order.your_order" bundle="${bundle}"/></h3>
             <div class="notice notice-info">
                 <strong>
                     <fmt:message key="courier_order.price" bundle="${bundle}"/>

@@ -2,7 +2,6 @@ package by.zinkov.victor.dao.impl;
 
 import by.zinkov.victor.dao.AbstractJdbcDao;
 import by.zinkov.victor.dao.CargoTypeExpandedDao;
-import by.zinkov.victor.dao.GenericDao;
 import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.domain.CargoType;
 
@@ -12,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CargoTypeDao extends AbstractJdbcDao<CargoType, Integer> implements GenericDao<CargoType, Integer>, CargoTypeExpandedDao {
+public class CargoTypeDao extends AbstractJdbcDao<CargoType, Integer> implements CargoTypeExpandedDao {
 
 
     private static final String SELECT_ALL_CARGO_TYPES_QUERY = "SELECT * FROM cargo_types";

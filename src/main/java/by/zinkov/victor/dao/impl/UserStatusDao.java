@@ -1,11 +1,8 @@
 package by.zinkov.victor.dao.impl;
 
 import by.zinkov.victor.dao.AbstractJdbcDao;
-import by.zinkov.victor.dao.GenericDao;
 import by.zinkov.victor.dao.UserStatusExpandedDao;
 import by.zinkov.victor.dao.exception.DaoException;
-import by.zinkov.victor.domain.TransportType;
-import by.zinkov.victor.domain.UserRole;
 import by.zinkov.victor.domain.UserStatus;
 
 import java.sql.PreparedStatement;
@@ -14,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserStatusDao  extends AbstractJdbcDao<  UserStatus, Integer> implements GenericDao<UserStatus, Integer>, UserStatusExpandedDao {
+public class UserStatusDao  extends AbstractJdbcDao<  UserStatus, Integer> implements UserStatusExpandedDao {
 
     private static final String SELECT_ALL_USER_STATUSES_QUERY = "SELECT * FROM user_status ";
     private static final String SELECT_USER_STATUS_BY_PK_QUERY = "SELECT * FROM user_status WHERE id = ?";

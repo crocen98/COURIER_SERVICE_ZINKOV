@@ -14,6 +14,8 @@ import by.zinkov.victor.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class FinishPerfomingOrderCommand extends Command {
     private static final String USER = "user";
@@ -40,7 +42,10 @@ public class FinishPerfomingOrderCommand extends Command {
             OrderStatus orderStatus = OrderStatus.READY;
             orderStatus = orderStatusService.getByName(orderStatus);
             order.setIdStatus(orderStatus.getId());
+            Timestamp timeNow = new Timestamp(new Date().getTime());
+            order.setFinishTime(timeNow);
             orderService.update(order, oldStatusId);
+
         } catch (ServiceException e) {
             router.setRoute(CommandEnum.TO_COURIER_ACTIVE_ORDER_PAGE.getUrlWithError(e.getErrorKey()));
         }

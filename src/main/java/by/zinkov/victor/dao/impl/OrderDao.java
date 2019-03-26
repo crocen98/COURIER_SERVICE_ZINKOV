@@ -45,7 +45,6 @@ public class OrderDao extends AbstractJdbcDao<Order, Integer> implements OrderEx
             statement.setInt(2,page);
             ResultSet set = statement.executeQuery();
             return parseResultSetFoOrderDto(set);
-
         } catch (SQLException e) {
             throw new DaoException("problem with get all orderDto in dao", e);
         }

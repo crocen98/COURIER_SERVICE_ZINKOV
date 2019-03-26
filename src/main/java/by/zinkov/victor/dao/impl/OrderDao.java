@@ -35,7 +35,7 @@ public class OrderDao extends AbstractJdbcDao<Order, Integer> implements OrderEx
             "JOIN transport_type ON delivery_order.id_transport_type = transport_type.id " +
             "JOIN cargo_types ON delivery_order.id_cargo_type = cargo_types.id " +
             "WHERE delivery_order.id_customer = ? " +
-            "ORDER BY delivery_order.start_time DESC " +
+            "ORDER BY delivery_order.id DESC " +
             "LIMIT ?,20";
 
     @Override

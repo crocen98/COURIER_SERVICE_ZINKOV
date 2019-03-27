@@ -36,7 +36,9 @@ public class RestorePasswordValidator implements Validator {
                 errorsMap.put(PASSWORD_HASH_PARAMETER, HASH_ERROR_KEY);
             }
         }
-        if (!validator.simpleStingMatches(parameters.get(ACTIVATE_STRING), 32)) {
+
+        String activateString = parameters.get(ACTIVATE_STRING);
+        if (activateString != null && activateString.length() != 32) {
             errorsMap.put(ACTIVATE_STRING, ACTIVATE_STRING_ERROR_KEY);
         }
         return errorsMap;

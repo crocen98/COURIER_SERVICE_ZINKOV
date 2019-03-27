@@ -8,11 +8,13 @@ import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.RegistrationKeyService;
 import by.zinkov.victor.service.UserService;
 import by.zinkov.victor.service.ServiceException;
+import by.zinkov.victor.service.factory.ServiceFactory;
 import by.zinkov.victor.validation.UtilValidator;
 import by.zinkov.victor.util.MailSender;
 import by.zinkov.victor.util.StringGenerator;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.ws.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -160,11 +162,12 @@ public class UserServiceImpl implements UserService {
     private void sendActivateEmail(User user, String url) throws ServiceException {
         StringGenerator generator = new StringGenerator();
         String randomString = generator.generate();
+        RegistrationKeyService registrationKeyService = new RegistrationKeyServiceImpl();
+        registrationKeyService.add(user.getId(), randomString);
         MailSender sender = MailSender.getInstance();
         String activateLink = restoreLinkBuild(randomString, user.getId(), url, user.getLogin());
         sender.sendEmail(activateLink, user.getEmail());
-        RegistrationKeyService registrationKeyService = new RegistrationKeyServiceImpl();
-        registrationKeyService.add(user.getId(), randomString);
+
     }
 
 

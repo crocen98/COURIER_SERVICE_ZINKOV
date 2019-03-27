@@ -9,9 +9,9 @@ public enum CommandEnum {
     TO_LOG_IN_PAGE("to_log_in_page", RequestMethod.GET, AccessLevel.VISITOR),
     TO_PASSWORD_RECOVERY_PAGE("to_password_recovery_page", RequestMethod.GET, AccessLevel.VISITOR),
     DELETE_TRANSPORT_TYPE("delete_transport_type", RequestMethod.POST, AccessLevel.ADMINISTRATOR),
-    SIGN_UP("sign_up", RequestMethod.POST, AccessLevel.VISITOR),
+    SIGN_UP("sign_up", RequestMethod.GET, AccessLevel.VISITOR),
     ALL_TRANSPORT_TYPES("all_transport_types", RequestMethod.GET, AccessLevel.ADMINISTRATOR),
-    CHANGE_TRANSPORT_TYPE("change_transport_type", RequestMethod.GET, AccessLevel.ADMINISTRATOR),
+    CHANGE_TRANSPORT_TYPE("change_transport_type", RequestMethod.POST, AccessLevel.ADMINISTRATOR),
     REGISTER_COMMAND("register_command", RequestMethod.POST, AccessLevel.VISITOR),
     LOG_IN("log_in", RequestMethod.POST, AccessLevel.VISITOR),
     ACTIVATE("activate", RequestMethod.GET, AccessLevel.VISITOR),
@@ -43,7 +43,7 @@ public enum CommandEnum {
     ADD_CARGO_TYPE("add_cargo_type", RequestMethod.POST, AccessLevel.ADMINISTRATOR),
     DELETE_CARGO_TYPE("delete_cargo_type", RequestMethod.POST, AccessLevel.ADMINISTRATOR),
     EDIT_CARGO_TYPE("edit_cargo_type", RequestMethod.POST, AccessLevel.ADMINISTRATOR),
-    CANCEL_ORDER("cancel_order" , RequestMethod.POST, AccessLevel.CLIENT,AccessLevel.COURIER),
+    CANCEL_ORDER("cancel_order" , RequestMethod.GET, AccessLevel.CLIENT,AccessLevel.COURIER),
     TO_ALL_ORDERS_PAGE_COMMAND("to_all_orders_page_command", RequestMethod.GET,AccessLevel.CLIENT );
 
     private final String name;

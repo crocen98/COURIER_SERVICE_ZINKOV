@@ -1,8 +1,6 @@
 package by.zinkov.victor.service.validation;
 
-import by.zinkov.victor.validation.UtilValidator;
-import by.zinkov.victor.validation.ValidationException;
-import org.junit.Test;
+import by.zinkov.victor.validation.UtilValidator;import org.junit.Test;
 
 
 public class StringValidatorTest {

@@ -35,6 +35,13 @@
 <script src="${pageContext.request.contextPath}/js/jquery/jquery.easing.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/js/sb-admin-2.min.js"></script>
+<a class="sidebar-brand d-flex align-items-center justify-content-center" style="color:white; position: absolute; top: 20px; left: 20px"
+   href="${pageContext.servletContext.contextPath}/">
+    <div class="sidebar-brand-icon rotate-n-15">
+        <i class="fas fa-laugh-wink fa-3x"></i>
+    </div>
+</a>
+
 <div class="container">
     <c:if test="${param.error != null}">
         <div class="alert alert-danger" role="alert">

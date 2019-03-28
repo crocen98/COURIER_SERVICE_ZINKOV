@@ -22,7 +22,6 @@ import by.zinkov.victor.domain.Order;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -34,7 +33,6 @@ public class CreateOrderFirstStageStage extends Command {
     private static final String TRANSPORT_TYPE_ATTRIBUTE = "transport_type";
     private static final String COURIERS_ATTRIBUTE = "couriers";
     private static final String DISTANCE_ATTRIBUTE = "distance";
-    private static final String ERRORS_ATTRIBUTE = "errors";
     private static final int MAX_RADIUS_OF_DETECTING_COURIER = 40;
 
 
@@ -47,18 +45,15 @@ public class CreateOrderFirstStageStage extends Command {
         session.setAttribute(ORDER_ATTRIBUTE, null);
 
         UserDto user = (UserDto) session.getAttribute(USER_ATTRIBUTE);
-        Map<String,String> parameters = readParameters(request);
+        Map<String, String> parameters = readParameters(request);
         ValidatorFactory validatorFactory = ValidatorFactory.getInstance();
         CreateOrderFirstStageValidator createOrderFirstStageValidator = validatorFactory.getCreateOrderFirstStageValidator();
         Map<String, String> errors = createOrderFirstStageValidator.validate(parameters);
         if (errors.size() != 0) {
             LOGGER.warn("User enter not valid data it maybe bug or he is hacks us. User info:\n" + user);
-           // request.setAttribute(ERRORS_ATTRIBUTE, errors);
-            //router.setType(Router.Type.FORWARD);
             session.setAttribute(ORDER_ATTRIBUTE, null);
-           // router.setRoute(Page.START_AUTHORIZED_PAGE.getRout());
 
-            initRouterForFaildValidation(router,request,errors);
+            initRouterForFaildValidation(router, request, errors);
 
             return router;
         }
@@ -85,12 +80,10 @@ public class CreateOrderFirstStageStage extends Command {
 
             UserService userService = new UserServiceImpl();
             Map<User, Double> couriers = userService.getCouriersByParams(parameters.get(TRANSPORT_TYPE_ATTRIBUTE), parameters.get(CARGO_TYPE_ATTRIBUTE));
-            System.out.println(couriers);
             couriers = couriers.entrySet().stream().filter(item ->
                     calculateDistance(item.getKey().getLocation(), order.getStartPoint()) <= MAX_RADIUS_OF_DETECTING_COURIER
             ).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
             request.setAttribute(COURIERS_ATTRIBUTE, couriers);
-            System.out.println(couriers);
 
             double distance = calculateDistance(order);
             request.setAttribute(DISTANCE_ATTRIBUTE, distance);
@@ -99,7 +92,6 @@ public class CreateOrderFirstStageStage extends Command {
             TransportType transportType = transportTypeService.getById(order.getIdTransportType());
             BigDecimal price = BigDecimal.valueOf(transportType.getCoefficient().doubleValue() * distance);
             order.setPrice(price);
-
 
         } catch (ServiceException e) {
             LOGGER.error(e);

@@ -1,8 +1,6 @@
 package by.zinkov.victor.filter;
 
-import by.zinkov.victor.command.Command;
 import by.zinkov.victor.command.CommandEnum;
-import by.zinkov.victor.command.Page;
 import by.zinkov.victor.command.Router;
 
 import javax.servlet.*;

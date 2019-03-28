@@ -68,7 +68,7 @@ public class OrderServiceImpl implements OrderService {
                 if (orderStatus.getId().equals(activeOrder.getIdStatus())) {
                     OrderStatus neededOrderStatus = statusDao.getByName(OrderStatus.CANCELED);
                     activeOrder.setIdStatus(neededOrderStatus.getId());
-                    ((GenericDao<Order, Integer>) orderDao).update(activeOrder);
+                    orderDao.update(activeOrder);
                     manager.commit();
                 } else {
                     ServiceException exception = new ServiceException("Order already performing!");
@@ -115,7 +115,7 @@ public class OrderServiceImpl implements OrderService {
                 exception.setErrorKey("start_performing_order");
                 throw exception;
             }
-            ((GenericDao<Order, Integer>) orderDao).update(order);
+            orderDao.update(order);
             LOGGER.info("COMMIT TRANSACTION");
 
             transactionManager.commit();

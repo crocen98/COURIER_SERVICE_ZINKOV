@@ -3,7 +3,6 @@ package by.zinkov.victor.service;
 import by.zinkov.victor.domain.User;
 import by.zinkov.victor.dto.UserDto;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +19,7 @@ public interface UserService {
      */
 
     int getUsersCount() throws ServiceException;
+
     User signUp(User user, String url) throws ServiceException;
 
     UserDto LogIn(String login, String password) throws ServiceException;
@@ -34,7 +34,7 @@ public interface UserService {
 
     void changePassword(String id, String password, String activateString) throws ServiceException;
 
-    Map<User,Double> getCouriersByParams(String transportType, String cargoType) throws ServiceException;
+    Map<User, Double> getCouriersByParams(String transportType, String cargoType) throws ServiceException;
 
     void update(User user) throws ServiceException;
 

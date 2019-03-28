@@ -5,7 +5,6 @@ import by.zinkov.victor.command.CommandException;
 import by.zinkov.victor.command.Page;
 import by.zinkov.victor.command.Router;
 import by.zinkov.victor.domain.CargoType;
-import by.zinkov.victor.domain.TransportType;
 import by.zinkov.victor.service.CargoTypeService;
 import by.zinkov.victor.service.ServiceException;
 import by.zinkov.victor.service.factory.ServiceFactory;

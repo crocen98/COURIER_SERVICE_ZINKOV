@@ -8,7 +8,6 @@ import by.zinkov.victor.dto.OrderDto;
 import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.OrderService;
 import by.zinkov.victor.service.ServiceException;
-import by.zinkov.victor.service.UserService;
 import by.zinkov.victor.service.factory.ServiceFactory;
 import by.zinkov.victor.validation.ValidatorFactory;
 import by.zinkov.victor.validation.impl.ToAllUsersPageValidator;

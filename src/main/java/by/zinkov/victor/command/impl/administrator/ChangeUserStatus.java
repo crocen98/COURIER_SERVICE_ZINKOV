@@ -23,12 +23,9 @@ public class ChangeUserStatus extends Command {
         Map<String,String> parameters = readParameters(request);
         ValidatorFactory validatorFactory = ValidatorFactory.getInstance();
         ChangeUserStatusValidator addTransportTypeValidator = validatorFactory.getChangeUserStatusValidator();
-        Map<String, String> errors = null;
+        Map<String, String> errors;
         try {
             errors = addTransportTypeValidator.validate(parameters);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
         if (errors.size() != 0){
             initRouterForFaildValidation(router,request,errors);
             return router;
@@ -47,7 +44,7 @@ public class ChangeUserStatus extends Command {
 
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         UserService userService = serviceFactory.getUserService();
-        try {
+
             userService.changeStatus(userId);
         } catch (ServiceException e) {
             throw new CommandException(e);

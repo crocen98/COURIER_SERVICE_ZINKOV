@@ -30,11 +30,7 @@ public class CheckLoginCommand extends Command {
                 request.setAttribute(LOGIN_STATUS_ATTRIBUTE, true);
             }
             User user = service.getByLogin(login);
-            if (user == null) {
-                request.setAttribute(LOGIN_STATUS_ATTRIBUTE, true);
-            } else {
-                request.setAttribute(LOGIN_STATUS_ATTRIBUTE, false);
-            }
+            request.setAttribute(LOGIN_STATUS_ATTRIBUTE, user == null ? true : false);
             return router;
         } catch (ServiceException e) {
             throw new CommandException("Problem with checking user", e);

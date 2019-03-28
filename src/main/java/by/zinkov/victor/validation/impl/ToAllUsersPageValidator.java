@@ -14,7 +14,7 @@ public class ToAllUsersPageValidator implements Validator {
     public Map<String, String> validate(Map<String, String> requestParameters) {
         Map<String, String> errorsMap = new HashMap<>();
         UtilValidator validator = UtilValidator.getInstance();
-        if(!validator.isMatchesInt(requestParameters.get(PAGE_PARAMETER), new int[]{Integer.MIN_VALUE , Integer.MAX_VALUE})){
+        if(!validator.isMatchesInt(requestParameters.get(PAGE_PARAMETER), new int[]{1, Integer.MAX_VALUE})){
             errorsMap.put(PAGE_PARAMETER,PAGE_ERROR);
         }
         return errorsMap;

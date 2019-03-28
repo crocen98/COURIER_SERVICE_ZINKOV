@@ -5,7 +5,6 @@ import by.zinkov.victor.dao.Identified;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Objects;
 
 public class Order implements Identified<Integer>, Serializable {

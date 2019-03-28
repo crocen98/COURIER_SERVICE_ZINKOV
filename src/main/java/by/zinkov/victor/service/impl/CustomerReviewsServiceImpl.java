@@ -35,7 +35,7 @@ public class CustomerReviewsServiceImpl implements CustomerReviewsService {
             manager.begin((AbstractJdbcDao) dao);
             CustomerReviews customerReviews = dao.getByCourierUserId(courierId, userId);
             customerReviews.setMark((byte) (int) rating);
-            ((GenericDao<CustomerReviews, Integer>) dao).update(customerReviews);
+            dao.update(customerReviews);
             manager.commit();
         } catch (DaoException e) {
             try {
@@ -57,28 +57,6 @@ public class CustomerReviewsServiceImpl implements CustomerReviewsService {
 
     @Override
     public void setCourierMark(Integer courierId, Integer userId, Integer rating) throws ServiceException {
-//        DaoFactory daoFactory = JdbcDaoFactory.getInstance();
-//        try {
-//            GenericDao<CustomerReviews, Integer> dao = daoFactory.getDao(CustomerReviews.class);
-//            CustomerReviews customerReviews = new CustomerReviews();
-//            customerReviews.setCustomerId(userId);
-//            customerReviews.setCourierId(courierId);
-//            int intRating = rating;
-//            customerReviews.setMark((byte) intRating);
-//            dao.persist(customerReviews);
-//        } catch (DaoException e) {
-//            ServiceException exception = new ServiceException("Cannot calculate mark for courier by id!", e);
-//            exception.setErrorKey("calculate_mark_by_courier_id");
-//            throw exception;
-//        }
-
-
-
-
-
-
-
-
         DaoFactory daoFactory = JdbcDaoFactory.getInstance();
         TransactionManager manager = new TransactionManager();
         try {
@@ -87,17 +65,16 @@ public class CustomerReviewsServiceImpl implements CustomerReviewsService {
             CustomerReviews customerReviews = dao.getByCourierUserId(courierId, userId);
             if (customerReviews != null){
                 customerReviews.setMark((byte) (int) rating);
-                ((GenericDao<CustomerReviews, Integer>) dao).update(customerReviews);
+                dao.update(customerReviews);
             } else {
                 customerReviews = new CustomerReviews();
                 customerReviews.setCourierId(courierId);
                 customerReviews.setCustomerId(userId);
                 customerReviews.setMark((byte) (int) rating);
-                ((GenericDao<CustomerReviews, Integer>) dao).persist(customerReviews);
+                dao.persist(customerReviews);
             }
             manager.commit();
         } catch (DaoException e) {
-            e.printStackTrace();
             try {
                 manager.rollback();
             } catch (DaoException e1) {

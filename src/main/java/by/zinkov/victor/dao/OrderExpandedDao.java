@@ -3,8 +3,6 @@ package by.zinkov.victor.dao;
 import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.domain.Order;
 import by.zinkov.victor.dto.OrderDto;
-
-import javax.sql.rowset.serial.SerialException;
 import java.util.List;
 
 public interface OrderExpandedDao extends GenericDao<Order, Integer> {

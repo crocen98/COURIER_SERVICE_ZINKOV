@@ -111,10 +111,6 @@ public class OrderDao extends AbstractJdbcDao<Order, Integer> implements OrderEx
 
 
 
-    private static final String SELECT_ORDERED_ORDER_BY_USER_ID =
-            "SELECT * FROM delivery_order JOIN order_status ON order_status.id = delivery_order.id_status" +
-                    " WHERE delivery_order.id_customer = ? AND order_status.status = 'ORDERED'";
-
     @Override
     public boolean isOrderExpectedStatusMatches(Integer OrderId, Integer expectedStatusId) throws DaoException {
         try (PreparedStatement statement = this.connection.prepareStatement(SELECT_ORDER_BY_ID_WITH_STATUS)) {
@@ -122,7 +118,7 @@ public class OrderDao extends AbstractJdbcDao<Order, Integer> implements OrderEx
             statement.setInt(2, expectedStatusId);
             ResultSet resultSet = statement.executeQuery();
             List<Order> list = parseResultSet(resultSet);
-            return list.isEmpty() ? false : true;
+            return !list.isEmpty();
         } catch (SQLException e) {
             throw new DaoException("Problem with select active order by user id", e);
         }

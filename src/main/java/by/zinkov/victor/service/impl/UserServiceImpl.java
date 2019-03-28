@@ -8,13 +8,9 @@ import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.RegistrationKeyService;
 import by.zinkov.victor.service.UserService;
 import by.zinkov.victor.service.ServiceException;
-import by.zinkov.victor.service.factory.ServiceFactory;
-import by.zinkov.victor.validation.UtilValidator;
 import by.zinkov.victor.util.MailSender;
 import by.zinkov.victor.util.StringGenerator;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.ws.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -103,7 +99,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<User,Double> getCouriersByParams(String transportTypeString, String cargoTypeString) throws ServiceException {
+    public Map<User, Double> getCouriersByParams(String transportTypeString, String cargoTypeString) throws ServiceException {
         DaoFactory daoFactory = JdbcDaoFactory.getInstance();
         try {
             CargoTypeExpandedDao cargoTypeExpandedDao = (CargoTypeExpandedDao) daoFactory.getDao(CargoType.class);
@@ -155,7 +151,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private String restoreLinkBuild(String randomString, Integer userId, String url, String login) {
-        return String.format("Hi!  your restore link: %s?command=to_change_password_page&user_id=%d&value=%s&login=%s", url, userId, randomString,login);
+        return String.format("Hi!  your restore link: %s?command=to_change_password_page&user_id=%d&value=%s&login=%s", url, userId, randomString, login);
 
     }
 
@@ -171,7 +167,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     private void sendRigestrationEmail(User user, String url) throws ServiceException {
         StringGenerator generator = new StringGenerator();
         String randomString = generator.generate();
@@ -181,10 +176,6 @@ public class UserServiceImpl implements UserService {
         RegistrationKeyService registrationKeyService = new RegistrationKeyServiceImpl();
         registrationKeyService.add(user.getId(), randomString);
     }
-
-
-
-
 
 
     @Override
@@ -213,11 +204,11 @@ public class UserServiceImpl implements UserService {
         JdbcDaoFactory daoFactory = (JdbcDaoFactory) FactoryProducer.getDaoFactory(DaoFactoryType.JDBC);
         try {
             GenericDao<User, Integer> userDao = daoFactory.getDao(User.class);
-            user =  userDao.persist(user);
-            sendRigestrationEmail(user,url);
+            user = userDao.persist(user);
+            sendRigestrationEmail(user, url);
             return user;
         } catch (DaoException e) {
-            ServiceException exception = new ServiceException("Cannot Sign up" , e);
+            ServiceException exception = new ServiceException("Cannot Sign up", e);
             exception.setErrorKey("sign_up_user");
             throw exception;
 
@@ -232,7 +223,7 @@ public class UserServiceImpl implements UserService {
             UserExpandedDao userDao = (UserExpandedDao) daoFactory.getDao(User.class);
             return userDao.logIn(login, password);
         } catch (DaoException e) {
-            ServiceException exception = new ServiceException("Incorrect login or password" , e);
+            ServiceException exception = new ServiceException("Incorrect login or password", e);
             exception.setErrorKey("user_log_in");
             throw exception;
         }
@@ -246,7 +237,7 @@ public class UserServiceImpl implements UserService {
             UserExpandedDao userDao = (UserExpandedDao) daoFactory.getDao(User.class);
             return userDao.getDtoByPK(id);
         } catch (DaoException e) {
-            ServiceException exception = new ServiceException("Cannot find user by id" , e);
+            ServiceException exception = new ServiceException("Cannot find user by id", e);
             exception.setErrorKey("find_user_by_id");
             throw exception;
         }
@@ -258,12 +249,12 @@ public class UserServiceImpl implements UserService {
         DaoFactory daoFactory = FactoryProducer.getDaoFactory(DaoFactoryType.JDBC);
         try {
             UserExpandedDao userDao = (UserExpandedDao) daoFactory.getDao(User.class);
-            GenericDao<User, Integer> genericUserDao = (GenericDao<User, Integer>) userDao;
+            GenericDao<User, Integer> genericUserDao =  userDao;
             User user = genericUserDao.getByPK(id);
             user.setUserStatusId(UserStatus.ACTIVE.getId());
             genericUserDao.update(user);
         } catch (DaoException e) {
-            ServiceException exception = new ServiceException("Cannot set new user status!" , e);
+            ServiceException exception = new ServiceException("Cannot set new user status!", e);
             exception.setErrorKey("set_new_user_status");
             throw exception;
         }
@@ -277,11 +268,11 @@ public class UserServiceImpl implements UserService {
             UserExpandedDao userDao = (UserExpandedDao) daoFactory.getDao(User.class);
             return userDao.countUsers();
         } catch (DaoException e) {
-            ServiceException exception = new ServiceException("Cannot get count users!" , e);
+            ServiceException exception = new ServiceException("Cannot get count users!", e);
             exception.setErrorKey("count_users");
             throw exception;
         }
-}
+    }
 
     @Override
     public List<UserDto> getAllUsersDto(int start) throws ServiceException {
@@ -290,7 +281,7 @@ public class UserServiceImpl implements UserService {
             UserExpandedDao userDao = (UserExpandedDao) daoFactory.getDao(User.class);
             return userDao.getAllUsersDto(start);
         } catch (DaoException e) {
-            ServiceException exception = new ServiceException("Cannot get all users!" , e);
+            ServiceException exception = new ServiceException("Cannot get all users!", e);
             exception.setErrorKey("get_all_users");
             throw exception;
         }

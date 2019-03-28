@@ -3,10 +3,8 @@ package by.zinkov.victor.dao.impl;
 
 import by.zinkov.victor.dao.AbstractJdbcDao;
 import by.zinkov.victor.dao.CurrierCapabilityExpandedDao;
-import by.zinkov.victor.dao.GenericDao;
 import by.zinkov.victor.dao.exception.DaoException;
 import by.zinkov.victor.domain.CurrierCapability;
-import by.zinkov.victor.domain.TransportType;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

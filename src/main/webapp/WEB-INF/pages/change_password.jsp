@@ -28,7 +28,8 @@
 <script src="${pageContext.request.contextPath}/js/jquery/jquery.easing.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/js/sb-admin-2.min.js"></script>
-<a class="sidebar-brand d-flex align-items-center justify-content-center" style="color:white; position: absolute; top: 20px; left: 20px"
+<a class="sidebar-brand d-flex align-items-center justify-content-center"
+   style="color:white; position: absolute; top: 20px; left: 20px"
    href="${pageContext.servletContext.contextPath}/">
     <div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fa-laugh-wink fa-3x"></i>
@@ -67,11 +68,6 @@
                                         <input required type="password" pattern="^(\w|\d|-|_){1,35}$"
                                                class="form-control form-control-user" name="password"
                                                placeholder="Password" id="exampleInputPassword">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input required type="password" pattern="(\w|\d|-|_){1,35}"
-                                               class="form-control form-control-user" placeholder="Repeat">
                                     </div>
                                     <input required id="keyInput" name="key" type="hidden" value="">
                                     <input type="hidden" id="password_hash" name="password_hash">

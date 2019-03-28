@@ -72,7 +72,7 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
 
             ResultSet generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
-                PK id = (PK) new Integer(generatedKeys.getInt(1));
+                PK id = (PK)(Integer) generatedKeys.getInt(1);
                 object.setId(id);
             }
         } catch (SQLException e) {

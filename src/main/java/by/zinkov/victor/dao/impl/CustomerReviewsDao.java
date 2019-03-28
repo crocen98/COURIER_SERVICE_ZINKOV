@@ -2,9 +2,7 @@ package by.zinkov.victor.dao.impl;
 
 import by.zinkov.victor.dao.AbstractJdbcDao;
 import by.zinkov.victor.dao.CustomerReviewsExpandedDao;
-import by.zinkov.victor.dao.GenericDao;
 import by.zinkov.victor.dao.exception.DaoException;
-import by.zinkov.victor.domain.CargoType;
 import by.zinkov.victor.domain.CustomerReviews;
 
 import java.sql.PreparedStatement;
@@ -55,7 +53,7 @@ public class CustomerReviewsDao extends AbstractJdbcDao<CustomerReviews, Integer
 
             ResultSet resultSet = statement.executeQuery();
             List<CustomerReviews> customerReview = parseResultSet(resultSet);
-            return customerReview.isEmpty() ? false : true;
+            return !customerReview.isEmpty();
         } catch (SQLException e) {
             throw new DaoException("Problem with get CustomerReview by currierId and userId", e);
         }

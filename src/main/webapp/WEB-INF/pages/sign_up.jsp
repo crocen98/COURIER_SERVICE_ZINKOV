@@ -101,7 +101,7 @@
                                        placeholder="<fmt:message key="form.phone" bundle="${bundle}"/>">
                             </div>
                             <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                <div class="col-sm-12 mb-3 mb-sm-0">
                                     <input required type="password" pattern="(\w|\d|-|_){1,35}"
                                            class="form-control form-control-user"
                                            id="exampleInputPassword"
@@ -110,12 +110,7 @@
                                 </div>
                                 <input type="hidden" id="password_hash" name="password_hash">
 
-                                <div class="col-sm-6">
-                                    <input required type="password" pattern="(\w|\d|-|_){1,35}"
-                                           class="form-control form-control-user"
-                                           id="exampleRepeatPassword"
-                                           placeholder="<fmt:message key="form.repeatpassword" bundle="${bundle}"/>">
-                                </div>
+
 
                             </div>
                             <div class="form-group">

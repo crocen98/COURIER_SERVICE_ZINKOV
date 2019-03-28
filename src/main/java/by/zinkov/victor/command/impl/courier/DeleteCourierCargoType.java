@@ -7,7 +7,6 @@ import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.ServiceException;
 import by.zinkov.victor.service.SupportedCargoTypeService;
 import by.zinkov.victor.service.factory.ServiceFactory;
-import by.zinkov.victor.validation.UtilValidator;
 import by.zinkov.victor.validation.ValidatorFactory;
 import by.zinkov.victor.validation.impl.DeleteByIdValidator;
 import org.apache.logging.log4j.LogManager;
@@ -24,14 +23,13 @@ public class DeleteCourierCargoType extends Command {
     private static final String CARGO_TYPE_ID_ERROR_KEY = "cargo_type_id.validation.error";
 
 
-
     @Override
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
         router.setType(Router.Type.REDIRECT);
         router.setRoute(CommandEnum.EDIT_COURIER_PROFILE_PAGE.getUrl());
 
-        Map<String,String> parameters = super.readParameters(request);
+        Map<String, String> parameters = super.readParameters(request);
         ValidatorFactory validatorFactory = ValidatorFactory.getInstance();
         DeleteByIdValidator validator = validatorFactory.getDeleteByIdValidator();
         validator.setErrorKey(CARGO_TYPE_ID_ERROR_KEY);
@@ -39,9 +37,8 @@ public class DeleteCourierCargoType extends Command {
         Map<String, String> errorsMap = validator.validate(parameters);
         String cargoTypeId = request.getParameter(CARGO_TYPE_ID_PARAMETER);
 
-        if(errorsMap.size() != 0){
-            initRouterForFaildValidation(router,request,errorsMap);
-
+        if (errorsMap.size() != 0) {
+            initRouterForFaildValidation(router, request, errorsMap);
             return router;
         }
 
@@ -51,7 +48,7 @@ public class DeleteCourierCargoType extends Command {
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         SupportedCargoTypeService supportedCargoTypeService = serviceFactory.getSupportedCargoTypeService();
         try {
-            supportedCargoTypeService.deleteByCourierId(userDto.getId(),Integer.valueOf(cargoTypeId));
+            supportedCargoTypeService.deleteByCourierId(userDto.getId(), Integer.valueOf(cargoTypeId));
         } catch (ServiceException e) {
             LOGGER.error(e);
             router.setRoute(CommandEnum.EDIT_COURIER_PROFILE_PAGE.getUrlWithError(e.getErrorKey()));

@@ -7,7 +7,6 @@ import by.zinkov.victor.dto.UserDto;
 import by.zinkov.victor.service.UserService;
 import by.zinkov.victor.service.ServiceException;
 import by.zinkov.victor.service.impl.UserServiceImpl;
-import by.zinkov.victor.validation.Validator;
 import by.zinkov.victor.validation.ValidatorFactory;
 import by.zinkov.victor.validation.impl.LogInUserValidator;
 import org.apache.logging.log4j.LogManager;
@@ -23,7 +22,6 @@ public class LogInUserCommand extends Command {
     private static final String LOGIN_PARAMETER = "login";
     private static final String PASSWORD_HASH_PARAMETER = "password_hash";
     private static final String USER_ATTRIBUTE = "user";
-    private static final String ERRORS = "errors";
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
@@ -38,9 +36,7 @@ public class LogInUserCommand extends Command {
         Map<String, String> errorsMap = validator.validate(parameters);
 
         if(errorsMap.size() != 0){
-            router.setRoute(Page.INDEX.getRout());
-            router.setType(Router.Type.FORWARD);
-            request.setAttribute(ERRORS,errorsMap);
+            initRouterForFaildValidation(router,request,errorsMap);
             return router;
         }
 

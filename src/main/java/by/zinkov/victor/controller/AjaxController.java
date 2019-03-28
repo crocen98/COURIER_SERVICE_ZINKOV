@@ -19,7 +19,6 @@ public class AjaxController extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(AjaxController.class);
     private static final String COMMAND_REQUEST_PARAMETER = "command";
     private static final String ERROR = "error";
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);

@@ -21,7 +21,6 @@ public class ToAllUsersPageCommand extends Command {
     private static final String PAGE_PARAMETER = "page";
 
     private static final String USERS_COUNT = "users_count";
-    private static final String ERRORS = "errors";
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
@@ -33,9 +32,7 @@ public class ToAllUsersPageCommand extends Command {
         ToAllUsersPageValidator validator = validatorFactory.getToAllUsersPageValidator();
         Map<String, String> errorsMap = validator.validate(parameters);
         if (errorsMap.size() != 0) {
-            request.setAttribute(ERRORS, errorsMap);
-            router.setRoute(Router.INDEX_ROUT);
-            router.setType(Router.Type.FORWARD);
+            initRouterForFaildValidation(router,request,errorsMap);
             return router;
         }
 

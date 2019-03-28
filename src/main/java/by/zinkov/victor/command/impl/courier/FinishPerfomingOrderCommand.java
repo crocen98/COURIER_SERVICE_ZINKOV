@@ -11,6 +11,8 @@ import by.zinkov.victor.service.OrderService;
 import by.zinkov.victor.service.OrderStatusService;
 import by.zinkov.victor.service.ServiceException;
 import by.zinkov.victor.service.factory.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,9 +21,10 @@ import java.util.Date;
 
 public class FinishPerfomingOrderCommand extends Command {
     private static final String USER = "user";
+    private static final Logger LOGGER = LogManager.getLogger(FinishPerfomingOrderCommand.class);
 
     @Override
-    public Router execute(HttpServletRequest request) throws CommandException {
+    public Router execute(HttpServletRequest request)   {
         Router router = new Router();
         router.setType(Router.Type.REDIRECT);
         router.setRoute(Router.INDEX_ROUT);
@@ -47,6 +50,7 @@ public class FinishPerfomingOrderCommand extends Command {
             orderService.update(order, oldStatusId);
 
         } catch (ServiceException e) {
+            LOGGER.error(e);
             router.setRoute(CommandEnum.TO_COURIER_ACTIVE_ORDER_PAGE.getUrlWithError(e.getErrorKey()));
         }
         return router;

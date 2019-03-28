@@ -14,7 +14,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.Map;
 
 public class SendRestorePasswordTokenCommand extends Command {
@@ -46,7 +45,6 @@ public class SendRestorePasswordTokenCommand extends Command {
             user.setLogin(parameters.get(LOGIN_PARAMETER));
             user.setEmail(parameters.get(EMAIL_PARAMETER));
             user.setPhone(parameters.get(PHONE_PARAMETER));
-
             UserService service = new UserServiceImpl();
             service.restoreUserByEmail(user,request.getRequestURL().toString());
 

@@ -4,7 +4,6 @@ import by.zinkov.victor.builder.BuilderFactory;
 import by.zinkov.victor.builder.impl.TransportTypeBuilder;
 import by.zinkov.victor.command.Command;
 import by.zinkov.victor.command.CommandEnum;
-import by.zinkov.victor.command.Page;
 import by.zinkov.victor.command.Router;
 import by.zinkov.victor.domain.TransportType;
 import by.zinkov.victor.service.factory.ServiceFactory;
@@ -20,7 +19,6 @@ import java.util.Map;
 
 public class EditTransportType extends Command {
     private static final Logger LOGGER = LogManager.getLogger(EditTransportType.class);
-    private static final String ERRORS_ATTRIBUTE = "errors";
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -34,9 +32,7 @@ public class EditTransportType extends Command {
         AddTransportTypeValidator addTransportTypeValidator = validatorFactory.getAddTransportTypeValidator();
         Map<String, String> errors = addTransportTypeValidator.validate(parameters);
         if (errors.size() != 0){
-            router.setType(Router.Type.FORWARD);
-            router.setRoute(Page.INDEX.getRout());
-            request.setAttribute(ERRORS_ATTRIBUTE,errors);
+            initRouterForFaildValidation(router,request,errors);
             return router;
         }
 

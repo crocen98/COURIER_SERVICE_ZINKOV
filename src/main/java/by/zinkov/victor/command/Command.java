@@ -17,8 +17,13 @@ public abstract class Command {
      * @return response content
      */
     public abstract Router execute(HttpServletRequest request) throws CommandException;
+    private static final String ERRORS_ATTRIBUTE = "errors";
 
-
+    protected void initRouterForFaildValidation(Router router, HttpServletRequest request, Map<String,String> errors ){
+        router.setType(Router.Type.FORWARD);
+        router.setRoute(Page.INDEX.getRout());
+        request.setAttribute(ERRORS_ATTRIBUTE, errors);
+    }
     protected Map<String, String> readParameters(HttpServletRequest request) {
         Map<String, String> parameters = new HashMap<>();
         Enumeration<String> enumeration = request.getParameterNames();

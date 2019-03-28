@@ -1,7 +1,6 @@
 package by.zinkov.victor.command.impl;
 
 import by.zinkov.victor.command.Command;
-import by.zinkov.victor.command.Page;
 import by.zinkov.victor.command.Router;
 import by.zinkov.victor.command.CommandException;
 import by.zinkov.victor.domain.RegistrationKey;
@@ -26,7 +25,6 @@ public class ActivateCommand extends Command {
     private static final String USER_ID = "user_id";
     private static final String ACTIVATE_STRING = "value";
     private static final String USER_ATTRIBUTE = "user";
-    private static final String ERRORS = "errors";
 
 
     @Override
@@ -41,9 +39,8 @@ public class ActivateCommand extends Command {
         try {
             Map<String, String> errorsMap = validator.validate(parameters);
             if (errorsMap.size() != 0) {
-                router.setRoute(Page.INDEX.getRout());
-                router.setType(Router.Type.FORWARD);
-                request.setAttribute(ERRORS, errorsMap);
+                initRouterForFaildValidation(router,request,errorsMap);
+
                 return router;
             }
 

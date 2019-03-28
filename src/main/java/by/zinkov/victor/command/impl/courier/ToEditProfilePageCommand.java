@@ -3,7 +3,6 @@ package by.zinkov.victor.command.impl.courier;
 import by.zinkov.victor.command.Command;
 import by.zinkov.victor.command.Page;
 import by.zinkov.victor.command.Router;
-import by.zinkov.victor.command.CommandException;
 import by.zinkov.victor.domain.CargoType;
 import by.zinkov.victor.domain.TransportType;
 import by.zinkov.victor.dto.UserDto;
@@ -31,7 +30,7 @@ public class ToEditProfilePageCommand extends Command {
 
 
     @Override
-    public Router execute(HttpServletRequest request) throws CommandException {
+    public Router execute(HttpServletRequest request) {
         Router router = new Router();
         router.setRoute(Page.COURIER_PROFILE.getRout());
         router.setType(Router.Type.FORWARD);

@@ -38,9 +38,11 @@ public class SetUserMark extends Command {
         Map<String, String> errors = setUserMarkValidator.validate(parameters);
 
         if (errors.size() != 0) {
-            router.setType(Router.Type.FORWARD);
-            router.setRoute(Page.START_AUTHORIZED_PAGE.getRout());
-            request.setAttribute(ERRORS_ATTRIBUTE, errors);
+//            router.setType(Router.Type.FORWARD);
+////            router.setRoute(Page.START_AUTHORIZED_PAGE.getRout());
+////            request.setAttribute(ERRORS_ATTRIBUTE, errors);
+            initRouterForFaildValidation(router,request,errors);
+
             return router;
         }
 
@@ -60,7 +62,6 @@ public class SetUserMark extends Command {
 //            }
             customerReviewsService.setCourierMark(courierId, userDto.getId(), rating);
         } catch (ServiceException e) {
-            e.printStackTrace();
             throw new CommandException("error.error", e);
         }
         return router;

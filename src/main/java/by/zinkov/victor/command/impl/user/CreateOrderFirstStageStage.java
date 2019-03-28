@@ -53,10 +53,13 @@ public class CreateOrderFirstStageStage extends Command {
         Map<String, String> errors = createOrderFirstStageValidator.validate(parameters);
         if (errors.size() != 0) {
             LOGGER.warn("User enter not valid data it maybe bug or he is hacks us. User info:\n" + user);
-            request.setAttribute(ERRORS_ATTRIBUTE, errors);
-            router.setType(Router.Type.FORWARD);
+           // request.setAttribute(ERRORS_ATTRIBUTE, errors);
+            //router.setType(Router.Type.FORWARD);
             session.setAttribute(ORDER_ATTRIBUTE, null);
-            router.setRoute(Page.START_AUTHORIZED_PAGE.getRout());
+           // router.setRoute(Page.START_AUTHORIZED_PAGE.getRout());
+
+            initRouterForFaildValidation(router,request,errors);
+
             return router;
         }
 

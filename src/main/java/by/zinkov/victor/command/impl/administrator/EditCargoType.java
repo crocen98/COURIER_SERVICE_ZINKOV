@@ -17,7 +17,6 @@ import java.util.Map;
 
 public class EditCargoType extends Command {
     private static final Logger LOGGER = LogManager.getLogger(EditCargoType.class);
-    private static final String ERRORS_ATTRIBUTE = "errors";
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -30,9 +29,7 @@ public class EditCargoType extends Command {
         AddCargoTypeValidator addCargoTypeValidator = validatorFactory.getAddCargoTypeValidator();
         Map<String, String> errors = addCargoTypeValidator.validate(parameters);
         if (errors.size() != 0){
-            router.setType(Router.Type.FORWARD);
-            router.setRoute(Page.INDEX.getRout());
-            request.setAttribute(ERRORS_ATTRIBUTE,errors);
+            initRouterForFaildValidation(router,request,errors);
             return router;
         }
 

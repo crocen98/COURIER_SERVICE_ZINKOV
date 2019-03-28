@@ -22,7 +22,6 @@ public class DeleteCourierCargoType extends Command {
     private static final String USER = "user";
     private static final String CARGO_TYPE_ID_PARAMETER = "cargo_type_id";
     private static final String CARGO_TYPE_ID_ERROR_KEY = "cargo_type_id.validation.error";
-    private static final String ERRORS = "errors";
 
 
 
@@ -41,9 +40,9 @@ public class DeleteCourierCargoType extends Command {
         String cargoTypeId = request.getParameter(CARGO_TYPE_ID_PARAMETER);
 
         if(errorsMap.size() != 0){
-            router.setType(Router.Type.FORWARD);
-            router.setRoute(Router.INDEX_ROUT);
-            request.setAttribute(ERRORS,errorsMap);
+            initRouterForFaildValidation(router,request,errorsMap);
+
+            return router;
         }
 
         HttpSession session = request.getSession();

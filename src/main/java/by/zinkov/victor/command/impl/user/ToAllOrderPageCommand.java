@@ -50,7 +50,8 @@ public class ToAllOrderPageCommand extends Command {
         try {
             int usersCount = orderService.getUsersOrdersCount(userDto.getId());
             request.setAttribute(ORDERS_COUNT,usersCount);
-            int page = Integer.valueOf(parameters.get(PAGE_PARAMETER));
+            int page;
+            page = Integer.valueOf(parameters.get(PAGE_PARAMETER));
             orders = orderService.getAllUsersOrders((page-1)*20, userDto.getId());
         } catch (ServiceException e) {
             throw new CommandException("Command exception", e);

@@ -14,7 +14,6 @@ import java.util.Map;
 
 public class ChangeUserStatus extends Command {
     private static final String USER_ID_PARAMETER = "user_id";
-    private static final String ERRORS_ATTRIBUTE = "errors";
     private static final String USER_DTO_ATTRIBUTE = "user";
     private static final String PAGE_PARAMETER = "page";
     private static final String YOU_CANNOT_CHANGE_YOUR_STATUS_ERROR = "users_table.adminchangeownstatus.error";
@@ -31,9 +30,7 @@ public class ChangeUserStatus extends Command {
             e.printStackTrace();
         }
         if (errors.size() != 0){
-            router.setType(Router.Type.FORWARD);
-            router.setRoute(Page.INDEX.getRout());
-            request.setAttribute(ERRORS_ATTRIBUTE,errors);
+            initRouterForFaildValidation(router,request,errors);
             return router;
         }
 

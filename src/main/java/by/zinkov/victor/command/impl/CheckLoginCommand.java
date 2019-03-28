@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 public class CheckLoginCommand extends Command {
     private static final String LOGIN_PARAMETER = "login";
     private static final String LOGIN_STATUS_ATTRIBUTE = "login_status";
-
+    private static final int MAX_FIELD_LENGTH = 35;
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         String login = request.getParameter(LOGIN_PARAMETER);
@@ -26,7 +26,7 @@ public class CheckLoginCommand extends Command {
         UserService service = new UserServiceImpl();
         UtilValidator validator = UtilValidator.getInstance();
         try {
-            if(!validator.simpleStingMatches(login, 45)){
+            if(!validator.simpleStingMatches(login, MAX_FIELD_LENGTH)){
                 request.setAttribute(LOGIN_STATUS_ATTRIBUTE, true);
             }
             User user = service.getByLogin(login);

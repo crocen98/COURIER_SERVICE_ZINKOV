@@ -8,6 +8,8 @@
 
   <display-name>сouriers_service</display-name>
 
+
+
   <filter-mapping>
     <filter-name>UserStatusFilter</filter-name>
     <servlet-name>index</servlet-name>
@@ -41,6 +43,11 @@
         <error-code>404</error-code>
         <location>/WEB-INF/pages/404.jsp</location>
     </error-page>
+  <error-page>
+    <exception-type>java.lang.Throwable</exception-type>
+    <location>/WEB-INF/pages/error.jsp</location>
+  </error-page>
+
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>*.ttf</url-pattern>

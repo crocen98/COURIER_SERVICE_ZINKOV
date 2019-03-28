@@ -16,7 +16,6 @@ import java.util.Map;
 
 public class DeleteTransportTypeCommand extends Command {
     private static final Logger LOGGER = LogManager.getLogger(DeleteTransportTypeCommand.class);
-    private static final String ERRORS = "errors";
 
     private static final String TRANSPORT_TYPE_ID_PARAMETER = "transport_type_id";
     private static final String TRANSPORT_TYPE_ID_ERROR_KEY = "transport_type_id.validation.error";
@@ -35,9 +34,8 @@ public class DeleteTransportTypeCommand extends Command {
         validator.setIdParameter(TRANSPORT_TYPE_ID_PARAMETER);
         Map<String, String> errorsMap = validator.validate(parameters);
         if (errorsMap.size() != 0) {
-            request.setAttribute(ERRORS, errorsMap);
-            router.setRoute(Router.INDEX_ROUT);
-            router.setType(Router.Type.FORWARD);
+            initRouterForFaildValidation(router,request,errorsMap);
+            return router;
         }
 
         try {
